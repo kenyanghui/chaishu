@@ -1,24 +1,19 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import hotBooks from '../data/hotBooks'
+import skills from '../data/skills'
 
-function getBooks() {
-  return hotBooks.filter(b => b.memoirs.some(m => m.user === '玥清'))
-}
+const stats = { books: 2, sessions: 7 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 }
-}
+const pipelineSteps = [
+  { id: 'nuwa', name: '女娲蒸馏', subtitle: '作者智慧萃取', color: 'from-rose-600 to-pink-500', light: 'from-rose-500/20 to-pink-500/20', border: 'border-rose-500/30', text: 'text-rose-400', desc: '用 AI 深度分析作者的思想体系、知识背景和核心观点，构建完整的作者知识图谱，让每一本书的智慧源头清晰可见。', output: '作者知识图谱 · 思想脉络图' },
+  { id: 'cangjie', name: '仓颉拆书', subtitle: 'RIA 深度拆解', color: 'from-cyan-600 to-cyan-400', light: 'from-cyan-500/20 to-blue-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400', desc: '运用 RIA 拆书法，将全书拆解为可行动的框架：R 提取核心片段，I 鲜活内化解读，A 设计应用场景，让知识真正为你所用。', output: 'RIA 拆书笔记 · 行动框架' },
+  { id: 'hd-image', name: '高清大图', subtitle: '知识视觉化', color: 'from-amber-600 to-yellow-500', light: 'from-amber-500/20 to-yellow-500/20', border: 'border-amber-500/30', text: 'text-amber-400', desc: '将抽象的知识体系转化为高清信息图、思维导图和知识地图，一目了然把握全书脉络，让复杂概念可视化呈现。', output: '知识地图 · 思维导图 · 信息图解' },
+  { id: 'ljg-card', name: 'ljg-card', subtitle: '知识卡片化', color: 'from-emerald-600 to-teal-400', light: 'from-emerald-500/20 to-teal-500/20', border: 'border-emerald-500/30', text: 'text-emerald-400', desc: '将拆解内容制作为结构化知识卡片，适配 Anki 等间隔重复系统，用卡片组构建可长期复习的知识体系，对抗遗忘曲线。', output: 'Anki 卡片组 · 知识闪卡' },
+  { id: 'darwin', name: '达尔文进化', subtitle: '技能持续进化', color: 'from-violet-600 to-purple-500', light: 'from-violet-500/20 to-purple-500/20', border: 'border-violet-500/30', text: 'text-violet-400', desc: '基于使用反馈和学习数据，用 AI 持续优化所有技能产出。每一版都比前一版更精准、更实用，形成知识进化的正向循环。', output: '持续迭代的 Skill 技能包' },
+]
 
 export default function Home() {
-  const books = getBooks()
-  const totalSessions = books.reduce((s, b) => s + b.memoirs.filter(m => m.user === '玥清').length, 0)
+  const featuredSkills = skills.slice(0, 3)
 
   return (
     <div>
@@ -76,8 +71,8 @@ export default function Home() {
             className="mt-16 flex flex-wrap justify-center gap-8 md:gap-16"
           >
             {[
-              { num: books.length, label: '拆解书籍' },
-              { num: totalSessions, label: '拆页场次' },
+              { num: stats.books, label: '拆解书籍' },
+              { num: stats.sessions, label: '拆页场次' },
               { num: 'RIA', label: '拆书法框架' },
             ].map(stat => (
               <div key={stat.label} className="text-center">
@@ -99,70 +94,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ==================== Books Section ==================== */}
-      <section className="max-w-6xl mx-auto px-4 py-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">拆解书单</h2>
-          <p className="text-slate-400">每本书都经过 AI 辅助深度拆解，呈现 RIA 完整框架</p>
-        </motion.div>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 gap-6"
-        >
-          {books.map(book => (
-            <motion.div key={book.title} variants={itemVariants}>
-              <Link to={`/hot/book/${encodeURIComponent(book.title)}`} className="block group">
-                <div className="glass rounded-2xl p-6 h-full">
-                  <div className="flex gap-6">
-                    <div className="w-24 h-32 shrink-0 rounded-lg overflow-hidden bg-dark-card-hover">
-                      {book.image ? (
-                        <img
-                          src={book.image}
-                          alt={book.title}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.onerror = null
-                            e.target.src = `https://placehold.co/96x128/1e1e4a/6366f1?text=${encodeURIComponent(book.title.slice(0, 2))}`
-                          }}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-neon-purple font-bold text-lg">
-                          {book.title.slice(0, 2)}
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-bold text-white group-hover:gradient-text transition-all mb-1">
-                        《{book.title}》
-                      </h3>
-                      <p className="text-sm text-slate-400 mb-2">{book.author} · {book.publisher}</p>
-                      <p className="text-sm text-slate-500 line-clamp-2 mb-3">{book.intro}</p>
-                      <div className="flex items-center gap-2 text-sm">
-                        <span className="px-2 py-0.5 rounded bg-neon-purple/10 text-neon-purple text-xs">
-                          {book.memoirs.filter(m => m.user === '玥清').length} 个拆页
-                        </span>
-                        <span className="text-slate-600">·</span>
-                        <span className="text-xs text-slate-500">
-                          {book.memoirs.filter(m => m.user === '玥清').map(m => m.level).join(' · ')}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
 
       {/* ==================== RIA Section ==================== */}
       <section className="border-t border-dark-border">
@@ -218,6 +149,178 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ==================== AI 拆书系统 Section ==================== */}
+      <section className="relative py-20 overflow-hidden border-t border-dark-border">
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(168,85,247,0.3) 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+          }} />
+        </div>
+        <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-rose-500/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-[120px]" />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-500/10 to-violet-500/10 border border-rose-500/20 text-rose-400 text-sm">
+              系统性知识工程流水线
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
+              AI <span className="gradient-text">拆书系统</span>
+            </h2>
+            <p className="text-slate-400 max-w-3xl mx-auto">
+              从作者蒸馏到技能进化，五大模块构成完整的知识工程闭环。
+              每一本书产出的不仅是拆书笔记，更是可下载、可进化、可实践的 <span className="text-cyan-400">Skill 技能包</span>。
+            </p>
+          </motion.div>
+
+          {/* Pipeline Flow */}
+          <div className="relative">
+            <div className="hidden lg:block absolute top-[72px] left-[calc(10%+36px)] right-[calc(10%+36px)] h-0.5 bg-gradient-to-r from-rose-500/30 via-cyan-500/30 via-amber-500/30 via-emerald-500/30 to-violet-500/30" />
+
+            <div className="grid lg:grid-cols-5 gap-4 lg:gap-6">
+              {pipelineSteps.map((step, i) => (
+                <motion.div
+                  key={step.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.12 }}
+                  className="relative"
+                >
+                  {i < pipelineSteps.length - 1 && (
+                    <div className="lg:hidden flex justify-center">
+                      <svg className="w-5 h-5 text-slate-600 -my-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
+                    </div>
+                  )}
+
+                  <div className="glass rounded-xl p-4 md:p-5 text-center h-full group hover:border-cyan-500/30 transition-all">
+                    <h3 className={`text-lg font-bold bg-gradient-to-r ${step.color} bg-clip-text text-transparent mb-1`}>
+                      {step.name}
+                    </h3>
+                    <p className="text-xs text-slate-500 mb-3">{step.subtitle}</p>
+                    <p className="text-xs text-slate-400 leading-relaxed mb-3">{step.desc}</p>
+                    <div className={`inline-block text-[10px] px-2 py-1 rounded-md bg-gradient-to-r ${step.light} ${step.text} border ${step.border}`}>
+                      {step.output}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Summary callout */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6 }}
+            className="mt-12 glass rounded-2xl p-6 md:p-8 text-center border border-cyan-500/20"
+          >
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+              {pipelineSteps.map(s => (
+                <span key={s.id} className={`text-xs px-2.5 py-1 rounded-full bg-gradient-to-r ${s.light} ${s.text}`}>
+                  {s.name}
+                </span>
+              ))}
+            </div>
+            <p className="text-slate-300 text-sm md:text-base">
+              从 <span className="text-rose-400">女娲蒸馏</span> 作者智慧，
+              经 <span className="text-cyan-400">仓颉拆书</span> 深度解构，
+              通过 <span className="text-amber-400">高清大图</span> 与 <span className="text-emerald-400">ljg-card</span> 多形态输出，
+              最后由 <span className="text-violet-400">达尔文进化</span> 持续迭代 —
+              <span className="text-white font-bold"> AI 拆书，不止于拆书，更是 Skill 的系统性产出</span>
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ==================== Skills 工坊 Section ==================== */}
+      <section className="border-t border-dark-border py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-violet-500/10 to-pink-500/10 border border-violet-500/20 text-violet-400 text-sm">
+              知识进化的终极形态
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Skill 技能工坊</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              每一本书都是一套完整的技能系统。下载即用，在实践中进化。
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {featuredSkills.map((skill, i) => (
+              <motion.div
+                key={skill.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="glass rounded-xl p-5 group hover:border-pink-500/30 transition-all"
+              >
+                <h3 className="text-base font-bold text-white mb-1 group-hover:gradient-text transition-all">
+                  {skill.name}
+                </h3>
+                <p className="text-xs text-slate-400 mb-3">
+                  《{skill.book}》· {skill.author}
+                </p>
+                <p className="text-xs text-slate-500 mb-4 line-clamp-2">{skill.description}</p>
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {(skill.items || []).slice(0, 4).map(item => (
+                    <span key={item.name} className="text-[10px] px-1.5 py-0.5 rounded bg-dark-card-hover text-slate-500">
+                      {item.level}
+                    </span>
+                  ))}
+                  {(skill.items || []).length > 4 && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-dark-card-hover text-neon-purple">
+                      +{skill.items.length - 4}
+                    </span>
+                  )}
+                </div>
+                <Link
+                  to="/skills"
+                  className="inline-flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                >
+                  查看全部
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-8"
+          >
+            <Link
+              to="/skills"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-slate-300 font-medium hover:text-white hover:border-cyan-500/30 transition-all border border-dark-border"
+            >
+              进入技能工坊
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </motion.div>
         </div>
       </section>
     </div>
