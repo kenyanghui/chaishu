@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon-purple: #a855f7;
+  --color-neon-blue: #06b6d4;
+  --color-neon-cyan: #22d3ee;
+  --color-dark-bg: #0a0a1a;
+  --color-dark-card: #12122a;
+  --color-dark-card-hover: #1a1a3e;
+  --color-dark-border: #1e1e4a;
+  --font-sans: 'Noto Sans SC', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans SC', system-ui, sans-serif;
+  background-color: #0a0a1a;
+  color: #e2e8f0;
+}
+
+/* Glassmorphism card */
+.glass {
+  background: rgba(18, 18, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 30, 74, 0.5);
+  transition: all 0.3s ease;
+}
+
+.glass:hover {
+  border-color: rgba(168, 85, 247, 0.3);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.1);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #a855f7, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* RIA section styling */
+.ria-section {
+  background: rgba(18, 18, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(30, 30, 74, 0.5);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.ria-section:hover {
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.ria-label {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Typography for memoir content */
+.memoir-content h1 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #fff; }
+.memoir-content h2 { font-size: 1.25rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #fff; }
+.memoir-content h3 { font-size: 1.125rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #22d3ee; }
+.memoir-content p { margin-bottom: 1rem; line-height: 1.75; color: #cbd5e1; }
+.memoir-content strong { color: #fff; font-weight: 600; }
+.memoir-content ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; color: #cbd5e1; }
+.memoir-content ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; color: #cbd5e1; }
+.memoir-content li { margin-bottom: 0.25rem; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a1a; }
+::-webkit-scrollbar-thumb { background: linear-gradient(#a855f7, #06b6d4); border-radius: 3px; }
