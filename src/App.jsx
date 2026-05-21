@@ -5,6 +5,9 @@ import Home from './pages/Home'
 import BookDetail from './pages/BookDetail'
 import MemoirDetail from './pages/MemoirDetail'
 import About from './pages/About'
+import HotBooks from './pages/HotBooks'
+import HotBookDetail from './pages/HotBookDetail'
+import HotMemoirDetail from './pages/HotMemoirDetail'
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
           <Route path="/book/:title" element={<BookDetail />} />
           <Route path="/memoir/:id" element={<MemoirDetail />} />
           <Route path="/about" element={<About />} />
+          <Route path="/hot" element={<HotBooks />} />
+          <Route path="/hot/book/:title" element={<HotBookDetail />} />
+          <Route path="/hot/memoir/:id" element={<HotMemoirDetail />} />
         </Routes>
       </main>
       <Footer />

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 const navLinks = [
   { path: '/', label: '首页' },
+  { path: '/hot', label: '热门拆书' },
   { path: '/about', label: '关于我' },
 ]
 

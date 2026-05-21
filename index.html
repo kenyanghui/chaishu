@@ -17,9 +17,7 @@
         var redirect = sessionStorage.redirect
         delete sessionStorage.redirect
         if (redirect && redirect !== window.location.pathname) {
-          var base = '/chaishu'
-          var target = redirect.startsWith(base) ? redirect.slice(base.length) : redirect
-          history.replaceState(null, null, target)
+          history.replaceState(null, null, redirect)
         }
       })()
     </script>
