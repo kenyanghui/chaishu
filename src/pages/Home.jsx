@@ -485,12 +485,6 @@ export default function Home() {
                 transition={{ delay: i * 0.1 }}
                 className="glass rounded-xl p-5 group hover:border-pink-500/30 transition-all"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xs px-1.5 py-0.5 rounded bg-gradient-to-r from-pink-500/20 to-violet-500/20 text-pink-400 font-bold">
-                    {skill.version}
-                  </span>
-                  <span className="text-xs text-slate-500">{skill.downloads} 次下载</span>
-                </div>
                 <h3 className="text-base font-bold text-white mb-1 group-hover:gradient-text transition-all">
                   {skill.name}
                 </h3>
@@ -499,11 +493,16 @@ export default function Home() {
                 </p>
                 <p className="text-xs text-slate-500 mb-4 line-clamp-2">{skill.description}</p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {skill.files.map(f => (
-                    <span key={f.name} className="text-[10px] px-1.5 py-0.5 rounded bg-dark-card-hover text-slate-500">
-                      {f.type === 'pdf' ? 'PDF' : f.type === 'image' ? 'PNG' : f.type === 'card' ? 'APKG' : 'MD'}
+                  {(skill.items || []).slice(0, 4).map(item => (
+                    <span key={item.name} className="text-[10px] px-1.5 py-0.5 rounded bg-dark-card-hover text-slate-500">
+                      {item.level}
                     </span>
                   ))}
+                  {(skill.items || []).length > 4 && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-dark-card-hover text-neon-purple">
+                      +{skill.items.length - 4}
+                    </span>
+                  )}
                 </div>
                 <Link
                   to="/skills"
