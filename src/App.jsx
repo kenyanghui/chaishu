@@ -6,7 +6,6 @@ import About from './pages/About'
 import HotBooks from './pages/HotBooks'
 import HotBookDetail from './pages/HotBookDetail'
 import HotMemoirDetail from './pages/HotMemoirDetail'
-import Skills from './pages/Skills'
 
 function RedirectBook() {
   const { title } = useParams()
@@ -31,7 +30,6 @@ function App() {
           <Route path="/hot" element={<HotBooks />} />
           <Route path="/hot/book/:title" element={<HotBookDetail />} />
           <Route path="/hot/memoir/:id" element={<HotMemoirDetail />} />
-          <Route path="/skills" element={<Skills />} />
         </Routes>
       </main>
       <Footer />

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玥清 · AI 拆书工坊</title>
+<style>
+/* ========== Reset & Base ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: #0a0a1a;
+  color: #e2e8f0;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; }
+
+/* ========== Gradients ========== */
+.gradient-text { background: linear-gradient(135deg, #a78bfa, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.gradient-purple { background: linear-gradient(135deg, #a78bfa, #818cf8); }
+.gradient-cyan { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+.gradient-amber { background: linear-gradient(135deg, #d97706, #fbbf24); }
+.gradient-emerald { background: linear-gradient(135deg, #059669, #34d399); }
+.gradient-rose { background: linear-gradient(135deg, #e11d48, #fb7185); }
+.gradient-violet { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+
+/* ========== Glass ========== */
+.glass { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(12px); border-radius: 16px; }
+.glass-sm { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(8px); border-radius: 12px; }
+
+/* ========== Nav ========== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,26,0.85); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between; height: 60px;
+}
+.nav-logo { font-size: 18px; font-weight: 900; }
+.nav-links { display: flex; gap: 8px; }
+.nav-links a {
+  padding: 6px 14px; border-radius: 8px; font-size: 14px; color: #94a3b8; transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(168,85,247,0.1); }
+.nav-toggle { display: none; background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; padding: 4px; }
+
+/* ========== Sections ========== */
+section { padding: 80px 20px; }
+.max-w { max-width: 1200px; margin: 0 auto; }
+.max-w-md { max-width: 800px; margin: 0 auto; }
+
+/* ========== Hero ========== */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
+  position: relative; overflow: hidden; padding-top: 60px;
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.03;
+  background-image: linear-gradient(rgba(168,85,247,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,0.3) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow1 { position: absolute; top: 25%; left: 25%; width: 384px; height: 384px; border-radius: 50%; background: rgba(168,85,247,0.15); filter: blur(128px); }
+.hero-glow2 { position: absolute; bottom: 25%; right: 25%; width: 320px; height: 320px; border-radius: 50%; background: rgba(6,182,212,0.15); filter: blur(128px); }
+.hero-content { position: relative; z-index: 2; padding: 0 20px; max-width: 800px; }
+.hero-badge {
+  display: inline-block; margin-bottom: 24px; padding: 6px 16px; border-radius: 999px;
+  background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.2); color: #a78bfa; font-size: 14px;
+}
+.hero h1 { font-size: clamp(36px, 6vw, 72px); font-weight: 900; line-height: 1.2; margin-bottom: 24px; }
+.hero h1 .highlight { background: linear-gradient(135deg, #a78bfa, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { font-size: 18px; color: #94a3b8; max-width: 600px; margin: 0 auto 32px; line-height: 1.8; }
+.hero-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 32px; border-radius: 12px;
+  font-size: 16px; font-weight: 700; transition: all 0.3s; border: none; cursor: pointer;
+}
+.btn-primary { background: linear-gradient(135deg, #a78bfa, #06b6d4); color: #fff; }
+.btn-primary:hover { box-shadow: 0 4px 24px rgba(168,85,247,0.3); transform: translateY(-2px); }
+.btn-secondary { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; }
+.btn-secondary:hover { border-color: rgba(255,255,255,0.2); color: #fff; }
+.hero-stats { display: flex; justify-content: center; gap: 48px; margin-top: 64px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #a78bfa, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-label { font-size: 14px; color: #64748b; margin-top: 4px; }
+
+/* ========== Section Headers ========== */
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-badge { display: inline-block; margin-bottom: 12px; padding: 4px 14px; border-radius: 999px; font-size: 13px; border: 1px solid; }
+.section-badge.cyan { background: rgba(6,182,212,0.08); border-color: rgba(6,182,212,0.2); color: #22d3ee; }
+.section-badge.purple { background: rgba(168,85,247,0.08); border-color: rgba(168,85,247,0.2); color: #a78bfa; }
+.section-badge.rose { background: rgba(244,63,94,0.08); border-color: rgba(244,63,94,0.2); color: #fb7185; }
+.section-title { font-size: clamp(28px, 4vw, 40px); font-weight: 900; color: #fff; margin-bottom: 12px; }
+.section-desc { color: #94a3b8; font-size: 15px; max-width: 600px; margin: 0 auto; }
+
+/* ========== Book Cards ========== */
+.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.book-card {
+  display: flex; gap: 16px; padding: 16px; transition: all 0.3s;
+}
+.book-card:hover { border-color: rgba(6,182,212,0.3); }
+.book-cover { width: 80px; height: 110px; border-radius: 8px; overflow: hidden; flex-shrink: 0; background: rgba(255,255,255,0.03); }
+.book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.book-cover-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #a78bfa; font-weight: 700; font-size: 18px; }
+.book-info { flex: 1; min-width: 0; }
+.book-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; transition: color 0.2s; }
+.book-card:hover .book-title { color: #22d3ee; }
+.book-meta { font-size: 13px; color: #94a3b8; margin-bottom: 4px; }
+.book-intro { font-size: 13px; color: #64748b; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 8px; }
+.book-tags { display: flex; gap: 8px; align-items: center; }
+.book-level { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: rgba(168,85,247,0.1); color: #a78bfa; }
+
+/* ========== RIA Section ========== */
+.ria-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.ria-card { padding: 24px; text-align: center; position: relative; overflow: hidden; transition: all 0.3s; }
+.ria-card:hover { border-color: rgba(6,182,212,0.3); }
+.ria-glow { position: absolute; top: 0; right: 0; width: 128px; height: 128px; border-radius: 50%; filter: blur(64px); transform: translate(25%, -25%); }
+.ria-icon {
+  width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 900; transition: transform 0.3s;
+}
+.ria-card:hover .ria-icon { transform: scale(1.1); }
+.ria-label { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.ria-sub { font-size: 12px; color: #64748b; margin-bottom: 12px; }
+.ria-desc { font-size: 14px; color: #94a3b8; margin-bottom: 12px; }
+.ria-items { font-size: 12px; color: #64748b; }
+.ria-items span { display: inline-flex; align-items: center; gap: 4px; }
+.ria-dot { width: 4px; height: 4px; border-radius: 50%; display: inline-block; }
+
+/* ========== Pipeline ========== */
+.pipeline { position: relative; overflow: hidden; }
+.pipeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.pipeline-card { padding: 16px 20px; text-align: center; transition: all 0.3s; height: 100%; }
+.pipeline-card:hover { border-color: rgba(6,182,212,0.3); }
+.pipeline-icon { width: 56px; height: 56px; margin: 0 auto 12px; }
+.pipeline-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.pipeline-sub { font-size: 11px; color: #64748b; margin-bottom: 8px; }
+.pipeline-desc { font-size: 12px; color: #94a3b8; line-height: 1.6; margin-bottom: 8px; }
+.pipeline-output { display: inline-block; font-size: 10px; padding: 4px 10px; border-radius: 6px; border: 1px solid; }
+
+/* ========== Skills ========== */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+.skill-card { padding: 20px; transition: all 0.3s; }
+.skill-card:hover { border-color: rgba(244,63,94,0.3); }
+.skill-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.skill-name { font-size: 18px; font-weight: 700; color: #fff; }
+.skill-book { font-size: 13px; color: #94a3b8; }
+.skill-desc { font-size: 13px; color: #64748b; margin-bottom: 12px; }
+.skill-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-item { font-size: 10px; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.03); color: #64748b; }
+
+/* ========== Skill Detail (Skills page) ========== */
+.skill-detail-card { padding: 20px 24px; }
+.skill-detail-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.skill-detail-level { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: rgba(168,85,247,0.15); color: #a78bfa; font-weight: 700; }
+.skill-detail-name { font-size: 16px; font-weight: 700; color: #fff; }
+.skill-steps { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.skill-step { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #94a3b8; }
+.skill-step-dot { width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, #06b6d4, #3b82f6); flex-shrink: 0; }
+.skill-quote { font-size: 12px; color: #64748b; font-style: italic; border-left: 2px solid rgba(100,116,139,0.3); padding-left: 12px; margin: 6px 0; }
+.skill-source { font-size: 10px; color: #475569; margin-top: 4px; }
+
+/* ========== HotMemoir Detail ========== */
+.memoir-card { padding: 24px; margin-bottom: 16px; }
+.memoir-header { margin-bottom: 16px; }
+.memoir-topic { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.memoir-meta { font-size: 13px; color: #94a3b8; display: flex; flex-wrap: wrap; gap: 12px; }
+.memoir-meta span { display: flex; align-items: center; gap: 4px; }
+.memoir-text { font-size: 14px; color: #cbd5e1; line-height: 1.8; white-space: pre-wrap; }
+.memoir-text strong { color: #fff; }
+.memoir-block { background: rgba(255,255,255,0.02); border-left: 3px solid rgba(168,85,247,0.3); padding: 12px 16px; margin: 12px 0; border-radius: 0 8px 8px 0; }
+.memoir-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; margin-bottom: 4px; }
+
+/* ========== Footer ========== */
+footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 32px 20px; text-align: center; color: #475569; font-size: 13px; }
+footer a { color: #a78bfa; }
+
+/* ========== Page wrappers ========== */
+.page { display: none; padding-top: 60px; }
+.page.active { display: block; }
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+  .book-grid, .skills-grid { grid-template-columns: 1fr; }
+  .ria-grid { grid-template-columns: 1fr; }
+  .pipeline-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats { gap: 24px; }
+  .nav-links { display: none; position: absolute; top: 60px; left: 0; right: 0; background: rgba(10,10,26,0.95); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 8px; flex-direction: column; }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ========== Page Header ========== */
+.page-header { padding: 40px 20px 20px; text-align: center; }
+.page-header h1 { font-size: 36px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+.page-header p { color: #94a3b8; font-size: 15px; }
+
+/* ========== HotBooks Page ========== */
+.hot-book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.hot-book-card { display: flex; gap: 12px; padding: 12px; }
+.hot-book-card:hover { border-color: rgba(6,182,212,0.3); }
+.hot-book-cover { width: 64px; height: 88px; border-radius: 8px; overflow: hidden; flex-shrink: 0; background: rgba(255,255,255,0.03); }
+.hot-book-title { font-size: 15px; font-weight: 700; color: #fff; transition: color 0.2s; }
+.hot-book-card:hover .hot-book-title { color: #22d3ee; }
+.hot-book-author { font-size: 12px; color: #94a3b8; }
+.hot-book-tags { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
+.hot-book-count { font-size: 11px; padding: 2px 6px; border-radius: 4px; background: rgba(6,182,212,0.1); color: #22d3ee; }
+.hot-book-level { font-size: 11px; color: #64748b; }
+.hot-book-tag { font-size: 10px; padding: 1px 6px; border-radius: 4px; background: rgba(255,255,255,0.03); color: #64748b; }
+
+/* ========== About ========== */
+.about-card { max-width: 700px; margin: 0 auto; padding: 32px; }
+.about-card h2 { font-size: 20px; font-weight: 700; color: #fff; margin: 24px 0 8px; }
+.about-card h2:first-child { margin-top: 0; }
+.about-card p { font-size: 14px; color: #94a3b8; line-height: 1.8; margin-bottom: 12px; }
+.about-card ul { list-style: none; padding: 0; }
+.about-card li { font-size: 14px; color: #94a3b8; padding: 6px 0; display: flex; align-items: center; gap: 8px; }
+.about-card li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: linear-gradient(135deg, #a78bfa, #06b6d4); flex-shrink: 0; }
+
+/* ========== Back Button ========== */
+.back-btn { display: inline-flex; align-items: center; gap: 4px; color: #22d3ee; font-size: 14px; margin-bottom: 20px; cursor: pointer; background: none; border: none; padding: 8px 0; }
+.back-btn:hover { color: #06b6d4; }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" onclick="showPage('home')" class="nav-logo gradient-text">玥清 · AI 拆书工坊</a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="#" onclick="showPage('home')" class="active" data-page="home">首页</a>
+      <a href="#" onclick="showPage('hot')" data-page="hot">热门拆书</a>
+      <a href="#" onclick="showPage('skills')" data-page="skills">技能工坊</a>
+      <a href="#" onclick="showPage('about')" data-page="about">关于我</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HOME ==================== -->
+<div id="page-home" class="page active">
+
+<!-- Hero -->
+<section class="hero" style="padding-bottom:40px">
+  <div class="hero-grid"></div>
+  <div class="hero-glow1"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">AI 辅助拆书 · 知识深度呈现</div>
+    <h1><span class="highlight">玥清</span> 的<br><span class="highlight">AI 拆书工坊</span></h1>
+    <p>我是玥清，企业咨询顾问、前微软工程师、三级拆书家。<br>用 AI 重构 RIA 拆书法，将每本书的智慧蒸馏为可行动的框架。</p>
+    <div class="hero-btns">
+      <a href="#" onclick="showPage('hot')" class="btn btn-primary">开始探索 →</a>
+      <a href="#" onclick="showPage('about')" class="btn btn-secondary">关于我</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">拆解书籍</div></div>
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">拆页场次</div></div>
+      <div class="stat"><div class="stat-num">RIA</div><div class="stat-label">拆书法框架</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Books Section -->
+<section style="padding-top:40px">
+  <div class="max-w">
+    <div class="section-header">
+      <div class="section-badge cyan">拆书帮精选</div>
+      <h2 class="section-title">拆解书单</h2>
+      <p class="section-desc">每本书都经过 AI 辅助深度拆解，呈现 RIA 完整框架</p>
+    </div>
+    <div class="book-grid" id="home-books"></div>
+  </div>
+</section>
+
+<!-- RIA Section -->
+<section style="border-top:1px solid rgba(255,255,255,0.06)">
+  <div class="max-w">
+    <div class="section-header">
+      <div class="section-badge cyan">拆书帮核心方法论</div>
+      <h2 class="section-title">RIA 拆书法</h2>
+      <p class="section-desc">拆书帮传承的核心方法论，经 AI 辅助增强，形成完整的知识内化闭环</p>
+    </div>
+    <div class="ria-grid">
+      <div class="ria-card glass-sm">
+        <div class="ria-glow" style="background:rgba(168,85,247,0.1)"></div>
+        <div class="ria-icon" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.15)"><span class="gradient-purple" style="background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent">R</span></div>
+        <div class="ria-label" style="color:#a78bfa">阅读拆页</div>
+        <div class="ria-sub">Reading</div>
+        <div class="ria-desc">从书中提取核心片段，精确定位值得深挖的知识点，让阅读有的放矢</div>
+        <div class="ria-items">
+          <span><span class="ria-dot" style="background:#a78bfa"></span> 原文精选取舍</span> &nbsp;
+          <span><span class="ria-dot" style="background:#a78bfa"></span> 核心概念定位</span> &nbsp;
+          <span><span class="ria-dot" style="background:#a78bfa"></span> 知识点关联</span>
+        </div>
+      </div>
+      <div class="ria-card glass-sm">
+        <div class="ria-glow" style="background:rgba(6,182,212,0.1)"></div>
+        <div class="ria-icon" style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.15)"><span class="gradient-cyan" style="background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent">I</span></div>
+        <div class="ria-label" style="color:#22d3ee">讲解引导</div>
+        <div class="ria-sub">Interpretation</div>
+        <div class="ria-desc">用自己的语言重述知识，结合经验进行深度解读，完成鲜活内化</div>
+        <div class="ria-items">
+          <span><span class="ria-dot" style="background:#22d3ee"></span> What-Why-How 拆解</span> &nbsp;
+          <span><span class="ria-dot" style="background:#22d3ee"></span> 经验关联激活</span> &nbsp;
+          <span><span class="ria-dot" style="background:#22d3ee"></span> 逻辑重构表达</span>
+        </div>
+      </div>
+      <div class="ria-card glass-sm">
+        <div class="ria-glow" style="background:rgba(20,184,166,0.1)"></div>
+        <div class="ria-icon" style="background:rgba(20,184,166,0.08);border:1px solid rgba(20,184,166,0.15)"><span class="gradient-emerald" style="background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent">A</span></div>
+        <div class="ria-label" style="color:#34d399">拆为己用</div>
+        <div class="ria-sub">Appropriation</div>
+        <div class="ria-desc">设计催化应用场景，将知识转化为可执行的行动方案，真正改变行为</div>
+        <div class="ria-items">
+          <span><span class="ria-dot" style="background:#34d399"></span> A1 激活经验</span> &nbsp;
+          <span><span class="ria-dot" style="background:#34d399"></span> A2 催化应用</span> &nbsp;
+          <span><span class="ria-dot" style="background:#34d399"></span> 行动目标规划</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pipeline Section -->
+<section class="pipeline" style="border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="position:absolute;inset:0;opacity:0.02;background-image:radial-gradient(circle at 50% 50%, rgba(168,85,247,0.3) 1px, transparent 1px);background-size:40px 40px"></div>
+  <div style="position:absolute;top:33%;left:25%;width:320px;height:320px;border-radius:50%;background:rgba(244,63,94,0.08);filter:blur(120px);"></div>
+  <div style="position:absolute;bottom:33%;right:25%;width:320px;height:320px;border-radius:50%;background:rgba(168,85,247,0.08);filter:blur(120px);"></div>
+  <div class="max-w" style="position:relative;z-index:2">
+    <div class="section-header">
+      <div class="section-badge rose">系统性知识工程流水线</div>
+      <h2 class="section-title">AI <span class="gradient-text">拆书系统</span></h2>
+      <p class="section-desc">从作者蒸馏到技能进化，五大模块构成完整的知识工程闭环。每一本书产出的不仅是拆书笔记，更是可下载、可进化、可实践的 <span style="color:#22d3ee">Skill 技能包</span>。</p>
+    </div>
+    <div class="pipeline-grid" id="pipeline-grid"></div>
+    <div class="glass-sm" style="margin-top:32px;padding:24px;text-align:center;border-color:rgba(6,182,212,0.15)">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px">
+        <span style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.15);color:#fb7185">女娲蒸馏</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.15);color:#22d3ee">仓颉拆书</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.15);color:#fbbf24">高清大图</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(5,150,105,0.08);border:1px solid rgba(5,150,105,0.15);color:#34d399">ljg-card</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);color:#a78bfa">达尔文进化</span>
+      </div>
+      <p style="color:#94a3b8;font-size:14px">
+        从 <span style="color:#fb7185">女娲蒸馏</span> 作者智慧，
+        经 <span style="color:#22d3ee">仓颉拆书</span> 深度解构，
+        通过 <span style="color:#fbbf24">高清大图</span> 与 <span style="color:#34d399">ljg-card</span> 多形态输出，
+        最后由 <span style="color:#a78bfa">达尔文进化</span> 持续迭代 —
+        <span style="color:#fff;font-weight:700"> AI 拆书，不止于拆书，更是 Skill 的系统性产出</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Preview Section -->
+<section style="border-top:1px solid rgba(255,255,255,0.06)">
+  <div class="max-w">
+    <div class="section-header">
+      <div class="section-badge purple">知识进化的终极形态</div>
+      <h2 class="section-title">Skill 技能工坊</h2>
+      <p class="section-desc">每一本书都是一套完整的技能系统，在实践中进化。</p>
+    </div>
+    <div class="skills-grid" id="home-skills"></div>
+    <div style="text-align:center;margin-top:24px">
+      <a href="#" onclick="showPage('skills')" class="btn btn-secondary">进入技能工坊 →</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-home -->
+
+<!-- ==================== HOT BOOKS ==================== -->
+<div id="page-hot" class="page">
+  <div class="page-header">
+    <div class="section-badge cyan" style="margin-bottom:12px">拆书帮全平台热门</div>
+    <h1>热门拆书书库</h1>
+    <p style="color:#94a3b8">拆书帮精选热门书籍，每本都经过拆书家的深度拆解</p>
+    <div style="font-size:13px;color:#64748b;margin-top:8px" id="hot-summary"></div>
+  </div>
+  <div class="max-w">
+    <div class="hot-book-grid" id="hot-books-grid"></div>
+  </div>
+</div>
+
+<!-- ==================== HOT BOOK DETAIL ==================== -->
+<div id="page-hot-book" class="page">
+  <div class="max-w" style="padding:80px 20px 40px">
+    <button class="back-btn" onclick="showPage('hot')">← 返回书库</button>
+    <div id="hot-book-detail"></div>
+  </div>
+</div>
+
+<!-- ==================== HOT MEMOIR DETAIL ==================== -->
+<div id="page-hot-memoir" class="page">
+  <div class="max-w" style="padding:80px 20px 40px">
+    <button class="back-btn" onclick="showPage('hot')">← 返回书库</button>
+    <div id="hot-memoir-detail"></div>
+  </div>
+</div>
+
+<!-- ==================== SKILLS ==================== -->
+<div id="page-skills" class="page">
+  <div class="page-header">
+    <div class="section-badge purple" style="margin-bottom:12px">仓颉拆书 · 技能萃取</div>
+    <h1>Skill 技能工坊</h1>
+    <p style="color:#94a3b8">从拆书实录中萃取可执行的技能框架，每一套都是经过 RIA 验证的练习工具</p>
+  </div>
+  <div class="max-w">
+    <div id="skills-full-list"></div>
+  </div>
+</div>
+
+<!-- ==================== ABOUT ==================== -->
+<div id="page-about" class="page">
+  <div class="page-header">
+    <h1>关于我</h1>
+  </div>
+  <div style="padding:0 20px 60px">
+    <div class="about-card glass">
+      <h2>🌟 我是谁</h2>
+      <p>我是玥清（杨辉），企业咨询顾问、AI 创新教练、前微软工程师、三级拆书家。</p>
+      <p>具有 20 年以上 IT 行业经验，曾在北电网络、惠普、微软、唯品会等企业从事架构、数字化转型工作，后转型为企业咨询顾问，现为某集团首席人工智能官。</p>
+
+      <h2>📚 拆书之路</h2>
+      <p>我是拆书帮三级拆书家，在广州小蛮腰分舵和练武场持续参加拆书活动。从 2023 年开始，完成了从 TF1-1 到 TF2-4 的多场拆书演练，拆解了《高效能人士的七个习惯》《认知觉醒》等多本经典书籍。</p>
+      <p>我相信学习不是为了记住知识，而是为了改变行为。RIA 拆书法是我践行这一理念的核心工具——通过 R（阅读拆页）、I（讲解引导）、A（拆为己用）的完整闭环，将书本上的智慧真正转化为自己的能力。</p>
+
+      <h2>🤖 AI + 拆书</h2>
+      <p>我创立了「AI 拆书工坊」项目，用 AI 辅助拆书帮的 RIA 拆书法，构建了完整的知识工程流水线：</p>
+      <ul>
+        <li><strong>女娲蒸馏</strong> — 用 AI 深度分析作者思维框架，构建作者知识图谱</li>
+        <li><strong>仓颉拆书</strong> — 运用 RIA 方法拆解拆页，萃取可行动的技能框架</li>
+        <li><strong>高清大图</strong> — 将抽象知识转化为可视化信息图</li>
+        <li><strong>ljg-card</strong> — 生成结构化知识卡片，适配间隔重复系统</li>
+        <li><strong>达尔文进化</strong> — 基于反馈持续优化所有技能产出</li>
+      </ul>
+
+      <h2>🎯 我的使命</h2>
+      <p>用 AI 重构拆书体验，让每本书的智慧都能被真正「拆为己用」。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="max-w">
+    <p>© 2026 玥清 · AI 拆书工坊 &nbsp;|&nbsp; 基于拆书帮 RIA 拆书法 &nbsp;|&nbsp; <a href="https://github.com/kenyanghui/chaishu" target="_blank">GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+// ==================== DATA ====================
+const skillsData = [
+  { id:'skill-nw-7habits', name:'高效能人士的七个习惯 · 技能包', author:'史蒂芬·柯维', book:'高效能人士的七个习惯', description:'包含移情聆听、双赢思维、要事第一等核心习惯的行动框架与练习工具',
+    items:[
+      { name:'移情聆听四步法', level:'TF1-1', steps:['复述语句 — 专心聆听并重复对方的话','加入解释 — 用自己的话表达左脑逻辑理解','个人感觉 — 加上右脑体会对方情绪','带情解释 — 左右脑并用带情感地解释'], quote:'移情聆听不只是理解个别的词句而已。不仅要耳到，还要眼到、心到。', source:'玥清 2023-06-01 TF1-1 练武场' },
+      { name:'双赢过程四步法', level:'TF1-2', steps:['换位思考 — 从对方角度理解需要和顾虑','理清问题 — 找到核心诉求而非立场','确定结果 — 确认双方都可接受的结果','解决方案 — 找到实现结果的各种途径'], quote:'双赢并非性格魅力的技巧，而是人类交往的一种模式。', source:'玥清 2023-06-08 TF1-2 小蛮腰分舵' },
+      { name:'抓要事三步法', level:'TF2-1', steps:['列事务清单 — 把所有要做事项目列出来','按四类排序 — 按重要×紧迫归入时间管理矩阵','明确并执行 — 花80%时间在第二类重要不紧迫事务'], quote:'高效能人士总是避免陷入第三和第四类事务，花费更多时间在第二类事务。', source:'玥清 2023-06-29 TF2-1 小蛮腰分舵' },
+      { name:'自我管理四步法', level:'TF2-2', steps:['确认角色','选择目标','安排进度','每日调整'], quote:'以第二类事务为中心的日程安排，让每日计划变成每日调整。', source:'玥清 2023-07-06 TF2-2 小蛮腰分舵' },
+      { name:'效能情景演练', level:'TF2-3', steps:['确定角色','列出任务','选择目标','制定计划','复盘调整'], quote:'融合智能工具才能更好地成为自己的主人。', source:'玥清 2023-07-15 TF2-3 小蛮腰分舵' },
+      { name:'抓要事做计划', level:'TF2-4', steps:['抓要事：列清单→四类排序→明确执行','做计划：确定角色→选择目标→安排进度→每日调整'], quote:'如果你计划做出一个好决定，你就必须做好计划。', source:'玥清 2023-12-28 TF2-4 小蛮腰分舵' }
+    ]},
+  { id:'skill-nw-renzhijuexing', name:'认知觉醒 · 技能包', author:'周岭', book:'认知觉醒', description:'元认知、凭感觉、深度学习等认知科学工具集，助你突破成长瓶颈',
+    items:[
+      { name:'激活感觉FTCA四步法', level:'TF3-1', steps:['感知Feel — 安静30秒判断是否在拉伸区','触动Touch — 盯住本能的兴奋点','确认Confirm — 冷静后问自己是否真心想要','行动Action — 从最小行动开始单点突破'], quote:'顶级的成长竟然是"凭感觉"——帮我们感知真正适合自己并需要的东西。', source:'玥清 2026-05-10 TF3-1' }
+    ]},
+  { id:'skill-nw-nvc', name:'非暴力沟通 · 技能包', author:'马歇尔·卢森堡', book:'非暴力沟通', description:'非暴力沟通四步法实训工具，含观察-感受-需要-请求全流程练习',
+    items:[
+      { name:'表达愤怒三步法', level:'TF2-4', steps:['停止指责，转化怒火为感受和需要','说出内心深处的感受和需要','请求对方反馈以确认理解'], quote:'为了充分表达自己，我们要开口表达愤怒——怒火此时已被转化为感受和需要。', source:'张连英 TF2-4' },
+      { name:'表达感激三要素', level:'TF2-4', steps:['说明他人做了什么增进了我们的福祉','指出哪些需要因此得到了满足','描述由此引起的愉悦感受'], quote:'用语言完整地表达这三个要素是有意义的。', source:'张连英 TF2-4' },
+      { name:'请求反馈法', level:'TF2-3', steps:['表达完信息后主动请求反馈','请对方复述以确认理解准确','发现偏差时做适当补充'], quote:'我们的意思和别人的理解有时可能是两回事。', source:'大地 TF2-3' }
+    ]},
+  { id:'skill-nw-crucial-conversations', name:'关键对话 · 技能包', author:'科里·帕特森', book:'关键对话', description:'高风险沟通的完整工具箱，包含对话诊断、情绪管理、全脑表达等技能',
+    items:[
+      { name:'关键对话三步法', level:'TF2-3', steps:['明确对话目的 — 我想要什么','营造安全氛围 — 让对方感到安全','运用对比法 — 否定误解+肯定本意'], quote:'在关键对话中使用对比法："我不希望你误解…"', source:'蝶渡 TF2-3' }
+    ]}
+];
+
+// 21 hot books from hotBooks.js
+const hotBooksData = [{"id":0,"title":"认知觉醒","author":"周岭","publisher":"人民邮电出版社","image":"https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/26476_1630478195874.jpg","memCount":1,"tags":"个人拆书","memoirs":[{"id":19865,"level":"TF3-1","topic":"凭感觉做顶级成长","user":"玥清"}]},{"id":3533221,"title":"非暴力沟通","author":"[美] 马歇尔·卢森堡","publisher":"华夏出版社","image":"https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s9346487.jpg","memCount":726,"tags":"心理学,沟通","memoirs":[{"id":19889,"level":"TF2-4","topic":"合适表达积极情绪和消极情绪","user":"张连英"},{"id":19887,"level":"TF2-3","topic":"用请求反馈确认对方听懂你的话","user":"大地"},{"id":19883,"level":"TF2-3","topic":"充分表达感激","user":"仙妮诗"}]},{"id":10586741,"title":"关键对话","author":"（美）科里·帕特森","publisher":"机械工业出版社","image":"https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s9063857.jpg","memCount":275,"tags":"沟通,人际关系","memoirs":[{"id":19769,"level":"TF2-3","topic":"诚恳道歉","user":"蝶渡"},{"id":19766,"level":"TF2-1","topic":"冲突沟通下的4步法","user":"火灵"},{"id":19751,"level":"TF1-1","topic":"改变关注目标，改变对话模式","user":"陈雅玉"}]},{"id":3420606,"title":"正面管教","author":"[美] 简·尼尔森","publisher":"京华出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s5977512.jpg","memCount":218,"tags":"育儿,教育","memoirs":[{"id":19886,"level":"TF2-4","topic":"先解码，再沟通","user":"郏程晓"},{"id":19845,"level":"TF3-3","topic":"积极暂停+行为转化，化解亲子冲突","user":"雨中茉莉"},{"id":19828,"level":"TF1-2","topic":"赢得合作4步法","user":"吴笑杰182"}]},{"id":20493042,"title":"这样读书就够了","author":"赵周","publisher":"中央广播电视大学出版社","image":"https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s24585118.jpg","memCount":185,"tags":"读书方法,学习方法","memoirs":[{"id":19810,"level":"TF1-1","topic":"检视阅读","user":"大大-汤圆"},{"id":19762,"level":"TF2-3","topic":"能力迁移四步法","user":"韧木"},{"id":19761,"level":"TF2-2","topic":"拆书七步曲","user":"韧木"}]},{"id":26948148,"title":"好好说话","author":"马东","publisher":"中信出版社","image":"https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s29278678.jpg","memCount":166,"tags":"沟通,说话技巧","memoirs":[{"id":19739,"level":"TF3-3","topic":"自嘲和自谦让弱点成为自己的铠甲","user":"周舟小太阳"},{"id":19335,"level":"TF2-4","topic":"掀桌砍价法和跳崖式让步","user":"王美惠+"},{"id":19225,"level":"TF3-2","topic":"感受的预防针","user":"echo艾可"}]},{"id":26145094,"title":"结构思考力","author":"李忠秋","publisher":"电子工业出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s27633490.jpg","memCount":165,"tags":"思维,结构化思考","memoirs":[{"id":19754,"level":"TF1-2","topic":"如何用SCQA搭建讲故事的序言","user":"宁宁循心听悦"},{"id":19753,"level":"TF1-1","topic":"如何清晰明确的接收表达者的结论","user":"宁宁循心听悦"},{"id":19575,"level":"TF2-2","topic":"三步法","user":"乐乐吖"}]},{"id":26761696,"title":"精进","author":"采铜","publisher":"江苏凤凰文艺出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s28588315.jpg","memCount":152,"tags":"成长,思维","memoirs":[{"id":19850,"level":"TF3-3","topic":"最小化可行产品","user":"王美惠+"},{"id":19730,"level":"TF2-2","topic":"收益半衰期","user":"沐阳蕾绽"},{"id":19729,"level":"TF2-1","topic":"高段位学习者四问","user":"沐阳蕾绽"}]},{"id":1048007,"title":"高效能人士的七个习惯（精华版）","author":"史蒂芬·柯维","publisher":"中国青年出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s1067863.jpg","memCount":144,"tags":"个人管理,时间管理","memoirs":[{"id":19832,"level":"","topic":"关注圈与影响圈","user":"CocoZ"},{"id":19806,"level":"TF2-2","topic":"责任型授权五步法","user":"叫我老猫"},{"id":19793,"level":"TF2-1","topic":"同理心倾听四步法","user":"叫我老猫"}]},{"id":5325618,"title":"高效能人士的七个习惯","author":"史蒂芬·柯维","publisher":"中国青年出版社","image":"https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s4510907.jpg","memCount":144,"tags":"个人管理,自我管理","memoirs":[{"id":19844,"level":"TF2-3","topic":"觉察协商模式：成为关系的创造者","user":"小牛"},{"id":19835,"level":"TF2-3","topic":"责任型授权","user":"牛豆豆"},{"id":19818,"level":"TF2-1","topic":"要事第一","user":"凡尘"},{"id":15926,"level":"TF1-1","topic":"移情聆听四步法","user":"玥清"},{"id":15992,"level":"TF1-2","topic":"双赢过程四步法","user":"玥清"},{"id":16132,"level":"TF2-1","topic":"抓要事","user":"玥清"},{"id":16240,"level":"TF2-2","topic":"自我管理四步法","user":"玥清"},{"id":16252,"level":"TF2-3","topic":"效能情景演练","user":"玥清"},{"id":17117,"level":"TF2-4","topic":"抓要事，做计划","user":"玥清"}]},{"id":26275861,"title":"沟通的艺术（插图修订第14版）","author":"罗纳德·B·阿德勒","publisher":"世界图书出版公司","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s27920443.jpg","memCount":125,"tags":"沟通,人际关系","memoirs":[{"id":19839,"level":"TF3-2","topic":"知觉检核三步法","user":"杨翠"},{"id":19715,"level":"TF2-2","topic":"知觉检核","user":"林子呀"},{"id":19220,"level":"TF2-1","topic":"知觉检核","user":"郏程晓"}]},{"id":2275635,"title":"如何说孩子才会听，怎么听孩子才肯说","author":"阿黛尔·法伯 伊莱恩·玛兹丽施","publisher":"中央编译出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s2734974.jpg","memCount":119,"tags":"育儿,教育","memoirs":[{"id":19885,"level":"TF1-2","topic":"赞赏孩子的三个技巧","user":"高燕"},{"id":19843,"level":"TF2-2","topic":"亲子沟通技巧","user":"仙妮诗"},{"id":19358,"level":"TF2-2","topic":"帮助孩子面对他们的感受","user":"迎春"}]},{"id":10786473,"title":"自控力","author":"凯利·麦格尼格尔","publisher":"文化发展出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s10685385.jpg","memCount":103,"tags":"自控力,心理学","memoirs":[{"id":19427,"level":"TF1-1","topic":"意志力实验：失败时，请原谅自己","user":"康炜老师"},{"id":19381,"level":"TF2-4","topic":"提升自控力，获得人生掌控权","user":"YJ"},{"id":19345,"level":"TF1-1","topic":"三步法提高自控力","user":"JenniferX"}]},{"id":26895993,"title":"刻意练习","author":"安德斯·艾利克森","publisher":"机械工业出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s29105145.jpg","memCount":101,"tags":"学习方法,方法论","memoirs":[{"id":19757,"level":"TF2-4","topic":"做自己的技能教练！","user":"星星早起讲书"},{"id":19637,"level":"TF3-3","topic":"高效学习+有目的的练习","user":"贺俊丽"},{"id":19549,"level":"TF3-3","topic":"高效学习+有目的的练习","user":"贺俊丽"}]},{"id":1786387,"title":"影响力","author":"罗伯特·西奥迪尼","publisher":"中国人民大学出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s1657785.jpg","memCount":91,"tags":"心理学,影响力","memoirs":[{"id":19841,"level":"TF3-3","topic":"互惠双剑-提升你的影响力","user":"张艳超"},{"id":19744,"level":"TF1-1","topic":"拒绝后撤策略","user":"森杰"},{"id":19717,"level":"TF3-1","topic":"赞美三步法","user":"乐乐吖"}]},{"id":27078435,"title":"跃迁","author":"古典","publisher":"中信出版集团","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s29496570.jpg","memCount":88,"tags":"个人成长,思维认知","memoirs":[{"id":19559,"level":"TF2-4","topic":"从单机学习到联机协作","user":"回也"},{"id":19505,"level":"TF2-1","topic":"脱困四问","user":"周丽静"},{"id":19491,"level":"TF2-4","topic":"从单机学习到联机协作","user":"回也"}]},{"id":1183730,"title":"谈话的力量","author":"艾伦·加纳","publisher":"中国水利水电出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s1132442.jpg","memCount":86,"tags":"沟通,沟通技巧","memoirs":[{"id":19847,"level":"TF1-1","topic":"如何高质量赞美他人？","user":"Sena you"},{"id":19777,"level":"TF1-1","topic":"如何高质量赞美","user":"吴笑杰182"},{"id":19747,"level":"TF1-2","topic":"如何高质量赞美他人","user":"艳子归来"}]},{"id":26798573,"title":"重要的事情说3点","author":"八幡纰芦史","publisher":"电子工业出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s28738110.jpg","memCount":75,"tags":"沟通,结构化思考","memoirs":[{"id":18773,"level":"TF1-1","topic":"3个问题解决对立","user":"润禾"},{"id":17433,"level":"TF2-2","topic":"有效道歉三步法","user":"喜春"},{"id":16809,"level":"TF2-2","topic":"三步道歉法","user":"六六老公"}]},{"id":1444900,"title":"爱的五种语言","author":"盖瑞·查普曼","publisher":"中国轻工业出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s24492121.jpg","memCount":73,"tags":"爱情,心理学","memoirs":[{"id":19707,"level":"TF3-3","topic":"精准识别对方需要","user":"方芳"},{"id":19378,"level":"TF3-3","topic":"服务的行动与精心的时刻","user":"叶雨"},{"id":19299,"level":"TF3-2","topic":"如何成为送礼的高手？","user":"方芳"}]},{"id":26779688,"title":"做出好决定","author":"斯蒂芬·P·罗宾斯","publisher":"北京联合出版公司","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s28661180.jpg","memCount":68,"tags":"决策,思维","memoirs":[{"id":19581,"level":"TF1-2","topic":"理性做出重大决定","user":"丽洪"},{"id":19437,"level":"TF1-1","topic":"和惰性说拜拜","user":"张伊莲"},{"id":17672,"level":"TF3-2","topic":"理性决策，驾驭未来","user":"保洁大叔"}]},{"id":3558629,"title":"小强升职记","author":"邹鑫","publisher":"北京出版社","image":"https://images.weserv.nl/?url=img3.doubanio.com/view/subject/m/public/s3651230.jpg","memCount":68,"tags":"时间管理,GTD","memoirs":[{"id":19167,"level":"TF1-1","topic":"自律才是最大的自由","user":"徐畅"},{"id":18811,"level":"TF2-1","topic":"番茄工作法","user":"echo艾可"},{"id":18760,"level":"TF2-2","topic":"用smart原则厘清目标","user":"王广东"}]}];
+
+// Books by 玥清
+const yueqingBooks = [
+  { title:'认知觉醒', author:'周岭', publisher:'人民邮电出版社', image:'https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/26476_1630478195874.jpg', intro:'一部可以穿透时间的个人成长方法论。通过大脑构造、潜意识、元认知等思维规律，你将真正看清自己。', count:1, levels:['TF3-1'] },
+  { title:'关键对话', author:'（美）科里·帕特森', publisher:'机械工业出版社', image:'https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s9063857.jpg', intro:'本书详细剖析了人们在沟通上常见的盲点，并提供了许多立竿见影的谈话、倾听、行动技巧。', count:1, levels:['TF2-3'] },
+  { title:'非暴力沟通', author:'[美] 马歇尔·卢森堡', publisher:'华夏出版社', image:'https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s9346487.jpg', intro:'非暴力沟通指导我们转变谈话和聆听的方式，让我们不再条件反射式地反应。', count:3, levels:['TF2-3','TF2-4'] },
+  { title:'高效能人士的七个习惯', author:'史蒂芬·柯维', publisher:'中国青年出版社', image:'https://images.weserv.nl/?url=img1.doubanio.com/view/subject/m/public/s4510907.jpg', intro:'全球最经典的个人效能管理圣经。七个习惯从个人领域的成功到公众领域的成功，构建完整的成长体系。', count:9, levels:['TF1-1','TF1-2','TF2-1','TF2-2','TF2-3','TF2-4'] }
+];
+
+// Pipeline data
+const pipelineSteps = [
+  { id:'nuwa', name:'女娲蒸馏', sub:'作者智慧萃取', color:'#fb7185', bg:'rgba(244,63,94,0.08)', border:'rgba(244,63,94,0.2)', desc:'用 AI 深度分析作者的思想体系、知识背景和核心观点，构建完整的作者知识图谱。', output:'作者知识图谱 · 思想脉络图' },
+  { id:'cangjie', name:'仓颉拆书', sub:'RIA 深度拆解', color:'#22d3ee', bg:'rgba(6,182,212,0.08)', border:'rgba(6,182,212,0.2)', desc:'运用 RIA 拆书法，将全书拆解为可行动的框架，让知识真正为你所用。', output:'RIA 拆书笔记 · 行动框架' },
+  { id:'hd-image', name:'高清大图', sub:'知识视觉化', color:'#fbbf24', bg:'rgba(217,119,6,0.08)', border:'rgba(217,119,6,0.2)', desc:'将抽象的知识体系转化为高清信息图、思维导图和知识地图，一目了然把握全书脉络。', output:'知识地图 · 思维导图 · 信息图解' },
+  { id:'ljg-card', name:'ljg-card', sub:'知识卡片化', color:'#34d399', bg:'rgba(5,150,105,0.08)', border:'rgba(5,150,105,0.2)', desc:'将拆解内容制作为结构化知识卡片，适配 Anki 等间隔重复系统。', output:'Anki 卡片组 · 知识闪卡' },
+  { id:'darwin', name:'达尔文进化', sub:'技能持续进化', color:'#a78bfa', bg:'rgba(124,58,237,0.08)', border:'rgba(124,58,237,0.2)', desc:'基于使用反馈和学习数据，用 AI 持续优化所有技能产出，形成知识进化的正向循环。', output:'持续迭代的 Skill 技能包' }
+];
+
+// ==================== RENDERERS ====================
+function renderHomeBooks() {
+  const grid = document.getElementById('home-books');
+  grid.innerHTML = yueqingBooks.map(b => `
+    <a href="#" onclick="showBookDetail('${encodeURIComponent(b.title)}')" class="book-card glass-sm">
+      <div class="book-cover">
+        ${b.image ? `<img src="${b.image}" alt="${b.title}" onerror="this.parentElement.innerHTML='<div class=book-cover-placeholder>${b.title.slice(0,2)}</div>'">` : `<div class="book-cover-placeholder">${b.title.slice(0,2)}</div>`}
+      </div>
+      <div class="book-info">
+        <div class="book-title">《${b.title}》</div>
+        <div class="book-meta">${b.author} · ${b.publisher}</div>
+        <div class="book-intro">${b.intro}</div>
+        <div class="book-tags">
+          <span class="book-level">${b.count} 个拆页</span>
+          <span style="color:#475569">·</span>
+          <span style="font-size:11px;color:#64748b">${b.levels.join(' · ')}</span>
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function renderPipeline() {
+  const grid = document.getElementById('pipeline-grid');
+  grid.innerHTML = pipelineSteps.map(s => `
+    <div class="pipeline-card glass-sm">
+      <div class="pipeline-icon" style="margin:0 auto 12px;display:flex;align-items:center;justify-content:center">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="${s.color}" stroke-width="1.5" fill="${s.bg}"/><text x="24" y="24" text-anchor="middle" dominant-baseline="central" fill="${s.color}" font-size="16" font-weight="bold">${s.name[0]}</text></svg>
+      </div>
+      <div class="pipeline-name" style="color:${s.color}">${s.name}</div>
+      <div class="pipeline-sub">${s.sub}</div>
+      <div class="pipeline-desc">${s.desc}</div>
+      <div class="pipeline-output" style="background:${s.bg};color:${s.color};border-color:${s.border}">${s.output}</div>
+    </div>
+  `).join('');
+}
+
+function renderHomeSkills() {
+  const grid = document.getElementById('home-skills');
+  grid.innerHTML = skillsData.slice(0,3).map(s => `
+    <div class="skill-card glass-sm">
+      <div class="skill-name" style="color:#ea580c">${s.name}</div>
+      <div class="skill-book">《${s.book}》· ${s.author}</div>
+      <div class="skill-desc">${s.description}</div>
+      <div class="skill-items">
+        ${s.items.slice(0,4).map(i => `<span class="skill-item">${i.level}</span>`).join('')}
+        ${s.items.length > 4 ? `<span class="skill-item" style="color:#a78bfa">+${s.items.length-4}</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderHotBooks() {
+  const grid = document.getElementById('hot-books-grid');
+  grid.innerHTML = hotBooksData.map(b => {
+    const img = b.image || '';
+    const levels = [...new Set((b.memoirs||[]).map(m=>m.level).filter(Boolean))];
+    const users = [...new Set((b.memoirs||[]).map(m=>m.user).filter(Boolean))];
+    const tags = (b.tags||'').split(',').slice(0,2).map(t=>t.trim()).filter(Boolean);
+    return `
+      <a href="#" onclick="showBookDetail('${encodeURIComponent(b.title)}')" class="hot-book-card glass-sm">
+        <div class="hot-book-cover">
+          ${img ? `<img src="${img}" alt="${b.title}" onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#22d3ee;font-size:14px;font-weight:700>${b.title.slice(0,2)}</div>'">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#22d3ee;font-size:14px;font-weight:700">${b.title.slice(0,2)}</div>`}
+        </div>
+        <div class="book-info">
+          <div class="hot-book-title">《${b.title}》</div>
+          <div class="hot-book-author">${b.author}</div>
+          <div class="hot-book-tags">
+            <span class="hot-book-count">${b.memCount || (b.memoirs||[]).length} 拆页</span>
+            ${levels.length > 0 ? `<span class="hot-book-level">${levels[0]}</span>` : ''}
+            ${tags.map(t => `<span class="hot-book-tag">${t}</span>`).join('')}
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+  document.getElementById('hot-summary').textContent = `共 ${hotBooksData.length} 本书 · ${hotBooksData.reduce((s,b) => s + (b.memCount || (b.memoirs||[]).length), 0)}+ 个拆页`;
+}
+
+function renderAllSkills() {
+  const container = document.getElementById('skills-full-list');
+  container.innerHTML = skillsData.map(s => `
+    <div class="glass" style="padding:24px 28px;margin-bottom:20px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px">
+        <div>
+          <h2 style="font-size:20px;font-weight:700;color:#fff;margin-bottom:4px">${s.name}</h2>
+          <p style="font-size:14px;color:#94a3b8">《${s.book}》· ${s.author}</p>
+        </div>
+      </div>
+      <p style="font-size:13px;color:#64748b;margin-bottom:16px">${s.description}</p>
+      <div style="display:grid;gap:12px">
+        ${s.items.map(i => `
+          <div style="padding:16px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06)">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <span style="font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(168,85,247,0.15);color:#a78bfa;font-weight:700">${i.level}</span>
+              <h3 style="font-size:15px;font-weight:700;color:#fff">${i.name}</h3>
+            </div>
+            ${i.steps && i.steps.length > 0 ? `
+              <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px">
+                ${i.steps.map(st => `
+                  <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#94a3b8">
+                    <span style="width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#3b82f6);flex-shrink:0"></span>
+                    ${st}
+                  </span>
+                `).join('')}
+              </div>
+            ` : ''}
+            ${i.quote ? `<p style="font-size:12px;color:#64748b;font-style:italic;border-left:2px solid rgba(100,116,139,0.3);padding-left:12px;margin:4px 0">${i.quote}</p>` : ''}
+            <p style="font-size:10px;color:#475569;margin-top:2px">${i.source}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function showBookDetail(title) {
+  const decoded = decodeURIComponent(title);
+  const book = hotBooksData.find(b => b.title === decoded);
+  if (!book) return showPage('hot');
+
+  const container = document.getElementById('hot-book-detail');
+  const memoirs = book.memoirs || [];
+  const img = book.image || '';
+  const users = [...new Set(memoirs.map(m=>m.user).filter(Boolean))];
+  const levels = [...new Set(memoirs.map(m=>m.level).filter(Boolean))];
+
+  container.innerHTML = `
+    <div class="glass" style="padding:32px;margin-bottom:24px">
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <div style="width:140px;height:200px;border-radius:12px;overflow:hidden;flex-shrink:0;background:rgba(255,255,255,0.03)">
+          ${img ? `<img src="${img}" alt="${book.title}" style="width:100%;height:100%;object-fit:cover">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#a78bfa;font-size:24px;font-weight:700">${book.title.slice(0,2)}</div>`}
+        </div>
+        <div style="flex:1;min-width:200px">
+          <h1 style="font-size:28px;font-weight:900;color:#fff;margin-bottom:4px">《${book.title}》</h1>
+          <p style="font-size:15px;color:#94a3b8;margin-bottom:8px">${book.author} · ${book.publisher || ''}</p>
+          ${book.intro ? `<p style="font-size:14px;color:#64748b;line-height:1.8;margin-bottom:12px">${book.intro}</p>` : ''}
+          <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:#94a3b8">
+            <span>📖 ${memoirs.length} 个拆页</span>
+            <span>👤 ${users.join(' · ')}</span>
+            <span>🏷️ ${levels.join(' · ')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;gap:16px">
+      ${memoirs.map(m => `
+        <div class="memoir-card glass-sm">
+          <div class="memoir-header">
+            <div class="memoir-topic">${m.topic || '无主题'}</div>
+            <div class="memoir-meta">
+              ${m.level ? `<span>🏷️ ${m.level}</span>` : ''}
+              <span>👤 ${m.user || '未知'}</span>
+              ${m.activity ? `<span>📍 ${m.activity.date || ''} ${m.activity.address || ''}</span>` : ''}
+              ${m.radioUrl ? `<span><a href="${m.radioUrl}" target="_blank" style="color:#22d3ee">🎧 录音回放${m.radioPwd ? '(密码:'+m.radioPwd+')' : ''}</a></span>` : ''}
+            </div>
+          </div>
+          ${m.remark ? `<div class="memoir-text" style="font-size:13px;margin-bottom:12px">${m.remark}</div>` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+  showPage('hot-book');
+}
+
+// ==================== NAVIGATION ====================
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  if (page) page.classList.add('active');
+  const link = document.querySelector(`.nav-links a[data-page="${name}"]`);
+  if (link) link.classList.add('active');
+  document.querySelector('.nav-links').classList.remove('open');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  renderHomeBooks();
+  renderPipeline();
+  renderHomeSkills();
+  renderHotBooks();
+  renderAllSkills();
+});
+</script>
+</body>
+</html>
