@@ -1,0 +1,16 @@
+// Auto-generated hot book data
+
+const hotBooks = [
+  {
+    "id": 0,
+    "title": "认知觉醒",
+    "author": "周岭",
+    "publisher": "人民邮电出版社",
+    "pubdate": "2020-10",
+    "isbn": "9787115543424",
+    "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/26476_1630478195874.jpg",
+    "url": "https://book.douban.com/subject/35193035",
+    "intro": "这是一部可以穿透时间的个人成长方法论。通过“大脑构造、潜意识、元认知”等思维规律，你将真正看清自己；通过“深度学习、关联、反馈”事物规律，你将洞悉如何真正成事！",
+    "tags": "个人拆书",
+    "memCount": 1,
+    "me

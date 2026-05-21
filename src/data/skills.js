@@ -5,53 +5,66 @@ const skills = [
     author: '史蒂芬·柯维',
     book: '高效能人士的七个习惯',
     description: '包含移情聆听、双赢思维、要事第一等核心习惯的行动框架与练习工具',
-    stages: ['女娲蒸馏', '仓颉拆书', '高清大图', 'ljg-card', '达尔文进化'],
-    files: [
-      { name: '作者知识图谱·柯维.pdf', type: 'pdf', size: '2.4 MB', stage: '女娲蒸馏' },
-      { name: '七个习惯·RIA拆书笔记.pdf', type: 'pdf', size: '3.8 MB', stage: '仓颉拆书' },
-      { name: '七个习惯·思维导图.png', type: 'image', size: '1.2 MB', stage: '高清大图' },
-      { name: '七个习惯·知识卡片.apkg', type: 'card', size: '856 KB', stage: 'ljg-card' },
-      { name: '七个习惯·行动框架.md', type: 'markdown', size: '48 KB', stage: '达尔文进化' },
-    ],
-    version: 'v2.3',
-    updatedAt: '2026-05-20',
-    downloads: 128,
+    items: [
+      {
+        name: '移情聆听四步法',
+        level: 'TF1-1',
+        steps: ['复述语句 — 专心聆听并重复对方的话', '加入解释 — 用自己的话表达左脑逻辑理解', '个人感觉 — 加上右脑体会对方情绪', '带情解释 — 左右脑并用带情感地解释'],
+        quote: '移情聆听不只是理解个别的词句而已。不仅要耳到，还要眼到、心到。',
+        source: '玥清 2023-06-01 TF1-1 练武场'
+      },
+      {
+        name: '双赢过程四步法',
+        level: 'TF1-2',
+        steps: ['换位思考 — 从对方角度理解需要和顾虑', '理清问题 — 找到核心诉求而非立场', '确定结果 — 确认双方都可接受的结果', '解决方案 — 找到实现结果的各种途径'],
+        quote: '双赢并非性格魅力的技巧，而是人类交往的一种模式。',
+        source: '玥清 2023-06-08 TF1-2 小蛮腰分舵'
+      },
+      {
+        name: '抓要事三步法',
+        level: 'TF2-1',
+        steps: ['列事务清单 — 把所有要做事项目列出来', '按四类排序 — 按重要×紧迫归入时间管理矩阵', '明确并执行 — 花80%时间在第二类重要不紧迫事务'],
+        quote: '高效能人士总是避免陷入第三和第四类事务，花费更多时间在第二类事务。',
+        source: '玥清 2023-06-29 TF2-1 小蛮腰分舵'
+      },
+      {
+        name: '自我管理四步法',
+        level: 'TF2-2',
+        steps: ['确认角色 — 写出家庭/工作/社区各角色', '选择目标 — 每周每个角色选1-2件要事', '安排进度 — 为每项目标分配具体时间', '每日调整 — 根据突发事件灵活调整'],
+        quote: '以第二类事务为中心的日程安排，让每日计划变成每日调整。',
+        source: '玥清 2023-07-06 TF2-2 小蛮腰分舵'
+      },
+      {
+        name: '效能情景演练',
+        level: 'TF2-3',
+        steps: ['确定角色 — 列出所有关键角色不遗漏', '列出任务 — 用幕布等工具梳理事项', '选择目标 — 用Todo工具确定要事', '制定计划 — 写入日程并跟踪执行', '复盘调整 — 每日回顾按需调整'],
+        quote: '融合智能工具才能更好地成为自己的主人。',
+        source: '玥清 2023-07-15 TF2-3 小蛮腰分舵'
+      },
+      {
+        name: '抓要事做计划',
+        level: 'TF2-4',
+        steps: ['抓要事：列清单→四类排序→明确执行', '做计划：确定角色→选择目标→安排进度→每日调整'],
+        quote: '如果你计划做出一个好决定，你就必须做好计划。',
+        source: '玥清 2023-12-28 TF2-4 小蛮腰分舵'
+      }
+    ]
   },
   {
     id: 'skill-nw-renzhijuexing',
     name: '认知觉醒 · 技能包',
     author: '周岭',
     book: '认知觉醒',
-    description: '元认知、刻意练习、深度学习等认知科学工具集，助你突破成长瓶颈',
-    stages: ['女娲蒸馏', '仓颉拆书', '高清大图', 'ljg-card', '达尔文进化'],
-    files: [
-      { name: '作者知识图谱·周岭.pdf', type: 'pdf', size: '1.8 MB', stage: '女娲蒸馏' },
-      { name: '认知觉醒·RIA拆书笔记.pdf', type: 'pdf', size: '2.6 MB', stage: '仓颉拆书' },
-      { name: '认知觉醒·知识地图.png', type: 'image', size: '980 KB', stage: '高清大图' },
-      { name: '认知觉醒·行动卡片.apkg', type: 'card', size: '624 KB', stage: 'ljg-card' },
-      { name: '认知觉醒·成长系统.md', type: 'markdown', size: '36 KB', stage: '达尔文进化' },
-    ],
-    version: 'v1.5',
-    updatedAt: '2026-05-18',
-    downloads: 86,
-  },
-  {
-    id: 'skill-nw-crucial-conversations',
-    name: '关键对话 · 技能包',
-    author: '科里·帕特森',
-    book: '关键对话',
-    description: '高风险沟通的完整工具箱，包含对话诊断、情绪管理、全脑表达等技能',
-    stages: ['女娲蒸馏', '仓颉拆书', '高清大图', 'ljg-card', '达尔文进化'],
-    files: [
-      { name: '作者知识图谱·帕特森.pdf', type: 'pdf', size: '2.1 MB', stage: '女娲蒸馏' },
-      { name: '关键对话·RIA拆书笔记.pdf', type: 'pdf', size: '3.2 MB', stage: '仓颉拆书' },
-      { name: '关键对话·模型图解.png', type: 'image', size: '1.5 MB', stage: '高清大图' },
-      { name: '关键对话·话术卡片.apkg', type: 'card', size: '720 KB', stage: 'ljg-card' },
-      { name: '关键对话·实践指南.md', type: 'markdown', size: '42 KB', stage: '达尔文进化' },
-    ],
-    version: 'v1.2',
-    updatedAt: '2026-05-15',
-    downloads: 64,
+    description: '元认知、凭感觉、深度学习等认知科学工具集，助你突破成长瓶颈',
+    items: [
+      {
+        name: '激活感觉FTCA四步法',
+        level: 'TF3-1',
+        steps: ['感知Feel — 安静30秒判断是否在拉伸区', '触动Touch — 盯住本能的兴奋点', '确认Confirm — 冷静后问自己是否真心想要', '行动Action — 从最小行动开始单点突破'],
+        quote: '顶级的成长竟然是"凭感觉"——帮我们感知真正适合自己并需要的东西。',
+        source: '玥清 2026-05-10 TF3-1'
+      }
+    ]
   },
   {
     id: 'skill-nw-nvc',
@@ -59,18 +72,46 @@ const skills = [
     author: '马歇尔·卢森堡',
     book: '非暴力沟通',
     description: '非暴力沟通四步法实训工具，含观察-感受-需要-请求全流程练习',
-    stages: ['女娲蒸馏', '仓颉拆书', '高清大图', 'ljg-card', '达尔文进化'],
-    files: [
-      { name: '作者知识图谱·卢森堡.pdf', type: 'pdf', size: '1.9 MB', stage: '女娲蒸馏' },
-      { name: '非暴力沟通·RIA拆书笔记.pdf', type: 'pdf', size: '2.8 MB', stage: '仓颉拆书' },
-      { name: '非暴力沟通·流程图.png', type: 'image', size: '1.1 MB', stage: '高清大图' },
-      { name: '非暴力沟通·练习卡片.apkg', type: 'card', size: '580 KB', stage: 'ljg-card' },
-      { name: '非暴力沟通·日课.md', type: 'markdown', size: '32 KB', stage: '达尔文进化' },
-    ],
-    version: 'v1.8',
-    updatedAt: '2026-05-12',
-    downloads: 95,
+    items: [
+      {
+        name: '表达愤怒三步法',
+        level: 'TF2-4',
+        steps: ['停止指责，转化怒火为感受和需要', '说出内心深处的感受和需要', '请求对方反馈以确认理解'],
+        quote: '为了充分表达自己，我们要开口表达愤怒——怒火此时已被转化为感受和需要。',
+        source: '张连英 TF2-4'
+      },
+      {
+        name: '表达感激三要素',
+        level: 'TF2-4',
+        steps: ['说明他人做了什么增进了我们的福祉', '指出哪些需要因此得到了满足', '描述由此引起的愉悦感受'],
+        quote: '用语言完整地表达这三个要素是有意义的。',
+        source: '张连英 TF2-4'
+      },
+      {
+        name: '请求反馈法',
+        level: 'TF2-3',
+        steps: ['表达完信息后主动请求反馈', '请对方复述以确认理解准确', '发现偏差时做适当补充'],
+        quote: '我们的意思和别人的理解有时可能是两回事。请求反馈能确保对方准确把握我们的意思。',
+        source: '大地 TF2-3'
+      }
+    ]
   },
+  {
+    id: 'skill-nw-crucial-conversations',
+    name: '关键对话 · 技能包',
+    author: '科里·帕特森',
+    book: '关键对话',
+    description: '高风险沟通的完整工具箱，包含对话诊断、情绪管理、全脑表达等技能',
+    items: [
+      {
+        name: '关键对话三步法',
+        level: 'TF2-3',
+        steps: ['明确对话目的 — 我想要什么', '营造安全氛围 — 让对方感到安全', '运用对比法 — 否定误解+肯定本意'],
+        quote: '在关键对话中使用对比法：“我不希望你误解…”',
+        source: '蝶渡 TF2-3'
+      }
+    ]
+  }
 ]
 
 export default skills
