@@ -462,6 +462,13 @@ footer a { color: #a78bfa; }
 
 <script>
 // ==================== DATA ====================
+
+// 可下载的 Skill 技能包（达尔文进化后的最终版）
+const downloadSkills = [
+  { id:'dstephen-covey', name:'史蒂芬·柯维 · 思维操作系统', file:'stephen-covey-perspective', author:'史蒂芬·柯维', desc:'基于柯维7个习惯体系的完整思维框架，含6个心智模型、9条决策启发式、完整表达DNA。适用：个人效能、领导力、时间管理、团队协作。', score:'94.6', items:['积极主动','以终为始','要事第一','双赢思维','知彼解己','统合综效'] },
+  { id:'dzhaozhou', name:'赵周 · 拆书思维操作系统', file:'zhaozhou-chaishu-perspective', author:'赵周', desc:'拆书帮创始人赵周的完整思维框架，含5个心智模型、8条决策启发式。适用：学习方法、阅读策略、培训设计、知识管理。', score:'94.6', items:['RIA拆书法','便签读书法','成人学习','学习促进者','致用式学习'] }
+];
+
 const skillsData = [
   { id:'skill-nw-7habits', name:'高效能人士的七个习惯 · 技能包', author:'史蒂芬·柯维', book:'高效能人士的七个习惯', description:'包含移情聆听、双赢思维、要事第一等核心习惯的行动框架与练习工具',
     items:[
@@ -587,6 +594,48 @@ function renderHotBooks() {
   document.getElementById('hot-summary').textContent = `共 ${hotBooksData.length} 本书 · ${hotBooksData.reduce((s,b) => s + (b.memCount || (b.memoirs||[]).length), 0)}+ 个拆页`;
 }
 
+function renderDownloadSkills() {
+  const container = document.getElementById('skills-full-list');
+  container.innerHTML += `
+    <div class="glass" style="padding:28px;margin-bottom:20px;border-color:rgba(232,89,12,0.2)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <span style="font-size:13px;padding:4px 12px;border-radius:999px;background:rgba(232,89,12,0.15);color:#E8590C;font-weight:700">达尔文进化</span>
+        <h2 style="font-size:20px;font-weight:900;color:#fff">可下载的思维框架 Skill 包</h2>
+      </div>
+      <p style="font-size:14px;color:#94a3b8;margin-bottom:20px">女娲蒸馏 → 仓颉拆书 → 达尔文进化 产出的完整技能包，可直接下载导入 Claude Code 使用</p>
+      <div style="display:grid;gap:16px">
+        ${downloadSkills.map(s => `
+          <div style="padding:20px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06)">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+                  <h3 style="font-size:18px;font-weight:700;color:#fff">${s.name}</h3>
+                  <span style="font-size:11px;padding:2px 10px;border-radius:999px;background:rgba(232,89,12,0.15);color:#E8590C;font-weight:700">${s.score}分</span>
+                </div>
+                <p style="font-size:13px;color:#94a3b8;margin-bottom:8px">${s.desc}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+                  ${s.items.map(it => `<span style="font-size:11px;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,0.03);color:#64748b">${it}</span>`).join('')}
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
+                <a href="downloads/skills/${s.file}/SKILL.md" download style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;border-radius:10px;background:linear-gradient(135deg,#E8590C,#FF8A4C);color:#fff;font-size:14px;font-weight:700;border:none;cursor:pointer;text-decoration:none">
+                  ↓ 下载 Skill
+                </a>
+                <a href="downloads/skills/${s.file}/test-prompts.json" download style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);color:#cbd5e1;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none">
+                  ↓ 测试用例
+                </a>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <p style="font-size:12px;color:#475569;margin-top:16px;text-align:center">
+        下载后将 SKILL.md 放入 <code style="background:rgba(255,255,255,0.03);padding:2px 6px;border-radius:4px">.claude/skills/{skill-name}/</code> 目录即可在 Claude Code 中激活使用
+      </p>
+    </div>
+  `;
+}
+
 function renderAllSkills() {
   const container = document.getElementById('skills-full-list');
   container.innerHTML = skillsData.map(s => `
@@ -692,6 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHomeSkills();
   renderHotBooks();
   renderAllSkills();
+  renderDownloadSkills();
 });
 </script>
 </body>
