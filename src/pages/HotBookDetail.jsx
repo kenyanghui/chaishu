@@ -95,6 +95,11 @@ export default function HotBookDetail() {
                   <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 font-bold">
                     {m.level}
                   </span>
+                  {m.user === '玥清' && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 font-bold">
+                      玥清
+                    </span>
+                  )}
                   <span className="text-xs text-slate-500">{m.user}</span>
                 </div>
                 <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors mb-1">

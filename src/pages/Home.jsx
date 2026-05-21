@@ -1,24 +1,10 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import memoirs from '../data/memoirs'
+import hotBooks from '../data/hotBooks'
 
-// Deduplicate and group memoirs by book title
+// Show only books that have 玥清's personal memoirs
 function getBooks() {
-  const map = {}
-  for (const m of memoirs) {
-    const key = m.book.title
-    if (!map[key]) {
-      map[key] = { ...m.book, sessions: [] }
-    }
-    if (!map[key].sessions.find(s => s.id === m.id)) {
-      map[key].sessions.push({
-        id: m.id,
-        level: m.level,
-        topic: m.topic,
-      })
-    }
-  }
-  return Object.values(map)
+  return hotBooks.filter(b => b.memoirs.some(m => m.user === '玥清'))
 }
 
 const containerVariants = {
@@ -36,7 +22,7 @@ const itemVariants = {
 
 export default function Home() {
   const books = getBooks()
-  const totalSessions = memoirs.length
+  const totalSessions = books.reduce((s, b) => s + b.memoirs.filter(m => m.user === '玥清').length, 0)
 
   return (
     <div>
@@ -76,7 +62,7 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                to="/book/认知觉醒"
+                to="/hot"
                 className="px-8 py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-bold hover:shadow-lg hover:shadow-neon-purple/25 transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 开始探索
@@ -143,7 +129,7 @@ export default function Home() {
         >
           {books.map(book => (
             <motion.div key={book.title} variants={itemVariants}>
-              <Link to={`/book/${encodeURIComponent(book.title)}`} className="block group">
+              <Link to={`/hot/book/${encodeURIComponent(book.title)}`} className="block group">
                 <div className="glass rounded-2xl p-6 h-full">
                   <div className="flex gap-6">
                     <div className="w-24 h-32 shrink-0 rounded-lg overflow-hidden bg-dark-card-hover">
@@ -171,11 +157,11 @@ export default function Home() {
                       <p className="text-sm text-slate-500 line-clamp-2 mb-3">{book.intro}</p>
                       <div className="flex items-center gap-2 text-sm">
                         <span className="px-2 py-0.5 rounded bg-neon-purple/10 text-neon-purple text-xs">
-                          {book.sessions.length} 个拆页
+                          {book.memoirs.filter(m => m.user === '玥清').length} 个拆页
                         </span>
                         <span className="text-slate-600">·</span>
                         <span className="text-xs text-slate-500">
-                          {book.sessions.map(s => s.level).join(' · ')}
+                          {book.memoirs.filter(m => m.user === '玥清').map(m => m.level).join(' · ')}
                         </span>
                       </div>
                     </div>
