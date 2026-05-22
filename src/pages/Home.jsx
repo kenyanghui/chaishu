@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import skills from '../data/skills'
 
-const stats = { books: 2, sessions: 7 }
+const stats = { books: 60, sessions: 156 }
 
 const pipelineSteps = [
   { id: 'nuwa', name: '女娲蒸馏', subtitle: '作者智慧萃取', color: 'from-rose-600 to-pink-500', light: 'from-rose-500/20 to-pink-500/20', border: 'border-rose-500/30', text: 'text-rose-400', desc: '用 AI 深度分析作者的思想体系、知识背景和核心观点，构建完整的作者知识图谱，让每一本书的智慧源头清晰可见。', output: '作者知识图谱 · 思想脉络图' },
