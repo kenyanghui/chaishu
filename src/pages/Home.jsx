@@ -73,7 +73,7 @@ export default function Home() {
             {[
               { num: stats.books, label: '拆解书籍' },
               { num: stats.sessions, label: '拆页场次' },
-              { num: 'RIA', label: '拆书法框架' },
+              { num: 152, label: '教练技能' },
             ].map(stat => (
               <div key={stat.label} className="text-center">
                 <div className="text-3xl md:text-4xl font-black gradient-text">{stat.num}</div>
