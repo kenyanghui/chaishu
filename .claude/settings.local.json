@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf public/images/skills/* public/cards/*.csv)",
+      "Bash(node scripts/pipeline-hd-image.js)",
+      "Bash(node scripts/pipeline-ljg-card.js)",
+      "Bash(node scripts/pipeline-darwin.js)"
+    ]
+  }
+}

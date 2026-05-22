@@ -2791,7 +2791,115 @@ const hotBooks = [
     "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/28990_1724019920766.jpeg",
     "intro": "《提高学科学习能力的元认知策略与培养/元认知心理干预技术丛书》以浅显易懂的语言，阐明了学生应如何科学、有效地自觉反省认知、有效调控和明显提高自身的智力及其学科学习能力，并形成高水平的有关自身智力和学科能力发展的元认知策略系统。学生学会用知识解释自己的智力与学科学习能力发展机制，并且形成相应的元认知策略以后，就可以在功课学习实践中看得到、莫得着、驭之有效地表征自己必须学好的知识，自觉地进行运用同化、上位化等策略突破学科难点、重点，稳扎稳打，一步一阶地迈向顿悟、灵感、创新和爱学习、会学习的智力目标与个性目标。新的智力与学科学习元认知策略教育克服了旧的学科智力观及其方法中的把智力解释为“心理特征”、...",
     "memoirs": []
-  }
+  },
+{
+  "id": 264488509,
+  "title": "高效演讲：斯坦福最受欢迎的沟通课",
+  "author": "彼得·迈尔斯（Peter Meyers）",
+  "publisher": "吉林出版集团",
+  "pubdate": "2013-4-1",
+  "tags": "领导力，沟通力",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/22166_1714895538524.png",
+  "intro": "无论从事什么工作，都可能会在会议室对同事、客户讲话，也可能会在大礼堂对着几百人演讲。这样的场合，你能否抓住机会，通过演讲一举赢得支持实现梦想？斯坦福最受欢迎的沟通课，教你高效演讲。",
+  "memoirs": []
+},
+{
+  "id": 118106857,
+  "title": "引爆流行",
+  "author": "德里克·汤普森",
+  "publisher": "中信出版社",
+  "pubdate": "2019-06",
+  "tags": "营销，传播",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/25859_1639917580149.jpg",
+  "intro": "在这本《引爆流行》中，作者德里克·汤普森通过开创性的调查，揭露了流行何以成为流行以及人们为什么喜欢这些动机背后所隐藏的心理学和经济学原理。",
+  "memoirs": []
+},
+{
+  "id": 59617417,
+  "title": "脑力升级手册",
+  "author": "杰夫·布朗 / 马克·芬斯克 / 莉斯·内伯伦特",
+  "publisher": "浙江人民出版社",
+  "pubdate": "2018",
+  "tags": "心理学，大脑，科学",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/25859_1633941254447.jfif",
+  "intro": "《脑力升级手册》结合最前沿的心理学和脑科学研究，走访几十位不同领域的成功者，发现成功者达成目标的方式可能非常不同，但他们的大脑具有相同的特质。",
+  "memoirs": []
+},
+{
+  "id": 37920117,
+  "title": "ORID关键提问",
+  "author": "布莱恩·斯坦菲尔德 / 乔·尼尔森",
+  "publisher": "华夏出版社",
+  "pubdate": "2026-2",
+  "tags": "职场，个人成长",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/26208_1766719442851.jpg",
+  "intro": "ORID关键提问——让你通过系统化提问终结无效讨论！ToP全球实践5大引导工具之一。通过聚焦式会话法，引导团队深度思考和有效沟通。",
+  "memoirs": []
+},
+{
+  "id": 37887635,
+  "title": "如何做一个会赚钱的自媒体",
+  "author": "何圣君",
+  "publisher": "北京联合出版有限公司",
+  "pubdate": "2025",
+  "tags": "商业",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/26327_1770799612669.png",
+  "intro": "如何做一个会赚钱的自媒体——从0到1打造个人品牌，实现知识变现的完整方法论。",
+  "memoirs": []
+},
+{
+  "id": 37807239,
+  "title": "阅读写作赋能美好人生",
+  "author": "笑薇",
+  "publisher": "中国铁道出版社",
+  "pubdate": "2025-10",
+  "tags": "阅读，写作，成长",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/27474_1777679367085.jpg",
+  "intro": "作者凭借近8年的读书写作经历，从多个维度深入分享阅读写作给普通人带来的巨变与深刻思考，用读写赋能人生成长。",
+  "memoirs": []
+},
+{
+  "id": 37557392,
+  "title": "意象疗心",
+  "author": "杨发辉、胡雯",
+  "publisher": "机械工业出版社",
+  "pubdate": "2025",
+  "tags": "认知行为疗法，心理学",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/29684_1770653141399.jpeg",
+  "intro": "在中国文化和社会发展背景下，参照西方循证科学的认知行为治疗体系，通过意象的引出、表达、理解、转化及整合，进行创新性研究与探索。",
+  "memoirs": []
+},
+{
+  "id": 37427906,
+  "title": "发现你的天赋",
+  "author": "八木仁平",
+  "publisher": "机械工业出版社",
+  "pubdate": "2025-7",
+  "tags": "个人成长",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/20651_1756899195347.png",
+  "intro": "不是没有才能，只是没有发现才能而已。才能不是靠努力和毅力就能掌握的，找到你的天赋，发挥你的优势。",
+  "memoirs": []
+},
+{
+  "id": 37411573,
+  "title": "规划最好的一年",
+  "author": "迈克尔·海亚特",
+  "publisher": "太白文艺出版社",
+  "pubdate": "2025-6",
+  "tags": "思维，习惯，规划",
+  "memCount": 0,
+  "image": "https://chaishubang.oss-cn-hangzhou.aliyuncs.com/book/26327_1768214787053.png",
+  "intro": "从目标设定到高效行动的规划指南。迈克尔·海亚特通过实践经验和关于目标管理的最新研究，提出相信可能、总结过去、设计未来、找到动力和付诸实践5个步骤。",
+  "memoirs": []
+}
 ]
 
 export default hotBooks

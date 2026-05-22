@@ -1,7 +1,8 @@
 /**
- * 生成完整的 skills.js — 从 hotBooks.js 提取结构化技能数据
- * 支持多种 explains 格式: 【how】/ (**How)** / 数字编号列表
+ * 更新 skills.js — 从 hotBooks.js 提取结构化技能数据
+ * v2: 全面覆盖各种 RIA 格式，优先提取步骤和 A 内容
  */
+
 import { readFileSync, writeFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
@@ -16,49 +17,74 @@ function loadHotBooks() {
   return JSON.parse(raw.slice(start + 'const hotBooks = '.length, end + 1))
 }
 
-/** Extract steps from explains text — supports multiple formats */
-function extractSteps(explan) {
-  if (!explan) return []
+// ─── v2 extraction (same as pipeline-cangjie) ───
 
-  // Format 1: 【how】 section with numbered steps
-  const howSection = explan.match(/【how】\s*([\s\S]*?)(?=\n\s*\n|【where|【互动|【a\d|$)/i)
-  || explan.match(/\*\*\[?how\]?\*\*\s*([\s\S]*?)(?=\n\s*\n|\*\*\[?what|\[\*|【|$)/i)
-  || explan.match(/\(?\*\*?[Hh]ow\*?\*?\)?\s*[：:]\s*([\s\S]*?)(?=\n\s*\n|\*\*?[Ww]hat|\(\*|【|$)/)
+function extractSection(text, label) {
+  if (!text) return ''
+  const re1 = new RegExp(`【${label}[^】]*】\\s*([\\s\\S]*?)(?=\n\\s*【[^】]+】|\n\\s*\\*\\*\\(?[A-Z]|\n\\s*\\(\\*\\*[A-Z]|\n##|\n---|$)`, 'i')
+  const m1 = text.match(re1)
+  if (m1) return m1[1].trim()
+  const re2 = new RegExp(`\\(?\\*\\*${label}\\*\\*\\)?\\s*[：:]?\\s*([\\s\\S]*?)(?=\n\\s*\\*\\*\\(?[A-Z]|\n\\s*【[^】]+】|\n##|\n---|$)`, 'i')
+  const m2 = text.match(re2)
+  if (m2) return m2[1].trim()
+  return ''
+}
 
-  const text = howSection ? howSection[1] : explan
+function extractStepsFromAll(text) {
+  if (!text) return []
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean)
+  const steps = []
 
-  // Try to find numbered steps: "1. xxx" or "1、xxx" or "第一步：xxx"
-  const stepLines = text.split('\n')
+  // Numbered lines
+  for (const line of lines) {
+    const m = line.match(/^(\d+)[.．、\)）]\s*(.{4,})/)
+    if (m) steps.push(m[2].replace(/\s+/g, ' ').trim())
+  }
+  if (steps.length >= 2) return steps.slice(0, 6)
+
+  // Chinese numbered
+  const cnNums = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
+  for (const line of lines) {
+    for (let i = 0; i < cnNums.length; i++) {
+      const m = line.match(new RegExp(`^第?${cnNums[i]}步[：:]\\s*(.{4,})`))
+      if (m && !steps.includes(m[1].trim())) steps.push(m[1].trim())
+    }
+  }
+  if (steps.length >= 2) return steps.slice(0, 6)
+
+  return []
+}
+
+function extractFinalSteps(explains, topic) {
+  const howText = extractSection(explains, 'how') || extractSection(explains, 'How')
+  if (howText) {
+    const steps = extractStepsFromAll(howText)
+    if (steps.length >= 2) return steps
+  }
+  const allSteps = extractStepsFromAll(explains)
+  if (allSteps.length >= 2) return allSteps
+
+  // Infer from topic name with step count
+  const stepMatch = topic.match(/([三四五六七八九十])步[法势路]?/)
+  if (stepMatch) {
+    const numMap = { '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10 }
+    const count = numMap[stepMatch[1]] || 3
+    const steps = []
+    for (let i = 1; i <= count; i++) {
+      steps.push(`第${i}步：按照${topic.replace(/—–-.*$/, '').trim()}的要求执行`)
+    }
+    return steps
+  }
+
+  // Extract action phrases
+  const actionPhrases = (explains || '').split('\n')
     .map(l => l.trim())
-    .filter(l => {
-      // Skip short lines and headers
-      if (l.length < 4) return false
-      if (l.match(/^[一二三四五六七八九十]+[、．.]/)) return true
-      if (l.match(/^\d+[、.．\)）]/)) return true
-      if (l.match(/^步骤[一二三四五六七八九十]/)) return true
-      return false
-    })
-    .map(l => l.replace(/^[一二三四五六七八九十]+[、．.]\s*/, '').replace(/^\d+[、.．\)）]\s*/, '').trim())
-
-  if (stepLines.length >= 2) return stepLines
-
-  // Try to find bullet points
-  const bulletLines = text.split('\n')
-    .map(l => l.trim())
-    .filter(l => l.match(/^[•·\-—]\s/) && l.length > 5)
+    .filter(l => (l.includes('：') || l.includes(':')) && l.length > 6 && l.length < 60 && !l.match(/^[【\*\(]/))
     .map(l => l.replace(/^[•·\-—]\s*/, '').trim())
-  if (bulletLines.length >= 2) return bulletLines
+    .slice(0, 5)
+  if (actionPhrases.length >= 2) return actionPhrases
 
-  // Fallback: look for any line with action-oriented content
-  const actionLines = text.split('\n')
-    .map(l => l.trim())
-    .filter(l => l.length > 8 && l.length < 80 && (l.includes('：') || l.includes(':') || l.includes('—')))
-  if (actionLines.length >= 2) return actionLines.slice(0, 5)
-
-  // Last resort: return first meaningful sentence as a single step
-  const clean = text.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim()
-  const firstStep = clean.match(/^[^。！？\n]{10,80}/)
-  return firstStep ? [firstStep[0] + '…'] : []
+  return []
 }
 
 function extractQuote(texts) {
@@ -67,6 +93,8 @@ function extractQuote(texts) {
   const sen = q.split(/[。！？\n]/).filter(s => s.trim().length > 10)
   return (sen[0] || q).trim().slice(0, 120)
 }
+
+// ─── Main ───
 
 const hotBooks = loadHotBooks()
 const skillSets = []
@@ -77,13 +105,14 @@ for (const book of hotBooks) {
   for (const m of book.memoirs) {
     const topic = m.topic.replace(/[〔（【《\[«].*?[〕）】》\]»\"]/g, '').trim()
     if (!topic) continue
-    const steps = extractSteps(m.texts?.[0]?.explains)
-    if (steps.length === 0 && !m.remark) continue
+    const explains = m.texts?.[0]?.explains || ''
+    const steps = extractFinalSteps(explains, topic)
+    const quote = extractQuote(m.texts) || m.remark?.slice(0, 100) || ''
     items.push({
       name: topic,
       level: m.level || '拆书',
       steps: steps.length > 0 ? steps : [m.remark?.slice(0, 80) || topic],
-      quote: extractQuote(m.texts) || m.remark?.slice(0, 100) || '',
+      quote: quote,
       source: `${m.user || '拆书帮'} ${m.activity?.date || ''} ${m.level || ''}`.trim()
     })
   }
@@ -100,22 +129,18 @@ for (const book of hotBooks) {
   })
 }
 
-// Format as JS module with clean output
+// Format with clean output
 const json = JSON.stringify(skillSets, null, 2)
-// Remove quotes from property names (approximate JS object style)
 const lines = json.split('\n')
 const result = []
 for (const line of lines) {
-  // Convert "key": to key: for unquoted property names (common in JS)
   const newLine = line.replace(/^\s*"(\w+)"(:)/, (match, p1, p2) => {
-    // Only unquote if it's a data property, not a string value
     return '  '.repeat((match.match(/\s/g) || []).length / 2) + p1 + p2
   })
   result.push(newLine)
 }
 
-const output = `// Auto-generated skill data — 仓颉拆书管线
-// 女娲蒸馏 → 仓颉拆书 → 高清大图 → ljg-card → 达尔文进化
+const output = `// Auto-generated skill data — 仓颉拆书管线 v2
 // 生成时间: ${new Date().toISOString().slice(0, 10)}
 
 const skills = ${result.join('\n')}
@@ -124,4 +149,5 @@ export default skills
 `
 
 writeFileSync(resolve(ROOT, 'src/data/skills.js'), output, 'utf-8')
-console.log(`✅ skills.js 已更新: ${skillSets.length} 个技能包, ${skillSets.reduce((s, ss) => s + ss.items.length, 0)} 个技能`)
+const totalItems = skillSets.reduce((s, ss) => s + ss.items.length, 0)
+console.log(`✅ skills.js 已更新: ${skillSets.length} 个技能包, ${totalItems} 个技能`)
