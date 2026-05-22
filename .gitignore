@@ -25,3 +25,4 @@ dist-ssr
 
 # Sensitive files
 账号.txt
+api_books.json
