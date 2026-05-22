@@ -245,6 +245,75 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ==================== 拆书家成长之路 Section ==================== */}
+      <section className="border-t border-dark-border py-20">
+        <div className="max-w-6xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20 text-indigo-400 text-sm">
+              学 · 练 · 教 · 进化
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+              拆书家<span className="gradient-text">成长之路</span>
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              从零基础到 AI 拆书家，四个阶段逐级进阶，每一步都有明确的技能目标。
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-4 gap-4">
+            {[
+              { level: 'L1', title: '基础拆书家', sub: '掌握 RIA 便签法', theme: 'from-indigo-600 to-indigo-400', border: 'border-indigo-500/20', text: 'text-indigo-400', bg: 'bg-indigo-500/10', range: 'TF1-1 ~ TF1-2', icon: '01' },
+              { level: 'L2', title: '拆书教练', sub: '能设计拆书课', theme: 'from-cyan-600 to-cyan-400', border: 'border-cyan-500/20', text: 'text-cyan-400', bg: 'bg-cyan-500/10', range: 'TF2-1 ~ TF2-4', icon: '02' },
+              { level: 'L3', title: '高级拆书家', sub: '能带徒弟设计工作坊', theme: 'from-amber-600 to-yellow-500', border: 'border-amber-500/20', text: 'text-amber-400', bg: 'bg-amber-500/10', range: 'TF3-1 ~ TF3-3', icon: '03' },
+              { level: 'L4', title: 'AI 拆书家', sub: '用 AI 重构拆书', theme: 'from-violet-600 to-purple-500', border: 'border-violet-500/20', text: 'text-violet-400', bg: 'bg-violet-500/10', range: 'AI 管线', icon: '04' },
+            ].map((item, i) => (
+              <motion.div
+                key={item.level}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="glass rounded-xl p-5 group hover:border-white/20 transition-all relative overflow-hidden"
+              >
+                <div className={`absolute top-0 right-0 w-32 h-32 ${item.bg} rounded-full blur-[64px] -translate-y-1/2 translate-x-1/2`} />
+                <div className="relative z-10">
+                  <span className={`text-3xl font-black bg-gradient-to-r ${item.theme} bg-clip-text text-transparent`}>
+                    {item.icon}
+                  </span>
+                  <h3 className="text-lg font-bold text-white mt-2 mb-1">{item.title}</h3>
+                  <p className="text-xs text-slate-400 mb-3">{item.sub}</p>
+                  <span className={`inline-block text-[10px] px-2 py-0.5 rounded-full ${item.bg} ${item.text} border ${item.border}`}>
+                    {item.range}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-center mt-8"
+          >
+            <Link
+              to="/learning-path"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-bold hover:shadow-lg hover:shadow-indigo-500/25 transition-all"
+            >
+              查看完整成长路径
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ==================== Skills 工坊 Section ==================== */}
       <section className="border-t border-dark-border py-20">
         <div className="max-w-6xl mx-auto px-4">

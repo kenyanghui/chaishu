@@ -7,6 +7,7 @@ import HotBooks from './pages/HotBooks'
 import HotBookDetail from './pages/HotBookDetail'
 import HotMemoirDetail from './pages/HotMemoirDetail'
 import Skills from './pages/Skills'
+import LearningPath from './pages/LearningPath'
 import HDGallery from './pages/HDGallery'
 
 function RedirectBook() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/hot/book/:title" element={<HotBookDetail />} />
           <Route path="/hot/memoir/:id" element={<HotMemoirDetail />} />
           <Route path="/skills" element={<Skills />} />
+          <Route path="/learning-path" element={<LearningPath />} />
           <Route path="/hd-gallery" element={<HDGallery />} />
         </Routes>
       </main>
