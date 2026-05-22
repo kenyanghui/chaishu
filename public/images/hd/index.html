@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>高清大图预览 - AI拆书工坊</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0a0a1a;color:#e2e8f0;font-family:'Noto Sans SC','PingFang SC',sans-serif;padding:40px 20px}
+  h1{text-align:center;font-size:28px;margin-bottom:8px;background:linear-gradient(135deg,#a855f7,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{text-align:center;color:#64748b;margin-bottom:32px;font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:24px;max-width:1600px;margin:0 auto}
+  .card{background:#ffffff08;border:1px solid #ffffff12;border-radius:16px;overflow:hidden;transition:all .2s}
+  .card:hover{border-color:#22d3ee40;transform:translateY(-2px);box-shadow:0 8px 32px #00000040}
+  .card img{width:100%;display:block}
+  .card-body{padding:16px}
+  .card-body h3{font-size:15px;font-weight:700;margin-bottom:4px}
+  .card-body p{font-size:12px;color:#94a3b8}
+  .status{display:inline-block;padding:2px 10px;border-radius:8px;font-size:10px;font-weight:700;margin-bottom:8px}
+  .status.done{background:#22c55e20;color:#22c55e;border:1px solid #22c55e30}
+  .status.pending{background:#f59e0b20;color:#f59e0b;border:1px solid #f59e0b30}
+  @media(max-width:768px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <h1>高清大图画廊 · AI 拆书工坊</h1>
+  <p class="sub">坐标蓝图风格 · 22 张高密度信息图</p>
+  <div class="grid" id="gallery"></div>
+  <script>
+    const images = [
+      { name: '非暴力沟通 · 四步对话法', file: '非暴力沟通-四步对话法.png', done: true },
+      { name: '非暴力沟通 · 四步对话法 v2', file: '非暴力沟通-v2.png', done: true },
+    ];
+    const g = document.getElementById('gallery');
+    for (const img of images) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = \`
+        <div class="card-body">
+          <div class="status \${img.done ? 'done' : 'pending'}">\${img.done ? '✓ 已生成' : '⏳ 待生成'}</div>
+          <h3>\${img.name}</h3>
+          \${img.done ? \`<a href="./\${img.file}" target="_blank"><img src="./\${img.file}" alt="\${img.name}"></a>\` : ''}
+        </div>
+      \`;
+      g.appendChild(card);
+    }
+  </script>
+</body>
+</html>

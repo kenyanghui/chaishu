@@ -7,6 +7,7 @@ const navLinks = [
   { path: '/skills', label: '技能工坊' },
   { path: '/learning-path', label: '学习路径' },
   { path: '/hd-gallery', label: '高清大图' },
+  { path: '/skill-fusion', label: '技能融合' },
   { path: '/about', label: '关于我' },
 ]
 

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>拆书元技能 · AI拆书工坊课程总管 · 高清大图</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1628 100%);
+    min-height:100vh;color:#e2e8f0;display:flex;justify-content:center;padding:40px 20px;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .canvas{max-width:1000px;width:100%}
+
+  .header{text-align:center;padding:48px 40px 36px;border-radius:24px;background:radial-gradient(ellipse at 50% 0%,#22d3ee12 0%,transparent 70%);border:1px solid #22d3ee18;margin-bottom:28px}
+  .badge{display:inline-block;padding:5px 16px;border-radius:20px;background:#22d3ee12;border:1px solid #22d3ee25;color:#22d3ee;font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:14px}
+  h1{font-size:40px;font-weight:900;background:linear-gradient(135deg,#22d3ee,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;line-height:1.3}
+  .sub{color:#94a3b8;font-size:14px;margin:0 auto 16px;max-width:600px;line-height:1.6}
+
+  .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:28px}
+  .tag{padding:3px 12px;border-radius:10px;background:#ffffff08;border:1px solid #ffffff12;font-size:11px;color:#94a3b8}
+
+  .sec{display:flex;align-items:center;gap:12px;margin:36px 0 16px;font-size:18px;font-weight:700;color:#f1f5f9}
+  .sec .ln{flex:1;height:1px;background:linear-gradient(90deg,#22d3ee40,transparent)}
+
+  .steps{display:flex;flex-direction:column;gap:10px}
+  .step-card{display:flex;align-items:flex-start;gap:16px;padding:18px 22px;background:#ffffff08;border:1px solid #ffffff10;border-radius:14px;transition:all .2s}
+  .step-card:hover{background:#ffffff12;border-color:#22d3ee30;transform:translateX(6px)}
+  .step-num{min-width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0}
+  .step-text{font-size:14px;line-height:1.7;color:#cbd5e1;padding-top:6px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .info-card{padding:22px;border-radius:14px;border:1px solid #ffffff10;position:relative;overflow:hidden}
+  .info-bar{position:absolute;top:0;left:0;right:0;height:3px}
+  .info-label{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+  .info-title{font-size:15px;font-weight:700;margin-bottom:6px;color:#f1f5f9}
+  .info-body{font-size:12px;line-height:1.7;color:#94a3b8}
+
+  .flow{display:flex;justify-content:space-between;gap:12px;padding:28px 20px;background:#ffffff08;border-radius:16px;border:1px solid #ffffff10}
+  .flow-step{flex:1;text-align:center;position:relative}
+  .flow-arrow{position:absolute;right:-10px;top:14px;color:#22d3ee50;font-size:18px;font-weight:300}
+  .flow-dot{width:36px;height:36px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#fff}
+  .flow-title{font-size:13px;font-weight:700;margin-bottom:3px}
+  .flow-detail{font-size:10px;color:#64748b;line-height:1.5}
+
+  .footer{text-align:center;margin-top:40px;padding:16px;font-size:11px;color:#475569;border-top:1px solid #ffffff08}
+
+  @media print{body{padding:0;background:#0a0a1a!important}@page{margin:.5cm;size:A4 portrait}.step-card:hover{transform:none}}
+  @media(max-width:768px){
+    h1{font-size:26px}.grid{grid-template-columns:1fr}
+    .flow{flex-direction:column;gap:20px}
+    .flow-arrow{display:none}
+    .header{padding:32px 20px}
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+<div class="header">
+  <div class="badge">✦ 教练技能</div>
+  <h1>拆书元技能 · AI拆书工坊课程总管</h1>
+  <p class="sub">为拆书家量身定制的技能管理器。诊断当前拆书等级，推荐对应技能，引导进入AI拆书管线。</p>
+</div>
+
+<div class="tags"><span class="tag"></span>
+<span class="tag">拆书</span>
+<span class="tag">学习</span>
+<span class="tag">成人学习</span>
+<span class="tag">拆书家</span>
+<span class="tag">拆书过级</span>
+<span class="tag">TF1</span>
+<span class="tag">TF2</span></div>
+
+
+<div class="sec"><span>核心方法论</span><span class="ln"></span></div>
+<div class="grid">
+  
+    <div class="info-card" style="background:linear-gradient(135deg,#a855f710,#1e1b4b15);border-color:#a855f720">
+      <div class="info-bar" style="background:linear-gradient(90deg,#a855f7,#a855f700)"></div>
+      <div class="info-label" style="color:#a855f7">WHAT</div>
+      <div class="info-title">这是什么</div>
+      <div class="info-body">这是什么
+
+拆书元技能是一个**技能管理器**和**课程总管**，它：
+
+1. **诊断**你的当前拆书等级（从入门到三级拆书家）
+2. **推荐**最匹配你当前阶段的教练技能（从288+个SKILL.md中筛选）
+3. **引导**你进入AI拆书管线（女娲蒸馏→仓颉拆书→高清大图→ljg-card→达尔文进化）
+4. **追踪**你的成长轨迹，持续优化推荐
+
+它不是替代拆书帮的过级体系，而是建立…</div>
+    </div>
+  
+    <div class="info-card" style="background:linear-gradient(135deg,#22d3ee10,#1e1b4b15);border-color:#22d3ee20">
+      <div class="info-bar" style="background:linear-gradient(90deg,#22d3ee,#22d3ee00)"></div>
+      <div class="info-label" style="color:#22d3ee">WHY</div>
+      <div class="info-title">为什么重要</div>
+      <div class="info-body">为什么需要元技能
+
+拆书帮发展至今，已积累了大量优质拆书内容：
+
+- **288+教练技能**覆盖沟通、管理、认知、领导力等多个领域
+- **TF1-1到TF3-3**六级过级体系，每级都有明确的技能要求
+- **69本书、156个拆页**的丰富内容库
+
+但学习者面临的核心痛点是：
+
+| 痛点 | 表现 | 元技能如何解决 |
+|------|------|----------------|
+| …</div>
+    </div>
+  
+    <div class="info-card" style="background:linear-gradient(135deg,#34d39910,#1e1b4b15);border-color:#34d39920">
+      <div class="info-bar" style="background:linear-gradient(90deg,#34d399,#34d39900)"></div>
+      <div class="info-label" style="color:#34d399">WHERE</div>
+      <div class="info-title">适用场景</div>
+      <div class="info-body">适用场景
+
+- **新拆书家**刚入帮，不知道从哪里开始 — 元技能给出入门路径
+- **正在过级的拆书家**卡在某个TF级别需要突破 — 精准推荐突破技能
+- **三级拆书家**想转型AI拆书家 — 引导进入AI管线
+- **企业学习者**想基于拆书体系自学某类技能 — 按技能方向筛选推荐
+- **拆书帮分舵主**想了解会员整体学习进度 — 作为培训框架参考</div>
+    </div>
+</div>
+
+
+
+
+<div class="sec"><span>教练流程</span><span class="ln"></span></div>
+<div class="flow"><div class="flow-step">
+      <div class="flow-arrow">→</div>
+      <div class="flow-dot" style="background:#22d3ee">诊</div>
+      <div class="flow-title" style="color:#22d3ee">诊断</div>
+      <div class="flow-detail">— 了解用户当前水平 · 教练引导用户回答等级诊断问题，评估当前TF级别和学习目标。</div>
+    </div>
+<div class="flow-step">
+      <div class="flow-arrow">→</div>
+      <div class="flow-dot" style="background:#22d3ee">教</div>
+      <div class="flow-title" style="color:#22d3ee">教学</div>
+      <div class="flow-detail">— 讲解等级体系和技能图谱 · 根据诊断结果，向用户介绍对应的学习等级、核心技能和晋级路径。</div>
+    </div>
+<div class="flow-step">
+      <div class="flow-arrow">→</div>
+      <div class="flow-dot" style="background:#22d3ee">演</div>
+      <div class="flow-title" style="color:#22d3ee">演练</div>
+      <div class="flow-detail">— 让用户描述实际场景 · 引导用户描述一个具体的拆书或学习场景，给出针对性技能推荐。</div>
+    </div>
+<div class="flow-step">
+      
+      <div class="flow-dot" style="background:#22d3ee">反</div>
+      <div class="flow-title" style="color:#22d3ee">反馈</div>
+      <div class="flow-detail">— 评估与改进 · 用户实践后，引导回顾使用效果，调整推荐方案。</div>
+    </div></div>
+
+<div class="footer">
+  AI 拆书工坊 · 高清大图 · 2026-05-22
+</div>
+
+</div>
+</body>
+</html>
