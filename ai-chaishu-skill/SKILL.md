@@ -406,8 +406,8 @@ const hotBooks = [
 
 ## 📜 出处
 
-- **创造者**：玥清（杨辉）· AI 创新教练 · 三级拆书家
-- **拆书帮认证**：TF3-3（三级拆书家）
+- **创造者**：玥清（杨辉）· AI 创新教练 · 拆书家
+- **拆书帮认证**：TF3-3（拆书家）
 - **技术栈**：React + Vite + Tailwind CSS + Framer Motion
 - **AI 工具链**：Claude Code + mxai API
 - **版本**：v2.0 | 2026-05-25

@@ -44,9 +44,9 @@ export default function Home() {
               <span className="gradient-text">AI 拆书工坊</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-              我是玥清，企业咨询顾问、前微软工程师、三级拆书家。
+              我是玥清 · AI 摆渡人。前微软工程师、企业咨询顾问、拆书家。
               <br />
-              用 AI 重构 RIA 拆书法，将每本书的智慧蒸馏为可行动的框架。
+              以"AI+心智"双轮驱动，将每本书的智慧蒸馏为可行动的框架。
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
