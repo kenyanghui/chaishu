@@ -23,7 +23,7 @@ export default function About() {
             {[
               { label: '所在地', value: '广州' },
               { label: '所属分舵', value: '广州小蛮腰分舵' },
-              { label: '拆书等级', value: '拆书家（TF3-3）' },
+              { label: '拆书等级', value: '拆书家' },
               { label: '微信', value: 'kenyanghui' },
             ].map(info => (
               <div key={info.label} className="p-4 rounded-xl bg-dark-card-hover/50 border border-dark-border">
