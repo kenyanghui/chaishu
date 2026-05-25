@@ -1,4 +1,4 @@
-// Auto-generated skill data — 仓颉拆书管线 v2
+// Auto-generated skill data — 便签拆书管线 v2
 // 生成时间: 2026-05-22
 
 const skills = [

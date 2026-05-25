@@ -5,10 +5,10 @@ import skills from '../data/skills'
 const stats = { books: 69, sessions: 156 }
 
 const pipelineSteps = [
-  { id: 'nuwa', name: '女娲蒸馏', subtitle: '作者智慧萃取', color: 'from-rose-600 to-pink-500', light: 'from-rose-500/20 to-pink-500/20', border: 'border-rose-500/30', text: 'text-rose-400', desc: '用 AI 深度分析作者的思想体系、知识背景和核心观点，构建完整的作者知识图谱，让每一本书的智慧源头清晰可见。', output: '作者知识图谱 · 思想脉络图' },
-  { id: 'cangjie', name: '仓颉拆书', subtitle: 'RIA 深度拆解', color: 'from-cyan-600 to-cyan-400', light: 'from-cyan-500/20 to-blue-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400', desc: '运用 RIA 拆书法，将全书拆解为可行动的框架：R 提取核心片段，I 鲜活内化解读，A 设计应用场景，让知识真正为你所用。', output: 'RIA 拆书笔记 · 行动框架' },
+  { id: 'nuwa', name: '作者蒸馏', subtitle: '作者智慧萃取', color: 'from-rose-600 to-pink-500', light: 'from-rose-500/20 to-pink-500/20', border: 'border-rose-500/30', text: 'text-rose-400', desc: '用 AI 深度分析作者的思想体系、知识背景和核心观点，构建完整的作者知识图谱，让每一本书的智慧源头清晰可见。', output: '作者知识图谱 · 思想脉络图' },
+  { id: 'cangjie', name: '便签拆书', subtitle: 'RIA 深度拆解', color: 'from-cyan-600 to-cyan-400', light: 'from-cyan-500/20 to-blue-500/20', border: 'border-cyan-500/30', text: 'text-cyan-400', desc: '运用 RIA 拆书法，将全书拆解为可行动的框架：R 提取核心片段，I 鲜活内化解读，A 设计应用场景，让知识真正为你所用。', output: 'RIA 拆书笔记 · 行动框架' },
   { id: 'hd-image', name: '高清大图', subtitle: '知识视觉化', color: 'from-amber-600 to-yellow-500', light: 'from-amber-500/20 to-yellow-500/20', border: 'border-amber-500/30', text: 'text-amber-400', desc: '将抽象的知识体系转化为高清信息图、思维导图和知识地图，一目了然把握全书脉络，让复杂概念可视化呈现。', output: '知识地图 · 思维导图 · 信息图解' },
-  { id: 'ljg-card', name: 'ljg-card', subtitle: '知识卡片化', color: 'from-emerald-600 to-teal-400', light: 'from-emerald-500/20 to-teal-500/20', border: 'border-emerald-500/30', text: 'text-emerald-400', desc: '将拆解内容制作为结构化知识卡片，适配 Anki 等间隔重复系统，用卡片组构建可长期复习的知识体系，对抗遗忘曲线。', output: 'Anki 卡片组 · 知识闪卡' },
+  { id: 'knowledge-card', name: '知识卡片', subtitle: '知识卡片化', color: 'from-emerald-600 to-teal-400', light: 'from-emerald-500/20 to-teal-500/20', border: 'border-emerald-500/30', text: 'text-emerald-400', desc: '将拆解内容制作为结构化知识卡片，适配 Anki 等间隔重复系统，用卡片组构建可长期复习的知识体系，对抗遗忘曲线。', output: 'Anki 卡片组 · 知识闪卡' },
   { id: 'darwin', name: '达尔文进化', subtitle: '技能持续进化', color: 'from-violet-600 to-purple-500', light: 'from-violet-500/20 to-purple-500/20', border: 'border-violet-500/30', text: 'text-violet-400', desc: '基于使用反馈和学习数据，用 AI 持续优化所有技能产出。每一版都比前一版更精准、更实用，形成知识进化的正向循环。', output: '持续迭代的 Skill 技能包' },
 ]
 
@@ -94,6 +94,109 @@ export default function Home() {
         </motion.div>
       </section>
 
+
+      {/* ==================== 平台亮点 Section ==================== */}
+      <section className="border-t border-dark-border">
+        <div className="max-w-6xl mx-auto px-4 py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm">
+              平台特色
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+              AI 拆书工坊 <span className="gradient-text">与众不同</span>
+            </h2>
+            <p className="text-slate-400 max-w-3xl mx-auto">
+              这不是一个内容展示站，而是一个可进化的知识工程系统 ——
+              输入拆页，输出技能，自动评估，持续进化
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              {
+                icon: (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                ),
+                title: '端到端知识工厂',
+                desc: '从拆书实录到结构化技能包，全链路自动化。作者蒸馏 → 便签拆书 → 高清大图 → 知识卡片 → 达尔文进化，五步闭环，让每本书的智慧系统化产出。',
+                color: 'from-rose-500/20 to-pink-500/20',
+                border: 'border-rose-500/20',
+                text: 'text-rose-400',
+              },
+              {
+                icon: (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                ),
+                title: '达尔文进化系统',
+                desc: '每个技能从 8 个维度量化评分（触发覆盖、步骤清晰度、解释深度、教练流程、练习质量、评估体系、互动设计、知识整合），自动识别薄弱环节，持续优化内容质量。',
+                color: 'from-violet-500/20 to-purple-500/20',
+                border: 'border-violet-500/20',
+                text: 'text-violet-400',
+              },
+              {
+                icon: (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>
+                ),
+                title: '双层技能架构',
+                desc: '融合拆书帮官方 TF 等级技能（152 个教练技能）与跨思想体系技能（黄帝内经、巴菲特、芒格、毛选等 8 大来源），支持组合成 "融合包" 跨学科打包下载。',
+                color: 'from-blue-500/20 to-cyan-500/20',
+                border: 'border-blue-500/20',
+                text: 'text-blue-400',
+              },
+              {
+                icon: (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" /></svg>
+                ),
+                title: '多形态知识产出',
+                desc: '同一份内容输出四种形态：教练 Skill Markdown 文件、高清信息图（HTML）、Anki 间隔复习卡片（CSV）、可下载 tar.gz 技能包。适配阅读、复习、教学多场景。',
+                color: 'from-emerald-500/20 to-teal-500/20',
+                border: 'border-emerald-500/20',
+                text: 'text-emerald-400',
+              },
+              {
+                icon: (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                ),
+                title: '拆书家成长路径',
+                desc: '完整覆盖 L1 基础拆书家 → L2 拆书教练 → L3 高级拆书家 → S 级 AI 拆书家 四级进阶体系。每级有明确的技能清单和学习成果，学习路径与技能工坊联动跳转。',
+                color: 'from-indigo-500/20 to-violet-500/20',
+                border: 'border-indigo-500/20',
+                text: 'text-indigo-400',
+              },
+              {
+                icon: (
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                ),
+                title: '数据规模',
+                desc: '69 本书、156+ 场拆书实录、152 个自动生成的教练技能、21 个技能包、6 个跨思想体系融合包。覆盖沟通、管理、认知、领导力、亲子教育等多个领域。',
+                color: 'from-amber-500/20 to-yellow-500/20',
+                border: 'border-amber-500/20',
+                text: 'text-amber-400',
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="glass rounded-xl p-5 group hover:border-white/20 transition-all"
+              >
+                <div className={`w-10 h-10 rounded-xl ${item.color} border ${item.border} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform ${item.text}`}>
+                  {item.icon}
+                </div>
+                <h3 className="text-base font-bold text-white mb-2">{item.title}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ==================== RIA Section ==================== */}
       <section className="border-t border-dark-border">
@@ -235,9 +338,9 @@ export default function Home() {
               ))}
             </div>
             <p className="text-slate-300 text-sm md:text-base">
-              从 <span className="text-rose-400">女娲蒸馏</span> 作者智慧，
-              经 <span className="text-cyan-400">仓颉拆书</span> 深度解构，
-              通过 <span className="text-amber-400">高清大图</span> 与 <span className="text-emerald-400">ljg-card</span> 多形态输出，
+              从 <span className="text-rose-400">作者蒸馏</span> 萃取智慧，
+              经 <span className="text-cyan-400">便签拆书</span> 深度解构，
+              通过 <span className="text-amber-400">高清大图</span> 与 <span className="text-emerald-400">知识卡片</span> 多形态输出，
               最后由 <span className="text-violet-400">达尔文进化</span> 持续迭代 —
               <span className="text-white font-bold"> AI 拆书，不止于拆书，更是 Skill 的系统性产出</span>
             </p>

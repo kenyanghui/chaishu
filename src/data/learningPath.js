@@ -99,17 +99,17 @@ const levels = [
     bg: 'bg-violet-500/10',
     desc: '超越传统拆书，用 AI 赋能拆书全流程。从作者思想蒸馏到技能包的持续进化，AI 拆书家不仅能快速产出高质量拆书成果，更能构建个人知识体系。',
     skills: [
-      '女娲蒸馏 → 用 AI 分析作者思想体系，构建知识图谱',
-      '仓颉拆书 → 自动从拆页提取 RIA 内容，生成教练 SKILL',
+      '作者蒸馏 → 用 AI 分析作者思想体系，构建知识图谱',
+      '便签拆书 → 自动从拆页提取 RIA 内容，生成教练 SKILL',
       '高清大图 → 将技能框架转化为信息图',
-      'ljg-card → 生成 Anki 间隔复习卡片',
+      '知识卡片 → 生成 Anki 间隔复习卡片',
       '达尔文进化 → 评分+爬山优化，持续迭代技能',
     ],
     pipeline: [
-      { name: '女娲蒸馏', desc: '用 AI 深度分析作者思想体系、知识背景和核心观点，构建完整的作者知识图谱', color: 'from-rose-600 to-pink-500' },
-      { name: '仓颉拆书', desc: '运用 RIA 拆书法，将全书拆解为可行动的框架：R 提取核心片段，I 鲜活内化解读，A 设计应用场景', color: 'from-cyan-600 to-cyan-400' },
+      { name: '作者蒸馏', desc: '用 AI 深度分析作者思想体系、知识背景和核心观点，构建完整的作者知识图谱', color: 'from-rose-600 to-pink-500' },
+      { name: '便签拆书', desc: '运用 RIA 拆书法，将全书拆解为可行动的框架：R 提取核心片段，I 鲜活内化解读，A 设计应用场景', color: 'from-cyan-600 to-cyan-400' },
       { name: '高清大图', desc: '将抽象的知识体系转化为高清信息图、思维导图和知识地图，一目了然把握全书脉络', color: 'from-amber-600 to-yellow-500' },
-      { name: 'ljg-card', desc: '将拆解内容制作为结构化知识卡片，适配 Anki 等间隔重复系统，构建可长期复习的知识体系', color: 'from-emerald-600 to-teal-400' },
+      { name: '知识卡片', desc: '将拆解内容制作为结构化知识卡片，适配 Anki 等间隔重复系统，构建可长期复习的知识体系', color: 'from-emerald-600 to-teal-400' },
       { name: '达尔文进化', desc: '基于使用反馈和学习数据，用 AI 持续优化所有技能产出，形成知识进化的正向循环', color: 'from-violet-600 to-purple-500' },
     ],
     outcomes: [

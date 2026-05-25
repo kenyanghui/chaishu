@@ -68,7 +68,7 @@ export default function Skills() {
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[120px]" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/10 to-violet-500/10 border border-pink-500/20 text-pink-400 text-sm">
-            仓颉拆书 · 技能萃取
+            便签拆书 · 技能萃取
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-3">Skill 技能工坊</h1>
           <p className="text-slate-400 max-w-2xl mx-auto mb-6">
