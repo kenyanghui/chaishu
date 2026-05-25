@@ -26,10 +26,10 @@ const SKILLS_DIR = resolve(ROOT, '.claude/skills')
 // ─── Parser ───
 
 function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n/)
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/)
   if (!match) return { frontmatter: {}, body: raw }
   const fm = {}
-  const lines = match[1].split('\n')
+  const lines = match[1].split(/\r?\n/)
   let currentKey = null
   for (const line of lines) {
     const kv = line.match(/^(\w+):\s*(.*)/)
@@ -44,12 +44,23 @@ function parseFrontmatter(raw) {
 }
 
 function extractSection(body, title) {
-  const p = new RegExp(`### ${title}\\s*[—–-]?\\s*([\\s\\S]*?)(?=\\n### |\\n---|\\n## |$)`)
+  const p = new RegExp(`### ${title}\\s*[—–-]?\\s*([\\s\\S]*?)(?=\\r?\\n### |\\r?\\n---|\\r?\\n## |$)`)
   const m = body.match(p)
   return m ? m[1].trim() : ''
 }
 
-function countWords(s) { return (s || '').replace(/[#*`\n]/g, ' ').split(/\s+/).filter(Boolean).length }
+function countWords(s) {
+  const clean = (s || '').replace(/[#*`\n]/g, ' ')
+  const tokens = clean.split(/\s+/).filter(Boolean)
+  let count = 0
+  for (const t of tokens) {
+    const chineseChars = t.match(/[一-鿿]/g)
+    if (chineseChars) count += chineseChars.length
+    const nonChinese = t.replace(/[一-鿿]/g, ' ').trim()
+    if (nonChinese) count += nonChinese.split(/\s+/).filter(Boolean).length
+  }
+  return count
+}
 
 // ─── 8-Dimension Scoring ───
 
