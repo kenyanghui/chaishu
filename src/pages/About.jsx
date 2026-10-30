@@ -12,9 +12,9 @@ export default function About() {
           {/* Avatar and name */}
           <div className="text-center mb-12">
             <div className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center text-3xl font-black text-white">
-              玥
+              龙
             </div>
-            <h1 className="text-3xl md:text-4xl font-black text-white mb-2">玥清</h1>
+            <h1 className="text-3xl md:text-4xl font-black text-white mb-2">玄龙</h1>
             <p className="text-neon-purple font-medium">AI 摆渡人 · 拆书家</p>
           </div>
 
@@ -25,6 +25,7 @@ export default function About() {
               { label: '所属分舵', value: '广州小蛮腰分舵' },
               { label: '拆书等级', value: '拆书家' },
               { label: '微信', value: 'kenyanghui' },
+              { label: '邮箱', value: '554176937@qq.com' },
             ].map(info => (
               <div key={info.label} className="p-4 rounded-xl bg-dark-card-hover/50 border border-dark-border">
                 <div className="text-xs text-slate-500 mb-1">{info.label}</div>
@@ -38,16 +39,16 @@ export default function About() {
             <h2 className="text-xl font-bold text-white mb-4">关于我</h2>
             <div className="space-y-3 text-sm text-slate-400 leading-relaxed">
               <p>
-                玥清是我杨姓族名，玥是左王右月，清是清水的清。我是 AI 摆渡人，以"AI+心智"双轮驱动，帮助企业及二代接班人构建 AI 时代的核心竞争力，实现可持续增长与代际跃迁。
+                玄龙是我的笔名，本名杨辉。我是 AI 摆渡人，以"AI+心智"双轮驱动，帮助企业及二代接班人构建 AI 时代的核心竞争力，实现可持续增长与代际跃迁。
               </p>
               <p>
                 混沌学园 AI 创新领教，国际人工智能产业联盟首席生态官。
-                AI 内创业加速器二代教育传承教练，悦洋海外集团首席人工智能官。
+                企业AI FDE教练，悦洋海外集团首席人工智能官。
                 前微软、惠普、北电工程师，二十年企业咨询服务与科技创业经验，
                 8 年二代传承内创业协同探索，专注 AI 赋能二代教育传承，成就企业家的幸福望族。
               </p>
               <p className="flex flex-wrap gap-2 mt-4">
-                {['二代教育传承教练', '数字员工方案讲师', '组织转型心智教练'].map(tag => (
+                {['企业AI FDE教练', '数字员工方案讲师', '组织转型心智教练'].map(tag => (
                   <span key={tag} className="px-3 py-1 rounded-full bg-neon-purple/10 border border-neon-purple/20 text-neon-purple text-xs">
                     {tag}
                   </span>
@@ -61,9 +62,9 @@ export default function About() {
             <h2 className="text-xl font-bold text-white mb-4">服务能力</h2>
             <div className="grid md:grid-cols-4 gap-3">
               {[
-                { name: '培训', desc: 'AI 拆书工作坊、数字员工实操、二代传承教练' },
+                { name: '培训', desc: 'AI 拆书工作坊、数字员工实操、企业AI FDE 实战' },
                 { name: '咨询', desc: '企业内部创业辅导、科技成果转化、组织转型' },
-                { name: '教练', desc: '二代教育传承、高管心智教练、AI 内创业加速' },
+                { name: '教练', desc: '企业AI FDE、高管心智教练、AI 内创业加速' },
                 { name: '投资', desc: 'AI 项目评估、科技创业辅导、资源对接' },
               ].map(s => (
                 <div key={s.name} className="p-4 rounded-xl bg-dark-card-hover/50 border border-dark-border">

@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-slate-500">
-            <span className="gradient-text font-bold">玥清·AI拆书</span>
+            <span className="gradient-text font-bold">玄龙·AI拆书</span>
             <span className="mx-2">·</span>
             用 AI 拆解好书，让知识为你所用
           </div>

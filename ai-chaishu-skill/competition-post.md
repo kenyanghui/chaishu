@@ -350,5 +350,5 @@ git push （GitHub Actions 自动部署到 Pages）
 
 ---
 
-*最后更新：2026-05-25 | 作者：玥清（杨辉）· 三级拆书家 · AI 创新教练*
+*最后更新：2026-05-25 | 作者：玄龙（杨辉）· 三级拆书家 · AI 创新教练*
 *在线演示：https://kenyanghui.github.io/chaishu/*

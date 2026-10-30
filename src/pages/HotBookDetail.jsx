@@ -95,9 +95,9 @@ export default function HotBookDetail() {
                   <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 font-bold">
                     {m.level}
                   </span>
-                  {m.user === '玥清' && (
+                  {m.user === '玄龙' && (
                     <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 font-bold">
-                      玥清
+                      玄龙
                     </span>
                   )}
                   <span className="text-xs text-slate-500">{m.user}</span>

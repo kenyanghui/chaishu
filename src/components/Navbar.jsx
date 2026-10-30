@@ -29,7 +29,7 @@ export default function Navbar() {
     }`}>
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <span className="text-2xl font-black gradient-text">玥清·AI拆书</span>
+          <span className="text-2xl font-black gradient-text">玄龙·AI拆书</span>
           <span className="text-xs text-slate-500 group-hover:text-neon-purple transition-colors">alpha</span>
         </Link>
 
