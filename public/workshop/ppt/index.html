@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>与AI Agent一起进化 — 从ima知识库到workbuddy工作流｜首期AI拆书课</title>
+<style>
+  :root{
+    --ink:#12213a; --ink-2:#4a5a72; --line:#dfe6f0;
+    --blue:#1f5eff; --blue-soft:#e8efff;
+    --gold:#c8860d; --gold-soft:#fdf3dc;
+    --green:#17845b; --green-soft:#e6f6ee;
+    --paper:#ffffff; --bg:#0b1220;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;
+    transform-origin:center center;background:var(--paper);overflow:hidden;
+    box-shadow:0 30px 90px rgba(0,0,0,.55);}
+  .slide{position:absolute;inset:0;padding:64px 76px;display:none;
+    flex-direction:column;background:var(--paper);color:var(--ink);}
+  .slide.on{display:flex}
+
+  h1{margin:0;font-size:62px;line-height:1.12;letter-spacing:-.5px;font-weight:800}
+  h2{margin:0 0 10px;font-size:42px;line-height:1.2;font-weight:800;letter-spacing:-.3px}
+  h3{margin:0 0 6px;font-size:26px;font-weight:700;color:var(--ink)}
+  p,li{font-size:24px;line-height:1.62;color:var(--ink-2);margin:0 0 10px}
+  .kicker{font-size:19px;letter-spacing:3px;font-weight:700;color:var(--blue);
+    text-transform:uppercase;margin-bottom:18px}
+  .lead{font-size:27px;color:var(--ink-2);line-height:1.6}
+  .em{color:var(--ink);font-weight:700}
+  .num{color:var(--blue);font-weight:800}
+  .rule{height:5px;width:78px;background:var(--blue);border-radius:3px;margin:20px 0 26px}
+
+  /* 封面 */
+  .cover{justify-content:center;background:
+      radial-gradient(1200px 520px at 88% -10%, #eaf1ff 0%, transparent 62%),
+      radial-gradient(900px 420px at 4% 108%, #fdf3dc 0%, transparent 60%), #fff}
+  .cover h1{font-size:74px;margin-bottom:18px}
+  .cover .sub{font-size:31px;color:var(--ink-2);font-weight:600;margin-bottom:34px}
+  .cover .meta{font-size:21px;color:#7b8798;line-height:1.9}
+  .brand{position:absolute;right:76px;bottom:56px;text-align:right;font-size:19px;color:#93a0b1;line-height:1.7}
+
+  /* 通用布局 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:34px;flex:1;align-content:start}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;align-content:start}
+  .cards{display:grid;gap:18px;flex:1;align-content:start}
+  .card{border:1px solid var(--line);border-radius:16px;padding:24px 26px;background:#fbfcfe}
+  .card.blue{background:var(--blue-soft);border-color:#c9d8ff}
+  .card.gold{background:var(--gold-soft);border-color:#f2e0b6}
+  .card.green{background:var(--green-soft);border-color:#c6ecd8}
+  .card h3{font-size:27px}
+  .card p{font-size:21px;margin:0;line-height:1.55}
+  .card .badge{display:inline-block;font-size:15px;font-weight:800;letter-spacing:1px;
+    padding:3px 10px;border-radius:999px;background:var(--blue);color:#fff;margin-bottom:10px}
+  .card .badge.gold{background:var(--gold)}
+  .card .badge.green{background:var(--green)}
+  .cards.tight{gap:13px}
+  .cards.tight .card{padding:17px 22px}
+  .cards.tight .card h3{font-size:25px;margin-bottom:3px}
+  .cards.tight .card p{font-size:20px;line-height:1.5}
+  .cards.tight .card .badge{margin-bottom:6px}
+
+  ul.big{margin:0;padding-left:0;list-style:none;display:grid;gap:13px}
+  ul.big li{position:relative;padding-left:40px;font-size:24px;color:var(--ink);line-height:1.5}
+  ul.big li::before{content:"";position:absolute;left:8px;top:12px;width:12px;height:12px;
+    border-radius:50%;background:var(--blue)}
+  ul.big li.g::before{background:var(--gold)}
+  ul.big li small{display:block;font-size:19px;color:var(--ink-2);margin-top:5px;font-weight:400}
+
+  /* 分节页 */
+  .divider{justify-content:center;background:var(--ink);color:#fff}
+  .divider .kicker{color:#7fa8ff}
+  .divider h1{color:#fff;font-size:76px}
+  .divider .lead{color:#b9c6da;font-size:28px;margin-top:16px}
+  .divider .chip{display:inline-block;margin-top:34px;font-size:20px;color:#0b1220;
+    background:#ffd77a;border-radius:999px;padding:9px 20px;font-weight:800}
+
+  /* 时间表 */
+  table{width:100%;border-collapse:collapse;font-size:20px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{font-size:16px;letter-spacing:1px;color:#8894a8;font-weight:700;text-transform:uppercase}
+  td.t{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700;white-space:nowrap}
+  td.d{text-align:right;font-variant-numeric:tabular-nums;color:var(--blue);font-weight:700;white-space:nowrap}
+  tr.hl td{background:#f4f7ff}
+
+  /* 地图 */
+  .map{display:flex;align-items:stretch;gap:0;flex:1;margin-top:6px}
+  .map .node{flex:1;border:2px solid var(--line);border-radius:18px;padding:22px;
+    display:flex;flex-direction:column;justify-content:center;background:#fbfcfe}
+  .map .node .s{font-size:17px;letter-spacing:2px;font-weight:800;color:var(--blue);margin-bottom:8px}
+  .map .node h3{font-size:29px;margin-bottom:8px}
+  .map .node p{font-size:19px;margin:0;line-height:1.5}
+  .map .arrow{display:flex;align-items:center;justify-content:center;width:56px;
+    font-size:34px;color:#b9c6da;font-weight:800}
+
+  /* 大字块 */
+  .statement{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .statement q{font-size:52px;line-height:1.35;font-weight:800;color:var(--ink);
+    quotes:"“" "”";display:block}
+  .statement .after{margin-top:28px;font-size:24px;color:var(--ink-2)}
+
+  .foot{position:absolute;left:76px;bottom:26px;font-size:16px;color:#a9b4c4;letter-spacing:1px}
+  .pageno{position:absolute;right:76px;bottom:26px;font-size:16px;color:#a9b4c4;
+    font-variant-numeric:tabular-nums}
+
+  /* 演讲者备注 */
+  .notes{display:none}
+  body.notes-on .notes{display:block;position:fixed;left:0;right:0;bottom:0;max-height:34vh;
+    overflow:auto;background:#0e1626;color:#cfd9e8;font-size:15px;line-height:1.7;
+    padding:14px 22px;border-top:2px solid #22314d;z-index:50}
+  body.notes-on .notes b{color:#8fb4ff}
+
+  /* 控件 */
+  #hud{position:fixed;right:14px;top:12px;display:flex;gap:8px;font-size:13px;z-index:60;
+    font-family:inherit}
+  #hud button{background:rgba(255,255,255,.1);color:#cfd9e8;border:1px solid rgba(255,255,255,.18);
+    border-radius:8px;padding:6px 11px;cursor:pointer;font-size:13px}
+  #hud button:hover{background:rgba(255,255,255,.2)}
+  #bar{position:fixed;left:0;bottom:0;height:3px;background:var(--blue);width:0;z-index:60;transition:width .18s}
+
+  @media print{
+    @page{size:1280px 720px;margin:0}
+    html,body{overflow:visible;background:#fff}
+    #hud,#bar,.notes{display:none!important}
+    #stage{position:static;transform:none!important;box-shadow:none;width:1280px;height:auto}
+    .slide{display:flex!important;position:relative;inset:auto;width:1280px;height:720px;
+      page-break-after:always;break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- 01 封面 -->
+<section class="slide cover on">
+  <div class="kicker">首期 AI 拆书课 · AI 师傅课</div>
+  <h1>与 AI Agent 一起进化</h1>
+  <div class="sub">从 ima 知识库到 workbuddy 工作流</div>
+  <div class="rule"></div>
+  <div class="meta">
+    3 小时 · 拆书 RIA 方法 · 现场做出两件交付物<br>
+    2026 年 11 月 1 日（周日）14:00–17:00 · 广州越秀区雅苑·培正 5 号楼<br>
+    主讲：杨辉（杨老师）· AI 摆渡人 · 三级拆书家 · 拆书帮广州小蛮腰分舵
+  </div>
+  <div class="brand">存 → 流 → 进化<br>先让 AI 记住你，再让知识自己跑起来</div>
+  <aside class="notes"><b>开场词</b>：今天不讲"AI 有多神"，讲"你的知识怎么变成能自动跑起来的东西"。不预习、不用提前看书，带着电脑/手机来就行。<br><b>控场</b>：先请大家把手机调静音、电脑打开、Wi-Fi 连上（宣布网络名与密码）。</aside>
+</section>
+
+<!-- 02 痛点 -->
+<section class="slide">
+  <div class="kicker">你是不是也这样</div>
+  <h2>三个"卡住"的瞬间</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>📌 干货烂在笔记里</h3><p>书读了不少、便签写了不少，可那些干货全烂在笔记本里，一次也没用出来。</p></div>
+    <div class="card"><h3>📌 AI 像在说别人家的事</h3><p>对着 AI 问了半天，答得头头是道，却总不贴你、不对味。</p></div>
+    <div class="card"><h3>📌 一想到发布就关文档</h3><p>明明有个想法，一想到"要写公众号、要排版、要发布"，就默默关掉了。</p></div>
+  </div>
+  <p style="margin-top:18px">中了一条，今天这场课就是为你开的。 <span class="em">不是说 AI 多神，是让你的知识能自动跑起来。</span></p>
+  <div class="foot">与AI Agent一起进化</div><div class="pageno">02</div>
+  <aside class="notes">念三条痛点，举手互动：中一条举手/中两条举手/三条全中——制造"我们都有病"的共鸣，再进入交付物承诺。</aside>
+</section>
+
+<!-- 03 三样带走 -->
+<section class="slide">
+  <div class="kicker">今天带走三样东西</div>
+  <h2>不是听，是<span class="num">做出来</span></h2>
+  <div class="rule"></div>
+  <div class="cards tight" style="grid-template-columns:1fr 1fr">
+    <div class="card blue"><span class="badge">认知</span><h3>说清三者的关系</h3><p>知识库 — 工作流 — AI Agent。明白"AI 不懂你"不是模型笨，是它不认识你。</p></div>
+    <div class="card blue"><span class="badge">交付①</span><h3>一个属于你的知识库</h3><p>分类、≥5 份资料、≥2 个标签。让 AI 真正"记住你"。</p></div>
+    <div class="card blue"><span class="badge">交付②</span><h3>一条自动化工作流</h3><p>知识库 → 微信公众号初稿，现场跑通一次，截图存档。</p></div>
+    <div class="card gold"><span class="badge gold">迁移</span><h3>一份 30 天 AI 进化计划</h3><p>课后照着跑，不是愿望清单，是"谁 + 何时 + 做什么 + 到什么程度"。</p></div>
+  </div>
+  <div class="foot">交付物现场验收</div><div class="pageno">03</div>
+  <aside class="notes">强调：今天三小时，你不会带走一个"感觉很有收获"，你会带走两件能截图、能给别人看的东西。这就叫拆书课的"当场交付"。</aside>
+</section>
+
+<!-- 04 学习地图 -->
+<section class="slide">
+  <div class="kicker">学习地图</div>
+  <h2>总 — 分 — 总</h2>
+  <div class="rule"></div>
+  <div class="map">
+    <div class="node"><div class="s">第 1 节 · 50′</div><h3>存</h3><p>ima 个人知识库<br>"让 AI 记住我"</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 2 节 · 55′</div><h3>流</h3><p>workbuddy 工作流<br>"从知识库到公众号"</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 3 节 · 40′</div><h3>进化</h3><p>串成我的 AI 工作流<br>互评 + 30 天承诺</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:25px">每一节都走完整 <span class="em">R → I → A1 → A2</span>，每一节都交一件东西。最后一节把两件拼回去。</p>
+  <div class="foot">存 → 流 → 进化</div><div class="pageno">04</div>
+  <aside class="notes">强调结构：中间两节各攻一个交付物，第三节把两件拼回去——所以别担心"学不完"，每一节都有小结和交付。</aside>
+</section>
+
+<!-- 05 时间表 -->
+<section class="slide">
+  <div class="kicker">时间表 · 净 165 分钟</div>
+  <h2>硬卡时间，每节都交东西</h2>
+  <table>
+    <tr><th>时间</th><th>环节</th><th>关键动作</th><th style="text-align:right">时长</th></tr>
+    <tr><td class="t">00:00–00:08</td><td>开场</td><td>点题、学习地图、分组、RIA 与交付规则</td><td class="d">8′</td></tr>
+    <tr class="hl"><td class="t">00:08–00:58</td><td>第 1 节｜存</td><td>R5 + I12 + A1 10 + 建库 15 + A2 8</td><td class="d">50′</td></tr>
+    <tr><td class="t">00:58–01:08</td><td>中场休息</td><td>走动、看板贴便签、助教巡查未完成者</td><td class="d">10′</td></tr>
+    <tr class="hl"><td class="t">01:08–02:03</td><td>第 2 节｜流</td><td>R5 + I13 + A1 10 + 搭流程 19 + A2 8</td><td class="d">55′</td></tr>
+    <tr class="hl"><td class="t">02:03–02:43</td><td>第 3 节｜进化</td><td>R4 + I10 + 互评 10 + A2 16</td><td class="d">40′</td></tr>
+    <tr><td class="t">02:43–02:53</td><td>收尾</td><td>两件交付物合一、A2 承诺、合影</td><td class="d">10′</td></tr>
+    <tr><td class="t">02:53–03:00</td><td>弹性</td><td>答疑 / 超时缓冲</td><td class="d">7′</td></tr>
+  </table>
+  <div class="foot">准时开始，准时结束</div><div class="pageno">05</div>
+  <aside class="notes">讲师自己盯时间：每节结束前 5 分钟提醒。若第 2 节实操超时，用弹性 7′ + 压缩第 3 节 I 至 7′。</aside>
+</section>
+
+<!-- 06 RIA -->
+<section class="slide">
+  <div class="kicker">今天怎么上</div>
+  <h2>拆书帮 RIA：把"拆页"换成"短视频片段"</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><span class="badge">R</span><h3>精挑片段</h3><p>5 分钟短视频，放两遍：先看点，再带问题看。</p></div>
+    <div class="card"><span class="badge">I</span><h3>我的解读</h3><p>3 个锚点，把片段讲成你能上手的方法。</p></div>
+    <div class="card"><span class="badge">A1</span><h3>反思经验</h3><p>显像提问：讲具体情境 + 具体行为 + 具体结果。</p></div>
+    <div class="card"><span class="badge gold">A2</span><h3>实践计划</h3><p>谁 + 何时 + 做什么 + 到什么程度，写便签。</p></div>
+  </div>
+  <p style="margin-top:20px">规矩只有三条：<span class="em">① 不预习也能上　② 当场动手必交东西　③ A1 必须讲具体事，不许"我经常觉得……"</span></p>
+  <div class="foot">R → I → A1 → A2</div><div class="pageno">06</div>
+  <aside class="notes">10 人小班，分 2–3 组（每组 3–4 人），选组长计时。每人桌上：三色便签、任务卡、A2 便签纸、自检表。</aside>
+</section>
+
+<!-- 07 开场核心命题 -->
+<section class="slide">
+  <div class="statement">
+    <div class="kicker">今天唯一要记住的一句话</div>
+    <q>AI 不懂你，不是模型笨，是它还没认识你。</q>
+    <div class="after">所以今天第一件事不是"学提示词"，是<span class="em">把你的经验装进 AI 的脑子</span>——这就是"存"。</div>
+  </div>
+  <div class="foot">第 1 节预告</div><div class="pageno">07</div>
+  <aside class="notes">这句话是全课钩子，开场抛出，第 1 节 I 环节回收。让学员把这句话抄在任务卡封面。</aside>
+</section>
+
+<!-- 08 第1节 分节页 -->
+<section class="slide divider">
+  <div class="kicker">第 1 节 · 50 分钟</div>
+  <h1>存</h1>
+  <div class="lead">ima 个人知识库 —— 让 AI 记住你</div>
+  <div class="chip">本节交付：① 你的个人知识库（有分类 · ≥5 份资料 · ≥2 个标签）</div>
+  <aside class="notes">节奏：R5 + I12 + A1 10 + 建库 15 + A2 8 = 50′。</aside>
+</section>
+
+<!-- 09 R -->
+<section class="slide">
+  <div class="kicker">R · 精挑片段 · 5 分钟</div>
+  <h2>同一问题，两个 AI</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card" style="background:#fff5f5;border-color:#f8d5d5"><h3>没有知识库</h3><p style="font-size:23px">答得没错，但全是"通用正确废话"——像隔壁老王给你的建议。</p></div>
+    <div class="card green"><h3>有知识库</h3><p style="font-size:23px">答得贴你的书、你的案例、你的话术——像跟了三年的搭档。</p></div>
+  </div>
+  <p style="margin-top:22px;font-size:25px"><span class="em">第一遍：</span>只看现象，别急着分析。<span class="em">第二遍：</span>带问题看——<span class="num">差别到底来自哪里？</span></p>
+  <div class="foot">R</div><div class="pageno">09</div>
+  <aside class="notes">短视频放两遍，第二遍按暂停逐帧指出差别点。若现场网络不稳，用离线版。片源时长超 5′ 时，从 I 环节借时间。</aside>
+</section>
+
+<!-- 10 I 三个锚点 -->
+<section class="slide">
+  <div class="kicker">I · 我的解读 · 12 分钟</div>
+  <h2>三个锚点</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card blue"><span class="badge">锚点 1</span><h3>为什么 AI 不懂你</h3><p>普通 AI 是陌生人；知识库是把你的经验装进 AI 的脑子。同一句话，陌生人说叫"建议"，搭档说叫"懂你"。</p></div>
+    <div class="card blue"><span class="badge">锚点 2</span><h3>怎么搭：按你最自然的分类建库</h3><p>比如建一个"拆书百宝箱"，下面分"指令案例集""话术库""A2 范例"几个格子。分类不用漂亮，要顺手。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>关键动作是贴标签</h3><p>每存一个案例/摘要/模板，都贴标签：级别、技能、拆页来源。贴得越细，以后找得越快越准。</p></div>
+  </div>
+  <div class="foot">I</div><div class="pageno">10</div>
+  <aside class="notes">锚点 2 一定要现场演示建库界面（投影），别只讲。锚点 3 给出标签三件套示例：<b>级别：TF2-1 / 技能：I 环节 / 拆页：《影响力》P32</b>。提醒：标签是给人找的，不是给机器看的，别设计得太复杂。</aside>
+</section>
+
+<!-- 11 分类示例 -->
+<section class="slide">
+  <div class="kicker">示范：一个拆书家的库长什么样</div>
+  <h2>"拆书百宝箱"分四格</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(2,1fr)">
+    <div class="card"><h3>① 指令案例集</h3><p>你用过好用的 AI 指令、成功案例、踩坑记录。</p></div>
+    <div class="card"><h3>② 话术库</h3><p>开场、提问、收尾、点评——你实际说过的好句子。</p></div>
+    <div class="card"><h3>③ A2 范例</h3><p>过去成功的实践计划，写 AI 输出时的参照。</p></div>
+    <div class="card"><h3>④ 我的拆页档案</h3><p>拆过的书、片段、I 便签、现场反馈。</p></div>
+  </div>
+  <p style="margin-top:16px;font-size:23px">分类原则：<span class="em">按"你下次会怎么找"分，不按"书里怎么讲"分。</span></p>
+  <div class="foot">I</div><div class="pageno">11</div>
+  <aside class="notes">请大家现在就想：自己的库第一个格子放什么？（30 秒想，随机点 2 人回答，制造"你已经在设计了"的参与感）</aside>
+</section>
+
+<!-- 12 A1 -->
+<section class="slide">
+  <div class="kicker">A1 · 反思经验 · 10 分钟 · 小组分享</div>
+  <h2>显像提问</h2>
+  <div class="rule"></div>
+  <div class="statement" style="justify-content:flex-start">
+    <q style="font-size:44px">上个月，你有没有一次"问 AI 一个问题，它答得没错，但就是不贴你"？</q>
+    <div class="after">
+      说清三件事：<span class="em">当时你在做什么 · 它哪里不对味 · 结果你怎么处理的</span><br>
+      <span style="color:#c0392b">不许说"我经常觉得 AI 不好用"——那不是在反思，是在发牢骚。</span>
+    </div>
+  </div>
+  <div class="foot">A1 · 3 分钟一人 · 组长计时</div><div class="pageno">12</div>
+  <aside class="notes">控场要点：优先点"看起来有话要说"的人；若冷场，讲师自己先讲一个自己的失败案例（30 秒）做示范。每组抽 1 人给全班复述队友的故事。</aside>
+</section>
+
+<!-- 13 交付① 动手 -->
+<section class="slide">
+  <div class="kicker">现场动手 · 交付 ① · 15 分钟</div>
+  <h2>五步，建起你的库</h2>
+  <div class="rule"></div>
+  <ul class="big">
+    <li>打开 ima，新建一个知识库，命名为你记得住的名字 <small>建议带自己名字，如"杨辉的拆书百宝箱"</small></li>
+    <li>在库里建 2–3 个分类 <small>从刚才四格里挑你最需要的</small></li>
+    <li>导入 3–5 份自己的拆书资料 <small>笔记、模板、拆页、逐字稿都行——课前让你带到现场的那几份</small></li>
+    <li class="g">给至少 2 份资料贴标签 <small>级别 / 技能 / 拆页，三个维度任选</small></li>
+    <li class="g">截图存档，交给组长登记 <small>这就是交付①的验收凭证</small></li>
+  </ul>
+  <div class="foot">15′ · 助教巡场，卡住的举手</div><div class="pageno">13</div>
+  <aside class="notes">陪跑重点：① 找不到导入入口的人最多——助教先集中演示一次；② 别追求完美分类，能跑起来 > 分类漂亮；③ 5 分钟节点报时一次。未完成者登记名字，休息时间补。</aside>
+</section>
+
+<!-- 14 A2 -->
+<section class="slide">
+  <div class="kicker">A2 · 实践计划 · 8 分钟 · 写便签</div>
+  <h2>填空式承诺</h2>
+  <div class="rule"></div>
+  <div class="card blue" style="font-size:26px;line-height:2">
+    本周内，我要把 <b>______</b>（资料）导入我的 ima 库，<br>
+    命名为 <b>______</b>，贴上 <b>____</b> 个标签。
+  </div>
+  <p style="margin-top:22px">写完贴到看板"存"栏。组长检查：有没有<span class="em">具体资料 + 具体名字 + 具体数字</span>。</p>
+  <div class="foot">A2 · 便签即交付③的第一行</div><div class="pageno">14</div>
+  <aside class="notes">用同一张"30 天计划纸"的第一栏写，别另起一张——第 3 节收尾只补最后一栏，避免重复劳动。</aside>
+</section>
+
+<!-- 15 第2节 分节页 -->
+<section class="slide divider">
+  <div class="kicker">第 2 节 · 55 分钟</div>
+  <h1>流</h1>
+  <div class="lead">workbuddy 工作流 —— 从知识库到微信公众号</div>
+  <div class="chip">本节交付：② 一条跑得通的工作流（库 → 初稿，有截图）</div>
+  <aside class="notes">节奏：R5 + I13 + A1 10 + 搭流程 19 + A2 8 = 55′。<b>课前必须自己实测一遍全流程</b>，并把界面截图放进本页备注。</aside>
+</section>
+
+<!-- 16 为什么需要流 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 1</div>
+  <h2>存着不动 = 死知识</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card" style="background:#fff5f5;border-color:#f8d5d5"><h3>死知识</h3><p style="font-size:23px">资料躺在库里，你想起它的时候，已经忘了它叫什么。库越大，越像废品回收站。</p></div>
+    <div class="card green"><h3>活知识</h3><p style="font-size:23px">知识自动流向输出端（公众号、课件、朋友圈）。你不去找它，它来找你。</p></div>
+  </div>
+  <p style="margin-top:22px;font-size:25px">第 1 节解决了"记得住"，这一节解决 <span class="em">"用得上、跑得动"</span>。</p>
+  <div class="foot">I</div><div class="pageno">16</div>
+  <aside class="notes">用比喻：知识库是水库，工作流是水渠。修了水库不修渠，等于没水用。</aside>
+</section>
+
+<!-- 17 工作流=固定动作 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 2</div>
+  <h2>工作流 = 把重复动作固定成流程</h2>
+  <div class="rule"></div>
+  <div class="map" style="flex:0 0 auto">
+    <div class="node"><div class="s">STEP 1</div><h3>选题</h3><p>想写什么</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">STEP 2</div><h3>取素材</h3><p>从库里调</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">STEP 3</div><h3>出初稿</h3><p>自动加工</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">STEP 4</div><h3>校对发布</h3><p>你把关</p></div>
+  </div>
+  <p style="margin-top:24px;font-size:25px">每一步都靠"你今天记性好不好"来决定质量，那质量就永远不稳。<span class="em">固定进流程，才稳定。</span></p>
+  <div class="foot">I</div><div class="pageno">17</div>
+  <aside class="notes">强调第 4 步"你把关"——宣传口径也是"初稿自动生成，发布由你把关"。不要承诺"一键发布公众号"，那是投诉高发点。</aside>
+</section>
+
+<!-- 18 与拆书的连接 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 3 · 和你已会的拆书法连起来</div>
+  <h2>工作流，就是 AI 版的"预备提示表"</h2>
+  <div class="rule"></div>
+  <ul class="big">
+    <li>拆书家上台前有预备提示表：开场说什么、提问怎么问、卡住怎么接——<span class="em">因为靠临场发挥质量不稳</span>。</li>
+    <li>工作流就是同一件事：把选题、取素材、写初稿、排版，<span class="em">每步都写死在一个可复用的流程里</span>。</li>
+    <li class="g">所以你不是在学一个新软件，你是在把拆书的手艺，迁移到内容生产线上。</li>
+  </ul>
+  <div class="foot">I</div><div class="pageno">18</div>
+  <aside class="notes">这是本节最"拆书帮"的一点，务必讲透——学员最容易接受"这就是我的预备提示表"这个类比。</aside>
+</section>
+
+<!-- 19 A1 -->
+<section class="slide">
+  <div class="kicker">A1 · 反思经验 · 10 分钟</div>
+  <h2>显像提问</h2>
+  <div class="rule"></div>
+  <div class="statement" style="justify-content:flex-start">
+    <q style="font-size:44px">有没有一件"每次都要手动重做一遍"的事？</q>
+    <div class="after">
+      具体是什么事？上次做它花了多久？一个月做几次？<br>
+      <span class="em">算一算：一年在它上面花掉多少小时。</span>
+    </div>
+  </div>
+  <div class="foot">A1 · 小组内每人 2 分钟</div><div class="pageno">19</div>
+  <aside class="notes">让学员把"年化小时数"写在便签上贴看板——数字一出来，自动化的必要性就不用你多说了。</aside>
+</section>
+
+<!-- 20 交付② 动手 -->
+<section class="slide">
+  <div class="kicker">现场动手 · 交付 ② · 19 分钟</div>
+  <h2>三步补全法（骨架已给你）</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card blue"><span class="badge">① 配 5′</span><h3>选主题</h3><p>从你的库里挑一个你已经很熟的选题——熟的才输出得快。</p></div>
+    <div class="card blue"><span class="badge">② 绑 6′</span><h3>接素材</h3><p>把流程连到你的 ima 库 / 上传 2–3 份素材文件。</p></div>
+    <div class="card blue"><span class="badge">③ 跑 8′</span><h3>运行 + 预览</h3><p>点运行，等初稿；校对一遍，预览效果。截图存档。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px"><span class="em">达标线：</span>跑通到"生成初稿 + 预览"，截图。<span class="em">真实发布</span>留到课后 A2——公众号授权和审核现场不可控。</p>
+  <div class="foot">19′ · 助教巡场</div><div class="pageno">20</div>
+  <aside class="notes"><b>课前准备（讲师）</b>：① 提前给每位学员建好账号、确认能登录；② 准备好一份"半成品"流程模板，学员只做选主题→绑素材→运行；③ 现场跑不通时切"云跑通"——播放提前录好的完整跑通录屏，交付物改为"课后 48 小时内跑通并交截图"。<br><b>界面/步骤以你实测为准，本页不写具体按钮名。</b></aside>
+</section>
+
+<!-- 21 兜底 -->
+<section class="slide">
+  <div class="kicker">兜底方案 · 讲师自己知道就好</div>
+  <h2>现场必挂的三件事，和三个预案</h2>
+  <div class="rule"></div>
+  <div class="cards">
+    <div class="card gold"><h3>网络 / 工具挂了</h3><p>播放提前录好的完整跑通录屏，全班看"云跑通"，交付改为课后 48h 内交截图。</p></div>
+    <div class="card gold"><h3>账号 / 权限没开通</h3><p>两人一组共用一台能跑的机器，一人操作一人记录；未开通者当场登记，课后单独补。</p></div>
+    <div class="card gold"><h3>时间不够</h3><p>砍"跑"，保"配"：只要流程配好了、看见预览页，就算达标；真正跑通留在课后。</p></div>
+  </div>
+  <div class="foot">讲师页 · 不讲</div><div class="pageno">21</div>
+  <aside class="notes">本页可跳过不投屏。若现场确实降级，务必当场宣布新的验收标准，别让学员带着"没做完"的挫败离开。</aside>
+</section>
+
+<!-- 22 第2节 A2 -->
+<section class="slide">
+  <div class="kicker">A2 · 实践计划 · 8 分钟 · 写便签</div>
+  <h2>填空式承诺</h2>
+  <div class="rule"></div>
+  <div class="card blue" style="font-size:25px;line-height:2">
+    我要让 workbuddy 每周替我把 <b>______</b> 主题，<br>
+    从库里的 <b>______</b> 素材生成一篇公众号初稿，<br>
+    我负责 <b>______</b> 环节（校对 / 配图 / 发布）。
+  </div>
+  <p style="margin-top:20px">贴到看板"流"栏；组长检查三要素是否齐全。</p>
+  <div class="foot">A2 · 30 天计划纸第二栏</div><div class="pageno">22</div>
+  <aside class="notes">强调"我负责哪一环"——AI 不是替代你，是把你从重复环节里换出来，放到需要人味的那一环。</aside>
+</section>
+
+<!-- 23 第3节 分节页 -->
+<section class="slide divider">
+  <div class="kicker">第 3 节 · 40 分钟</div>
+  <h1>进化</h1>
+  <div class="lead">把两件工具串成"我的 AI 工作流"</div>
+  <div class="chip">本节交付：③ 30 天进化计划 + 复盘卡</div>
+  <aside class="notes">节奏：R4 + I10 + 互评 10 + A2 16 = 40′。</aside>
+</section>
+
+<!-- 24 R + I -->
+<section class="slide">
+  <div class="kicker">R · 4 分钟｜I · 三个锚点 · 10 分钟</div>
+  <h2>单点好用 ≠ 持续进化</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card green"><span class="badge green">锚点 1</span><h3>库 + 流程 ≠ 系统</h3><p>有了库和流程，还得"跑一次、看一次、改一次、好一次"，它才长成你的。</p></div>
+    <div class="card green"><span class="badge green">锚点 2</span><h3>进化的本质是复盘</h3><p>每次发布后回看：哪步最卡？卡在哪一环，就改那一环，别全推翻重来。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>这就是拆书的"学以致用"</h3><p>不只懂方法，而是真的跑起来、改了行为——A2 的意义就在这儿。</p></div>
+  </div>
+  <div class="foot">R + I</div><div class="pageno">24</div>
+  <aside class="notes">I 压到 7–10′，多出的时间给复盘卡实物讲解。</aside>
+</section>
+
+<!-- 25 复盘卡 -->
+<section class="slide">
+  <div class="kicker">带走第三件东西 · 复盘卡</div>
+  <h2>跑一次，记一次</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>① 哪一步最卡？</h3><p>选题 / 素材 / 初稿 / 排版 / 发布——圈一个。</p></div>
+    <div class="card"><h3>② 下次改什么？</h3><p>只写一条，能明天就执行的改动。</p></div>
+    <div class="card"><h3>③ 什么时候验证？</h3><p>写具体日期，不写"以后"。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">这张卡就是你工作流的<span class="em">版本日志</span>——攒够 5 张，你就有了自己的方法论。</p>
+  <div class="foot">A4 打印材料 · 人手一张</div><div class="pageno">25</div>
+  <aside class="notes">把复盘卡实物举起来给大家看：每发一篇，填一行，贴在电脑边。这比任何"AI 思维课"都管用。</aside>
+</section>
+
+<!-- 26 互评 -->
+<section class="slide">
+  <div class="kicker">现场互评 · 10 分钟</div>
+  <h2>互换走查：用清单，不用直觉</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card blue"><h3>互换测试（已完成者）</h3><p style="font-size:22px">两人交换，用对方的库 + 流程跑一次<b>自己的</b>选题。看能不能跑通、跑出来像不像人话。</p></div>
+    <div class="card gold"><h3>清单走查（未完成者）</h3><p style="font-size:22px">用《自检表》逐条走查对方的库与流程设计，给 2 条具体改进建议——照样有收获。</p></div>
+  </div>
+  <p style="margin-top:20px">规则：<span class="em">只提具体建议，不许说"挺好的"</span>。因为"挺好的"帮不了任何人。</p>
+  <div class="foot">互评 · 3–4 人一组轮转</div><div class="pageno">26</div>
+  <aside class="notes">10 人小班就两两互换，A↔B，2 轮。若多数人没跑通，直接全员转"清单走查"，别硬撑互换测试。</aside>
+</section>
+
+<!-- 27 A2 30天 -->
+<section class="slide">
+  <div class="kicker">A2 · 30 天进化计划 · 16 分钟 · 当场承诺</div>
+  <h2>第三栏：让 AI 帮你进化的一件事</h2>
+  <div class="rule"></div>
+  <div class="card blue" style="font-size:26px;line-height:2">
+    未来 30 天，我要让 AI 帮我进化的一件事是 <b>______</b>，<br>
+    我打算在 <b>______</b>（时间）复盘，<br>
+    到那天我要看到 <b>______</b>（可验证的结果）。
+  </div>
+  <p style="margin-top:20px">写完，上台读 1–2 条。<span class="em">说出口的计划，才会真的发生。</span></p>
+  <div class="foot">A2 · 上台承诺</div><div class="pageno">27</div>
+  <aside class="notes">控场：先请最活跃的 1 位起头，然后点 1 位安静的。承诺不评价、不点评，只鼓掌——这一刻的仪式感比内容重要。</aside>
+</section>
+
+<!-- 28 收尾 -->
+<section class="slide">
+  <div class="kicker">收尾 · 10 分钟</div>
+  <h2>两件交付物，合成一件事</h2>
+  <div class="rule"></div>
+  <div class="map" style="flex:0 0 auto">
+    <div class="node"><div class="s">交付 ①</div><h3>库</h3><p>你的经验，AI 记住了</p></div>
+    <div class="arrow">+</div>
+    <div class="node"><div class="s">交付 ②</div><h3>流</h3><p>经验自动流向输出</p></div>
+    <div class="arrow">=</div>
+    <div class="node" style="background:var(--blue-soft);border-color:#c9d8ff"><div class="s">交付 ③</div><h3>你的 AI 工作流</h3><p>谁都能复制的流程图，只有你能跑的内容</p></div>
+  </div>
+  <p style="margin-top:22px;font-size:24px">下周你就会发现：<span class="em">不是 AI 变强了，是你终于把自己的经验，交给了它。</span></p>
+  <div class="foot">合影 · 交付物验收</div><div class="pageno">28</div>
+  <aside class="notes">收尾动作：① 组长报"我们组 X 人完成交付①、Y 人完成交付②"；② 宣布首期彩蛋（模板包）领取方式；③ 合影；④ 群里发作业打卡模板。</aside>
+</section>
+
+<!-- 29 尾页 -->
+<section class="slide cover">
+  <div class="kicker">首期 AI 拆书课</div>
+  <h1>存 → 流 → 进化</h1>
+  <div class="sub">你今天不是学会了两个工具，<br>是把读书这件事，接上了自己的生产线。</div>
+  <div class="rule"></div>
+  <div class="meta">
+    主讲：杨辉（杨老师）· 三级拆书家 · AI 摆渡人<br>
+    主办：拆书帮广州小蛮腰分舵<br>
+    课后作业与模板包：见群公告 · 30 天后复盘见
+  </div>
+  <div class="brand">谢谢，下次带着你跑出来的第一篇来。</div>
+  <aside class="notes">留 2 分钟给答疑（来自弹性 7′）。结束时提醒：把复盘卡拍照发群里，算完成课后打卡。</aside>
+</section>
+
+</div>
+
+<div id="hud">
+  <button id="btnNotes" title="N">备注</button>
+  <button id="btnFull" title="F">全屏</button>
+  <button id="btnPrint" title="P">打印/PDF</button>
+  <button id="btnTimer" title="计时">计时</button>
+</div>
+<div id="bar"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, stage=document.getElementById('stage'), bar=document.getElementById('bar');
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){ s.classList.toggle('on',k===i); });
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  window.addEventListener('resize',fit); fit();
+  var h=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(h)?0:h-1);
+
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].indexOf(e.key)>=0){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>=0){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);} else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('notes-on');}
+    else if(e.key==='f'||e.key==='F'){toggleFull();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#hud')) return;
+    if(e.clientX > window.innerWidth*0.62) show(i+1); else if(e.clientX < window.innerWidth*0.38) show(i-1);
+  });
+  function toggleFull(){
+    if(!document.fullscreenElement){ (document.documentElement.requestFullscreen||function(){}).call(document.documentElement); }
+    else { document.exitFullscreen(); }
+  }
+  document.getElementById('btnNotes').onclick=function(){document.body.classList.toggle('notes-on');};
+  document.getElementById('btnFull').onclick=toggleFull;
+  document.getElementById('btnPrint').onclick=function(){window.print();};
+
+  var t0=0, ticking=false, accum=0, timerBtn=document.getElementById('btnTimer');
+  timerBtn.onclick=function(){
+    ticking=!ticking;
+    if(ticking){ t0=Date.now(); if(!accum) accum=0; }
+    else { accum+=Date.now()-t0; }
+  };
+  setInterval(function(){
+    if(!ticking) return;
+    var sec=Math.floor((accum+Date.now()-t0)/1000);
+    timerBtn.textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+  },500);
+})();
+</script>
+</body>
+</html>

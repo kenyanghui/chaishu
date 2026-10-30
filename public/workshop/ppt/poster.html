@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>活动海报｜3小时做出你的AI知识库+公众号工作流</title>
+<style>
+  :root{
+    --ink:#101b2e; --ink2:#4a5a72; --blue:#1f5eff; --gold:#e2a020; --bg:#f4f6fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);padding:28px 14px 60px;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  .poster{width:760px;margin:0 auto;background:#fff;border-radius:22px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(16,27,46,.14);position:relative}
+
+  .hero{padding:48px 52px 40px;color:#fff;position:relative;
+    background:radial-gradient(800px 400px at 92% -20%, #3d78ff 0%, transparent 60%),
+               linear-gradient(150deg,#0d1a30 0%,#132a4d 55%,#1b3a66 100%)}
+  .hero .tag{display:inline-block;font-size:14px;letter-spacing:2px;font-weight:700;
+    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);
+    border-radius:999px;padding:6px 14px;margin-bottom:20px}
+  .hero h1{margin:0 0 14px;font-size:46px;line-height:1.2;font-weight:900;letter-spacing:-.5px}
+  .hero h1 em{font-style:normal;color:#ffd77a}
+  .hero .sub{font-size:19px;color:#bfd0e8;line-height:1.7}
+  .hero .strip{display:flex;gap:26px;margin-top:30px;padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.16);font-size:15px;color:#d8e3f3}
+  .hero .strip b{display:block;font-size:22px;color:#fff;margin-bottom:2px}
+
+  .body{padding:40px 52px 8px}
+  h2{margin:0 0 16px;font-size:23px;font-weight:900;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--blue)}
+  .sec{margin-bottom:34px}
+  .pain{display:grid;gap:12px}
+  .pain div{background:#f6f8fc;border-left:4px solid #c9d6ea;border-radius:0 10px 10px 0;
+    padding:14px 18px;font-size:17px;color:var(--ink2);line-height:1.6}
+
+  .gains{display:grid;gap:14px}
+  .gain{display:flex;gap:16px;padding:18px 20px;border-radius:14px;background:#eef4ff;
+    border:1px solid #d3e0ff}
+  .gain .ico{font-size:26px;line-height:1}
+  .gain b{display:block;font-size:19px;margin-bottom:5px}
+  .gain span{font-size:16px;color:var(--ink2);line-height:1.55}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .step{border:1px solid #e2e8f2;border-radius:14px;padding:16px 16px 18px;background:#fcfdff}
+  .step .n{font-size:13px;font-weight:900;color:var(--blue);letter-spacing:1px;margin-bottom:8px}
+  .step b{display:block;font-size:19px;margin-bottom:6px}
+  .step span{font-size:14.5px;color:var(--ink2);line-height:1.5}
+
+  .ria{font-size:16px;color:var(--ink2);line-height:1.85;background:#f7f9fc;border-radius:12px;
+    padding:16px 20px;border:1px solid #e8eef7}
+  .ria b{color:var(--ink)}
+
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;font-size:16px;color:var(--ink2)}
+  .who div::before{content:"✔ ";color:var(--blue);font-weight:900}
+
+  .teacher{display:flex;gap:18px;align-items:flex-start;background:#0d1a30;color:#fff;
+    border-radius:16px;padding:24px 26px}
+  .teacher .av{width:66px;height:66px;border-radius:50%;flex:0 0 66px;
+    background:linear-gradient(135deg,#3d78ff,#ffd77a);display:flex;align-items:center;
+    justify-content:center;font-size:26px;font-weight:900;color:#0d1a30}
+  .teacher b{font-size:21px}
+  .teacher .l1{font-size:15px;color:#ffd77a;margin:4px 0 10px}
+  .teacher ul{margin:0;padding-left:18px;font-size:14.5px;color:#c2d1e6;line-height:1.75}
+
+  .signup{margin:0 0 0;padding:30px 52px 38px;background:#f7f9fd;
+    border-top:1px solid #e6ecf6}
+  .signup table{width:100%;border-collapse:collapse;font-size:17px}
+  .signup td{padding:10px 0;vertical-align:top}
+  .signup td.k{width:78px;color:#8494ab;font-size:15px}
+  .signup td.v{font-weight:700;color:var(--ink)}
+  .signup .price{color:#c0392b;font-weight:900}
+  .signup .limit{margin-top:18px;font-size:15px;color:var(--ink2);
+    background:#fff3d9;border:1px dashed #e8c477;border-radius:12px;padding:14px 18px;line-height:1.7}
+  .signup .limit b{color:#a86500}
+  .cta{margin-top:20px;background:var(--blue);color:#fff;text-align:center;font-size:20px;
+    font-weight:900;border-radius:999px;padding:16px;letter-spacing:1px}
+
+  .foot{padding:18px 52px 30px;text-align:center;font-size:13px;color:#93a1b5;line-height:1.8}
+
+  .toolbar{width:760px;margin:0 auto 16px;display:flex;gap:10px;justify-content:flex-end}
+  .toolbar button{border:1px solid #cdd7e6;background:#fff;color:#3c4a5f;border-radius:10px;
+    padding:9px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+  .toolbar button:hover{background:#eef3fb}
+
+  @media print{
+    @page{size:A4;margin:0}
+    body{background:#fff;padding:0}
+    .toolbar{display:none}
+    .poster{width:210mm;height:297mm;box-shadow:none;border-radius:0;margin:0;overflow:hidden;
+      display:flex;flex-direction:column}
+    .hero{padding:26px 28px 20px}
+    .hero .tag{font-size:11px;padding:4px 10px;margin-bottom:13px}
+    .hero h1{font-size:31px;margin-bottom:9px}
+    .hero .sub{font-size:14px}
+    .hero .strip{margin-top:16px;padding-top:12px;gap:18px;font-size:11.5px}
+    .hero .strip b{font-size:16px}
+    .body{padding:16px 28px 0;flex:1}
+    .sec{margin-bottom:13px}
+    h2{font-size:15px;margin-bottom:8px}
+    h2::before{height:16px;width:4px}
+    .pain{gap:7px}
+    .pain div{padding:9px 12px;font-size:11.6px}
+    .gains{gap:8px}
+    .gain{padding:10px 13px;gap:11px}
+    .gain .ico{font-size:18px}
+    .gain b{font-size:13.4px;margin-bottom:2px}
+    .gain span{font-size:11.6px}
+    .steps{gap:8px}
+    .step{padding:10px 11px 12px}
+    .step .n{font-size:10.5px;margin-bottom:5px}
+    .step b{font-size:13.4px;margin-bottom:3px}
+    .step span{font-size:11px;line-height:1.45}
+    .ria{font-size:11.6px;line-height:1.7;padding:10px 13px}
+    .who{font-size:11.6px;gap:5px 14px}
+    .teacher{padding:14px 16px;gap:13px;border-radius:11px}
+    .teacher .av{width:44px;height:44px;flex:0 0 44px;font-size:17px}
+    .teacher b{font-size:14.5px}
+    .teacher .l1{font-size:11px;margin:3px 0 6px}
+    .teacher ul{font-size:10.8px;line-height:1.6;padding-left:15px}
+    .signup{padding:14px 28px 12px}
+    .signup table{font-size:12px}
+    .signup td{padding:5px 0}
+    .signup td.k{width:52px;font-size:11px}
+    .signup .limit{margin-top:9px;padding:9px 12px;font-size:11px;line-height:1.6;border-radius:9px}
+    .cta{margin-top:10px;padding:10px;font-size:14px}
+    .foot{padding:8px 28px;font-size:9.5px;line-height:1.5}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">打印 / 存 PDF（A4）</button>
+</div>
+
+<div class="poster">
+
+  <div class="hero">
+    <div class="tag">首期 AI 拆书课 · 拆书帮广州小蛮腰分舵</div>
+    <h1>3 小时做出<br>你的<em>AI 知识库</em>+<em>公众号工作流</em></h1>
+    <div class="sub">与 AI Agent 一起进化 —— 从 ima 知识库到 workbuddy 工作流</div>
+    <div class="strip">
+      <div><b>11/01</b>周日 14:00–17:00</div>
+      <div><b>广州越秀</b>雅苑·培正 5 号楼</div>
+      <div><b>仅 10 人</b>小班现场动手</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="sec">
+      <h2>你是不是也这样？</h2>
+      <div class="pain">
+        <div>📌 书读了不少、便签写了不少，可那些干货全烂在笔记本里，一次也没用出来？</div>
+        <div>📌 对着 AI 问了半天，它答得头头是道，却总像在说别人家的事，一点都不贴你？</div>
+        <div>📌 明明有个想法，一想到"要写公众号、要排版、要发布"，就默默关掉了文档？</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>这门课，现场带走三件真东西</h2>
+      <div class="gains">
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一个属于你自己的个人知识库</b>
+          <span>把你的拆书笔记、模板、案例分类贴标签，让 AI 真正"记住你"。</span>
+        </div></div>
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一条从知识库到微信公众号的工作流</b>
+          <span>选好主题，素材自己来，初稿自动生成，发布由你把关。</span>
+        </div></div>
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一份 30 天 AI 进化计划</b>
+          <span>不是听，是做出来。当天验收、有截图、课后照着跑。</span>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>3 小时怎么上？</h2>
+      <div class="steps">
+        <div class="step"><div class="n">01 · 存</div><b>让 AI 记住你</b><span>现场搭起你的 ima 个人知识库：分类、导入、贴标签。</span></div>
+        <div class="step"><div class="n">02 · 流</div><b>让知识自己跑起来</b><span>现场跑通 workbuddy"知识库 → 公众号"工作流。</span></div>
+        <div class="step"><div class="n">03 · 进化</div><b>串成我的 AI 工作流</b><span>互换测试 + 复盘卡 + 30 天计划承诺。</span></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>全程用拆书帮 RIA 方法</h2>
+      <div class="ria">
+        看短视频（<b>R</b>）→ 听我拆解（<b>I</b>）→ 反思你的经验（<b>A1</b>）→ 当场做出来（<b>A2</b>）。<br>
+        不用提前看书，不用预习，带着一台电脑/手机来就行。<br>
+        拆书课的传统就是：<b>现场学、现场拆、现场用。</b>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>这门课，适合谁？</h2>
+      <div class="who">
+        <div>拆书帮学员，想把读书输出放大的你</div>
+        <div>想建个人知识库、却一直没动手的你</div>
+        <div>想用 AI 做公众号、卡在"太麻烦"的你</div>
+        <div>完全零基础也行——从"建第一个库"讲起</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>主讲的拆书家</h2>
+      <div class="teacher">
+        <div class="av">杨</div>
+        <div>
+          <b>杨辉（杨老师）</b>
+          <div class="l1">AI 摆渡人 · 三级拆书家</div>
+          <ul>
+            <li>混沌学园 AI 创新领教 / AI 二代教育传承教练 / AI 量化投资教练</li>
+            <li>国际人工智能产业联盟首席生态官</li>
+            <li>前微软、惠普、北电工程师；二十年企业服务与科技创业经验</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="signup">
+    <table>
+      <tr><td class="k">时间</td><td class="v">2026 年 11 月 1 日（周日）14:00–17:00</td></tr>
+      <tr><td class="k">地点</td><td class="v">广州越秀区雅苑·培正 5 号楼</td></tr>
+      <tr><td class="k">费用</td><td class="v">非会员 <span class="price">39 元</span>（含茶歇 + 资料）；会员免费</td></tr>
+      <tr><td class="k">报名</td><td class="v">联系组织长老 善泽，微信（同电话）：18312062843</td></tr>
+    </table>
+    <div class="limit">
+      🎁 <b>首期彩蛋</b>：现场跑通工作流的伙伴，可获得讲师的个人拆书 AI 工作流模板包一份。<br>
+      ⚠️ <b>仅限 10 人</b>，先到先得——为保证每个人都能当场做出来，不做大班。
+    </div>
+    <div class="cta">来现场，把它做出来 🚀</div>
+  </div>
+
+  <div class="foot">
+    拆书帮广州小蛮腰分舵 · 首期 AI 拆书课<br>
+    如果你也不想再让笔记"烂在备忘录里"——这次来现场，把它跑起来。
+  </div>
+
+</div>
+</body>
+</html>

@@ -11,6 +11,8 @@ const navLinks = [
   { path: '/about', label: '关于我' },
 ]
 
+const externalLinks = [{ href: '/chaishu/workshop/', label: 'AI拆书课', hot: true }]
+
 export default function Navbar() {
   const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
@@ -44,6 +46,15 @@ export default function Navbar() {
             >
               {link.label}
             </Link>
+          ))}
+          {externalLinks.map(link => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-amber-400 hover:text-amber-300 hover:bg-amber-400/10 border border-amber-400/20"
+            >
+              {link.label}
+            </a>
           ))}
         </div>
       </div>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>首期 AI 拆书课 · 与 AI Agent 一起进化｜玥清 · AI 拆书</title>
+<meta name="description" content="3 小时做出你的 AI 知识库 + 公众号工作流。从 ima 知识库到 workbuddy 工作流，现场带走三件真东西。2026-11-01 广州越秀，仅限 10 人。">
+<style>
+  :root{
+    --bg:#0a0d16; --bg2:#0e1220; --card:#131829; --line:#232b42;
+    --ink:#e8ecf5; --ink2:#9aa6bd; --mute:#5d6a83;
+    --purple:#a78bfa; --cyan:#22d3ee; --gold:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:
+      radial-gradient(900px 480px at 85% -10%, rgba(167,139,250,.13), transparent 60%),
+      radial-gradient(700px 420px at -5% 105%, rgba(34,211,238,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; padding:0 0 70px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+    background:rgba(10,13,22,.85);border-bottom:1px solid var(--line)}
+  .nav .in{max-width:1060px;margin:0 auto;padding:0 22px;height:60px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:900;letter-spacing:.5px}
+  .nav .logo b{background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13.5px;color:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:7px 14px;transition:.2s}
+  .nav .back:hover{color:var(--ink);border-color:#3b4666}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+  .hero{text-align:center;padding:64px 0 44px}
+  .pill{display:inline-block;font-size:12.5px;letter-spacing:2px;color:var(--purple);
+    border:1px solid rgba(167,139,250,.35);background:rgba(167,139,250,.08);
+    border-radius:999px;padding:6px 16px;margin-bottom:22px}
+  h1{margin:0 0 14px;font-size:clamp(30px,5.4vw,50px);line-height:1.18;font-weight:900;letter-spacing:-.5px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--ink2);font-size:16.5px;max-width:760px;margin:0 auto 26px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:34px}
+  .meta span{font-size:13px;color:var(--ink2);border:1px solid var(--line);background:var(--bg2);
+    border-radius:999px;padding:7px 15px}
+  .meta span b{color:var(--gold);font-weight:700}
+  .cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .cta .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:13px 26px;font-size:15.5px;font-weight:700;transition:.2s}
+  .btn.main{background:linear-gradient(90deg,#7c3aed,#0891b2);color:#fff}
+  .btn.main:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,58,237,.35)}
+  .btn.ghost{border:1px solid var(--line);color:var(--ink2);background:var(--bg2)}
+  .btn.ghost:hover{color:var(--ink);border-color:#3b4666}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:44px 0 8px}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--bg2));
+    border-radius:16px;padding:24px;transition:.2s;position:relative;overflow:hidden}
+  .card:hover{border-color:rgba(167,139,250,.45);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+  .card .k{font-size:11.5px;letter-spacing:2.5px;font-weight:800;margin-bottom:10px}
+  .card:nth-child(1) .k{color:var(--purple)} .card:nth-child(2) .k{color:var(--cyan)} .card:nth-child(3) .k{color:var(--gold)}
+  .card b.t{display:block;font-size:18.5px;margin-bottom:8px}
+  .card p{margin:0;font-size:13.5px;color:var(--ink2)}
+  .card .go{display:inline-block;margin-top:14px;font-size:13px;color:var(--purple)}
+  .card:nth-child(2) .go{color:var(--cyan)} .card:nth-child(3) .go{color:var(--gold)}
+
+  h2.sec{font-size:21px;font-weight:800;margin:52px 0 16px;display:flex;align-items:center;gap:10px}
+  h2.sec::before{content:"";width:5px;height:20px;border-radius:3px;background:linear-gradient(#a78bfa,#22d3ee)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .step{border:1px solid var(--line);background:var(--bg2);border-radius:14px;padding:18px 20px}
+  .step .n{font-size:12px;letter-spacing:2px;color:var(--cyan);font-weight:800;margin-bottom:8px}
+  .step b{display:block;font-size:16px;margin-bottom:5px}
+  .step span{font-size:13px;color:var(--ink2)}
+
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .pain{border-left:3px solid #f87171;background:rgba(248,113,113,.06);
+    border-radius:0 12px 12px 0;padding:14px 18px;font-size:14px;color:var(--ink2)}
+
+  .gains{display:grid;gap:12px;max-width:820px}
+  .gain{display:flex;gap:14px;border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:15px 18px;align-items:flex-start}
+  .gain .i{font-size:20px;line-height:1.4}
+  .gain b{display:block;font-size:15px;margin-bottom:3px}
+  .gain span{font-size:13px;color:var(--ink2)}
+
+  .teacher{display:flex;gap:20px;align-items:flex-start;border:1px solid rgba(251,191,36,.3);
+    background:linear-gradient(180deg,rgba(251,191,36,.07),transparent);border-radius:16px;padding:24px;max-width:820px}
+  .teacher .av{flex:0 0 64px;width:64px;height:64px;border-radius:50%;
+    background:linear-gradient(135deg,#a78bfa,#fbbf24);display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:900;color:#0a0d16}
+  .teacher b{font-size:18px}
+  .teacher .r{font-size:13px;color:var(--gold);margin:4px 0 10px}
+  .teacher ul{margin:0;padding-left:18px;font-size:13px;color:var(--ink2);line-height:1.8}
+
+  table.info{width:100%;max-width:820px;border-collapse:collapse;font-size:14px}
+  table.info td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.info td.k{width:64px;color:var(--mute);font-size:12.5px}
+  table.info td.v{color:var(--ink)}
+  table.info .price{color:#fbbf24;font-weight:800}
+  .limit{max-width:820px;border:1px dashed rgba(251,191,36,.45);border-radius:12px;
+    padding:14px 18px;font-size:13.5px;color:var(--ink2);margin-top:16px}
+  .limit b{color:var(--gold)}
+
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin-top:14px}
+  .links a{font-size:13.5px;color:var(--ink2);padding:8px 0;border-bottom:1px dashed var(--line);transition:.15s}
+  .links a:hover{color:var(--cyan)}
+  .links a::before{content:"› ";color:var(--mute)}
+
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--mute);text-align:center;line-height:1.9}
+
+  @media(max-width:860px){.grid,.steps,.pains{grid-template-columns:1fr}.links{grid-template-columns:1fr}.teacher{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="in">
+  <div class="logo"><b>玥清·AI拆书</b>&nbsp;<span style="font-size:12px;color:var(--mute)">/ 首期 AI 拆书课</span></div>
+  <a class="back" href="/chaishu/">← 返回主站</a>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="pill">首期 AI 拆书课 · 拆书帮广州小蛮腰分舵</div>
+    <h1>3 小时做出你的<br><em>AI 知识库</em> + <em>公众号工作流</em></h1>
+    <p class="sub">与 AI Agent 一起进化 —— 从 ima 知识库到 workbuddy 工作流。<br>
+      不讲"AI 有多神"，只教你把自己的知识，变成能自动跑起来的东西。</p>
+    <div class="meta">
+      <span><b>11/01</b> 周日 14:00–17:00</span>
+      <span><b>广州越秀</b> 雅苑·培正 5 号楼</span>
+      <span><b>仅 10 人</b> 小班现场动手</span>
+      <span><b>会员免费</b> 非会员 39 元含茶歇</span>
+    </div>
+    <div class="cta">
+      <a class="btn main" href="ppt/poster.html">📘 查看活动海报</a>
+      <a class="btn ghost" href="handouts/07-课前准备清单.html">📋 课前准备清单</a>
+      <a class="btn ghost" href="https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q">原文招募推文 ↗</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="ppt/index.html">
+      <div class="k">课 件</div>
+      <b class="t">HTML 幻灯片 · 29 页</b>
+      <p>存 → 流 → 进化，三节完整课件。方向键翻页，N 看讲师备注，可离线放映。</p>
+      <span class="go">进入课件 →</span>
+    </a>
+    <a class="card" href="handouts/index.html">
+      <div class="k">学 员 材 料</div>
+      <b class="t">A4 打印材料 · 8 份</b>
+      <p>学习地图、两节任务卡、30 天计划、复盘卡、验收自检表、课前清单，全部实测单页。</p>
+      <span class="go">浏览材料 →</span>
+    </a>
+    <a class="card" href="dist/课件-与AI-Agent一起进化.pdf">
+      <div class="k">打 印 版</div>
+      <b class="t">现成 PDF 直接下载</b>
+      <p>课件 29 页 / 海报 A4 / 材料各 1 页，打印不用调格式，开课即用。</p>
+      <span class="go">下载 PDF →</span>
+    </a>
+  </div>
+
+  <h2 class="sec">你是不是也这样？</h2>
+  <div class="pains">
+    <div class="pain">📌 书读了不少、便签写了不少，干货全烂在笔记本里，一次也没用出来。</div>
+    <div class="pain">📌 对着 AI 问了半天，答得头头是道，却总像在说别人家的事。</div>
+    <div class="pain">📌 一想到"要写公众号、要排版、要发布"，就默默关掉了文档。</div>
+  </div>
+
+  <h2 class="sec">现场带走三件真东西（不是听，是做出来）</h2>
+  <div class="gains">
+    <div class="gain"><div class="i">✅</div><div><b>一个属于你自己的个人知识库</b><span>拆书笔记、模板、案例分类贴标签，让 AI 真正"记住你"。</span></div></div>
+    <div class="gain"><div class="i">✅</div><div><b>一条从知识库到公众号的自动化工作流</b><span>选好主题，素材自己来，初稿自动生成，发布由你把关。</span></div></div>
+    <div class="gain"><div class="i">✅</div><div><b>一份 30 天 AI 进化计划</b><span>当天验收、有截图、课后照着跑，配复盘卡"跑一次记一次"。</span></div></div>
+  </div>
+
+  <h2 class="sec">3 小时怎么上</h2>
+  <div class="steps">
+    <div class="step"><div class="n">01 · 存 · 50′</div><b>让 AI 记住你</b><span>现场搭起你的 ima 个人知识库：分类、导入、贴标签。</span></div>
+    <div class="step"><div class="n">02 · 流 · 55′</div><b>让知识自己跑起来</b><span>现场跑通 workbuddy"知识库 → 公众号"工作流。</span></div>
+    <div class="step"><div class="n">03 · 进化 · 40′</div><b>串成我的 AI 工作流</b><span>互换测试 + 复盘卡 + 30 天计划承诺。</span></div>
+  </div>
+  <p style="color:var(--ink2);font-size:14px;max-width:820px">全程用拆书帮 RIA 方法：看短视频（R）→ 听我拆解（I）→ 反思你的经验（A1）→ 当场做出来（A2）。不用预习，带着电脑/手机来就行。</p>
+
+  <h2 class="sec">主讲的拆书家</h2>
+  <div class="teacher">
+    <div class="av">杨</div>
+    <div>
+      <b>杨辉（杨老师）</b>
+      <div class="r">AI 摆渡人 · 三级拆书家</div>
+      <ul>
+        <li>混沌学园 AI 创新领教 / AI 二代教育传承教练 / AI 量化投资教练</li>
+        <li>国际人工智能产业联盟首席生态官</li>
+        <li>前微软、惠普、北电工程师；二十年企业服务与科技创业经验</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="sec">报名信息</h2>
+  <table class="info">
+    <tr><td class="k">时间</td><td class="v">2026 年 11 月 1 日（周日）14:00–17:00（13:45 签到，准时开始）</td></tr>
+    <tr><td class="k">地点</td><td class="v">广州越秀区雅苑·培正 5 号楼</td></tr>
+    <tr><td class="k">费用</td><td class="v">非会员 <span class="price">39 元</span>（含茶歇 + 资料）；会员免费</td></tr>
+    <tr><td class="k">报名</td><td class="v">联系组织长老 善泽，微信（同电话）：18312062843</td></tr>
+  </table>
+  <div class="limit">
+    🎁 <b>首期彩蛋</b>：现场跑通工作流的伙伴，可获得讲师的个人拆书 AI 工作流模板包一份。<br>
+    ⚠️ <b>仅限 10 人</b>，先到先得——为保证每个人都能当场做出来，不做大班。
+  </div>
+
+  <h2 class="sec">本页材料索引</h2>
+  <div class="links">
+    <a href="ppt/index.html">课件：与 AI Agent 一起进化（29 页）</a>
+    <a href="ppt/poster.html">活动海报（A4 可打印）</a>
+    <a href="handouts/01-学习地图与时间表.html">01 · 学习地图与时间表</a>
+    <a href="handouts/02-第1节任务卡-ima建库.html">02 · 第 1 节任务卡（ima 建库）</a>
+    <a href="handouts/03-第2节任务卡-workbuddy工作流.html">03 · 第 2 节任务卡（workbuddy）</a>
+    <a href="handouts/04-30天AI进化计划.html">04 · 30 天 AI 进化计划</a>
+    <a href="handouts/05-复盘卡.html">05 · 复盘卡（4 联版）</a>
+    <a href="handouts/06-交付物验收自检表.html">06 · 交付物验收自检表</a>
+    <a href="handouts/07-课前准备清单.html">07 · 课前准备清单（报名后看）</a>
+    <a href="handouts/08-讲师资控手册.html">08 · 讲师资控手册（讲师用）</a>
+  </div>
+
+  <div class="foot">
+    拆书帮广州小蛮腰分舵 · 首期 AI 拆书课 · 主讲 杨辉<br>
+    <a href="/chaishu/" style="color:var(--cyan)">← 返回「玥清 · AI 拆书」主站</a>
+  </div>
+</div>
+</body>
+</html>
