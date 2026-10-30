@@ -56,7 +56,7 @@ export default function Home() {
                 开始探索
               </Link>
               <a
-                href="/chaishu/workshop/"
+                href="/workshop/"
                 className="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 首期 AI 拆书课 · 报名中

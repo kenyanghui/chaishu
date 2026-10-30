@@ -11,7 +11,7 @@ const navLinks = [
   { path: '/about', label: '关于我' },
 ]
 
-const externalLinks = [{ href: '/chaishu/workshop/', label: 'AI拆书课', hot: true }]
+const externalLinks = [{ href: '/workshop/', label: 'AI拆书课', hot: true }]
 
 export default function Navbar() {
   const location = useLocation()
