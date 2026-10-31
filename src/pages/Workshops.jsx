@@ -112,7 +112,11 @@ export default function Workshops() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <a href={w.signupUrl} target="_blank" rel="noreferrer" className="btn-primary">立即报名（拆书帮公众号）→</a>
+              {w.signupUrl ? (
+                <a href={w.signupUrl} target="_blank" rel="noreferrer" className="btn-primary">立即报名（拆书帮公众号）→</a>
+              ) : (
+                <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-primary" title="点击复制微信号">立即报名（微信 ikoning365）→</button>
+              )}
               <a href="/workshop/" className="btn-secondary">看本场完整介绍 →</a>
             </div>
           </div>
@@ -182,7 +186,8 @@ export default function Workshops() {
             <p className="text-[14px] text-[#6e6e73] mb-5">
               投完票想聊聊？加微信 ikoning365，备注「工作坊」——也帮你想拆的软件出出主意。
             </p>
-            <a href="https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q" target="_blank" rel="noreferrer" className="btn-primary">报名工作坊（拆书帮公众号）→</a>
+            <a href="https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q" target="_blank" rel="noreferrer" className="btn-primary">报名首场（拆书帮公众号）→</a>
+            <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-secondary" title="点击复制微信号">后续场次报名：微信 ikoning365 📋</button>
           </div>
         </div>
       </section>
