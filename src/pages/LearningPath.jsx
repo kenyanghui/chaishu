@@ -35,7 +35,7 @@ export default function LearningPath() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/20 text-indigo-400 text-sm">
+            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/25 text-indigo-700 text-sm font-semibold">
               拆书帮 · 六级过级体系
             </div>
             <h1 className="text-4xl md:text-6xl font-black mb-4">
@@ -61,7 +61,7 @@ export default function LearningPath() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
-              <div className={`glass rounded-2xl p-6 md:p-8 border ${level.border} group hover:border-white/20 transition-all`}>
+              <div className={`glass rounded-2xl p-6 md:p-8 border ${level.border} group hover:border-black/20 transition-all`}>
                 {/* Level Header */}
                 <div className="flex items-start gap-4 mb-6">
                   <div className={`w-14 h-14 rounded-xl ${level.bg} border ${level.border} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
@@ -86,7 +86,7 @@ export default function LearningPath() {
 
                 {/* Skills */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold text-[#86868b] uppercase tracking-wider mb-3">
+                  <h3 className="text-xs font-bold text-[#6e6e73] uppercase tracking-wider mb-3">
                     核心技能 · {levelSkillsCount} 个技能
                   </h3>
                   <div className="grid sm:grid-cols-2 gap-2">
@@ -104,10 +104,10 @@ export default function LearningPath() {
 
                 {/* Outcomes */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold text-[#86868b] uppercase tracking-wider mb-3">学习成果</h3>
+                  <h3 className="text-xs font-bold text-[#6e6e73] uppercase tracking-wider mb-3">学习成果</h3>
                   <div className="grid sm:grid-cols-2 gap-2">
                     {level.outcomes.map((outcome, j) => (
-                      <div key={j} className="flex items-start gap-2 text-sm text-[#86868b]">
+                      <div key={j} className="flex items-start gap-2 text-sm text-[#6e6e73]">
                         <svg className="w-4 h-4 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M5 13l4 4L19 7" />
                         </svg>
@@ -121,7 +121,7 @@ export default function LearningPath() {
                 <div className="flex flex-wrap gap-3">
                   <Link
                     to={`/skills?level=${i + 1}`}
-                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-[#1d1d1f] text-sm font-bold hover:shadow-lg transition-all`}
+                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-white text-sm font-bold hover:shadow-lg transition-all`}
                   >
                     查看 Level {i + 1} 技能
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -158,43 +158,43 @@ export default function LearningPath() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div className="relative rounded-2xl p-6 md:p-8 border-2 border-violet-500/40 bg-gradient-to-br from-violet-900/20 via-slate-900/50 to-slate-900/80 overflow-hidden group hover:border-violet-400/60 transition-all">
+              <div className="relative rounded-2xl p-6 md:p-8 border-2 border-violet-500/40 bg-gradient-to-br from-violet-500/[.08] via-white to-purple-500/[.06] overflow-hidden group hover:border-violet-500/60 transition-all">
                 {/* Glow */}
-                <div className="absolute -top-20 -right-20 w-60 h-60 bg-violet-600/20 rounded-full blur-[100px]" />
-                <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-600/15 rounded-full blur-[80px]" />
+                <div className="absolute -top-20 -right-20 w-60 h-60 bg-violet-500/10 rounded-full blur-[100px]" />
+                <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/10 rounded-full blur-[80px]" />
 
                 <div className="relative z-10">
                   {/* Header */}
                   <div className="flex items-start gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-xl bg-violet-500/20 border-2 border-violet-500/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <span className="text-2xl font-black text-violet-400">S</span>
+                    <div className="w-16 h-16 rounded-xl bg-violet-500/15 border-2 border-violet-500/40 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <span className="text-2xl font-black text-violet-700">S</span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <h2 className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
+                        <h2 className="text-2xl font-bold text-violet-700">
                           S 级: {ai.title}
                         </h2>
-                        <span className="text-xs px-2.5 py-0.5 rounded-full bg-violet-500/20 text-violet-400 border border-violet-500/30">
+                        <span className="text-xs px-2.5 py-0.5 rounded-full bg-violet-500/15 text-violet-700 border border-violet-500/30 font-semibold">
                           {ai.range}
                         </span>
                       </div>
-                      <p className="text-[#6e6e73]">{ai.subtitle}</p>
+                      <p className="text-[#48484a]">{ai.subtitle}</p>
                     </div>
                   </div>
 
-                  <p className="text-sm text-[#6e6e73] mb-6 leading-relaxed">{ai.desc}</p>
+                  <p className="text-sm text-[#48484a] mb-6 leading-relaxed">{ai.desc}</p>
 
                   {/* Pipeline */}
-                  <div className="rounded-xl border border-violet-500/30 bg-violet-900/10 p-5 mb-6">
+                  <div className="rounded-xl border border-violet-500/30 bg-violet-500/[.06] p-5 mb-6">
                     <h3 className="text-sm font-bold text-[#1d1d1f] mb-4">AI 拆书管线</h3>
                     <div className="grid sm:grid-cols-5 gap-3">
                       {ai.pipeline.map((step, j) => (
                         <div key={j} className="text-center">
                           <div className={`w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-r ${step.color} flex items-center justify-center`}>
-                            <span className="text-[#1d1d1f] text-xs font-bold">{j + 1}</span>
+                            <span className="text-white text-xs font-bold">{j + 1}</span>
                           </div>
                           <p className="text-xs font-bold text-[#1d1d1f] mb-1">{step.name}</p>
-                          <p className="text-[10px] text-[#86868b] leading-relaxed">{step.desc}</p>
+                          <p className="text-[12px] text-[#6e6e73] leading-relaxed">{step.desc}</p>
                         </div>
                       ))}
                     </div>
@@ -202,11 +202,11 @@ export default function LearningPath() {
 
                   {/* Outcomes */}
                   <div className="mb-6">
-                    <h3 className="text-xs font-bold text-[#86868b] uppercase tracking-wider mb-3">学习成果</h3>
+                    <h3 className="text-xs font-bold text-[#6e6e73] uppercase tracking-wider mb-3">学习成果</h3>
                     <div className="grid sm:grid-cols-2 gap-2">
                       {ai.outcomes.map((outcome, j) => (
-                        <div key={j} className="flex items-start gap-2 text-sm text-[#6e6e73]">
-                          <svg className="w-5 h-5 mt-0.5 shrink-0 text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <div key={j} className="flex items-start gap-2 text-sm text-[#48484a]">
+                          <svg className="w-5 h-5 mt-0.5 shrink-0 text-violet-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                           </svg>
                           {outcome}
