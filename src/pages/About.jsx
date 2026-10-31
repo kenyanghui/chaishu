@@ -15,7 +15,7 @@ export default function About() {
               杨
             </div>
             <h1 className="text-3xl md:text-4xl font-black text-[#1d1d1f] mb-2">杨辉</h1>
-            <p className="text-neon-purple font-medium">玄龙堂主理人 · 玄龙系统开发者</p>
+            <p className="text-neon-purple font-medium">玄龙堂主理人 · 企业 AI 落地教练</p>
           </div>
 
           {/* Info grid */}
@@ -40,7 +40,7 @@ export default function About() {
             <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">关于我</h2>
             <div className="space-y-3 text-sm text-[#6e6e73] leading-relaxed">
               <p>
-                我是杨辉，玄龙是我的笔名——玄龙堂主理人，也是玄龙系统开发者。以"AI+心智"双轮驱动，帮助企业及二代接班人构建 AI 时代的核心竞争力，实现可持续增长与代际跃迁。
+                我是杨辉，玄龙是我的笔名——玄龙堂主理人，企业 AI 落地教练。以"AI+心智"双轮驱动，帮助企业及二代接班人构建 AI 时代的核心竞争力，实现可持续增长与代际跃迁。
               </p>
               <p>
                 混沌学园 AI 创新领教，国际人工智能产业联盟首席生态官，企业AI FDE教练。
