@@ -8,7 +8,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="text-[17px] font-bold text-[#1d1d1f] mb-2">玄龙·拆AI</div>
             <p className="text-[13px] leading-relaxed text-[#86868b] max-w-sm">
-              拆的是 AI 软件，拆的是 AI，拆为己用。拆书帮广州小蛮腰分舵 AI拆书工作坊阵地。
+              拆的是 AI 软件，拆的是 AI，拆为己用。面向学习者的工作坊课程阵地。
             </p>
           </div>
           <div>

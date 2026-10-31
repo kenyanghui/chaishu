@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 const navLinks = [
-  { path: '/workshops', label: '拆书帮小蛮腰AI拆书课 玄龙拆AI工作坊' },
+  { path: '/workshops', label: '工作坊' },
   { path: '/learning-path', label: '成长路径' },
   { path: '/hot', label: '经典拆页' },
   { path: '/skills', label: '技能萃取' },
