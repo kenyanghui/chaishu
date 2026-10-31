@@ -19,7 +19,7 @@ const workshops = [
   {
     id: 'wk2',
     no: '02',
-    title: '个人网站 · workbuddy 工作流',
+    title: '个人网站 · 知识变现工作流',
     short: '半天做出你的个人网站，让个人品牌和你的服务有一个打开就能看的家',
     tools: ['GitHub Pages', 'workbuddy'],
     status: 'open',
