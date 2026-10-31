@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import workshops, { seriesIntro } from '../data/workshops'
 
 const pains = [
-  { q: '收藏了一百篇干货，要用时一篇都找不到', a: '知识没有库，就等于没有。第 1 期先把它装进去。' },
+  { q: '收藏了一百篇干货，要用时一篇都找不到', a: '知识没有库，就等于没有。11 月 1 日首场，先把它装进去。' },
   { q: '公众号定了周更，三个月只发了两篇', a: '靠意志力的更新必断。让工作流替你写，你只管按发布。' },
   { q: 'AI 工具收藏了一排，一个都没用起来', a: '工具不在多，在拆。拆透一个，胜过收藏十个。' },
   { q: '看了很多 AI 课程，还是做不出自己的东西', a: '因为课里拆的是别人的案例。这里，拆你自己的。' },
@@ -104,10 +104,10 @@ export default function Home() {
       <section className="py-20 px-4 bg-[#f5f5f7]">
         <div className="max-w-5xl mx-auto">
           <div className="eyebrow mb-3 text-center">工作坊全系列</div>
-          <h2 className="headline text-[30px] md:text-[38px] text-center mb-4">01–04 期已排上，<span className="gradient-text">其余你说了算</span></h2>
+          <h2 className="headline text-[30px] md:text-[38px] text-center mb-4">首场 11 月 1 日开课，<span className="gradient-text">其余你说了算</span></h2>
           <p className="text-center text-[#6e6e73] text-[15px] mb-12 max-w-3xl mx-auto">{seriesIntro}</p>
 
-          {/* 第 1 期 spotlight */}
+          {/* 首场 spotlight */}
           <div className="apple-card p-8 mb-4 border-[#0071e3]/25 shadow-[0_10px_36px_rgba(0,113,227,.10)]">
             <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
               <div>
@@ -115,10 +115,10 @@ export default function Home() {
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3] animate-pulse" />
                   {first.statusLabel}
                 </div>
-                <h3 className="text-[26px] font-bold text-[#1d1d1f] tracking-tight">{first.no} · {first.title}</h3>
+                <h3 className="text-[26px] font-bold text-[#1d1d1f] tracking-tight">{first.title}</h3>
                 <p className="text-[#6e6e73] text-[15px] mt-2 max-w-xl">{first.short}</p>
               </div>
-              <a href={first.link} className="btn-primary shrink-0">立即报名</a>
+              <a href={first.signupUrl} target="_blank" rel="noreferrer" className="btn-primary shrink-0">立即报名</a>
             </div>
             <div className="grid sm:grid-cols-3 gap-3">
               {[
@@ -146,7 +146,7 @@ export default function Home() {
                 className="apple-card p-6"
               >
                 <div className="inline-flex px-2.5 py-0.5 rounded-full bg-black/[.05] text-[#86868b] text-[11.5px] font-semibold mb-3">{w.statusLabel}</div>
-                <div className="text-[17px] font-bold text-[#1d1d1f] mb-1.5">{w.no} · {w.title}</div>
+                <div className="text-[17px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</div>
                 <p className="text-[13.5px] text-[#6e6e73] leading-relaxed mb-3">{w.short}</p>
                 <div className="text-[12px] text-[#0071e3] font-medium">{w.target}</div>
               </motion.div>
@@ -154,7 +154,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/workshops" className="btn-secondary">36 个主题点心心投票 →</Link>
+            <Link to="/workshops" className="btn-secondary">36 个主题 · 点「我支持」投票 →</Link>
           </div>
         </div>
       </section>

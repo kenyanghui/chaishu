@@ -16,7 +16,7 @@ export default function Footer() {
             <ul className="space-y-2 text-[13px] text-[#6e6e73]">
               <li><Link to="/workshops" className="hover:text-[#0071e3] transition-colors">工作坊全系列</Link></li>
               <li><Link to="/learning-path" className="hover:text-[#0071e3] transition-colors">学习路径</Link></li>
-              <li><a href="/workshop/" className="hover:text-[#0071e3] transition-colors">第 1 期报名</a></li>
+              <li><a href="/workshop/" className="hover:text-[#0071e3] transition-colors">11·1 首场报名</a></li>
             </ul>
           </div>
           <div>

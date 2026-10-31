@@ -6,7 +6,8 @@ const workshops = [
     short: '把读过的、想的、写的，全部装进 AI，让它替你干活',
     target: 'AI 平台：workbuddy · 腾讯 ima',
     status: 'open',
-    statusLabel: '第 1 期 · 报名中',
+    statusLabel: '11 月 1 日（周日）14:00 · 报名中',
+    signupUrl: 'https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q',
     date: '2026-11-01（周日）14:00–17:00',
     location: '广州越秀区雅苑·培正 5 号楼',
     fee: '非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人',
@@ -22,7 +23,7 @@ const workshops = [
     short: '用 GitHub 安家，用 workbuddy 跑活——你的第一个网站和第一条自动产线',
     target: 'AI 平台：workbuddy · GitHub Pages',
     status: 'soon',
-    statusLabel: '第 2 期 · 筹备中',
+    statusLabel: '11 月排期中',
     summary: '拆 GitHub 和 workbuddy：半天拥有自己的网站（GitHub Pages 免费托管），再让 workbuddy 工作流自动更新它——写完即发布，作品集、个人品牌、小生意阵地一次到位。本站 chai.aibay.asia 就是这么搭的，现场照着拆。',
     outcomes: ['一个免费上线的个人网站', '内容 → 网站自动更新工作流', '可展示的个人作品阵地'],
     who: ['想要个人网站/作品集的人', '自由职业者、顾问、教练', '想给小生意建阵地的个体户'],
@@ -34,7 +35,7 @@ const workshops = [
     short: '新客户自动画像，跟进不再凭感觉',
     target: 'AI 平台：workbuddy · 企查查',
     status: 'soon',
-    statusLabel: '第 3 期 · 筹备中',
+    statusLabel: '11 月排期中',
     summary: '拆企查查：输入一个名字，自动拉出工商、股权、风险、关联企业全貌，让 AI 帮你判断"这单能不能接、账期稳不稳、背后是谁"。做生意的尽调能力，3 小时装进你的工作流。',
     outcomes: ['客户尽调自动画像工作流', '风险与关联关系速查', '跟进客户情报档案'],
     who: ['接单前想摸清客户底细的自由职业者', '中小企业主', '销售与商务负责人'],
@@ -46,14 +47,14 @@ const workshops = [
     short: '把持续输出的内容，变成持续收到的年费',
     target: 'AI 平台：workbuddy · 知识星球',
     status: 'soon',
-    statusLabel: '第 4 期 · 筹备中',
+    statusLabel: '11 月排期中',
     summary: '拆知识星球：AI 帮你选题、成稿、定时发布，精华帖自动整理成新会员引导包，到期提醒自动跟进续费。把"想起来才更新"的星球，做成一条内容产线。',
     outcomes: ['星球内容半自动产线', '精华沉淀与新人引导包', '续费提醒工作流'],
     who: ['想开星球的知识博主', '已有星球但更新吃力的星主', '做付费社群的运营者'],
   },
 ]
 
-// ============ 投票主题池：点心心，票高的先开 ============
+// ============ 投票主题池：点「我支持」，支持数高的先开 ============
 // 均基于 workbuddy 平台；证券类为需求探测（暂无连接器，票高优先补）
 export const voteThemes = [
   // —— 证券 · 看盘 ——
@@ -99,6 +100,6 @@ export const voteThemes = [
   { id: 'v-weknora', cat: '数据', title: 'WeKnora 知识库', desc: '私有化部署，文档智能问答' },
 ]
 
-export const seriesIntro = '每期一个真实 AI 软件，当场拆、当场接、当场跑通。01–04 期已排上，其余主题全部开放投票——点心心，票高的先开。想拆的在列表里没有？加微信 ikoning365 告诉我。'
+export const seriesIntro = '每期一个真实 AI 软件，当场拆、当场接、当场跑通。首场 11 月 1 日开课，更多主题 11 月排期中；其余全部开放投票——点「我支持」，支持数高的先开。想拆的在列表里没有？加微信 ikoning365 告诉我。'
 
 export default workshops
