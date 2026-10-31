@@ -1,16 +1,68 @@
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import workshops, { seriesIntro } from '../data/workshops'
+import workshops, { seriesIntro, voteThemes } from '../data/workshops'
+
+const VOTE_KEY = 'chai-votes-v1'
+const HEART = 'M12 21s-6.7-4.35-9.33-8.11C.9 10.2 1.96 6.5 5.05 5.36 7.13 4.6 9.4 5.3 12 7.5c2.6-2.2 4.87-2.9 6.95-2.14 3.09 1.14 4.15 4.84 2.38 7.53C18.7 16.65 12 21 12 21z'
+
+function loadVotes() {
+  try { return JSON.parse(localStorage.getItem(VOTE_KEY) || '{}') } catch { return {} }
+}
+
+function HeartCard({ t, i }) {
+  const [liked, setLiked] = useState(false)
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    const v = loadVotes()
+    setLiked(!!v[t.id])
+    setCount(Number(localStorage.getItem(`${VOTE_KEY}:count:${t.id}`) || 0))
+  }, [t.id])
+  const toggle = () => {
+    const v = loadVotes()
+    const next = !liked
+    setLiked(next)
+    const nc = Math.max(0, count + (next ? 1 : -1))
+    setCount(nc)
+    if (next) v[t.id] = 1; else delete v[t.id]
+    localStorage.setItem(VOTE_KEY, JSON.stringify(v))
+    localStorage.setItem(`${VOTE_KEY}:count:${t.id}`, String(nc))
+  }
+  return (
+    <motion.button
+      type="button"
+      onClick={toggle}
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.35, delay: Math.min(i * 0.03, 0.4) }}
+      className={`apple-card p-5 text-left transition-all hover:-translate-y-0.5 ${liked ? 'ring-2 ring-[#0071e3]/40' : ''}`}
+    >
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <span className="px-2 py-0.5 rounded-full bg-[#0071e3]/[.07] text-[#0071e3] text-[11px] font-semibold">{t.cat}</span>
+        <span className={`inline-flex items-center gap-1.5 text-[13px] font-semibold ${liked ? 'text-[#ff2d55]' : 'text-[#86868b]'}`}>
+          <svg className="w-[18px] h-[18px] transition-transform ${liked ? 'scale-110' : ''}" viewBox="0 0 24 24" fill={liked ? '#ff2d55' : 'none'} stroke={liked ? '#ff2d55' : 'currentColor'} strokeWidth={1.8}>
+            <path d={HEART} />
+          </svg>
+          {count > 0 ? count : '心心'}
+        </span>
+      </div>
+      <div className="text-[16px] font-bold text-[#1d1d1f] mb-1">{t.title}</div>
+      <div className="text-[13px] text-[#6e6e73] leading-relaxed">{t.desc}</div>
+    </motion.button>
+  )
+}
 
 export default function Workshops() {
   const open = workshops.filter(w => w.status === 'open')
   const soon = workshops.filter(w => w.status === 'soon')
+  const cats = [...new Set(voteThemes.map(t => t.cat))]
 
   return (
     <div className="hero-wash">
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="eyebrow mb-4">工作坊全系列</div>
-          <h1 className="headline text-[38px] md:text-[52px] mb-5">五期一个体系，<span className="gradient-text">从知识库到数字员工</span></h1>
+          <div className="eyebrow mb-4">工作坊 · 主题工作坊系列</div>
+          <h1 className="headline text-[38px] md:text-[52px] mb-5">想拆哪个，<span className="gradient-text">你说了算</span></h1>
           <p className="text-[16px] md:text-[17px] leading-relaxed text-[#6e6e73] max-w-2xl mx-auto">{seriesIntro}</p>
         </div>
       </section>
@@ -81,7 +133,7 @@ export default function Workshops() {
 
       <section className="px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <div className="eyebrow mb-6">后续各期 · 筹备中</div>
+          <div className="eyebrow mb-6">已排上 · 筹备中</div>
           <div className="space-y-4">
             {soon.map((w, i) => (
               <motion.div
@@ -111,10 +163,36 @@ export default function Workshops() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="mt-10 mb-4 text-center">
+      {/* ==================== 主题投票：点心心 ==================== */}
+      <section className="px-4 py-16">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="eyebrow mb-3">想拆哪个 · 点心心</div>
+            <h2 className="headline text-[30px] md:text-[38px] mb-4">主题投票，<span className="gradient-text">票高的先开</span></h2>
+            <p className="text-[15px] text-[#6e6e73] max-w-2xl mx-auto">
+              默认 AI 平台 workbuddy。点你心心的主题——票数最高的优先排期开课。列表里没有你想拆的？加微信 ikoning365 告诉我。
+            </p>
+          </div>
+          {cats.map(cat => (
+            <div key={cat} className="mb-10">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-[15px] font-bold text-[#1d1d1f]">{cat}</span>
+                <span className="h-px flex-1 bg-black/[.06]" />
+                <span className="text-[12px] text-[#86868b]">{voteThemes.filter(t => t.cat === cat).length} 个主题</span>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {voteThemes.filter(t => t.cat === cat).map((t, i) => (
+                  <HeartCard key={t.id} t={t} i={i} />
+                ))}
+              </div>
+            </div>
+          ))}
+          <div className="mt-6 mb-4 text-center">
             <p className="text-[14px] text-[#6e6e73] mb-5">
-              想优先开哪一期？或在等待列表占个位——加微信 ikoning365，备注「工作坊」。
+              投完票想聊聊？加微信 ikoning365，备注「工作坊」——也帮你想拆的软件出出主意。
             </p>
             <a href="/workshop/" className="btn-primary">报名工作坊 →</a>
           </div>

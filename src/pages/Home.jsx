@@ -12,7 +12,7 @@ const pains = [
 const chaifa = [
   { k: '拆什么', d: '拆 AI 软件，拆 AI 本身——只拆 workbuddy 连接器里真实存在的：ima、微信读书、腾讯会议、企查查、飞猪……每一个都是当场拆开、当场接上的真软件。', icon: 'M4 7c0-1.66 3.58-3 8-3s8 1.34 8 3-3.58 3-8 3-8-1.34-8-3zm0 5c0 1.66 3.58 3 8 3s8-1.34 8-3m-16 5c0 1.66 3.58 3 8 3s8-1.34 8-3' },
   { k: '怎么拆', d: '沿用拆书帮 RIA 方法论：R 找到软件里对你有用的片段，I 用自己的话重述它，A 规划出你的下一步行动。', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4' },
-  { k: '拆为己用', d: '与 chaishubang.net 同一宗旨：不是学完就散，是带走你自己的知识库、工作流、阵地和复盘看板。', icon: 'M16 7l-4 4-4-4m8 6l-4 4-4-4' },
+  { k: '拆为己用', d: '不是学完就散，是带走你自己的知识库、工作流、阵地和复盘看板。', icon: 'M16 7l-4 4-4-4m8 6l-4 4-4-4' },
 ]
 
 export default function Home() {
@@ -39,7 +39,7 @@ export default function Home() {
                 报名工作坊 →
               </a>
               <Link to="/workshops" className="btn-secondary">
-                看全部五期路线 →
+                看全部主题 & 投票 →
               </Link>
             </div>
           </motion.div>
@@ -75,7 +75,7 @@ export default function Home() {
           <div className="eyebrow mb-3 text-center">我们的拆法</div>
           <h2 className="headline text-[30px] md:text-[38px] text-center mb-4">拆的是 AI，拆为己用</h2>
           <p className="text-center text-[#6e6e73] text-[15px] mb-12 max-w-2xl mx-auto">
-            方法论同源拆书帮（chaishubang.net）：把一本书拆出能力，把一个 AI 软件拆成你的生产力。
+            把 AI 软件拆成你的生产力。
           </p>
           <div className="grid md:grid-cols-3 gap-4">
             {chaifa.map((c, i) => (
@@ -100,11 +100,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ==================== 五期路线 ==================== */}
+      {/* ==================== 工作坊主题 ==================== */}
       <section className="py-20 px-4 bg-[#f5f5f7]">
         <div className="max-w-5xl mx-auto">
           <div className="eyebrow mb-3 text-center">工作坊全系列</div>
-          <h2 className="headline text-[30px] md:text-[38px] text-center mb-4">五期一个体系，从知识库到数字员工</h2>
+          <h2 className="headline text-[30px] md:text-[38px] text-center mb-4">01–04 期已排上，<span className="gradient-text">其余你说了算</span></h2>
           <p className="text-center text-[#6e6e73] text-[15px] mb-12 max-w-3xl mx-auto">{seriesIntro}</p>
 
           {/* 第 1 期 spotlight */}
@@ -134,8 +134,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 2-5 期 compact */}
-          <div className="grid md:grid-cols-2 gap-4">
+          {/* 02-04 期 compact */}
+          <div className="grid md:grid-cols-3 gap-4">
             {rest.map((w, i) => (
               <motion.div
                 key={w.id}
@@ -154,7 +154,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/workshops" className="btn-secondary">查看每期详情 →</Link>
+            <Link to="/workshops" className="btn-secondary">36 个主题点心心投票 →</Link>
           </div>
         </div>
       </section>

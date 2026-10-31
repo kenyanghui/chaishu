@@ -8,7 +8,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="text-[17px] font-bold text-[#1d1d1f] mb-2">玄龙·拆AI</div>
             <p className="text-[13px] leading-relaxed text-[#86868b] max-w-sm">
-              拆的是 AI 软件，拆的是 AI，拆为己用。面向初级拆书家与学习者的工作坊课程阵地，与 www.aibay.asia 的 Loong 底座、LoongBuddy、AI 手机业务同源。
+              拆的是 AI 软件，拆的是 AI，拆为己用。面向学习者的工作坊课程阵地。
             </p>
           </div>
           <div>
@@ -30,7 +30,7 @@ export default function Footer() {
         </div>
         <div className="mt-10 pt-6 border-t border-black/[.06] flex flex-col md:flex-row justify-between gap-2 text-[12px] text-[#86868b]">
           <span>© 2026 杨辉（玄龙） · 微信 ikoning365 · 邮箱 554176937@qq.com</span>
-          <span>拆书方法论同源 chaishubang.net · 拆为己用</span>
+          <span>方法论支持：拆书帮（chaishubang.net） · 拆为己用</span>
         </div>
       </div>
     </footer>
