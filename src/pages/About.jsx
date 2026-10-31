@@ -25,7 +25,7 @@ export default function About() {
               { label: '所在地', value: '广州' },
               { label: '所属分舵', value: '广州小蛮腰分舵' },
               { label: '拆书等级', value: '三级拆书家' },
-              { label: '微信', value: 'kenyanghui' },
+              { label: '微信', value: 'ikoning365' },
               { label: '邮箱', value: '554176937@qq.com' },
             ].map(info => (
               <div key={info.label} className="p-4 rounded-xl bg-dark-card-hover/50 border border-dark-border">

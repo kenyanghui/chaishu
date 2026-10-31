@@ -10,7 +10,7 @@ export default function Workshops() {
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="eyebrow mb-4">工作坊全系列</div>
-          <h1 className="headline text-[38px] md:text-[52px] mb-5">五期一条线，<span className="gradient-text">从知识到钱</span></h1>
+          <h1 className="headline text-[38px] md:text-[52px] mb-5">五期一个体系，<span className="gradient-text">从知识库到数字员工</span></h1>
           <p className="text-[16px] md:text-[17px] leading-relaxed text-[#6e6e73] max-w-2xl mx-auto">{seriesIntro}</p>
         </div>
       </section>
@@ -72,7 +72,7 @@ export default function Workshops() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <a href={w.link} className="btn-primary">立即报名 · 微信 kenyanghui</a>
+              <a href={w.link} className="btn-primary">立即报名 · 微信 ikoning365</a>
               <a href="/workshop/" className="btn-secondary">看第 1 期完整介绍 →</a>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function Workshops() {
 
           <div className="mt-10 mb-4 text-center">
             <p className="text-[14px] text-[#6e6e73] mb-5">
-              想优先开哪一期？或在等待列表占个位——加微信 kenyanghui，备注「工作坊」。
+              想优先开哪一期？或在等待列表占个位——加微信 ikoning365，备注「工作坊」。
             </p>
             <a href="/workshop/" className="btn-primary">报名工作坊 →</a>
           </div>

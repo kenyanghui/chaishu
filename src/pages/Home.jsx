@@ -10,7 +10,7 @@ const pains = [
 ]
 
 const chaifa = [
-  { k: '拆什么', d: '拆 AI 软件，拆 AI 本身——ima、workbuddy、建站管线、获客外呼、通达信，每一个都是当场拆开的真软件。', icon: 'M4 7c0-1.66 3.58-3 8-3s8 1.34 8 3-3.58 3-8 3-8-1.34-8-3zm0 5c0 1.66 3.58 3 8 3s8-1.34 8-3m-16 5c0 1.66 3.58 3 8 3s8-1.34 8-3' },
+  { k: '拆什么', d: '拆 AI 软件，拆 AI 本身——只拆 workbuddy 连接器里真实存在的：ima、微信读书、腾讯会议、企查查、飞猪……每一个都是当场拆开、当场接上的真软件。', icon: 'M4 7c0-1.66 3.58-3 8-3s8 1.34 8 3-3.58 3-8 3-8-1.34-8-3zm0 5c0 1.66 3.58 3 8 3s8-1.34 8-3m-16 5c0 1.66 3.58 3 8 3s8-1.34 8-3' },
   { k: '怎么拆', d: '沿用拆书帮 RIA 方法论：R 找到软件里对你有用的片段，I 用自己的话重述它，A 规划出你的下一步行动。', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4' },
   { k: '拆为己用', d: '与 chaishubang.net 同一宗旨：不是学完就散，是带走你自己的知识库、工作流、阵地和复盘看板。', icon: 'M16 7l-4 4-4-4m8 6l-4 4-4-4' },
 ]
@@ -104,7 +104,7 @@ export default function Home() {
       <section className="py-20 px-4 bg-[#f5f5f7]">
         <div className="max-w-5xl mx-auto">
           <div className="eyebrow mb-3 text-center">工作坊全系列</div>
-          <h2 className="headline text-[30px] md:text-[38px] text-center mb-4">五期一条线，从知识到钱</h2>
+          <h2 className="headline text-[30px] md:text-[38px] text-center mb-4">五期一个体系，从知识库到数字员工</h2>
           <p className="text-center text-[#6e6e73] text-[15px] mb-12 max-w-3xl mx-auto">{seriesIntro}</p>
 
           {/* 第 1 期 spotlight */}
@@ -194,7 +194,7 @@ export default function Home() {
           <p className="text-[#6e6e73] text-[15px] mb-8">
             2026-11-01（周日）14:00–17:00 · 广州越秀 · 仅限 10 人，先到先得。
           </p>
-          <a href="/workshop/" className="btn-primary">锁定座位 · 微信 kenyanghui</a>
+          <a href="/workshop/" className="btn-primary">锁定座位 · 微信 ikoning365</a>
         </div>
       </section>
     </div>
