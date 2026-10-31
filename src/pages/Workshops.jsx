@@ -49,7 +49,7 @@ export default function Workshops() {
     <div className="hero-wash">
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="eyebrow mb-4">工作坊 · 主题工作坊系列</div>
+          <div className="eyebrow mb-4">拆书帮小蛮腰 拆AI工作坊</div>
           <h1 className="headline text-[38px] md:text-[52px] mb-5">想拆哪个，<span className="gradient-text">你说了算</span></h1>
           <p className="text-[16px] md:text-[17px] leading-relaxed text-[#6e6e73] max-w-2xl mx-auto">{seriesIntro}</p>
         </div>
