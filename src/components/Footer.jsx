@@ -29,7 +29,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-10 pt-6 border-t border-black/[.06] flex flex-col md:flex-row justify-between gap-2 text-[12px] text-[#86868b]">
-          <span>© 2026 玄龙（杨辉） · 微信 kenyanghui · 邮箱 554176937@qq.com</span>
+          <span>© 2026 杨辉（玄龙） · 微信 kenyanghui · 邮箱 554176937@qq.com</span>
           <span>拆书方法论同源 chaishubang.net · 拆为己用</span>
         </div>
       </div>

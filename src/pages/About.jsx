@@ -12,18 +12,19 @@ export default function About() {
           {/* Avatar and name */}
           <div className="text-center mb-12">
             <div className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center text-3xl font-black text-white">
-              龙
+              杨
             </div>
-            <h1 className="text-3xl md:text-4xl font-black text-[#1d1d1f] mb-2">玄龙</h1>
-            <p className="text-neon-purple font-medium">AI 摆渡人 · 拆书家</p>
+            <h1 className="text-3xl md:text-4xl font-black text-[#1d1d1f] mb-2">杨辉</h1>
+            <p className="text-neon-purple font-medium">玄龙堂主理人 · 玄龙系统开发者</p>
           </div>
 
           {/* Info grid */}
           <div className="grid md:grid-cols-2 gap-4 mb-10">
             {[
+              { label: '笔名', value: '玄龙' },
               { label: '所在地', value: '广州' },
               { label: '所属分舵', value: '广州小蛮腰分舵' },
-              { label: '拆书等级', value: '拆书家' },
+              { label: '拆书等级', value: '三级拆书家' },
               { label: '微信', value: 'kenyanghui' },
               { label: '邮箱', value: '554176937@qq.com' },
             ].map(info => (
@@ -39,11 +40,10 @@ export default function About() {
             <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">关于我</h2>
             <div className="space-y-3 text-sm text-[#6e6e73] leading-relaxed">
               <p>
-                玄龙是我的笔名，本名杨辉。我是 AI 摆渡人，以"AI+心智"双轮驱动，帮助企业及二代接班人构建 AI 时代的核心竞争力，实现可持续增长与代际跃迁。
+                我是杨辉，玄龙是我的笔名——玄龙堂主理人，也是玄龙系统开发者。以"AI+心智"双轮驱动，帮助企业及二代接班人构建 AI 时代的核心竞争力，实现可持续增长与代际跃迁。
               </p>
               <p>
-                混沌学园 AI 创新领教，国际人工智能产业联盟首席生态官。
-                企业AI FDE教练，悦洋海外集团首席人工智能官。
+                混沌学园 AI 创新领教，国际人工智能产业联盟首席生态官，企业AI FDE教练。
                 前微软、惠普、北电工程师，二十年企业咨询服务与科技创业经验，
                 8 年二代传承内创业协同探索，专注 AI 赋能二代教育传承，成就企业家的幸福望族。
               </p>
@@ -94,7 +94,7 @@ export default function About() {
               培训 · 咨询 · 教练 · 投资
             </p>
             <a
-              href="mailto:yanghuihotmail@hotmail.com"
+              href="mailto:554176937@qq.com"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-medium text-sm hover:shadow-lg hover:shadow-neon-purple/25 transition-all"
             >
               联系我

@@ -47,7 +47,7 @@ export default function Navbar() {
             href="/workshop/"
             className="ml-2 px-4 py-1.5 rounded-full text-[13.5px] font-semibold bg-[#0071e3] text-white hover:bg-[#0077ed] transition-colors shadow-[0_4px_14px_rgba(0,113,227,.3)]"
           >
-            报名第 1 期
+            报名工作坊
           </a>
         </div>
 

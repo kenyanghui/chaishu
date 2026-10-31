@@ -36,7 +36,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <a href="/workshop/" className="btn-primary">
-                报名第 1 期 · {first.title}
+                报名工作坊 →
               </a>
               <Link to="/workshops" className="btn-secondary">
                 看全部五期路线 →

@@ -116,7 +116,7 @@ export default function Workshops() {
             <p className="text-[14px] text-[#6e6e73] mb-5">
               想优先开哪一期？或在等待列表占个位——加微信 kenyanghui，备注「工作坊」。
             </p>
-            <a href="/workshop/" className="btn-primary">先报名第 1 期 · 2026-11-01 开课</a>
+            <a href="/workshop/" className="btn-primary">报名工作坊 →</a>
           </div>
         </div>
       </section>
