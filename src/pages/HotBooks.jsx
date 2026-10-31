@@ -29,7 +29,7 @@ export default function HotBooks() {
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[#0071e3] text-sm">
             拆书帮全平台热门
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">热门拆书书库</h1>
+          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">经典拆页</h1>
           <p className="text-[#6e6e73] max-w-2xl mx-auto">
             拆书帮精选热门书籍，每本都经过拆书家的深度拆解，呈现 RIA 完整框架
           </p>

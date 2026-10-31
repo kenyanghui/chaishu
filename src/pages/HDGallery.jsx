@@ -118,9 +118,9 @@ export default function HDGallery() {
         <div className="absolute top-0 left-1/3 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px]" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/20 text-amber-400 text-sm">
-            高清大图 · 知识视觉化
+            拆书赏鉴 · 知识视觉化
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">高清大图画廊</h1>
+          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">拆书赏鉴</h1>
           <p className="text-[#6e6e73] max-w-2xl mx-auto">
             HTML 信息图 + AI 封面图 · 点击技能查看完整信息图
           </p>

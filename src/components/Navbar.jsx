@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 
 const navLinks = [
   { path: '/workshops', label: '工作坊' },
-  { path: '/learning-path', label: '学习路径' },
-  { path: '/hot', label: '书库' },
-  { path: '/skills', label: '技能卡' },
-  { path: '/hd-gallery', label: '高清图' },
+  { path: '/learning-path', label: '成长路径' },
+  { path: '/hot', label: '经典拆页' },
+  { path: '/skills', label: '技能萃取' },
+  { path: '/hd-gallery', label: '拆书赏鉴' },
   { path: '/about', label: '关于' },
 ]
 
