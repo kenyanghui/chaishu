@@ -63,22 +63,22 @@ const workshops = [
 // ============ 投票主题池：点「我支持」，支持数高的先开 ============
 // 均基于 workbuddy 平台；证券类为需求探测（暂无连接器，票高优先补）
 export const voteThemes = [
-  // —— 证券 · 看盘 ——
-  { id: 'v-tdx', cat: '证券', title: '通达信', desc: '自选股监控、指标预警、盘后复盘自动化' },
-  { id: 'v-ths', cat: '证券', title: '同花顺', desc: '选股器结果自动解读、持仓盯盘提醒' },
-  { id: 'v-em', cat: '证券', title: '东方财富', desc: '股吧舆情监控、资金流异动日报' },
-  { id: 'v-xueqiu', cat: '证券', title: '雪球', desc: '关注组合动态追踪、热帖观点速览' },
-  { id: 'v-wencai', cat: '证券', title: '问财 iwencai', desc: '自然语言选股，结果自动入表' },
-  { id: 'v-futu', cat: '证券', title: '富途牛牛', desc: '美港股盘前盘后要闻、持仓分析' },
-  { id: 'v-tiger', cat: '证券', title: '老虎证券', desc: '多市场账户日报、交易记录归档' },
-  { id: 'v-level2', cat: '证券', title: 'Level-2 行情', desc: '逐笔大单监控、异动秒级推送' },
-  // —— 证券 · 复盘选股 ——
-  { id: 'v-lhb', cat: '证券', title: '龙虎榜监控', desc: '席位进出自动汇总，游资动向日报' },
-  { id: 'v-caibao', cat: '证券', title: '财报自动解读', desc: '年报季报一键拆解，关键指标对比' },
-  { id: 'v-xuang', cat: '证券', title: '打新监控', desc: '新股日历 + 申购提醒 + 中签追踪' },
-  { id: 'v-chan', cat: '证券', title: '缠论自动画笔', desc: '分型/笔/中枢自动标注，背驰预警' },
-  { id: 'v-kcb', cat: '证券', title: '科创板/北交所盯盘', desc: '做市报价异动、限售解禁日历' },
-  { id: 'v-wind', cat: '证券', title: 'Wind / Choice 终端', desc: '研报速读、宏观日历自动早报' },
+  // —— AI量化投资 · 看盘 ——
+  { id: 'v-tdx', cat: 'AI量化投资', title: '通达信', desc: '自选股监控、指标预警、盘后复盘自动化' },
+  { id: 'v-ths', cat: 'AI量化投资', title: '同花顺', desc: '选股器结果自动解读、持仓盯盘提醒' },
+  { id: 'v-em', cat: 'AI量化投资', title: '东方财富', desc: '股吧舆情监控、资金流异动日报' },
+  { id: 'v-xueqiu', cat: 'AI量化投资', title: '雪球', desc: '关注组合动态追踪、热帖观点速览' },
+  { id: 'v-wencai', cat: 'AI量化投资', title: '问财 iwencai', desc: '自然语言选股，结果自动入表' },
+  { id: 'v-futu', cat: 'AI量化投资', title: '富途牛牛', desc: '美港股盘前盘后要闻、持仓分析' },
+  { id: 'v-tiger', cat: 'AI量化投资', title: '老虎证券', desc: '多市场账户日报、交易记录归档' },
+  { id: 'v-level2', cat: 'AI量化投资', title: 'Level-2 行情', desc: '逐笔大单监控、异动秒级推送' },
+  // —— AI量化投资 · 复盘选股 ——
+  { id: 'v-lhb', cat: 'AI量化投资', title: '龙虎榜监控', desc: '席位进出自动汇总，游资动向日报' },
+  { id: 'v-caibao', cat: 'AI量化投资', title: '财报自动解读', desc: '年报季报一键拆解，关键指标对比' },
+  { id: 'v-xuang', cat: 'AI量化投资', title: '打新监控', desc: '新股日历 + 申购提醒 + 中签追踪' },
+  { id: 'v-chan', cat: 'AI量化投资', title: '缠论自动画笔', desc: '分型/笔/中枢自动标注，背驰预警' },
+  { id: 'v-kcb', cat: 'AI量化投资', title: '科创板/北交所盯盘', desc: '做市报价异动、限售解禁日历' },
+  { id: 'v-wind', cat: 'AI量化投资', title: 'Wind / Choice 终端', desc: '研报速读、宏观日历自动早报' },
   // —— 办公协同 ——
   { id: 'v-meeting', cat: '办公', title: '腾讯会议', desc: '录音转纪要，待办自动进清单' },
   { id: 'v-feishu', cat: '办公', title: '飞书', desc: '多维表 + 机器人，跨应用流转' },
