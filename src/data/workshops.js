@@ -2,7 +2,7 @@ const workshops = [
   {
     id: 'wk1',
     no: '01',
-    title: '知识库到自动化工作流',
+    title: '知识库 · 微信公众号自动化工作流',
     short: '把读过的、想的、写的，全部装进 AI，让它替你干活',
     tools: ['ima', 'workbuddy'],
     status: 'open',
