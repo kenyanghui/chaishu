@@ -69,7 +69,12 @@ export default function Workshops() {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3] animate-pulse" />
                 {w.statusLabel}
               </span>
-              <span className="text-[12px] text-[#86868b] font-medium">{w.target}</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="text-[11px] text-[#86868b] font-semibold tracking-wide">拆的软件</span>
+                {w.tools.map(t => (
+                  <span key={t} className="px-2.5 py-1 rounded-lg bg-[#1d1d1f] text-white text-[12.5px] font-bold tracking-wide">{t}</span>
+                ))}
+              </span>
             </div>
             <h2 className="text-[28px] md:text-[32px] font-bold tracking-tight text-[#1d1d1f] mb-3">{w.no} · {w.title}</h2>
             <p className="text-[15.5px] leading-relaxed text-[#6e6e73] mb-7 max-w-2xl">{w.summary}</p>
@@ -144,7 +149,12 @@ export default function Workshops() {
                     </div>
                     <h3 className="text-[19px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</h3>
                     <p className="text-[14px] text-[#6e6e73] leading-relaxed mb-2.5 max-w-xl">{w.short}</p>
-                    <div className="text-[12.5px] text-[#0071e3] font-medium mb-3">{w.target}</div>
+                    <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                      <span className="text-[11px] text-[#86868b] font-semibold tracking-wide">拆的软件</span>
+                      {w.tools.map(t => (
+                        <span key={t} className="px-2 py-0.5 rounded-md bg-[#1d1d1f] text-white text-[12px] font-bold tracking-wide">{t}</span>
+                      ))}
+                    </div>
                     <div className="flex flex-wrap gap-2">
                       {w.outcomes.map(o => (
                         <span key={o} className="px-2.5 py-1 rounded-lg bg-[#0071e3]/[.06] text-[#424245] text-[12.5px]">{o}</span>

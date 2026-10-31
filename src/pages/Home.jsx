@@ -115,6 +115,12 @@ export default function Home() {
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3] animate-pulse" />
                   {first.statusLabel}
                 </div>
+                <div className="flex flex-wrap items-center gap-1.5 mb-2">
+                  <span className="text-[11px] text-[#86868b] font-semibold tracking-wide">拆的软件</span>
+                  {first.tools.map(t => (
+                    <span key={t} className="px-2 py-0.5 rounded-md bg-[#1d1d1f] text-white text-[12px] font-bold tracking-wide">{t}</span>
+                  ))}
+                </div>
                 <h3 className="text-[26px] font-bold text-[#1d1d1f] tracking-tight">{first.title}</h3>
                 <p className="text-[#6e6e73] text-[15px] mt-2 max-w-xl">{first.short}</p>
               </div>
@@ -148,7 +154,11 @@ export default function Home() {
                 <div className="inline-flex px-2.5 py-0.5 rounded-full bg-black/[.05] text-[#86868b] text-[11.5px] font-semibold mb-3">{w.statusLabel}</div>
                 <div className="text-[17px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</div>
                 <p className="text-[13.5px] text-[#6e6e73] leading-relaxed mb-3">{w.short}</p>
-                <div className="text-[12px] text-[#0071e3] font-medium">{w.target}</div>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {w.tools.map(t => (
+                    <span key={t} className="px-2 py-0.5 rounded-md bg-[#1d1d1f] text-white text-[12px] font-bold tracking-wide">{t}</span>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>
