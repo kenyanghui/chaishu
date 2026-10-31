@@ -67,7 +67,7 @@ export default function SkillFusion() {
           <h1 className="text-4xl font-black mb-3">
             <span className="gradient-text">技能融合工坊</span>
           </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="text-[#6e6e73] text-lg max-w-2xl mx-auto">
             8 个思想体系、<span className="text-neon-purple font-bold">{total}</span> 个技能、<span className="text-neon-purple font-bold">6</span> 个融合组合包 — 全部本站直接下载
           </p>
         </div>
@@ -82,7 +82,7 @@ export default function SkillFusion() {
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 tab === t.k
                   ? 'bg-neon-purple text-white'
-                  : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                  : 'bg-black/[.04] text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[.06]'
               }`}
             >{t.l}</button>
           ))}
@@ -99,29 +99,29 @@ export default function SkillFusion() {
                   className="w-full flex items-center justify-between p-5 hover:bg-white/[0.02] transition-colors"
                 >
                   <div className="flex items-center gap-3 flex-wrap">
-                    <span className={`text-xl font-black ${catAccents[src.category] || 'text-slate-300'}`}>
+                    <span className={`text-xl font-black ${catAccents[src.category] || 'text-[#424245]'}`}>
                       {src.name}
                     </span>
-                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-white/10 text-slate-400">
+                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-black/[.06] text-[#6e6e73]">
                       {src.category}
                     </span>
-                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-white/10 text-slate-400">
+                    <span className="px-2 py-0.5 rounded text-xs font-medium bg-black/[.06] text-[#6e6e73]">
                       {src.skills.length} 技能
                     </span>
                   </div>
-                  <svg className={`w-5 h-5 text-slate-500 shrink-0 transition-transform ${expandedId === src.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className={`w-5 h-5 text-[#86868b] shrink-0 transition-transform ${expandedId === src.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
                 {expandedId === src.id && (
                   <div className="px-5 pb-5">
-                    <p className="text-sm text-slate-500 mb-4">{src.description}</p>
+                    <p className="text-sm text-[#86868b] mb-4">{src.description}</p>
 
                     {/* 下载全部 */}
                     {src.id !== 'book2startup' && (
                       <button onClick={() => dlTar(src.id)}
-                        className="mb-4 px-4 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-slate-400 hover:text-white transition-all inline-flex items-center gap-1.5"
+                        className="mb-4 px-4 py-1.5 rounded-lg bg-black/[.04] hover:bg-black/[.06] text-xs text-[#6e6e73] hover:text-[#1d1d1f] transition-all inline-flex items-center gap-1.5"
                       >
                         <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -136,13 +136,13 @@ export default function SkillFusion() {
                           className="group flex items-center justify-between px-3 py-2 rounded-lg bg-white/[0.03] hover:bg-white/[0.07] transition-colors"
                         >
                           <div className="min-w-0 flex-1">
-                            <div className="text-sm text-slate-300 group-hover:text-white transition-colors truncate">
+                            <div className="text-sm text-[#424245] group-hover:text-[#1d1d1f] transition-colors truncate">
                               {sk.name}
                             </div>
-                            <div className="text-[11px] text-slate-600 truncate">{sk.desc}</div>
+                            <div className="text-[11px] text-[#86868b] truncate">{sk.desc}</div>
                           </div>
                           <button onClick={() => dlSkill(src.id, sk.slug)}
-                            className="ml-2 p-1.5 rounded hover:bg-white/10 text-slate-600 hover:text-neon-purple transition-all opacity-0 group-hover:opacity-100 shrink-0"
+                            className="ml-2 p-1.5 rounded hover:bg-black/[.06] text-[#86868b] hover:text-neon-purple transition-all opacity-0 group-hover:opacity-100 shrink-0"
                             title="下载">
                             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -171,13 +171,13 @@ export default function SkillFusion() {
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <span className="text-xl mr-2">{p.emoji}</span>
-                      <span className="text-lg font-bold text-white">{p.name}</span>
+                      <span className="text-lg font-bold text-[#1d1d1f]">{p.name}</span>
                     </div>
-                    <svg className={`w-5 h-5 text-slate-500 shrink-0 mt-1 transition-transform ${expandedPack === p.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg className={`w-5 h-5 text-[#86868b] shrink-0 mt-1 transition-transform ${expandedPack === p.id ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </div>
-                  <p className="text-sm text-slate-500">{p.description}</p>
+                  <p className="text-sm text-[#86868b]">{p.description}</p>
                 </button>
 
                 {expandedPack === p.id && (
@@ -190,12 +190,12 @@ export default function SkillFusion() {
                           <div key={i} className="flex items-start gap-2.5 p-2 rounded-lg bg-white/[0.03]">
                             <span className="text-xs font-bold text-neon-purple mt-0.5 shrink-0">#{i + 1}</span>
                             <div className="min-w-0">
-                              <div className="text-sm text-white truncate">
+                              <div className="text-sm text-[#1d1d1f] truncate">
                                 <span className="font-medium">{sk?.name || c.skill}</span>
-                                <span className="text-slate-600 mx-1">·</span>
-                                <span className="text-slate-500">{src?.name}</span>
+                                <span className="text-[#86868b] mx-1">·</span>
+                                <span className="text-[#86868b]">{src?.name}</span>
                               </div>
-                              <div className="text-xs text-slate-600 truncate">{c.desc}</div>
+                              <div className="text-xs text-[#86868b] truncate">{c.desc}</div>
                             </div>
                           </div>
                         )

@@ -1,16 +1,36 @@
+import { Link } from 'react-router-dom'
+
 export default function Footer() {
   return (
-    <footer className="border-t border-dark-border mt-20">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-slate-500">
-            <span className="gradient-text font-bold">玄龙·AI拆书</span>
-            <span className="mx-2">·</span>
-            用 AI 拆解好书，让知识为你所用
+    <footer className="border-t border-black/[.06] bg-[#f5f5f7]">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div className="md:col-span-2">
+            <div className="text-[17px] font-bold text-[#1d1d1f] mb-2">玄龙·拆AI</div>
+            <p className="text-[13px] leading-relaxed text-[#86868b] max-w-sm">
+              拆的是 AI 软件，拆的是 AI，拆为己用。面向初级拆书家与学习者的工作坊课程阵地，与 www.aibay.asia 的 Loong 底座、LoongBuddy、AI 手机业务同源。
+            </p>
           </div>
-          <div className="text-xs text-slate-600">
-            Made with AI · 2026
+          <div>
+            <div className="text-[12px] font-semibold text-[#1d1d1f] mb-3">课程</div>
+            <ul className="space-y-2 text-[13px] text-[#6e6e73]">
+              <li><Link to="/workshops" className="hover:text-[#0071e3] transition-colors">工作坊全系列</Link></li>
+              <li><Link to="/learning-path" className="hover:text-[#0071e3] transition-colors">学习路径</Link></li>
+              <li><a href="/workshop/" className="hover:text-[#0071e3] transition-colors">第 1 期报名</a></li>
+            </ul>
           </div>
+          <div>
+            <div className="text-[12px] font-semibold text-[#1d1d1f] mb-3">资源</div>
+            <ul className="space-y-2 text-[13px] text-[#6e6e73]">
+              <li><Link to="/hot" className="hover:text-[#0071e3] transition-colors">书库</Link></li>
+              <li><Link to="/skills" className="hover:text-[#0071e3] transition-colors">技能卡</Link></li>
+              <li><a href="https://www.aibay.asia" target="_blank" rel="noreferrer" className="hover:text-[#0071e3] transition-colors">aibay.asia</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="mt-10 pt-6 border-t border-black/[.06] flex flex-col md:flex-row justify-between gap-2 text-[12px] text-[#86868b]">
+          <span>© 2026 玄龙（杨辉） · 微信 kenyanghui · 邮箱 554176937@qq.com</span>
+          <span>拆书方法论同源 chaishubang.net · 拆为己用</span>
         </div>
       </div>
     </footer>

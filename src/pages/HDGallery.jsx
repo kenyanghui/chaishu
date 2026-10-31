@@ -51,7 +51,7 @@ const categories = [
     subtitle: '高绩效教练 · 提问的威力 · 教练式沟通',
     color: 'from-cyan-600 to-teal-500',
     light: 'from-cyan-500/20 to-teal-500/20',
-    text: 'text-cyan-400',
+    text: 'text-[#0071e3]',
     border: 'border-cyan-500/30',
     bg: 'bg-cyan-500/10',
     books: ['高绩效教练', '提问的威力：教练问题全清单', '教练式沟通'],
@@ -102,7 +102,7 @@ export default function HDGallery() {
   for (const cat of categories) {
     byCategory[cat.id] = { cat, items: [] }
   }
-  byCategory['其他'] = { cat: { id: '其他', title: '其他', color: 'from-slate-600 to-slate-400', text: 'text-slate-400', border: 'border-slate-500/30', bg: 'bg-slate-500/10', light: 'from-slate-500/20 to-slate-500/20' }, items: [] }
+  byCategory['其他'] = { cat: { id: '其他', title: '其他', color: 'from-slate-600 to-slate-400', text: 'text-[#6e6e73]', border: 'border-slate-500/30', bg: 'bg-slate-500/10', light: 'from-slate-500/20 to-slate-500/20' }, items: [] }
 
   for (const pack of skills) {
     const catId = getBookCategory(pack.book)
@@ -120,8 +120,8 @@ export default function HDGallery() {
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/20 text-amber-400 text-sm">
             高清大图 · 知识视觉化
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-3">高清大图画廊</h1>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">高清大图画廊</h1>
+          <p className="text-[#6e6e73] max-w-2xl mx-auto">
             HTML 信息图 + AI 封面图 · 点击技能查看完整信息图
           </p>
         </div>
@@ -156,7 +156,7 @@ export default function HDGallery() {
                   <h2 className={`text-2xl md:text-3xl font-black bg-gradient-to-r ${cat.color} bg-clip-text text-transparent`}>
                     {cat.title}
                   </h2>
-                  <p className="text-xs text-slate-500 mt-1 max-w-2xl line-clamp-1">{cat.subtitle}</p>
+                  <p className="text-xs text-[#86868b] mt-1 max-w-2xl line-clamp-1">{cat.subtitle}</p>
                 </div>
               </div>
 
@@ -177,10 +177,10 @@ export default function HDGallery() {
                     <div className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${cat.bg} ${cat.text}`}>
                       {item.level || '拆书'}
                     </div>
-                    <h3 className="text-sm font-bold text-white mt-2 mb-1 group-hover:text-cyan-300 transition-colors line-clamp-2">
+                    <h3 className="text-sm font-bold text-[#1d1d1f] mt-2 mb-1 group-hover:text-[#0071e3] transition-colors line-clamp-2">
                       {item.name}
                     </h3>
-                    <p className="text-[10px] text-slate-500 line-clamp-1">
+                    <p className="text-[10px] text-[#86868b] line-clamp-1">
                       《{item.book}》
                     </p>
                     <div className="mt-2 flex items-center gap-1 text-[10px] text-amber-400/60 group-hover:text-amber-400 transition-colors">

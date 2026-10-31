@@ -70,8 +70,8 @@ export default function Skills() {
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/10 to-violet-500/10 border border-pink-500/20 text-pink-400 text-sm">
             便签拆书 · 技能萃取
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-3">Skill 技能工坊</h1>
-          <p className="text-slate-400 max-w-2xl mx-auto mb-6">
+          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">Skill 技能工坊</h1>
+          <p className="text-[#6e6e73] max-w-2xl mx-auto mb-6">
             从拆书实录中萃取可执行的技能框架，共 <span className="text-neon-purple font-bold">{totalItems}</span> 个教练技能
           </p>
 
@@ -98,7 +98,7 @@ export default function Skills() {
           <div className="max-w-2xl mx-auto space-y-4">
             {/* Search */}
             <div className="relative">
-              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#86868b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
@@ -106,7 +106,7 @@ export default function Skills() {
                 placeholder="搜索技能名称、书籍、作者..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 rounded-xl bg-dark-card/80 border border-dark-border text-slate-300 placeholder-slate-600 focus:outline-none focus:border-neon-purple/50 focus:ring-1 focus:ring-neon-purple/20 transition-all text-sm"
+                className="w-full pl-11 pr-4 py-3 rounded-xl bg-dark-card/80 border border-dark-border text-[#424245] placeholder-slate-600 focus:outline-none focus:border-neon-purple/50 focus:ring-1 focus:ring-neon-purple/20 transition-all text-sm"
               />
             </div>
 
@@ -118,8 +118,8 @@ export default function Skills() {
                   onClick={() => setTfFilter(lv.key)}
                   className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
                     tfFilter === lv.key
-                      ? `bg-gradient-to-r ${lv.color} text-white shadow-lg`
-                      : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 border border-white/10'
+                      ? `bg-gradient-to-r ${lv.color} text-[#1d1d1f] shadow-lg`
+                      : 'bg-black/[.04] text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[.06] border border-white/10'
                   }`}
                 >
                   {lv.label}
@@ -128,7 +128,7 @@ export default function Skills() {
             </div>
 
             {/* Count */}
-            <p className="text-xs text-slate-600">
+            <p className="text-xs text-[#86868b]">
               {search || tfFilter !== 'all'
                 ? `显示 ${filteredCount} 个技能（共 ${totalItems} 个）`
                 : `共 ${totalItems} 个教练技能`}
@@ -143,10 +143,10 @@ export default function Skills() {
           {filteredSkills.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-4xl mb-4 opacity-30">🔍</div>
-              <p className="text-slate-500">没有找到匹配的技能，试试其他关键词</p>
+              <p className="text-[#86868b]">没有找到匹配的技能，试试其他关键词</p>
               <button
                 onClick={() => { setSearch(''); setTfFilter('all') }}
-                className="mt-4 px-4 py-2 rounded-lg glass text-sm text-slate-400 hover:text-white transition-all"
+                className="mt-4 px-4 py-2 rounded-lg glass text-sm text-[#6e6e73] hover:text-[#1d1d1f] transition-all"
               >
                 清除筛选
               </button>
@@ -165,18 +165,18 @@ export default function Skills() {
                 >
                   <div className="flex items-start justify-between gap-4 mb-6">
                     <div>
-                      <h2 className="text-xl font-bold text-white mb-1">{skill.name}</h2>
-                      <p className="text-sm text-slate-400">
+                      <h2 className="text-xl font-bold text-[#1d1d1f] mb-1">{skill.name}</h2>
+                      <p className="text-sm text-[#6e6e73]">
                         《{skill.book}》· {skill.author}
                       </p>
                     </div>
-                    <span className="shrink-0 text-xs px-2.5 py-1 rounded-full bg-white/5 text-slate-500">
+                    <span className="shrink-0 text-xs px-2.5 py-1 rounded-full bg-black/[.04] text-[#86868b]">
                       {skill.items.length} 项
                     </span>
                   </div>
 
                   {skill.description && (
-                    <p className="text-sm text-slate-500 mb-6 line-clamp-2">{skill.description}</p>
+                    <p className="text-sm text-[#86868b] mb-6 line-clamp-2">{skill.description}</p>
                   )}
 
                   <div className="grid gap-4">
@@ -185,19 +185,19 @@ export default function Skills() {
                         <div className="flex items-center gap-2 mb-2">
                           <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
                             item.level?.startsWith('TF3') ? 'bg-amber-500/20 text-amber-400' :
-                            item.level?.startsWith('TF2') ? 'bg-cyan-500/20 text-cyan-400' :
+                            item.level?.startsWith('TF2') ? 'bg-cyan-500/20 text-[#0071e3]' :
                             item.level?.startsWith('TF1') ? 'bg-indigo-500/20 text-indigo-400' :
-                            'bg-slate-500/20 text-slate-400'
+                            'bg-slate-500/20 text-[#6e6e73]'
                           }`}>
                             {item.level}
                           </span>
-                          <h3 className="text-base font-bold text-white">{item.name}</h3>
+                          <h3 className="text-base font-bold text-[#1d1d1f]">{item.name}</h3>
                         </div>
 
                         {item.steps && item.steps.length > 0 && (
                           <div className="flex flex-wrap gap-2 mb-2">
                             {item.steps.map((step, k) => (
-                              <span key={k} className="flex items-center gap-1 text-xs text-slate-400">
+                              <span key={k} className="flex items-center gap-1 text-xs text-[#6e6e73]">
                                 <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 shrink-0" />
                                 {step}
                               </span>
@@ -206,12 +206,12 @@ export default function Skills() {
                         )}
 
                         {item.quote && (
-                          <p className="text-xs text-slate-500 italic border-l-2 border-slate-700 pl-3 my-2 line-clamp-2">
+                          <p className="text-xs text-[#86868b] italic border-l-2 border-slate-700 pl-3 my-2 line-clamp-2">
                             {item.quote}
                           </p>
                         )}
 
-                        <p className="text-[10px] text-slate-600 mt-1">{item.source}</p>
+                        <p className="text-[10px] text-[#86868b] mt-1">{item.source}</p>
                       </div>
                     ))}
                   </div>

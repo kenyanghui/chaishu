@@ -10,6 +10,7 @@ import Skills from './pages/Skills'
 import LearningPath from './pages/LearningPath'
 import HDGallery from './pages/HDGallery'
 import SkillFusion from './pages/SkillFusion'
+import Workshops from './pages/Workshops'
 
 function RedirectBook() {
   const { title } = useParams()
@@ -28,6 +29,7 @@ function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/workshops" element={<Workshops />} />
           <Route path="/book/:title" element={<RedirectBook />} />
           <Route path="/memoir/:id" element={<RedirectMemoir />} />
           <Route path="/about" element={<About />} />

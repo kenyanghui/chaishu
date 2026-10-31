@@ -2,16 +2,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 const navLinks = [
-  { path: '/', label: '首页' },
-  { path: '/hot', label: '热门拆书' },
-  { path: '/skills', label: '技能工坊' },
+  { path: '/workshops', label: '工作坊' },
   { path: '/learning-path', label: '学习路径' },
-  { path: '/hd-gallery', label: '高清大图' },
-  { path: '/skill-fusion', label: '技能融合' },
-  { path: '/about', label: '关于我' },
+  { path: '/hot', label: '书库' },
+  { path: '/skills', label: '技能卡' },
+  { path: '/hd-gallery', label: '高清图' },
+  { path: '/about', label: '关于' },
 ]
-
-const externalLinks = [{ href: '/workshop/', label: 'AI拆书课', hot: true }]
 
 export default function Navbar() {
   const location = useLocation()
@@ -25,38 +22,36 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-dark-bg/90 backdrop-blur-lg border-b border-dark-border' : 'bg-transparent'
+      scrolled ? 'bg-white/80 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[.06]' : 'bg-white/60 backdrop-blur-md'
     }`}>
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
-          <span className="text-2xl font-black gradient-text">玄龙·AI拆书</span>
-          <span className="text-xs text-slate-500 group-hover:text-neon-purple transition-colors">alpha</span>
+      <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <span className="text-[19px] font-bold tracking-tight text-[#1d1d1f]">玄龙·拆AI</span>
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1">
           {navLinks.map(link => (
             <Link
               key={link.path}
               to={link.path}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`px-3.5 py-1.5 rounded-full text-[13.5px] font-medium transition-all duration-200 ${
                 location.pathname === link.path
-                  ? 'bg-neon-purple/10 text-neon-purple'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-black/[.05] text-[#1d1d1f]'
+                  : 'text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[.04]'
               }`}
             >
               {link.label}
             </Link>
           ))}
-          {externalLinks.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-amber-400 hover:text-amber-300 hover:bg-amber-400/10 border border-amber-400/20"
-            >
-              {link.label}
-            </a>
-          ))}
+          <a
+            href="/workshop/"
+            className="ml-2 px-4 py-1.5 rounded-full text-[13.5px] font-semibold bg-[#0071e3] text-white hover:bg-[#0077ed] transition-colors shadow-[0_4px_14px_rgba(0,113,227,.3)]"
+          >
+            报名第 1 期
+          </a>
         </div>
+
+        <a href="/workshop/" className="md:hidden px-3.5 py-1.5 rounded-full text-[13px] font-semibold bg-[#0071e3] text-white">报名</a>
       </div>
     </nav>
   )

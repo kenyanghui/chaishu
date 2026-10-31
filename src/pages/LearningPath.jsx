@@ -41,7 +41,7 @@ export default function LearningPath() {
             <h1 className="text-4xl md:text-6xl font-black mb-4">
               <span className="gradient-text">拆书家成长之路</span>
             </h1>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-[#6e6e73] max-w-2xl mx-auto leading-relaxed">
               从零基础到 AI 拆书家，四个阶段、六级过级、288+ 教练技能。
               按你的节奏，走自己的拆书成长之路。
             </p>
@@ -78,15 +78,15 @@ export default function LearningPath() {
                         {level.range}
                       </span>
                     </div>
-                    <p className="text-slate-400">{level.subtitle}</p>
+                    <p className="text-[#6e6e73]">{level.subtitle}</p>
                   </div>
                 </div>
 
-                <p className="text-sm text-slate-400 mb-6 leading-relaxed">{level.desc}</p>
+                <p className="text-sm text-[#6e6e73] mb-6 leading-relaxed">{level.desc}</p>
 
                 {/* Skills */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">
+                  <h3 className="text-xs font-bold text-[#86868b] uppercase tracking-wider mb-3">
                     核心技能 · {levelSkillsCount} 个技能
                   </h3>
                   <div className="grid sm:grid-cols-2 gap-2">
@@ -96,7 +96,7 @@ export default function LearningPath() {
                         className="flex items-start gap-2 p-2.5 rounded-lg bg-dark-card/50 border border-dark-border"
                       >
                         <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${level.color} mt-2 shrink-0`} />
-                        <span className="text-sm text-slate-400">{skill}</span>
+                        <span className="text-sm text-[#6e6e73]">{skill}</span>
                       </div>
                     ))}
                   </div>
@@ -104,10 +104,10 @@ export default function LearningPath() {
 
                 {/* Outcomes */}
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">学习成果</h3>
+                  <h3 className="text-xs font-bold text-[#86868b] uppercase tracking-wider mb-3">学习成果</h3>
                   <div className="grid sm:grid-cols-2 gap-2">
                     {level.outcomes.map((outcome, j) => (
-                      <div key={j} className="flex items-start gap-2 text-sm text-slate-500">
+                      <div key={j} className="flex items-start gap-2 text-sm text-[#86868b]">
                         <svg className="w-4 h-4 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <path d="M5 13l4 4L19 7" />
                         </svg>
@@ -121,7 +121,7 @@ export default function LearningPath() {
                 <div className="flex flex-wrap gap-3">
                   <Link
                     to={`/skills?level=${i + 1}`}
-                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-white text-sm font-bold hover:shadow-lg transition-all`}
+                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-[#1d1d1f] text-sm font-bold hover:shadow-lg transition-all`}
                   >
                     查看 Level {i + 1} 技能
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,7 +131,7 @@ export default function LearningPath() {
                   {i < 2 && (
                     <Link
                       to={`/learning-path#lvl${i + 2}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-slate-300 text-sm font-medium hover:text-white transition-all border border-dark-border"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-[#424245] text-sm font-medium hover:text-[#1d1d1f] transition-all border border-dark-border"
                     >
                       了解 Level {i + 2}
                     </Link>
@@ -141,7 +141,7 @@ export default function LearningPath() {
 
               {/* Arrow between levels */}
               <div className="flex justify-center py-3">
-                <svg className="w-6 h-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <svg className="w-6 h-6 text-[#86868b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
               </div>
@@ -178,23 +178,23 @@ export default function LearningPath() {
                           {ai.range}
                         </span>
                       </div>
-                      <p className="text-slate-400">{ai.subtitle}</p>
+                      <p className="text-[#6e6e73]">{ai.subtitle}</p>
                     </div>
                   </div>
 
-                  <p className="text-sm text-slate-400 mb-6 leading-relaxed">{ai.desc}</p>
+                  <p className="text-sm text-[#6e6e73] mb-6 leading-relaxed">{ai.desc}</p>
 
                   {/* Pipeline */}
                   <div className="rounded-xl border border-violet-500/30 bg-violet-900/10 p-5 mb-6">
-                    <h3 className="text-sm font-bold text-white mb-4">AI 拆书管线</h3>
+                    <h3 className="text-sm font-bold text-[#1d1d1f] mb-4">AI 拆书管线</h3>
                     <div className="grid sm:grid-cols-5 gap-3">
                       {ai.pipeline.map((step, j) => (
                         <div key={j} className="text-center">
                           <div className={`w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-r ${step.color} flex items-center justify-center`}>
-                            <span className="text-white text-xs font-bold">{j + 1}</span>
+                            <span className="text-[#1d1d1f] text-xs font-bold">{j + 1}</span>
                           </div>
-                          <p className="text-xs font-bold text-white mb-1">{step.name}</p>
-                          <p className="text-[10px] text-slate-500 leading-relaxed">{step.desc}</p>
+                          <p className="text-xs font-bold text-[#1d1d1f] mb-1">{step.name}</p>
+                          <p className="text-[10px] text-[#86868b] leading-relaxed">{step.desc}</p>
                         </div>
                       ))}
                     </div>
@@ -202,10 +202,10 @@ export default function LearningPath() {
 
                   {/* Outcomes */}
                   <div className="mb-6">
-                    <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">学习成果</h3>
+                    <h3 className="text-xs font-bold text-[#86868b] uppercase tracking-wider mb-3">学习成果</h3>
                     <div className="grid sm:grid-cols-2 gap-2">
                       {ai.outcomes.map((outcome, j) => (
-                        <div key={j} className="flex items-start gap-2 text-sm text-slate-400">
+                        <div key={j} className="flex items-start gap-2 text-sm text-[#6e6e73]">
                           <svg className="w-5 h-5 mt-0.5 shrink-0 text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                           </svg>
@@ -228,7 +228,7 @@ export default function LearningPath() {
                     </Link>
                     <Link
                       to="/skills?level=4"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-slate-300 text-sm font-medium hover:text-white transition-all border border-violet-500/20"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-[#424245] text-sm font-medium hover:text-[#1d1d1f] transition-all border border-violet-500/20"
                     >
                       查看 S 级技能
                     </Link>
