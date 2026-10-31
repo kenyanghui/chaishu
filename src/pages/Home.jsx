@@ -25,7 +25,7 @@ export default function Home() {
       <section className="pt-36 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="eyebrow mb-4">工作坊课程阵地 · 面向学习者</div>
+            <div className="eyebrow mb-4">拆书帮广州小蛮腰分舵 AI拆书工作坊阵地</div>
             <h1 className="headline text-[44px] md:text-[64px] mb-6">
               别再学 AI 了，<br />
               <span className="gradient-text">把它拆开，为己所用。</span>
