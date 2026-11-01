@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>学习手册 · 线上可填写 · 玄龙 · AI 拆书</title>
+<meta name="description" content="工作坊线上手册：现场填写、自动保存、一键导出 Markdown、提交直达讲师邮箱。">
+<style>
+  :root{--bg:#0a0d16;--bg2:#0e1220;--card:#131829;--line:#232b42;--ink:#e8ecf5;--ink2:#9aa6bd;--mute:#5d6a83;--purple:#a78bfa;--cyan:#22d3ee;--gold:#fbbf24;--green:#34d399}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:radial-gradient(900px 480px at 85% -10%,rgba(167,139,250,.13),transparent 60%),radial-gradient(700px 420px at -5% 105%,rgba(34,211,238,.08),transparent 55%),var(--bg);color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;padding:0 0 90px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(10,13,22,.85);border-bottom:1px solid var(--line)}
+  .nav .in{max-width:980px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:900;letter-spacing:.5px}
+  .nav .logo b{background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13px;color:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:6px 12px}
+  .nav .back:hover{color:var(--ink);border-color:#3b4668}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px}
+  .hero{padding:34px 0 10px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--purple);font-weight:700}
+  h1{font-size:30px;line-height:1.25;margin:8px 0 6px;font-weight:900}
+  .sub{color:var(--ink2);font-size:14.5px;max-width:700px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 8px}
+  .tab{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:12px;padding:8px 12px;font-size:13px;cursor:pointer;transition:.18s}
+  .tab:hover{color:var(--ink);border-color:#3b4668}
+  .tab.on{background:linear-gradient(135deg,rgba(167,139,250,.22),rgba(34,211,238,.14));border-color:#5b4b8a;color:#fff;font-weight:700}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:16px 0}
+  .card h2{font-size:17px;margin:0 0 4px;font-weight:800}
+  .card .hint{font-size:12.5px;color:var(--mute);margin:0 0 14px}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .f{display:flex;flex-direction:column;gap:6px}
+  .f label{font-size:12.5px;color:var(--ink2)}
+  input[type=text],input[type=email],textarea,select{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 12px;font:inherit;font-size:14px;outline:none}
+  input:focus,textarea:focus{border-color:#6d5ba8;box-shadow:0 0 0 3px rgba(167,139,250,.12)}
+  textarea{resize:vertical;min-height:70px}
+  .step{display:grid;grid-template-columns:34px 1fr 220px;gap:10px;align-items:start;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .step:last-child{border-bottom:0}
+  .chk{display:flex;align-items:center;justify-content:center;padding-top:10px}
+  .chk input{width:18px;height:18px;accent-color:#a78bfa}
+  .step .a{font-size:13.5px}
+  .step .a small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+  .a1a2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .plan .col{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px}
+  .plan .col h3{font-size:13.5px;margin:0 0 8px;color:var(--gold)}
+  .plan .col textarea{min-height:150px}
+  .rev{margin:10px 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg2)}
+  .rev h4{font-size:13px;margin:0 0 8px;color:var(--cyan)}
+  .rev .r{display:grid;grid-template-columns:1fr 200px;gap:10px;margin:8px 0;font-size:13px;align-items:center}
+  .acc-g{margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:12px}
+  .acc-g h4{font-size:13.5px;margin:0 0 8px;color:var(--ink)}
+  .acc-row{display:grid;grid-template-columns:22px 1fr 220px;gap:10px;align-items:center;padding:6px 0;font-size:13px}
+  .self-row{display:grid;grid-template-columns:1fr 190px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+  .self-row:last-child{border-bottom:0}
+  .rates{display:flex;gap:6px}
+  .rates label{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;color:var(--ink2);cursor:pointer;background:var(--bg2)}
+  .rates input{display:none}
+  .rates input:checked+span{color:#0a0d16;font-weight:800}
+  .rates label:has(input:checked){background:linear-gradient(135deg,#a78bfa,#22d3ee);border-color:transparent;color:#0a0d16;font-weight:800}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:rgba(10,13,22,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);z-index:60}
+  .bar .in{max-width:980px;margin:0 auto;padding:12px 20px;display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+  .bar .saved{font-size:12px;color:var(--mute);margin-right:auto}
+  .btn{border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:11px;padding:10px 16px;font:inherit;font-size:13.5px;cursor:pointer;transition:.18s}
+  .btn:hover{border-color:#4b5580}
+  .btn.pri{background:linear-gradient(135deg,#a78bfa,#22d3ee);color:#0a0d16;font-weight:800;border:0}
+  .btn:disabled{opacity:.55;cursor:default}
+  .msg{font-size:13px;color:var(--green)}
+  .msg.err{color:#f87171}
+  .foot{color:var(--mute);font-size:12px;text-align:center;padding:30px 0 10px}
+  @media(max-width:720px){
+    .grid,.grid3,.a1a2,.plan{grid-template-columns:1fr}
+    .step{grid-template-columns:28px 1fr}
+    .step .rec{grid-column:2}
+    .rev .r{grid-template-columns:1fr}
+    .acc-row{grid-template-columns:22px 1fr}
+    .acc-row .ev{grid-column:2}
+    .self-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<nav class="nav"><div class="in"><div class="logo">玄龙 · <b>拆 AI</b></div><a class="back" href="/#workshops">← 返回课程</a></div></nav>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">学习手册 · 线上可填写</div>
+    <h1>把今天做的，写成你自己的</h1>
+    <p class="sub">选场次 → 边做边填 → 自动保存 → 一键导出，或提交给讲师。手机电脑都能填，填到一半关掉也不会丢。</p>
+    <div class="tabs" id="tabs"></div>
+  </div>
+  <div id="app"></div>
+  <div class="foot">拆书帮广州小蛮腰分舵 · AI 拆书课 · 杨辉 微信 ikoning365</div>
+</div>
+<div class="bar"><div class="in">
+  <span class="saved" id="saved">未保存</span>
+  <button class="btn" id="export" type="button">导出 Markdown</button>
+  <button class="btn pri" id="submit" type="button">提交给讲师</button>
+  <span class="msg" id="msg"></span>
+</div></div>
+
+<script src="specs.js"></script>
+<script>
+(function(){
+  var specs = window.WORKBOOK_SPECS || [];
+  var cur = null, state = {}, saveTimer = null;
+  var API = "https://api.aibay.asia/needs/workbook";
+  var KEY = function(no){ return "chai-wb:" + no; };
+
+  function el(tag, cls, txt){ var e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e; }
+  function field(label, id, ph){
+    var w=el("div","f"); var l=el("label",null,label); var i=el("input"); i.type="text"; i.id=id; if(ph)i.placeholder=ph;
+    w.appendChild(l); w.appendChild(i); return w;
+  }
+  function load(no){ try{ return JSON.parse(localStorage.getItem(KEY(no))||"{}"); }catch(e){ return {}; } }
+  function bind(id, val){
+    var n=document.getElementById(id); if(!n) return;
+    if(val!==undefined && val!==null) n.value=val;
+    n.addEventListener("input", scheduleSave);
+    n.addEventListener("change", scheduleSave);
+  }
+  function collect(){
+    var d={};
+    document.querySelectorAll("[data-k]").forEach(function(n){
+      if(n.type==="radio"){ if(n.checked) d[n.dataset.k]=n.value; }
+      else d[n.dataset.k] = n.type==="checkbox" ? n.checked : n.value;
+    });
+    return d;
+  }
+  function scheduleSave(){
+    clearTimeout(saveTimer);
+    saveTimer=setTimeout(function(){
+      state=collect();
+      try{ localStorage.setItem(KEY(cur.no), JSON.stringify(state)); document.getElementById("saved").textContent="已自动保存"; }catch(e){}
+    },400);
+  }
+  function setVal(id,v){ var n=document.getElementById(id); if(n&&v!=null) n.value=v; }
+
+  function renderTabs(){
+    var box=document.getElementById("tabs"); box.innerHTML="";
+    specs.forEach(function(s){
+      var b=el("button","tab"+(cur&&cur.no===s.no?" on":""),s.no+" · "+s.title.split("·")[0].trim());
+      b.type="button";
+      b.onclick=function(){ location.hash=s.no; };
+      box.appendChild(b);
+    });
+  }
+
+  function render(){
+    var no=(location.hash||"").replace("#","") || (specs[0]&&specs[0].no);
+    cur=specs.filter(function(s){return s.no===no;})[0]||specs[0];
+    if(!cur){ document.getElementById("app").innerHTML="<div class='card'>手册数据未加载。</div>"; return; }
+    state=load(cur.no);
+    renderTabs();
+    var app=document.getElementById("app"); app.innerHTML="";
+
+    // 基本信息
+    var c1=el("div","card"); c1.appendChild(el("h2",null,"① 基本信息"));
+    c1.appendChild(el("p","hint","姓名会出现在导出文件里；联系方式只用于讲师课后跟进。"));
+    var g=el("div","grid");
+    [["姓名","name","你的名字"],["小组","group","第几组"],["组长","leader","组长姓名"],["微信 / 手机","contact","方便讲师课后找你"]].forEach(function(f){
+      var w=field(f[0],f[1],f[2]); g.appendChild(w);
+    });
+    c1.appendChild(g); app.appendChild(c1);
+
+    // 底盘（可选）
+    if(cur.s0){
+      var c0=el("div","card"); c0.appendChild(el("h2",null,cur.s0.h1||"第 0 节 · 底盘"));
+      c0.appendChild(el("p","hint",cur.s0.hint||"新学员补齐 ima 与公众号；已完成的老学员填「回灌」一项。"));
+      (cur.s0.items||[]).forEach(function(it,i){
+        var row=el("div","step");
+        var chk=el("div","chk"); var cb=el("input"); cb.type="checkbox"; cb.dataset.k="s0_"+i; chk.appendChild(cb);
+        var a=el("div","a",it.a||""); 
+        var rec=el("div","rec"); var inp=el("input"); inp.type="text"; inp.placeholder=it.r||"记录"; inp.dataset.k="s0r_"+i; rec.appendChild(inp);
+        row.appendChild(chk); row.appendChild(a); row.appendChild(rec); c0.appendChild(row);
+      });
+      app.appendChild(c0);
+    }
+
+    ["s1","s2"].forEach(function(sk,si){
+      var sec=cur[sk]; if(!sec) return;
+      var c=el("div","card"); c.appendChild(el("h2",null,sec.h1||("第 "+(si+1)+" 节任务卡")));
+      if(sec.sub) c.appendChild(el("p","hint",sec.sub));
+      (sec.steps||[]).forEach(function(st,i){
+        var row=el("div","step");
+        var chk=el("div","chk"); var cb=el("input"); cb.type="checkbox"; cb.dataset.k=sk+"_"+i; chk.appendChild(cb);
+        var a=el("div","a", st.a||""); if(st.note){ var sm=el("small",null,st.note); a.appendChild(sm); }
+        var rec=el("div","rec"); var inp=el("input"); inp.type="text"; inp.placeholder=st.r||"我的记录"; inp.dataset.k=sk+"r_"+i; rec.appendChild(inp);
+        row.appendChild(chk); row.appendChild(a); row.appendChild(rec); c.appendChild(row);
+      });
+      var aa=el("div","a1a2");
+      [["a1","A1 · 联结经验（具体情境 + 具体行为 + 具体结果）"],["a2","A2 · 规划应用（什么时候、做什么、怎么验证）"]].forEach(function(p){
+        var w=el("div","f"); w.appendChild(el("label",null,p[1]));
+        var t=el("textarea"); t.dataset.k=sk+"_"+p[0]; t.placeholder=sec[p[0]]||"写下你自己的…"; w.appendChild(t); aa.appendChild(w);
+      });
+      c.appendChild(aa); app.appendChild(c);
+    });
+
+    // 30 天计划
+    if(cur.plan_cols){
+      var cp=el("div","card"); cp.appendChild(el("h2",null,"30 天计划"));
+      cp.appendChild(el("p","hint","三栏：库（素材进库）/ 站（作品上站）/ 号（内容分发）。每周一行，周五 10 分钟复盘。"));
+      var pl=el("div","plan");
+      cur.plan_cols.forEach(function(col,i){
+        var box=el("div","col"); box.appendChild(el("h3",null,col[0]||("第"+(i+1)+"栏")));
+        var t=el("textarea"); t.dataset.k="plan_"+i; t.placeholder="第 1 周：\n第 2 周：\n第 3 周：\n第 4 周：\n周五复盘："; box.appendChild(t); pl.appendChild(box);
+      });
+      cp.appendChild(pl); app.appendChild(cp);
+    }
+
+    // 复盘卡
+    if(cur.rev){
+      var cr=el("div","card"); cr.appendChild(el("h2",null,"复盘卡 · 跑一次记一次"));
+      cr.appendChild(el("p","hint","每联三格，写具体一点；第三格一定要有日期。"));
+      for(var r=0;r<4;r++){
+        var b=el("div","rev"); b.appendChild(el("h4",null,"第 "+(r+1)+" 联"));
+        cur.rev.forEach(function(q,qi){
+          var row=el("div","r"); row.appendChild(el("div",null,q));
+          var inp=el("input"); inp.type="text"; inp.placeholder="我的回答"; inp.dataset.k="rev_"+r+"_"+qi; row.appendChild(inp);
+          b.appendChild(row);
+        });
+        cr.appendChild(b);
+      }
+      app.appendChild(cr);
+    }
+
+    // 验收
+    if(cur.acc){
+      var ca=el("div","card"); ca.appendChild(el("h2",null,"交付物验收"));
+      ca.appendChild(el("p","hint","自检打勾 + 写下证据（截图/网址/份数），组长复核。"));
+      cur.acc.forEach(function(gp,gi){
+        var gb=el("div","acc-g"); gb.appendChild(el("h4",null,gp.g||("交付 "+(gi+1))));
+        (gp.items||[]).forEach(function(it,ii){
+          var row=el("div","acc-row");
+          var cb=el("input"); cb.type="checkbox"; cb.dataset.k="acc_"+gi+"_"+ii;
+          row.appendChild(cb); row.appendChild(el("div",null,it[0]||""));
+          var ev=el("div","ev"); var inp=el("input"); inp.type="text"; inp.placeholder=it[1]||"证据"; inp.dataset.k="accr_"+gi+"_"+ii; ev.appendChild(inp); row.appendChild(ev);
+          gb.appendChild(row);
+        });
+        ca.appendChild(gb);
+      });
+      app.appendChild(ca);
+    }
+
+    // 自评
+    if(cur.self){
+      var cs=el("div","card"); cs.appendChild(el("h2",null,"AI 技能自评（1–5 分）"));
+      cs.appendChild(el("p","hint","1=完全不会，3=照着能做，5=能教别人。没有标准答案。"));
+      cur.self.forEach(function(q,i){
+        var row=el("div","self-row"); row.appendChild(el("div",null,(i+1)+". "+(q.q||q)));
+        var rates=el("div","rates");
+        for(var v=1;v<=5;v++){
+          var lb=el("label"); var rd=el("input"); rd.type="radio"; rd.name="self_"+i; rd.value=v; rd.dataset.k="self_"+i;
+          lb.appendChild(rd); lb.appendChild(el("span",null,String(v))); rates.appendChild(lb);
+        }
+        row.appendChild(rates); cs.appendChild(row);
+      });
+      app.appendChild(cs);
+    }
+
+    // 回填
+    Object.keys(state).forEach(function(k){
+      var n=document.querySelector('[data-k="'+k+'"]');
+      if(!n) return;
+      if(n.type==="checkbox") n.checked=!!state[k];
+      else if(n.type==="radio"){ if(String(n.value)===String(state[k])) n.checked=true; }
+      else n.value=state[k];
+    });
+    document.getElementById("saved").textContent = Object.keys(state).length ? "已恢复上次填写" : "未保存";
+    document.getElementById("msg").textContent="";
+  }
+
+  function toMd(){
+    var d=collect(), out=[], s=cur;
+    out.push("# "+s.title+" · 学习手册");
+    out.push("");
+    out.push("- 姓名："+(d.name||"")+"　小组："+(d.group||"")+"　组长："+(d.leader||""));
+    out.push("- 联系方式："+(d.contact||""));
+    out.push("- 场次："+s.no+"　导出时间："+new Date().toLocaleString("zh-CN"));
+    out.push("");
+    if(s.s0){
+      out.push("## "+(s.s0.h1||"第 0 节 · 底盘")); out.push("");
+      (s.s0.items||[]).forEach(function(it,i){ out.push("- ["+(d["s0_"+i]?"x":" ")+"] "+it.a+"　"+(d["s0r_"+i]||"")); });
+      out.push("");
+    }
+    ["s1","s2"].forEach(function(sk){
+      var sec=s[sk]; if(!sec) return;
+      out.push("## "+(sec.h1||sk)); out.push("");
+      (sec.steps||[]).forEach(function(st,i){ out.push("- ["+(d[sk+"_"+i]?"x":" ")+"] "+st.a+"　"+(d[sk+"r_"+i]||"")); });
+      out.push("");
+      out.push("**A1**："+(d[sk+"_a1"]||"")); out.push("");
+      out.push("**A2**："+(d[sk+"_a2"]||"")); out.push("");
+    });
+    if(s.plan_cols){
+      out.push("## 30 天计划"); out.push("");
+      s.plan_cols.forEach(function(col,i){ out.push("### "+(col[0]||("第"+(i+1)+"栏"))); out.push((d["plan_"+i]||"").replace(/\n/g,"\n\n")); out.push(""); });
+    }
+    if(s.rev){
+      out.push("## 复盘卡"); out.push("");
+      for(var r=0;r<4;r++){
+        out.push("### 第 "+(r+1)+" 联");
+        s.rev.forEach(function(q,qi){ out.push("- "+q+" → "+(d["rev_"+r+"_"+qi]||"")); });
+        out.push("");
+      }
+    }
+    if(s.acc){
+      out.push("## 交付物验收"); out.push("");
+      s.acc.forEach(function(gp,gi){
+        out.push("### "+(gp.g||("交付 "+(gi+1))));
+        (gp.items||[]).forEach(function(it,ii){ out.push("- ["+(d["acc_"+gi+"_"+ii]?"x":" ")+"] "+it[0]+"　"+(d["accr_"+gi+"_"+ii]||"")); });
+        out.push("");
+      });
+    }
+    if(s.self){
+      out.push("## AI 技能自评"); out.push("");
+      s.self.forEach(function(q,i){ out.push("- "+(q.q||q)+"："+(d["self_"+i]||"—")); });
+      out.push("");
+    }
+    return out.join("\n");
+  }
+
+  document.getElementById("export").onclick=function(){
+    var blob=new Blob([toMd()],{type:"text/markdown;charset=utf-8"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+    a.download="学习手册-"+cur.no+"-"+(collect().name||"未命名")+".md"; a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+  };
+
+  document.getElementById("submit").onclick=function(){
+    var btn=this, msg=document.getElementById("msg");
+    var d=collect();
+    if(!(d.name||"").trim()){ msg.className="msg err"; msg.textContent="先填个姓名再提交"; return; }
+    if(!(d.contact||"").trim()){ msg.className="msg err"; msg.textContent="留个微信或手机，讲师才能回复你"; return; }
+    btn.disabled=true; msg.className="msg"; msg.textContent="提交中…";
+    var payload={
+      workshop: cur.no+" · "+cur.title,
+      name: d.name||"", group: d.group||"", leader: d.leader||"",
+      contact: d.contact||"", data: d
+    };
+    fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+      .then(function(r){return r.json();})
+      .then(function(j){
+        btn.disabled=false;
+        if(j && j.ok){ msg.className="msg"; msg.textContent="已提交，讲师邮箱会收到你的手册"+(j.mailed?"（已送达）":"（稍后送达）"); }
+        else { msg.className="msg err"; msg.textContent=(j&&j.error)||"提交失败，先导出 Markdown 保底"; }
+      })
+      .catch(function(){ btn.disabled=false; msg.className="msg err"; msg.textContent="网络不通：已保留本地草稿，可先导出 Markdown"; });
+  };
+
+  window.addEventListener("hashchange", render);
+  render();
+})();
+</script>
+</body>
+</html>
