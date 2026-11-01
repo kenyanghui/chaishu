@@ -140,7 +140,8 @@
   function renderTabs(){
     var box=document.getElementById("tabs"); box.innerHTML="";
     specs.forEach(function(s){
-      var b=el("button","tab"+(cur&&cur.no===s.no?" on":""),s.no+" · "+s.title.split("·")[0].trim());
+      var shortName={ "02": "自动网站" }[s.no];
+      var b=el("button","tab"+(cur&&cur.no===s.no?" on":""),s.no+" · "+(shortName||s.title.split("·")[0].trim()));
       b.type="button";
       b.onclick=function(){ location.hash=s.no; };
       box.appendChild(b);
