@@ -128,6 +128,81 @@
     <a href="handouts/index.html">全部材料目录 →</a>
   </div>
 
+  
+  <style>
+  .fb-card{max-width:680px;margin:20px auto 0;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:24px 26px}
+  .fb-card h2.sec{margin-top:0}
+  .fb-lead{color:var(--ink2);font-size:14px;margin:6px 0 16px}
+  .fb-card label{display:block;font-size:13px;color:var(--ink2);margin:14px 0 6px;font-weight:600}
+  .fb-card textarea,.fb-card input{width:100%;box-sizing:border-box;background:var(--bg2);
+    border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 12px;font:inherit;font-size:14px}
+  .fb-card textarea:focus,.fb-card input:focus{outline:none;border-color:#0071e3}
+  .fb-stars{display:flex;gap:6px;font-size:32px;line-height:1;cursor:pointer;user-select:none}
+  .fb-stars span{color:var(--mute);opacity:.45;transition:.15s}
+  .fb-stars span.on{color:#f59e0b;opacity:1}
+  .fb-btn{margin-top:18px;background:#0071e3;color:#fff;border:none;border-radius:10px;
+    padding:11px 26px;font:inherit;font-size:15px;font-weight:600;cursor:pointer}
+  .fb-btn:disabled{opacity:.55;cursor:default}
+  .fb-msg{margin-left:12px;font-size:13px;color:#e0564b}
+  .fb-thanks{display:none;text-align:center;padding:18px 6px 6px}
+  .fb-card.done .fb-form{display:none}
+  .fb-card.done .fb-thanks{display:block}
+  .fb-thanks b{font-size:20px}
+  .fb-thanks p{color:var(--ink2);font-size:14px;margin:8px 0 0}
+  </style>
+  <h2 class="sec" id="feedback">课后反馈</h2>
+  <div class="fb-card" id="fb-card" data-workshop="第 6 场 · AI 手机">
+    <p class="fb-lead">花了你的 1 分钟：说说这次课的感受，反馈会直接送到讲师邮箱，帮下一期做得更好。</p>
+    <div class="fb-form">
+      <label>整体评分 <span style="color:#e0564b">*</span></label>
+      <div class="fb-stars" id="fb-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <label>这次最有用的是</label>
+      <textarea id="fb-useful" rows="3" maxlength="600" placeholder="哪个环节、哪句话对你最有启发？"></textarea>
+      <label>下次想听</label>
+      <input id="fb-next" maxlength="300" placeholder="例如：用 AI 做周报、自动整理会议记录…">
+      <label>其他建议</label>
+      <textarea id="fb-sug" rows="2" maxlength="600" placeholder="节奏、难度、案例……都可以说"></textarea>
+      <label>联系方式（选填）</label>
+      <input id="fb-contact" maxlength="60" placeholder="微信 / 邮箱，方便讲师回复你">
+      <input id="fb-website" value="" style="display:none" tabindex="-1" autocomplete="off">
+      <button class="fb-btn" id="fb-send" type="button">提交反馈</button>
+      <span class="fb-msg" id="fb-msg"></span>
+    </div>
+    <div class="fb-thanks">
+      <b>提交成功，谢谢你的反馈！</b>
+      <p>已送达讲师邮箱，每一条都会认真读。期待下一期见。</p>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var card=document.getElementById('fb-card');if(!card)return;
+    var API='https://api.aibay.asia/needs/feedback';
+    var rating=0,stars=[].slice.call(document.querySelectorAll('#fb-stars span'));
+    stars.forEach(function(s,i){s.addEventListener('click',function(){
+      rating=i+1;stars.forEach(function(t,j){t.className=j<rating?'on':''});
+      document.getElementById('fb-msg').textContent='';});});
+    function msg(t){document.getElementById('fb-msg').textContent=t;}
+    document.getElementById('fb-send').addEventListener('click',function(){
+      if(!rating)return msg('请先点星星打分');
+      var b=this;b.disabled=true;b.textContent='提交中…';
+      fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        workshop:card.getAttribute('data-workshop'),rating:rating,
+        useful:document.getElementById('fb-useful').value,
+        next_topic:document.getElementById('fb-next').value,
+        suggestion:document.getElementById('fb-sug').value,
+        contact:document.getElementById('fb-contact').value,
+        website:document.getElementById('fb-website').value})})
+      .then(function(r){return r.json().catch(function(){throw 0;});})
+      .then(function(j){
+        if(j&&j.ok){card.classList.add('done');return;}
+        b.disabled=false;b.textContent='提交反馈';
+        msg((j&&j.error)||'提交失败，请稍后再试');})
+      .catch(function(){b.disabled=false;b.textContent='提交反馈';msg('网络异常，请稍后再试');});
+    });
+  })();
+  </script>
+
   <div class="foot">
     微信 ikoning365 · 邮箱 554176937@qq.com<br>
     © 2026 杨辉（玄龙堂主理人） · 拆书帮广州小蛮腰分舵
