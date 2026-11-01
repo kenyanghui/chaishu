@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>活动海报｜AI 手机 · 让手机成为你的 AI 生产力</title>
+<style>
+  :root{
+    --ink:#101b2e; --ink2:#4a5a72; --blue:#1f5eff; --gold:#e2a020; --bg:#f4f6fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);padding:28px 14px 60px;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  .poster{width:760px;margin:0 auto;background:#fff;border-radius:22px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(16,27,46,.14);position:relative}
+
+  .hero{padding:48px 52px 40px;color:#fff;position:relative;
+    background:radial-gradient(800px 400px at 92% -20%, #3d78ff 0%, transparent 60%),
+               linear-gradient(150deg,#0d1a30 0%,#132a4d 55%,#1b3a66 100%)}
+  .hero .tag{display:inline-block;font-size:14px;letter-spacing:2px;font-weight:700;
+    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);
+    border-radius:999px;padding:6px 14px;margin-bottom:20px}
+  .hero h1{margin:0 0 14px;font-size:46px;line-height:1.2;font-weight:900;letter-spacing:-.5px}
+  .hero h1 em{font-style:normal;color:#ffd77a}
+  .hero .sub{font-size:19px;color:#bfd0e8;line-height:1.7}
+  .hero .strip{display:flex;gap:26px;margin-top:30px;padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.16);font-size:15px;color:#d8e3f3}
+  .hero .strip b{display:block;font-size:22px;color:#fff;margin-bottom:2px}
+
+  .body{padding:40px 52px 8px}
+  h2{margin:0 0 16px;font-size:23px;font-weight:900;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--blue)}
+  .sec{margin-bottom:34px}
+  .pain{display:grid;gap:12px}
+  .pain div{background:#f6f8fc;border-left:4px solid #c9d6ea;border-radius:0 10px 10px 0;
+    padding:14px 18px;font-size:17px;color:var(--ink2);line-height:1.6}
+
+  .gains{display:grid;gap:14px}
+  .gain{display:flex;gap:16px;padding:18px 20px;border-radius:14px;background:#eef4ff;
+    border:1px solid #d3e0ff}
+  .gain .ico{font-size:26px;line-height:1}
+  .gain b{display:block;font-size:19px;margin-bottom:5px}
+  .gain span{font-size:16px;color:var(--ink2);line-height:1.55}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .step{border:1px solid #e2e8f2;border-radius:14px;padding:16px 16px 18px;background:#fcfdff}
+  .step .n{font-size:13px;font-weight:900;color:var(--blue);letter-spacing:1px;margin-bottom:8px}
+  .step b{display:block;font-size:19px;margin-bottom:6px}
+  .step span{font-size:14.5px;color:var(--ink2);line-height:1.5}
+
+  .ria{font-size:16px;color:var(--ink2);line-height:1.85;background:#f7f9fc;border-radius:12px;
+    padding:16px 20px;border:1px solid #e8eef7}
+  .ria b{color:var(--ink)}
+
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;font-size:16px;color:var(--ink2)}
+  .who div::before{content:"✔ ";color:var(--blue);font-weight:900}
+
+  .teacher{display:flex;gap:18px;align-items:flex-start;background:#0d1a30;color:#fff;
+    border-radius:16px;padding:24px 26px}
+  .teacher .av{width:66px;height:66px;border-radius:50%;flex:0 0 66px;
+    background:linear-gradient(135deg,#3d78ff,#ffd77a);display:flex;align-items:center;
+    justify-content:center;font-size:26px;font-weight:900;color:#0d1a30}
+  .teacher b{font-size:21px}
+  .teacher .l1{font-size:15px;color:#ffd77a;margin:4px 0 10px}
+  .teacher ul{margin:0;padding-left:18px;font-size:14.5px;color:#c2d1e6;line-height:1.75}
+
+  .signup{margin:0 0 0;padding:30px 52px 38px;background:#f7f9fd;
+    border-top:1px solid #e6ecf6}
+  .signup table{width:100%;border-collapse:collapse;font-size:17px}
+  .signup td{padding:10px 0;vertical-align:top}
+  .signup td.k{width:78px;color:#8494ab;font-size:15px}
+  .signup td.v{font-weight:700;color:var(--ink)}
+  .signup .price{color:#c0392b;font-weight:900}
+  .signup .qrrow{display:flex;gap:20px;align-items:center}
+  .signup .qr{width:96px;height:96px;flex:0 0 96px;border:2px dashed #9db1cf;border-radius:12px;
+    background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:11px;color:#8494ab;line-height:1.5}
+  .signup .limit{margin-top:18px;font-size:15px;color:var(--ink2);
+    background:#fff3d9;border:1px dashed #e8c477;border-radius:12px;padding:14px 18px;line-height:1.7}
+  .signup .limit b{color:#a86500}
+  .cta{margin-top:20px;background:var(--blue);color:#fff;text-align:center;font-size:20px;
+    font-weight:900;border-radius:999px;padding:16px;letter-spacing:1px}
+
+  .foot{padding:18px 52px 30px;text-align:center;font-size:13px;color:#93a1b5;line-height:1.8}
+
+  .toolbar{width:760px;margin:0 auto 16px;display:flex;gap:10px;justify-content:flex-end}
+  .toolbar button{border:1px solid #cdd7e6;background:#fff;color:#3c4a5f;border-radius:10px;
+    padding:9px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+  .toolbar button:hover{background:#eef3fb}
+
+  @media print{
+    @page{size:A4;margin:0}
+    body{background:#fff;padding:0}
+    .toolbar{display:none}
+    .poster{width:210mm;height:297mm;box-shadow:none;border-radius:0;margin:0;overflow:hidden;
+      display:flex;flex-direction:column}
+    .hero{padding:26px 28px 20px}
+    .hero .tag{font-size:11px;padding:4px 10px;margin-bottom:13px}
+    .hero h1{font-size:31px;margin-bottom:9px}
+    .hero .sub{font-size:14px}
+    .hero .strip{margin-top:16px;padding-top:12px;gap:18px;font-size:11.5px}
+    .hero .strip b{font-size:16px}
+    .body{padding:16px 28px 0;flex:1}
+    .sec{margin-bottom:13px}
+    h2{font-size:15px;margin-bottom:8px}
+    h2::before{height:16px;width:4px}
+    .pain{gap:7px}
+    .pain div{padding:9px 12px;font-size:11.6px}
+    .gains{gap:8px}
+    .gain{padding:10px 13px;gap:11px}
+    .gain .ico{font-size:18px}
+    .gain b{font-size:13.4px;margin-bottom:2px}
+    .gain span{font-size:11.6px}
+    .steps{gap:8px}
+    .step{padding:10px 11px 12px}
+    .step .n{font-size:10.5px;margin-bottom:5px}
+    .step b{font-size:13.4px;margin-bottom:3px}
+    .step span{font-size:11px;line-height:1.45}
+    .ria{font-size:11.6px;line-height:1.7;padding:10px 13px}
+    .who{font-size:11.6px;gap:5px 14px}
+    .teacher{padding:14px 16px;gap:13px;border-radius:11px}
+    .teacher .av{width:44px;height:44px;flex:0 0 44px;font-size:17px}
+    .teacher b{font-size:14.5px}
+    .teacher .l1{font-size:11px;margin:3px 0 6px}
+    .teacher ul{font-size:10.8px;line-height:1.6;padding-left:15px}
+    .signup{padding:14px 28px 12px}
+    .signup table{font-size:12px}
+    .signup td{padding:5px 0}
+    .signup td.k{width:52px;font-size:11px}
+    .signup .qr{width:64px;height:64px;flex:0 0 64px;font-size:9px}
+    .signup .limit{margin-top:9px;padding:9px 12px;font-size:11px;line-height:1.6;border-radius:9px}
+    .cta{margin-top:10px;padding:10px;font-size:14px}
+    .foot{padding:8px 28px;font-size:9.5px;line-height:1.5}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">打印 / 存 PDF（A4）</button>
+</div>
+
+<div class="poster">
+
+  <div class="hero">
+    <div class="tag">AI 工作坊 · 手机 AI · 拆书帮广州小蛮腰分舵</div>
+    <h1>AI 手机 · 让手机成为<br>你的 <em>AI 生产力</em></h1>
+    <div class="sub">拍照、录音、说句话——杂事在路上就办完<br>收 → 理 → 用三步走通，不讲概念，只交三件能截图的真东西</div>
+    <div class="strip">
+      <div><b>11 月</b>时间待定 · 报名后群内通知</div>
+      <div><b>广州越秀</b>雅苑·培正 5 号楼</div>
+      <div><b>仅 10 人</b>小班现场动手</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="sec">
+      <h2>你是不是也这样？</h2>
+      <div class="pain">
+        <div>📌 会议开完、名片收了一堆、白板拍完就忘——重要信息散在相册和语音里，回头找不到？</div>
+        <div>📌 录音没人整理、照片不会变文字、灵感说完就丢——杂事全堆在下班以后？</div>
+        <div>📌 想用手机 AI，却不知道从哪一步开始，也没人带着当场跑通一遍？</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>这场工作坊，现场带走三件真东西</h2>
+      <div class="gains">
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一套「随手收」的采集清单</b>
+          <span>会议录音、名片、白板照片、灵感语音——现场全部收进手机 AI，不怕漏（有截图）。</span>
+        </div></div>
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一条「拍/录完自动变纪要和待办」的手机工作流</b>
+          <span>拍照识别转文字、录音转写转纪要、语音转待办，自动分类归档进 workbuddy。</span>
+        </div></div>
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一份通勤即可完成的每日 AI 清单</b>
+          <span>语音调档案、口述发周报、语音回邮件——带上 30 天手机生产力计划，杂事路上办完。</span>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>3 小时怎么上？</h2>
+      <div class="steps">
+        <div class="step"><div class="n">01 · 收 · 45′</div><b>随手收</b><span>会议录音、名片、白板照片、灵感语音——现场全部收进手机 AI，不怕漏（交付①）。</span></div>
+        <div class="step"><div class="n">02 · 理 · 60′</div><b>自动理</b><span>拍照转文字、录音转纪要、语音转待办，AI 自动分类归档进 workbuddy（交付②）。</span></div>
+        <div class="step"><div class="n">03 · 用 · 50′</div><b>随身用</b><span>通勤路上语音调档案、口述发周报、语音回邮件 + 30 天手机生产力计划（交付③）。</span></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>全程用拆书帮 RIA 方法</h2>
+      <div class="ria">
+        看演示（<b>R</b>）→ 听拆解（<b>I</b>）→ 反思你的经验（<b>A1</b>）→ 当场做出来（<b>A2</b>）。<br>
+        收尾 10 分钟：互换测试 + 复盘卡 + 30 天计划。全程只用两个工具：<b>手机 AI（语音助手/拍照识别/录音转写）</b>和 <b>workbuddy</b>。<br>
+        带一部手机来就行：<b>现场学、现场拆、现场用。</b>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>这场工作坊，适合谁？</h2>
+      <div class="who">
+        <div>杂事多、总被录音和照片追着跑的职场人</div>
+        <div>通勤时间长、想把碎片时间用起来的人</div>
+        <div>想用手机 AI 又怕学不会的零基础伙伴</div>
+        <div>想带着团队一起提效的组长 / 主理人</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>主讲的拆书家</h2>
+      <div class="teacher">
+        <div class="av">杨</div>
+        <div>
+          <b>杨辉（杨老师）</b>
+          <div class="l1">玄龙堂主理人 · 三级拆书家</div>
+          <ul>
+            <li>方法论支持：拆书帮（chaishubang.net）</li>
+            <li>「收理用」工作流是讲师自己每天在跑的同一套</li>
+            <li>小班带练：只带 10 个人，每个人当场做出来</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="signup">
+    <table>
+      <tr><td class="k">时间</td><td class="v">11 月 · 时间待定（报名后群内通知）</td></tr>
+      <tr><td class="k">地点</td><td class="v">广州越秀区雅苑·培正 5 号楼</td></tr>
+      <tr><td class="k">费用</td><td class="v">会员免费；非会员 <span class="price">39 元</span>（含茶歇 + 资料）</td></tr>
+      <tr><td class="k">报名</td><td class="v">
+        <div class="qrrow">
+          <div>优先：拆书帮公众号<br>辅助：微信 ikoning365（杨辉）<br>邮箱 554176937@qq.com</div>
+          <div class="qr">二维码占位<br>微信 ikoning365<br>（印前替换）</div>
+        </div>
+      </td></tr>
+    </table>
+    <div class="limit">
+      📦 <b>现场带走</b>：采集清单 + 手机工作流 + 每日 AI 清单，三件可截图的交付物。<br>
+      ⚠️ <b>仅限 10 人</b>，先到先得——为保证每个人都能当场做出来，不做大班。请提前完成课前准备：手机系统升级、语音助手/拍照识别/录音转写可用、workbuddy 手机端登录。
+    </div>
+    <div class="cta">带上手机，杂事路上就办完 🚀</div>
+  </div>
+
+  <div class="foot">
+    AI 工作坊 · 手机 AI · 拆书帮广州小蛮腰分舵<br>
+    © 2026 杨辉（玄龙堂主理人）· 拆书帮广州小蛮腰分舵
+  </div>
+
+</div>
+</body>
+</html>

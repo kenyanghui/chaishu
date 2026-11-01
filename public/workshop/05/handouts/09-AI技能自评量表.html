@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 09｜AI 技能自评量表</title>
+<link rel="stylesheet" href="handout.css">
+<style>
+body{font-size:11.8px}
+.scale td{ text-align:center; width:11mm; font-size:12px; color:#5b6b84 }
+.scale td.q{ text-align:left; width:auto }
+.band td{ text-align:center; padding:6px 4px }
+.o{display:inline-block;width:3.6mm;height:3.6mm;border:1.3px solid #9aa8bd;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>AI 技能自评量表</h1>
+      <div class="sub">开课前 5 分钟填 · 按真实频度打分 · 测完你就知道自己站在哪</div>
+    </div>
+    <div class="brand">开课首发放<br>总分填右边 → <b style="font-size:15px;color:var(--blue)">____ / 50</b></div>
+  </div>
+
+  <p style="margin-top:8px">评分标准：<b>1 = 从未</b> · 2 = 偶尔（几月一次） · 3 = 有时（每月） · <b>4 = 经常（每周）</b> · 5 = 每天。圈一个数字，凭第一直觉，别想太久。</p>
+
+  <h2>第一部分 · 搭（工作台搭建）</h2>
+  <table class="scale">
+    <tr><td class="q">1. 我用 AI 处理过成批的文档（合同 / 报告 / 卷宗），而不只是一问一答</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">2. 我搭过（或见过同事搭）一条自动化的工作流程，哪怕只是"文档进来→要点出来"</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">3. 我说得清"模型 + 工具 + 流程编排"各自在 AI 工作台里管什么</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>第二部分 · 审（文档审核实战）</h2>
+  <table class="scale">
+    <tr><td class="q">4. 我有一份固定的审核清单 / 检查点，审文档不靠临场感觉</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">5. 我让 AI 出过"初稿意见"，再由人逐条确认后才定稿</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">6. 我审出的意见里，有一句是我自己拍板的判断（不是 AI 原文照抄）</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>第三部分 · 沉（审核知识库）</h2>
+  <table class="scale">
+    <tr><td class="q">7. 我把审过的规则 / 踩过的坑写下来存档过（哪怕只存在备忘录里）</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">8. 同事问我审核口径时，我有现成的规则 / 案例可以指给他</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">9. 我知道把规则喂给知识库后，AI 的审核意见会越来越贴我的业务</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>第四部分 · 底（工具地基）</h2>
+  <table class="scale">
+    <tr><td class="q">10. 我注册并能登录 DeepSeek，用过 workbuddy（或同类自动化工具）新建过流程</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>你的画像（圈一个）</h2>
+  <table class="band">
+    <tr>
+      <th style="width:25%">10–19 · 起步</th>
+      <th style="width:25%">20–29 · 在跑</th>
+      <th style="width:25%">30–39 · 成线</th>
+      <th>40–50 · 经营</th>
+    </tr>
+    <tr>
+      <td>全靠人工审<br>今天先把流水线搭出来</td>
+      <td>用过 AI 但零散<br>今天让工作流接手</td>
+      <td>审核有清单缺沉淀<br>今天把知识库立起来</td>
+      <td>三件事都在做<br>今天把规则沉进知识库</td>
+    </tr>
+  </table>
+
+  <div class="box" style="margin-top:6px">
+    <p style="margin-bottom:0"><b>开场讲师口径：</b>低分不丢人——量表量的不是天赋，是你有没有把重复的审核交给工作流。今天下课，第 1 部分"搭"那三道题，人人都能改写成 4 分。</p>
+  </div>
+
+  <p class="muted">课程前后各测一次：把两张表钉在一起，30 天后复盘时再测第三次——分数爬升的轨迹，就是这套课的交付。</p>
+  <p class="muted" style="margin-top:4px">DeepSeek Harness 工作坊 · 仅限 10 人 · 会员免费，非会员 39 元（含茶歇+资料）· 广州越秀区雅苑·培正 5 号楼 · 报名：拆书帮公众号 / 微信 ikoning365</p>
+
+  <div class="foot"><span>© 2026 杨辉（玄龙堂主理人）· 拆书帮广州小蛮腰分舵 · DeepSeek Harness 工作坊 · 11 月 · 时间待定</span><span>材料 09</span></div>
+</div>
+</body>
+</html>

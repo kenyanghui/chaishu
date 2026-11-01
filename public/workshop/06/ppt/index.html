@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 手机 · 让手机成为你的 AI 生产力｜AI 拆书课</title>
+<style>
+  :root{
+    --ink:#12213a; --ink-2:#4a5a72; --line:#dfe6f0;
+    --blue:#1f5eff; --blue-soft:#e8efff;
+    --gold:#c8860d; --gold-soft:#fdf3dc;
+    --green:#17845b; --green-soft:#e6f6ee;
+    --paper:#ffffff; --bg:#0b1220;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;
+    transform-origin:center center;background:var(--paper);overflow:hidden;
+    box-shadow:0 30px 90px rgba(0,0,0,.55);}
+  .slide{position:absolute;inset:0;padding:64px 76px;display:none;
+    flex-direction:column;background:var(--paper);color:var(--ink);}
+  .slide.on{display:flex}
+
+  h1{margin:0;font-size:62px;line-height:1.12;letter-spacing:-.5px;font-weight:800}
+  h2{margin:0 0 10px;font-size:42px;line-height:1.2;font-weight:800;letter-spacing:-.3px}
+  h3{margin:0 0 6px;font-size:26px;font-weight:700;color:var(--ink)}
+  p,li{font-size:24px;line-height:1.62;color:var(--ink-2);margin:0 0 10px}
+  .kicker{font-size:19px;letter-spacing:3px;font-weight:700;color:var(--blue);
+    text-transform:uppercase;margin-bottom:18px}
+  .lead{font-size:27px;color:var(--ink-2);line-height:1.6}
+  .em{color:var(--ink);font-weight:700}
+  .num{color:var(--blue);font-weight:800}
+  .rule{height:5px;width:78px;background:var(--blue);border-radius:3px;margin:20px 0 26px}
+
+  /* 封面 */
+  .cover{justify-content:center;background:
+      radial-gradient(1200px 520px at 88% -10%, #eaf1ff 0%, transparent 62%),
+      radial-gradient(900px 420px at 4% 108%, #fdf3dc 0%, transparent 60%), #fff}
+  .cover h1{font-size:74px;margin-bottom:18px}
+  .cover .sub{font-size:31px;color:var(--ink-2);font-weight:600;margin-bottom:34px}
+  .cover .meta{font-size:21px;color:#7b8798;line-height:1.9}
+  .brand{position:absolute;right:76px;bottom:56px;text-align:right;font-size:19px;color:#93a0b1;line-height:1.7}
+
+  /* 通用布局 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:34px;flex:1;align-content:start}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;align-content:start}
+  .cards{display:grid;gap:18px;flex:1;align-content:start}
+  .card{border:1px solid var(--line);border-radius:16px;padding:24px 26px;background:#fbfcfe}
+  .card.blue{background:var(--blue-soft);border-color:#c9d8ff}
+  .card.gold{background:var(--gold-soft);border-color:#f2e0b6}
+  .card.green{background:var(--green-soft);border-color:#c6ecd8}
+  .card h3{font-size:27px}
+  .card p{font-size:21px;margin:0;line-height:1.55}
+  .card .badge{display:inline-block;font-size:15px;font-weight:800;letter-spacing:1px;
+    padding:3px 10px;border-radius:999px;background:var(--blue);color:#fff;margin-bottom:10px}
+  .card .badge.gold{background:var(--gold)}
+  .card .badge.green{background:var(--green)}
+  .cards.tight{gap:13px}
+  .cards.tight .card{padding:17px 22px}
+  .cards.tight .card h3{font-size:25px;margin-bottom:3px}
+  .cards.tight .card p{font-size:20px;line-height:1.5}
+  .cards.tight .card .badge{margin-bottom:6px}
+
+  ul.big{margin:0;padding-left:0;list-style:none;display:grid;gap:13px}
+  ul.big li{position:relative;padding-left:40px;font-size:24px;color:var(--ink);line-height:1.5}
+  ul.big li::before{content:"";position:absolute;left:8px;top:12px;width:12px;height:12px;
+    border-radius:50%;background:var(--blue)}
+  ul.big li.g::before{background:var(--gold)}
+  ul.big li small{display:block;font-size:19px;color:var(--ink-2);margin-top:5px;font-weight:400}
+
+  /* 分节页 */
+  .divider{justify-content:center;background:var(--ink);color:#fff}
+  .divider .kicker{color:#7fa8ff}
+  .divider h1{color:#fff;font-size:76px}
+  .divider .lead{color:#b9c6da;font-size:28px;margin-top:16px}
+  .divider .chip{display:inline-block;margin-top:34px;font-size:20px;color:#0b1220;
+    background:#ffd77a;border-radius:999px;padding:9px 20px;font-weight:800}
+
+  /* 时间表 */
+  table{width:100%;border-collapse:collapse;font-size:20px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{font-size:16px;letter-spacing:1px;color:#8894a8;font-weight:700;text-transform:uppercase}
+  td.t{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700;white-space:nowrap}
+  td.d{text-align:right;font-variant-numeric:tabular-nums;color:var(--blue);font-weight:700;white-space:nowrap}
+  tr.hl td{background:#f4f7ff}
+
+  /* 地图 */
+  .map{display:flex;align-items:stretch;gap:0;flex:1;margin-top:6px}
+  .map .node{flex:1;border:2px solid var(--line);border-radius:18px;padding:22px;
+    display:flex;flex-direction:column;justify-content:center;background:#fbfcfe}
+  .map .node .s{font-size:17px;letter-spacing:2px;font-weight:800;color:var(--blue);margin-bottom:8px}
+  .map .node h3{font-size:29px;margin-bottom:8px}
+  .map .node p{font-size:19px;margin:0;line-height:1.5}
+  .map .arrow{display:flex;align-items:center;justify-content:center;width:56px;
+    font-size:34px;color:#b9c6da;font-weight:800}
+
+  /* 大字块 */
+  .statement{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .statement q{font-size:52px;line-height:1.35;font-weight:800;color:var(--ink);
+    quotes:"“" "”";display:block}
+  .statement .after{margin-top:28px;font-size:24px;color:var(--ink-2)}
+
+  .foot{position:absolute;left:76px;bottom:26px;font-size:16px;color:#a9b4c4;letter-spacing:1px}
+  .pageno{position:absolute;right:76px;bottom:26px;font-size:16px;color:#a9b4c4;
+    font-variant-numeric:tabular-nums}
+
+  /* 演讲者备注 */
+  .notes{display:none}
+  body.notes-on .notes{display:block;position:fixed;left:0;right:0;bottom:0;max-height:34vh;
+    overflow:auto;background:#0e1626;color:#cfd9e8;font-size:15px;line-height:1.7;
+    padding:14px 22px;border-top:2px solid #22314d;z-index:50}
+  body.notes-on .notes b{color:#8fb4ff}
+
+  /* 控件 */
+  #hud{position:fixed;right:14px;top:12px;display:flex;gap:8px;font-size:13px;z-index:60;
+    font-family:inherit}
+  #hud button{background:rgba(255,255,255,.1);color:#cfd9e8;border:1px solid rgba(255,255,255,.18);
+    border-radius:8px;padding:6px 11px;cursor:pointer;font-size:13px}
+  #hud button:hover{background:rgba(255,255,255,.2)}
+  #bar{position:fixed;left:0;bottom:0;height:3px;background:var(--blue);width:0;z-index:60;transition:width .18s}
+
+  @media print{
+    @page{size:1280px 720px;margin:0}
+    html,body{overflow:visible;background:#fff}
+    #hud,#bar,.notes{display:none!important}
+    #stage{position:static;transform:none!important;box-shadow:none;width:1280px;height:auto}
+    .slide{display:flex!important;position:relative;inset:auto;width:1280px;height:720px;
+      page-break-after:always;break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- 01 封面 -->
+<section class="slide cover on">
+  <div class="kicker">AI 拆书课 · AI 手机场 · 拆书帮广州小蛮腰分舵</div>
+  <h1>让手机成为<br>你的 AI 生产力</h1>
+  <div class="sub">AI 手机 · 拍照、录音、说句话——杂事在路上就办完</div>
+  <div class="rule"></div>
+  <div class="meta">
+    3 小时 · 拆书 RIA 方法 · 现场做出三件交付物<br>
+    11 月 · 时间待定（报名后群内通知） · 广州越秀区雅苑·培正 5 号楼<br>
+    仅限 10 人 · 会员免费，非会员 39 元（含茶歇+资料）<br>
+    主讲：杨辉（杨老师）· 玄龙堂主理人 · 三级拆书家
+  </div>
+  <div class="brand">报名：拆书帮公众号<br>微信 ikoning365 · 554176937@qq.com</div>
+  <div class="pageno">01</div>
+  <aside class="notes"><b>开场词</b>：今天不教你怎么用某个新功能，只做一件事——把「收 → 理 → 用」三个动作接到你的手机上，现场各交一件能截图的东西。<br><b>控场</b>：手机静音、系统先升级好、语音助手与录音转写提前试一句、workbuddy 手机端登录好。</aside>
+</section>
+
+<!-- 02 痛点 -->
+<section class="slide">
+  <div class="kicker">为什么值得花 3 小时，拆这一件事</div>
+  <h2>拍照、录音、说句话，你天天在做，<br>但没有一样留得下来</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>🎙 录音存了，纪要没有</h3><p>会开完，录音直接躺在相册里。下次要用，从头再听一遍——听完还是那几句。</p></div>
+    <div class="card"><h3>📇 拍了照，等于没拍</h3><p>名片、白板、PPT 照片堆到第 3000 张。真要找人，翻相册比现场记还慢。</p></div>
+    <div class="card"><h3>🗣 说完了，就真的忘了</h3><p>路上想到的那句话，到公司只剩一句"我好像有个想法"，细节全丢在路上。</p></div>
+  </div>
+  <p style="margin-top:18px">所以今天不解决"打字慢"，解决<span class="em">"东西从来没被收进去"</span>：收有清单，理有工作流，用有每日清单。</p>
+  <div class="foot">开场 · 举手互动</div><div class="pageno">02</div>
+  <aside class="notes">三条痛点逐条念，举手互动：中一条举手、中两条举手、三条全中——先造出"我们都有这个病"的共鸣，再进交付物承诺。</aside>
+</section>
+
+<!-- 03 交付物 -->
+<section class="slide">
+  <div class="kicker">今天你带走什么</div>
+  <h2>不是"听过"，是三件能截图的真东西</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card blue"><span class="badge">交付 ①</span><h3>一套「随手收」的采集清单</h3><p>四个收集位写在纸上，现场真的用手机 AI 收进 3 类素材（录音 / 拍照 / 语音各一）。</p></div>
+    <div class="card blue"><span class="badge">交付 ②</span><h3>一条「拍/录完自动变纪要和待办」的手机工作流</h3><p>素材进来，文字、纪要、待办一起出来，自动分类归档进 workbuddy。</p></div>
+    <div class="card gold"><span class="badge gold">交付 ③</span><h3>一份通勤即可完成的每日 AI 清单</h3><p>五项封顶，贴在手机背面——明天上班路上就能照着跑一遍。</p></div>
+  </div>
+  <p style="margin-top:18px">不承诺变现、不承诺涨粉。只承诺<span class="em">三件能截图、能给别人看的东西</span>，当天验收。</p>
+  <div class="foot">承诺 · 三件交付物</div><div class="pageno">03</div>
+  <aside class="notes">强调：三小时你不会只带走"感觉很有收获"，而是三件能截图的东西。把"三件交付物"念慢一点，后面每节结束都回到这三件。</aside>
+</section>
+
+<!-- 04 学习地图 -->
+<section class="slide">
+  <div class="kicker">学习地图</div>
+  <h2>收 → 理 → 用，每节交一件</h2>
+  <div class="rule"></div>
+  <div class="map">
+    <div class="node"><div class="s">第 1 节 · 45′</div><h3>收</h3><p>随手收<br>会议录音、名片、<br>白板照片、灵感语音</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 2 节 · 60′</div><h3>理</h3><p>自动理<br>拍照转文字、录音转纪要、<br>语音转待办</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 3 节 · 50′</div><h3>用</h3><p>随身用<br>语音调档案、口述周报、<br>语音回邮件</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">收尾 · 10′</div><h3>验</h3><p>互换测试 + 复盘卡<br>+ 30 天计划</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:25px">先让东西收得进来，再让它自己整理好，最后让它在路上就能用——<span class="em">三节一条链，断一节就白搭。</span></p>
+  <div class="foot">对应材料 01 · 学习地图</div><div class="pageno">04</div>
+  <aside class="notes">强调结构：三节各攻一件交付物，收不住就理不了，理不清就用不动。别担心学不完，每节都有小结和交付验收。</aside>
+</section>
+
+<!-- 05 时间表 -->
+<section class="slide">
+  <div class="kicker">时间表 · 三节净 165 分钟</div>
+  <h2>硬卡时间，每节都交东西</h2>
+  <table>
+    <tr><th>时间</th><th>环节</th><th>关键动作</th><th style="text-align:right">时长</th></tr>
+    <tr><td class="t">00:00–00:08</td><td>开场</td><td>点题、学习地图、分组、RIA 与交付规则</td><td class="d">8′</td></tr>
+    <tr class="hl"><td class="t">00:08–00:53</td><td>第 1 节｜收</td><td>R5 + I7 + A1 10 + 采集 16 + 验收 7</td><td class="d">45′</td></tr>
+    <tr><td class="t">00:53–01:03</td><td>中场休息</td><td>走动、补未完成者、助教巡查</td><td class="d">10′</td></tr>
+    <tr class="hl"><td class="t">01:03–02:03</td><td>第 2 节｜理</td><td>R5 + I9 + A1 10 + 搭流 26 + 验收 10</td><td class="d">60′</td></tr>
+    <tr class="hl"><td class="t">02:03–02:53</td><td>第 3 节｜用</td><td>R5 + I8 + A1 8 + 三步 20 + 清单 9</td><td class="d">50′</td></tr>
+    <tr><td class="t">02:53–03:03</td><td>收尾</td><td>互换测试、复盘卡、30 天计划、合影</td><td class="d">10′</td></tr>
+  </table>
+  <p style="margin-top:14px;font-size:22px">含开场与中场休息约 3 小时 3 分；三节 + 收尾净 165 分钟。 <span class="em">每节结束前 5 分钟报时一次。</span></p>
+  <div class="foot">准时开始，准时结束</div><div class="pageno">05</div>
+  <aside class="notes">讲师自己盯表：每节结束前 5 分钟提醒一次。若第 2 节搭流超时，用第 3 节清单环节的 9 分钟压缩，不动收尾的 10 分钟。</aside>
+</section>
+
+<!-- 06 RIA -->
+<section class="slide">
+  <div class="kicker">今天怎么上</div>
+  <h2>拆书帮 RIA：把"拆页"换成"手机里的真事"</h2>
+  <div class="rule"></div>
+  <div class="cards tight" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><span class="badge">R</span><h3>看演示</h3><p>讲师在自己手机上跑一遍，大屏同步，5 分钟放两遍：先看结果，再带问题看。</p></div>
+    <div class="card"><span class="badge">I</span><h3>听拆解</h3><p>3 个锚点，拆开：哪一步是手机 AI 干的，哪一步必须你来。</p></div>
+    <div class="card"><span class="badge">A1</span><h3>反思经验</h3><p>你上一次漏掉的那个会、那张名片，卡在哪一步？讲具体事。</p></div>
+    <div class="card gold"><span class="badge gold">A2</span><h3>当场做出来</h3><p>用你自己的手机和素材，交出一件能截图的东西，当场验收。</p></div>
+  </div>
+  <p style="margin-top:20px">规矩只有三条：<span class="em">① 不预习也能上　② 当场动手必交东西　③ A1 必须讲具体事，不许"我经常觉得……"</span></p>
+  <div class="foot">R → I → A1 → A2</div><div class="pageno">06</div>
+  <aside class="notes">10 人小班，分 2–3 组（每组 3–4 人），选组长计时。每人桌上：任务卡、A2 便签纸、自检表；演示界面全部提前离线备好。</aside>
+</section>
+
+<!-- 07 分节页 第1节 -->
+<section class="slide divider">
+  <div class="kicker">第 1 节 · 收 · 45′ 随手收</div>
+  <h1>收</h1>
+  <div class="lead">随手收 —— 会议录音、名片、白板照片、灵感语音，现场全部收进手机 AI，不怕漏</div>
+  <div class="chip">本节交付：① 一套「随手收」的采集清单</div>
+  <div class="pageno">07</div>
+  <aside class="notes">节奏：R5 + I7 + A1 10 + 采集 16 + 验收 7 = 45′。材料 02 任务卡人手一张，先念一遍五步再放人动手。</aside>
+</section>
+
+<!-- 08 四类素材 -->
+<section class="slide">
+  <div class="kicker">R · 先看清：你每天都在产生四种原料</div>
+  <h2>四类素材，四个收法，都只按一下</h2>
+  <div class="rule"></div>
+  <div class="cards tight" style="grid-template-columns:repeat(2,1fr)">
+    <div class="card blue"><h3>🎙 会议录音 → 录音转写</h3><p>录完直接转文字，标题写「日期 + 会议名」。别等"有空再听"，听了也不会有空。</p></div>
+    <div class="card blue"><h3>📇 名片 → 拍照识别</h3><p>当面拍、当面存进通讯录，顺手补一句"在哪认识的"。这一句比名片本身值钱。</p></div>
+    <div class="card blue"><h3>🧑‍🏫 白板照片 → 拍照识别</h3><p>拍完立刻转文字进笔记，图只作备份。三天后图还在，字你已经不想看了。</p></div>
+    <div class="card gold"><h3>🗣 灵感语音 → 语音助手口述</h3><p>张嘴说 20 秒，说完立刻转文字。想到的那一刻是最全的，过了就只剩结论。</p></div>
+  </div>
+  <p style="margin-top:16px">共同点：<span class="em">现场那个动作只做一个——拍、录，或者说。整理是第 2 节的事。</span></p>
+  <div class="foot">R · 素材分类</div><div class="pageno">08</div>
+  <aside class="notes">问一圈：这四类里你最常产生哪一类？举手统计，后面实操按人多的那类优先演示，学员代入感最强。</aside>
+</section>
+
+<!-- 09 R 现场演示 -->
+<section class="slide">
+  <div class="kicker">R · 现场演示 · 5 分钟 · 放两遍</div>
+  <h2>讲师现场跑一遍：五步，从实物到收件箱</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:12%">时间</th><th>讲师动作</th><th style="width:38%">你盯住这一处</th></tr>
+    <tr class="hl"><td class="t">0–1′</td><td>打开<b>录音转写</b>，当场录 30 秒会前发言</td><td>入口在哪、要不要联网</td></tr>
+    <tr><td class="t">1–2′</td><td>一键转文字，标题写「<b>日期 + 会议名</b>」</td><td>转出来的字能不能直接改</td></tr>
+    <tr class="hl"><td class="t">2–3′</td><td>拍一张名片，<b>拍照识别</b>进通讯录</td><td>姓名 / 公司 / 电话三栏有没有错</td></tr>
+    <tr><td class="t">3–4′</td><td>拍白板，<b>拍照识别</b>转文字进笔记</td><td>角度歪了还能不能认</td></tr>
+    <tr class="hl"><td class="t">4–5′</td><td>全部丢进 <b>workbuddy 收件箱</b>，一件事一行</td><td>是不是只有一个入口</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">只看三件事：<span class="em">入口在哪、要按几下、出来什么。</span>功能名不重要，路径才重要。</p>
+  <div class="foot">R · 讲师演示（界面以现场版本为准）</div><div class="pageno">09</div>
+  <aside class="notes">第一遍完整跑完不说话，让学员先看结果；第二遍按暂停，每步只指一个细节。演示前一定自己实测一遍，界面路径截图备离线版。</aside>
+</section>
+
+<!-- 10 I 锚点 -->
+<section class="slide">
+  <div class="kicker">I · 三个锚点 · 7 分钟</div>
+  <h2>收得住，靠的不是记性，是三个约定</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card blue"><span class="badge">锚点 1</span><h3>收的时候不做整理</h3><p>收是收，理是理。现场只做一个动作（拍 / 录 / 说），一旦开始整理，你就会停下来，然后就没有然后了。</p></div>
+    <div class="card blue"><span class="badge">锚点 2</span><h3>收件箱只有一个</h3><p>照片、录音、语音转出来的字，全部落进 workbuddy 的同一个收件箱。多一个入口，就等于没有入口。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>标准是"三天后找得回来"</h3><p>判断收没收到，不看"存了吗"，看三天后能不能一句话调出来。存进去找不到，等于没收。</p></div>
+  </div>
+  <div class="foot">I · 三个锚点 · 所以第 13 页那张四步链条，是要你抄下来的</div><div class="pageno">10</div>
+  <aside class="notes">锚点 3 现场做个测试：让学员现在就想"上周某个会说了啥"，想不起来的举手——这就是"收了但没理"的样子，为第 2 节埋钩子。</aside>
+</section>
+
+<!-- 11 A1 -->
+<section class="slide">
+  <div class="kicker">A1 · 显像提问 · 10 分钟</div>
+  <h2>上一次开完会，你的纪要去哪了？</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>讲一个具体的事</h3><p style="font-size:22px">最近一次开完会、你想着"回头整理一下"的：<br><br>录了吗？录完听了吗？最后那份纪要，是当天写的，还是三天后凭印象补的？</p></div>
+    <div class="card gold"><h3>如果当时有采集清单</h3><p style="font-size:22px">假如会一散你就拍了、录了、说了一句，并且全部落进一个收件箱——<br><br>那件事现在会省你多少时间？</p></div>
+  </div>
+  <p style="margin-top:18px">规矩：<span class="em">讲具体的事——哪个会、怎么处理、结果如何。</span>不许"我经常忘"。</p>
+  <div class="foot">A1 · 小组内轮流讲</div><div class="pageno">11</div>
+  <aside class="notes">每组 2 分钟轮流讲，组长抽 1 人给全班复述队友的故事。冷场时讲师先讲一个自己漏记的案例（30 秒）做示范。</aside>
+</section>
+
+<!-- 12 A2 五步 -->
+<section class="slide">
+  <div class="kicker">A2 · 任务卡 · 15 分钟 · 逐项打勾</div>
+  <h2>五步产线：15 分钟，收满 3 类素材</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:8%">✓</th><th style="width:12%">时间</th><th>动作</th><th style="width:32%">我的记录</th></tr>
+    <tr><td class="center">☐</td><td class="t">0–3′</td><td>建清单：写下四个收集位——<b>会议录音 / 名片 / 白板照片 / 灵感语音</b></td><td>四个位 ☐ 已建</td></tr>
+    <tr class="hl"><td class="center">☐</td><td class="t">3–7′</td><td>收第一样：<b>录音转写</b>，标题「日期 + 会议名」</td><td>转写稿 ☐ 已出</td></tr>
+    <tr><td class="center">☐</td><td class="t">7–11′</td><td>收第二样：<b>拍照识别</b>，名片进通讯录、白板字进笔记</td><td>识别 ☐ 已存</td></tr>
+    <tr class="hl"><td class="center">☐</td><td class="t">11–14′</td><td>收第三样：<b>语音助手</b>口述 20 秒，立刻转文字</td><td>语音稿 ☐ 已转</td></tr>
+    <tr><td class="center">☐</td><td class="t">14–15′</td><td>全部落进 workbuddy 收件箱，一件事一行，截图交组长</td><td>截图 ☐ 已存</td></tr>
+  </table>
+  <p style="margin-top:14px;font-size:23px">没带素材？<span class="em">现场录、现场拍、现场说——先跑通，再养熟。</span></p>
+  <div class="foot">A2 · 材料 02 任务卡</div><div class="pageno">12</div>
+  <aside class="notes">陪跑重点：卡在"没有素材"的人最多，直接让他现场录 20 秒、拍手里的名片或桌上的字。3 分钟、11 分钟各报时一次。</aside>
+</section>
+
+<!-- 13 采集清单四步链条 -->
+<section class="slide">
+  <div class="kicker">交付 ① 的骨架 · 四步链条</div>
+  <h2>你的采集清单，只要四列</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:24%">① 触发</th><th style="width:24%">② 一个动作</th><th style="width:24%">③ 落进收件箱</th><th>④ 一句话标注</th></tr>
+    <tr>
+      <td>什么场景该掏手机：<br>会散、递名片、白板写完、路上想到</td>
+      <td>拍 / 录 / 说，<b>只做一个动作</b>，不做第二遍整理</td>
+      <td>自动进 <b>workbuddy 收件箱</b>，不留散落相册里</td>
+      <td>留一个"为什么"：<br>跟谁有关、下一步要干什么</td>
+    </tr>
+    <tr class="hl">
+      <td><b>例：</b>季度复盘会散场</td>
+      <td>录音转写，30 秒</td>
+      <td>标题「1015 季度复盘」进收件箱</td>
+      <td>"周四前给老陈一版结论"</td>
+    </tr>
+  </table>
+  <p style="margin-top:18px">这四列抄在纸上，就是交付 ①。<span class="em">它能用多久，取决于第 ④ 列写得多具体。</span></p>
+  <div class="foot">交付 ① 结构 · 抄下来就是你的</div><div class="pageno">13</div>
+  <aside class="notes">让学员现在就把四列表头抄到任务卡上，第 ④ 列最容易空着——提醒"一句话标注"是给三天后的自己留的钩子。</aside>
+</section>
+
+<!-- 14 交付① 验收 -->
+<section class="slide">
+  <div class="kicker">第 1 节小结 · 交付 ① 验收</div>
+  <h2>举手：收件箱里已经有 3 类素材的</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card green"><h3>已完成（截图交组长）</h3><p style="font-size:22px">你有采集清单了。帮一下旁边没完成的——你刚踩过的坑，正是他卡住的地方。</p></div>
+    <div class="card gold"><h3>未完成</h3><p style="font-size:22px">举手，助教马上到。中场 10 分钟补完——别带着空收件箱进第 2 节。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">达标线：<span class="em">收件箱里躺着 3 类素材（录音 / 拍照 / 语音各一），清单四列写满，有截图。</span></p>
+  <p style="font-size:22px">但现在它们还是<b>原料</b>——录音还是录音，照片还是照片。下一节，让它们自己变成纪要和待办。</p>
+  <div class="foot">中场休息 · 10 分钟</div><div class="pageno">14</div>
+  <aside class="notes">组长报完成数，助教中场巡查未完成者。宣布中场 10 分钟，顺便让大家把第 2 节的素材准备好。</aside>
+</section>
+
+<!-- 15 分节页 第2节 -->
+<section class="slide divider">
+  <div class="kicker">第 2 节 · 理 · 60′ 自动理</div>
+  <h1>理</h1>
+  <div class="lead">自动理 —— 拍照转文字、录音转纪要、语音转待办，AI 自动分类归档进 workbuddy</div>
+  <div class="chip">本节交付：② 一条「拍/录完自动变纪要和待办」的手机工作流</div>
+  <div class="pageno">15</div>
+  <aside class="notes">节奏：R5 + I9 + A1 10 + 搭流 26 + 验收 10 = 60′。材料 03 任务卡人手一张；课前必须自己把三步跑通一遍，把界面截图放进本页备注。</aside>
+</section>
+
+<!-- 16 为什么要理 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 1</div>
+  <h2>只收不理，收件箱就是第二个相册</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>只收不理（三个月后）</h3><p style="font-size:22px">东西都在，就是不敢打开。<br>一打开全是"这条是什么"——<br>于是你又开始凭印象干活。</p></div>
+    <div class="card green"><h3>收完自动理（一小时后）</h3><p style="font-size:22px">素材进来，纪要三行、待办三条，<br>你只需看一眼、改一句。<br>人只负责判断，不负责搬运。</p></div>
+  </div>
+  <p style="margin-top:18px;font-size:25px">收是量的胜利，理是质的胜利。<span class="em">而理这件事，今天要让它"不用你想起来"。</span></p>
+  <div class="foot">I · 为什么要理</div><div class="pageno">16</div>
+  <aside class="notes">回收第 1 节锚点 3 的测试：收了但找不到，等于没收。这一页只讲一件事——整理必须自动，靠自律一定断。</aside>
+</section>
+
+<!-- 17 三个转 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 2 · 三个转</div>
+  <h2>拍照转文字、录音转纪要、语音转待办</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card blue"><h3>📷 拍照转文字</h3><p>名片、白板、纸质材料，一拍成字，直接进笔记。<b>规则：一张图只转一次</b>，转完图就归档。</p></div>
+    <div class="card blue"><h3>🎙 录音转纪要</h3><p>不做逐字稿，只要三行：结论 / 待办 / 谁跟进。<b>规则：三行封顶</b>，写不下就是没想清。</p></div>
+    <div class="card gold"><h3>🗣 语音转待办</h3><p>一句话一条，必须带"谁 + 什么时候"。<b>规则：不带人和时间的，不算待办</b>，那叫想法。</p></div>
+  </div>
+  <p style="margin-top:18px">三个转，其实是一个动作：<span class="em">把"你脑子里的东西"变成"纸上能转发的东西"。</span></p>
+  <div class="foot">I · 三个转</div><div class="pageno">17</div>
+  <aside class="notes">这一页是第 2 节的骨架，念的时候把三条"规则"加重：一张图只转一次、三行封顶、带人带时间，后面搭流全靠它们。</aside>
+</section>
+
+<!-- 18 R 演示 纪要三行 -->
+<section class="slide">
+  <div class="kicker">R · 现场演示 · 5 分钟</div>
+  <h2>一段 3 分钟的录音，出来只有三行</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:18%">三行</th><th>长什么样</th><th style="width:30%">为什么只要这一行</th></tr>
+    <tr class="hl"><td><b>① 结论</b></td><td>这次定了什么：预算砍到 8 万，先做 A 方案</td><td>一周后你只记得结论，不记得过程</td></tr>
+    <tr><td><b>② 待办</b></td><td>老陈周四前出报价；我周五前给排期</td><td>待办是唯一会过期的东西</td></tr>
+    <tr class="hl"><td><b>③ 谁跟进</b></td><td>老陈 → 报价；我 → 排期；下周三对一次</td><td>没人跟进的待办，等于没写</td></tr>
+  </table>
+  <p style="margin-top:18px">讲师现场从录音转到这三行，<span class="em">再从三行里拆出待办，最后归档进 workbuddy——你只按了一次"开始"。</span></p>
+  <div class="foot">R · 讲师演示（界面以现场版本为准）</div><div class="pageno">18</div>
+  <aside class="notes">演示时故意留一个错：让识别把一个人名认错，现场改一次——告诉学员"AI 出稿、你把关"，这比讲十遍"要注意准确性"有用。</aside>
+</section>
+
+<!-- 19 I 三锚点 第2节 -->
+<section class="slide">
+  <div class="kicker">I · 三个锚点 · 9 分钟</div>
+  <h2>工作流跑得动，靠三个"固定"</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card blue"><span class="badge">锚点 1</span><h3>同一份素材，只转一次</h3><p>转完就归档，不重复劳动。反复转同一段录音，是最典型的假勤奋。</p></div>
+    <div class="card blue"><span class="badge">锚点 2</span><h3>模板固定，内容才快</h3><p>纪要永远三行、待办永远一句一条。格式固定下来，你每次只换内容，不用每次重新想。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>归档靠规则，不靠记性</h3><p>项目名 + 日期，三个去向（项目 / 人物 / 待办）。规则写给三天后的自己看，不是写给 AI 看。</p></div>
+  </div>
+  <div class="foot">I · 三个锚点 · 记不住三条也没关系，记住一句：规则越少，越跑得下去</div><div class="pageno">19</div>
+  <aside class="notes">锚点 3 让学员现在就定一个命名规则，写在任务卡上。规则改一处就停手——改太多等于没规则。</aside>
+</section>
+
+<!-- 20 A1 第2节 -->
+<section class="slide">
+  <div class="kicker">A1 · 显像提问 · 10 分钟</div>
+  <h2>你手机里最乱的那一屏，是什么？</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>讲一个具体的事</h3><p style="font-size:22px">打开相册往下翻，找到一张"当时觉得有用、现在想不起是什么"的截图或照片：<br><br>它是什么时候拍的？当时打算干什么？后来用上了吗？</p></div>
+    <div class="card gold"><h3>如果当时有工作流</h3><p style="font-size:22px">假设拍完就转了文字、拆了待办、归了档——<br><br>这一屏现在会剩下几张？</p></div>
+  </div>
+  <p style="margin-top:18px">规矩：<span class="em">现场真的打开相册，指着一张具体照片讲。</span>讲不出细节的，换一张。</p>
+  <div class="foot">A1 · 现场翻相册</div><div class="pageno">20</div>
+  <aside class="notes">让学员真的掏手机翻相册，画面感最强。翻出"不知道是什么"的照片，正好证明第 13 页第 ④ 列"一句话标注"的价值。</aside>
+</section>
+
+<!-- 21 A2 三步搭流 -->
+<section class="slide">
+  <div class="kicker">A2 · 任务卡 · 19 分钟 · 逐项打勾</div>
+  <h2>三步搭流：转 → 拆 → 归</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:8%">✓</th><th style="width:10%">步骤</th><th style="width:10%">时间</th><th>动作</th><th style="width:26%">我的记录</th></tr>
+    <tr class="hl"><td class="center">☐</td><td><b>① 转</b></td><td class="t">6′</td><td>把第 1 节收的素材丢进去：<b>拍照转文字</b>、<b>录音转纪要</b>，同一份只转一次</td><td>素材：______</td></tr>
+    <tr><td class="center">☐</td><td><b>② 拆</b></td><td class="t">6′</td><td>从纪要里拆待办，<b>语音转待办</b>：一句话一条，带"谁 / 什么时候"</td><td>拆出 ___ 条</td></tr>
+    <tr class="hl"><td class="center">☐</td><td><b>③ 归</b></td><td class="t">7′</td><td>按约定<b>自动分类归档</b>进 workbuddy：项目 / 人物 / 待办三个去向，试跑一次并截图</td><td>截图 ☐ 已存</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">骨架已经给你了，你只填空。<span class="em">卡住就回第 17 页看三条规则，别自己发明新流程。</span></p>
+  <div class="foot">A2 · 材料 03 任务卡</div><div class="pageno">21</div>
+  <aside class="notes">陪跑重点：① 转完不归档的最多；② 待办不带人就交上来的，当场退回去补；③ 12 分钟报时一次，剩下 7 分钟专门做归档截图。</aside>
+</section>
+
+<!-- 22 交付② 验收 -->
+<section class="slide">
+  <div class="kicker">第 2 节小结 · 交付 ② 验收</div>
+  <h2>素材进来，纪要和待办一起出来</h2>
+  <div class="rule"></div>
+  <div class="map">
+    <div class="node"><div class="s">进</div><h3>素材</h3><p>一段录音<br>一张名片 / 白板<br>一条语音</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">① 转</div><h3>文字 / 纪要</h3><p>拍照转文字<br>录音转纪要（三行）</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">② 拆</div><h3>待办</h3><p>一句话一条<br>带人、带时间</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">③ 归</div><h3>workbuddy</h3><p>项目 / 人物 / 待办<br>自动分类归档</p></div>
+  </div>
+  <p style="margin-top:18px;font-size:23px">达标线：<span class="em">从收到的东西到能用的纪要，你只按了一次"开始"——有截图，就算交付。</span></p>
+  <div class="foot">交付 ② · 三节里最值钱的一条</div><div class="pageno">22</div>
+  <aside class="notes">让完成的学员把截图举起来给旁边看，没完成的当场补最后一步归档。收尾时三件交付物要能串成一条：收 → 理 → 用。</aside>
+</section>
+
+<!-- 23 分节页 第3节 -->
+<section class="slide divider">
+  <div class="kicker">第 3 节 · 用 · 50′ 随身用</div>
+  <h1>用</h1>
+  <div class="lead">随身用 —— 通勤路上语音调档案、口述发周报、语音回邮件，一天的杂事路上办完</div>
+  <div class="chip">本节交付：③ 一份通勤即可完成的每日 AI 清单</div>
+  <div class="pageno">23</div>
+  <aside class="notes">节奏：R5 + I8 + A1 8 + 三步 20 + 清单 9 = 50′。前两节是"存得住、找得到"，这一节是"用得上"——路上把事办完。</aside>
+</section>
+
+<!-- 24 三种场景 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 1 · 三种路上场景</div>
+  <h2>同一张嘴，换个说法就是三种工作</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:24%">场景</th><th style="width:20%">你张一次嘴</th><th>要点</th></tr>
+    <tr class="hl"><td><b>通勤路上</b></td><td>调 + 想</td><td>提问式："帮我找 __ 项目的纪要，还有没办的待办"——先要结论，再问细节</td></tr>
+    <tr><td><b>会议刚散</b></td><td>口述 + 发</td><td>趁记忆还热："把刚才那段整理成周报口径，三段，发给 ______"</td></tr>
+    <tr class="hl"><td><b>排队 / 等电梯</b></td><td>回 + 收</td><td>语音回邮件先说结论，再补两句理由；顺手把想到的事口述进收件箱</td></tr>
+  </table>
+  <p style="margin-top:18px">红线：<span class="em">路上产出的一定是草稿。</span>发之前你过一遍、改成对那个人说的话——AI 出稿，你把关。</p>
+  <div class="foot">I · 三种场景</div><div class="pageno">24</div>
+  <aside class="notes">让学员选一个自己最常遇到的场景，等下 A2 就练那一个。红线要说重：不发未看的稿，这是"你把关"的底线。</aside>
+</section>
+
+<!-- 25 R 演示三动作 -->
+<section class="slide">
+  <div class="kicker">R · 现场演示 · 5 分钟 · 三个动作</div>
+  <h2>调档案、口述周报、语音回邮件</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:14%">动作</th><th style="width:46%">讲师说的一句话</th><th>出来什么</th></tr>
+    <tr class="hl"><td><b>① 调</b></td><td>"上周三那个会的待办，还有哪些没办？"</td><td>三条待办 + 谁跟进</td></tr>
+    <tr><td><b>② 说</b></td><td>"这周做了三件事……整理成周报，三段，卡点和下周计划分开"</td><td>三段周报草稿</td></tr>
+    <tr class="hl"><td><b>③ 回</b></td><td>"回一封邮件：结论是周五交，理由两条，语气客气一点"</td><td>可直接改的邮件稿</td></tr>
+  </table>
+  <p style="margin-top:18px">演示全程不说话、只张嘴——<span class="em">让学员看见：路上真正能用的，是嘴，不是键盘。</span></p>
+  <div class="foot">R · 讲师演示（界面以现场版本为准）</div><div class="pageno">25</div>
+  <aside class="notes">演示时把手机举起来，让大家看到是"对着手机说"，不是打字。第三个动作说完停 5 秒，让大家听清"语气客气一点"这种要求也能听懂。</aside>
+</section>
+
+<!-- 26 A1 第3节 -->
+<section class="slide">
+  <div class="kicker">A1 · 显像提问 · 8 分钟</div>
+  <h2>上一次通勤 30 分钟，你办成了什么？</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>讲一个具体的事</h3><p style="font-size:22px">昨天或今天的通勤路上，那 30 分钟你实际在干什么？<br><br>刷视频、看群、还是真的把某件事办完了？办完的那件，是怎么做到的？</p></div>
+    <div class="card gold"><h3>如果那 30 分钟有清单</h3><p style="font-size:22px">假设手机背面贴着一张五项清单，张嘴就能办——<br><br>明天那 30 分钟，你打算先办哪一件？</p></div>
+  </div>
+  <p style="margin-top:18px">规矩：<span class="em">讲昨天真实的那 30 分钟，不讲"我以后会"。</span></p>
+  <div class="foot">A1 · 8 分钟</div><div class="pageno">26</div>
+  <aside class="notes">这一轮短，每组只抽 1 人说，30 秒讲完。重点是让"路上这段时间本来就在"这件事被看见，不评判刷手机。</aside>
+</section>
+
+<!-- 27 A2 三步现场 -->
+<section class="slide">
+  <div class="kicker">A2 · 任务卡 · 20 分钟 · 逐项打勾</div>
+  <h2>三个动作，各跑通一次</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:8%">✓</th><th style="width:10%">步骤</th><th style="width:10%">时间</th><th>动作</th><th style="width:26%">我的记录</th></tr>
+    <tr class="hl"><td class="center">☐</td><td><b>① 调</b></td><td class="t">6′</td><td>对<b>语音助手</b>提问，把第 2 节归档的档案调出来："上周三那个会的待办还有哪些"</td><td>调出 ☐ 成功</td></tr>
+    <tr><td class="center">☐</td><td><b>② 说</b></td><td class="t">7′</td><td>口述周报：本周做了什么 / 卡在哪 / 下周要什么，让手机 AI 整理成三段</td><td>周报 ☐ 成稿</td></tr>
+    <tr class="hl"><td class="center">☐</td><td><b>③ 排</b></td><td class="t">7′</td><td>写每日 AI 清单（五项封顶），贴在手机背面</td><td>清单 ☐ 已写</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">这一步是全部三节里最像"日常"的一步——<span class="em">今天跑通一次，明天通勤就能再来一次。</span></p>
+  <div class="foot">A2 · 材料 04 任务卡</div><div class="pageno">27</div>
+  <aside class="notes">陪跑重点：① 调不出来的人，回去检查第 2 节的归档命名；② 口述卡壳的，先让他说"三句话版本"再扩成三段。</aside>
+</section>
+
+<!-- 28 30天计划 -->
+<section class="slide">
+  <div class="kicker">30 天手机生产力计划 · 三栏写满</div>
+  <h2>不是从零开始，是每天、每周各跑一遍</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card green"><span class="badge green">第一栏 · 收 · 每天</span><h3>每天至少收 1 件</h3><p>覆盖会 / 名片 / 白板 / 灵感。周五回看收件箱，不该有"这条是什么"的东西。</p></div>
+    <div class="card blue"><span class="badge">第二栏 · 理 · 每周</span><h3>每周日清一次收件箱</h3><p>纪要进项目、待办进清单、没用的删掉。规则只改一处，改多了等于没规则。</p></div>
+    <div class="card gold"><span class="badge gold">第三栏 · 用 · 每个工作日</span><h3>路上办完 1 件事</h3><p>调档 / 口述 / 回邮，每次不超过 10 分钟。完成标志：第一次在通勤路上把周报发出去。</p></div>
+  </div>
+  <p style="margin-top:16px;font-size:22px">30 天后自查：收件箱每周清空一次 · 至少 4 份纪要出自同一条工作流 · 攒下 ≥ 4 张复盘卡。</p>
+  <div class="foot">30 天计划 · 材料 04</div><div class="pageno">28</div>
+  <aside class="notes">让学员现在就把开始日期写在任务卡上，并约一个复盘日。计划的关键不是强度，是"每周清一次"这条不会断。</aside>
+</section>
+
+<!-- 29 交付③ -->
+<section class="slide">
+  <div class="kicker">第 3 节小结 · 交付 ③ 验收</div>
+  <h2>每日 AI 清单：五项封顶，贴在手机背面</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:16%">清单项</th><th>路上怎么用（一句话就够）</th></tr>
+    <tr class="hl"><td><b>调档</b></td><td>到公司前，语音问一句"今天要跟进的待办有哪些"</td></tr>
+    <tr><td><b>口述</b></td><td>路上把昨天的事说成三行，晚上不用再回忆</td></tr>
+    <tr class="hl"><td><b>回邮</b></td><td>先说结论，再补理由；发之前自己过一遍</td></tr>
+    <tr><td><b>收素材</b></td><td>见到就拍、听到就录，只做一个动作</td></tr>
+    <tr class="hl"><td><b>归档</b></td><td>每周日清一次收件箱，把它清空</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:22px">达标线：<span class="em">清单写在纸上、贴在手机背面，三个随身动作各跑通一次，有截图。</span></p>
+  <div class="foot">交付 ③ · 通勤即可完成</div><div class="pageno">29</div>
+  <aside class="notes">强调"五项封顶"：写十项的一定跑不完，跑不完就会放弃。让学员念一遍自己的五项，超过五项当场删。</aside>
+</section>
+
+<!-- 30 收尾 -->
+<section class="slide">
+  <div class="kicker">收尾 · 10 分钟</div>
+  <h2>互换测试、复盘卡、30 天计划</h2>
+  <div class="rule"></div>
+  <div class="three">
+    <div class="card blue"><h3>① 互换测试</h3><p>三人一组，把手机和清单交给旁边的人：他能不能照着你的清单，找到你要的东西？找不到，就是清单没写清。</p></div>
+    <div class="card blue"><h3>② 复盘卡</h3><p>四联剪开：今天收了几件 / 哪一步最卡 / 明天改哪一句 / 30 天要达成的样子。留一联贴手机背面。</p></div>
+    <div class="card gold"><h3>③ 30 天计划</h3><p>三栏写满，约好复盘日。30 天不是考验自律，是把今天这三条路各跑一遍。</p></div>
+  </div>
+  <p style="margin-top:18px;font-size:22px"><span class="em">方法论支持：拆书帮（chaishubang.net）</span>——RIA 四拍来自拆书帮方法体系，今天只是换成了手机里的实例。</p>
+  <div class="foot">收尾 · 互换测试 + 复盘卡 + 30 天计划</div><div class="pageno">30</div>
+  <aside class="notes">互换测试最出效果：让别人用你的清单找一次，问题立刻暴露。复盘卡四联剪开，一联自己留、一联贴手机背面、一联交组长、一联 30 天后拆。</aside>
+</section>
+
+<!-- 31 尾页 -->
+<section class="slide cover">
+  <div class="kicker">AI 拆书课 · AI 手机场 · 拆书帮广州小蛮腰分舵</div>
+  <h1>收 → 理 → 用</h1>
+  <div class="sub">你今天不是学会了几个功能，<br>是让手机从"记事本"变成了"办事的入口"。</div>
+  <div class="rule"></div>
+  <div class="meta">
+    三件交付物带走：采集清单 · 手机工作流 · 每日 AI 清单<br>
+    11 月 · 时间待定（报名后群内通知） · 广州越秀区雅苑·培正 5 号楼 · 仅限 10 人<br>
+    会员免费，非会员 39 元（含茶歇+资料）· 报名：拆书帮公众号 / 微信 ikoning365<br>
+    © 2026 杨辉（玄龙堂主理人）· 拆书帮广州小蛮腰分舵
+  </div>
+  <div class="brand">谢谢，明天通勤路上见。</div>
+  <div class="pageno">31</div>
+  <aside class="notes">留 2 分钟答疑。结束提醒：把贴了清单的手机背面拍一张发群里，算课后打卡；30 天后带着复盘卡回来。</aside>
+</section>
+</div>
+
+<div id="hud">
+  <button id="btnNotes" title="N">备注</button>
+  <button id="btnFull" title="F">全屏</button>
+  <button id="btnPrint" title="P">打印/PDF</button>
+  <button id="btnTimer" title="计时">计时</button>
+</div>
+<div id="bar"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, stage=document.getElementById('stage'), bar=document.getElementById('bar');
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){ s.classList.toggle('on',k===i); });
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  window.addEventListener('resize',fit); fit();
+  var h=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(h)?0:h-1);
+
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].indexOf(e.key)>=0){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>=0){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);} else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('notes-on');}
+    else if(e.key==='f'||e.key==='F'){toggleFull();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#hud')) return;
+    if(e.clientX > window.innerWidth*0.62) show(i+1); else if(e.clientX < window.innerWidth*0.38) show(i-1);
+  });
+  function toggleFull(){
+    if(!document.fullscreenElement){ (document.documentElement.requestFullscreen||function(){}).call(document.documentElement); }
+    else { document.exitFullscreen(); }
+  }
+  document.getElementById('btnNotes').onclick=function(){document.body.classList.toggle('notes-on');};
+  document.getElementById('btnFull').onclick=toggleFull;
+  document.getElementById('btnPrint').onclick=function(){window.print();};
+
+  var t0=0, ticking=false, accum=0, timerBtn=document.getElementById('btnTimer');
+  timerBtn.onclick=function(){
+    ticking=!ticking;
+    if(ticking){ t0=Date.now(); if(!accum) accum=0; }
+    else { accum+=Date.now()-t0; }
+  };
+  setInterval(function(){
+    if(!ticking) return;
+    var sec=Math.floor((accum+Date.now()-t0)/1000);
+    timerBtn.textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+  },500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DeepSeek Harness · 搭建企业自动化工作台 · 11 月场（时间待定）｜玄龙·拆AI</title>
+<meta name="description" content="把重复的文档审核，交给一条你亲手搭出来的工作流：DeepSeek Harness + workbuddy，3 小时搭出你的企业自动化工作台。11 月广州越秀，仅限 10 人。">
+<style>
+  :root{
+    --bg:#fbfbfd; --card:#ffffff; --line:#e8e8ed;
+    --ink:#1d1d1f; --ink2:#6e6e73; --mute:#86868b;
+    --blue:#0071e3;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:
+      radial-gradient(900px 480px at 85% -10%, rgba(0,113,227,.06), transparent 60%),
+      radial-gradient(700px 420px at -5% 105%, rgba(0,199,190,.05), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; letter-spacing:-.01em; padding:0 0 70px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px) saturate(180%);
+    background:rgba(255,255,255,.8);border-bottom:1px solid rgba(0,0,0,.06)}
+  .nav .in{max-width:1060px;margin:0 auto;padding:0 22px;height:56px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:800;letter-spacing:-.02em;font-size:17px}
+  .nav .logo b{background:linear-gradient(90deg,#0071e3,#00c7be);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13px;color:var(--ink2);border:1px solid var(--line);background:rgba(255,255,255,.7);
+    border-radius:980px;padding:6px 14px;transition:.2s}
+  .nav .back:hover{color:var(--ink);border-color:rgba(0,113,227,.4)}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  .hero{padding:44px 0 8px}
+  .pill{display:inline-block;font-size:12px;letter-spacing:1.8px;color:var(--blue);font-weight:700;
+    border:1px solid rgba(0,113,227,.3);background:rgba(0,113,227,.06);
+    border-radius:980px;padding:5px 13px;margin-bottom:18px}
+  h1{font-size:40px;line-height:1.18;letter-spacing:-.03em;margin:0 0 16px;font-weight:800}
+  h1 em{font-style:normal;background:linear-gradient(90deg,#0071e3,#00c7be);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:15.5px;color:var(--ink2);margin:0 0 20px;max-width:640px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .meta span{font-size:12.5px;color:var(--ink2);border:1px solid var(--line);background:rgba(255,255,255,.7);
+    border-radius:980px;padding:6px 13px}
+  .meta b{color:var(--ink);font-weight:700}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:600;
+    border-radius:980px;padding:11px 20px;transition:.2s;cursor:pointer;border:1px solid transparent;font-family:inherit}
+  .btn.main{background:var(--blue);color:#fff}
+  .btn.main:hover{background:#0062c4}
+  .btn.ghost{background:rgba(255,255,255,.7);color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:rgba(0,113,227,.4);color:var(--blue)}
+  h2.sec{font-size:21px;font-weight:800;letter-spacing:-.02em;margin:48px 0 14px;display:flex;align-items:center;gap:10px}
+  h2.sec::before{content:"";width:5px;height:20px;border-radius:3px;background:linear-gradient(#0071e3,#00c7be)}
+  .gains{display:grid;gap:12px}
+  .gain{display:flex;gap:14px;border:1px solid var(--line);background:var(--card);border-radius:16px;
+    padding:15px 18px;align-items:flex-start;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .gain .i{font-size:18px;line-height:1.4;font-weight:800;color:var(--blue)}
+  .gain b{display:block;font-size:15px;margin-bottom:2px}
+  .who{display:flex;flex-wrap:wrap;gap:8px}
+  .who span{font-size:13px;color:#424245;background:rgba(0,0,0,.04);border-radius:980px;padding:7px 14px}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .tools span{font-size:12.5px;font-weight:700;letter-spacing:.4px;color:#fff;background:#1d1d1f;border-radius:8px;padding:4px 10px}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .links a{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 16px;font-size:13.5px;color:var(--ink2);transition:.15s}
+  .links a:hover{color:var(--blue);border-color:rgba(0,113,227,.4)}
+  .links a::before{content:"› ";color:var(--mute)}
+  .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--mute);text-align:center;line-height:1.9}
+  @media(max-width:860px){h1{font-size:31px}}
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="in">
+  <div class="logo"><b>玄龙·拆AI</b>&nbsp;<span style="font-size:12px;color:var(--mute)">/ DeepSeek Harness 场</span></div>
+  <a class="back" href="/workshops">← 返回全部课程</a>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="pill">11 月场 · 时间待定 · 拆书帮广州小蛮腰分舵</div>
+    <h1>重复的文档审核，<br><em>交给一条工作流</em></h1>
+    <p class="sub">拆 DeepSeek Harness + workbuddy —— 照着「自动化文档审核工作台」成品，亲手搭出你的企业工作台：<br>
+      卷宗批量进、审核清单出初稿、人工逐条确认，规则沉淀进知识库，越用越懂你的业务。</p>
+    <div class="meta">
+      <span><b>11 月</b> 时间待定（报名后群内通知）</span>
+      <span><b>广州越秀</b> 雅苑·培正 5 号楼</span>
+      <span><b>仅 10 人</b> 小班现场动手</span>
+      <span><b>会员免费</b> 非会员 39 元含茶歇</span>
+    </div>
+    <div class="cta">
+      <button class="btn main" onclick="copyWeChat(this)">立即报名（微信 ikoning365）</button>
+      <a class="btn ghost" href="/workshops">← 返回全部课程</a>
+    </div>
+  </div>
+
+  <h2 class="sec">这场拆什么</h2>
+  <p style="color:var(--ink2);font-size:14.5px;margin:0">拆 DeepSeek Harness：模型、工具、流程编排的工程化骨架，参照「自动化文档审核工作台」成品（批次总览 / 项目卷宗 / 功能点审核 / 费用审核 / 技术评审 / 知识库六大模块），现场搭出第一条「文档进→要点出」初审流水线。三条铁律向学员明说：演示数据为合成、不对应真实项目；AI 建议只作初稿，结论由评审人确认；敏感数据不出内网。</p>
+  <div class="tools" style="margin-top:14px"><span>拆的软件</span><span>DeepSeek Harness</span><span>workbuddy</span></div>
+
+  <h2 class="sec">现场带走</h2>
+  <div class="gains">
+    <div class="gain"><div class="i">01</div><div><b>一条能跑的文档初审工作流</b><span>文档进、要点出，第一批卷宗当场过线。</span></div></div>
+    <div class="gain"><div class="i">02</div><div><b>一份 AI 初审意见书</b><span>AI 按审核清单出初稿，你逐条复核确认，导出即用。</span></div></div>
+    <div class="gain"><div class="i">03</div><div><b>一套审核规则知识库</b><span>规则与历史案例沉淀进库，工作台越用越懂你的业务。</span></div></div>
+  </div>
+
+  <h2 class="sec">适合谁</h2>
+  <div class="who">
+    <span>天天跟卷宗、合同、报告打交道的评审与审核人员</span>
+    <span>财务、审计与合规岗</span>
+    <span>想把重复审核交给工作流的中小企业主</span>
+  </div>
+
+  <h2 class="sec">本页材料索引</h2>
+  <div class="links">
+    <a href="ppt/index.html">课件：DeepSeek Harness · 搭建企业自动化工作台</a>
+    <a href="ppt/poster.html">活动海报（A4 可打印）</a>
+    <a href="handouts/01-学习地图与时间表.html">01 · 学习地图与时间表</a>
+    <a href="handouts/02-第1节任务卡-工作台搭建.html">02 · 第 1 节任务卡（工作台搭建）</a>
+    <a href="handouts/03-第2节任务卡-文档审核工作流.html">03 · 第 2 节任务卡（文档审核工作流）</a>
+    <a href="handouts/04-审核知识库与30天计划.html">04 · 审核知识库与 30 天计划</a>
+    <a href="handouts/05-复盘卡.html">05 · 复盘卡</a>
+    <a href="handouts/06-交付物验收自检表.html">06 · 交付物验收自检表</a>
+    <a href="handouts/07-课前准备清单.html">07 · 课前准备清单（报名后看）</a>
+    <a href="handouts/08-讲师资控手册.html">08 · 讲师资控手册（讲师用）</a>
+    <a href="handouts/09-AI技能自评量表.html">09 · AI 技能自评量表（开场用）</a>
+    <a href="handouts/index.html">全部材料目录 →</a>
+  </div>
+
+  <div class="foot">
+    微信 ikoning365 · 邮箱 554176937@qq.com<br>
+    © 2026 杨辉（玄龙堂主理人） · 拆书帮广州小蛮腰分舵
+  </div>
+
+</div>
+
+<script>
+function copyWeChat(btn){
+  var t='ikoning365';
+  function ok(){var o=btn.textContent;btn.textContent='✅ 已复制：'+t;setTimeout(function(){btn.textContent=o},2000)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb()})}else{fb()}
+  function fb(){var i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){alert('微信号：'+t)}document.body.removeChild(i)}
+}
+</script>
+</body>
+</html>
