@@ -34,7 +34,7 @@ function App() {
           <Route path="/memoir/:id" element={<RedirectMemoir />} />
           <Route path="/about" element={<About />} />
           <Route path="/hot" element={<HotBooks />} />
-          <Route path="/hot/book/:title" element={<HotBookDetail />} />
+          <Route path="/hot/book/:id" element={<HotBookDetail />} />
           <Route path="/hot/memoir/:id" element={<HotMemoirDetail />} />
           <Route path="/skills" element={<Skills />} />
           <Route path="/skill-fusion" element={<SkillFusion />} />

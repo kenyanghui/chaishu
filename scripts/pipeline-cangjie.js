@@ -8,8 +8,9 @@
  * - 从 prologue/learnGoal 提取学习目标和方法名
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs'
 import { resolve, dirname, basename } from 'path'
+import { gunzipSync } from 'zlib'
 import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -35,7 +36,31 @@ function kebabify(level, topic, fallback) {
   return `${base}-${t}`.replace(/^-+/g, '')
 }
 
-function loadHotBooks() {
+function loadHotBooks({ corpus = false } = {}) {
+  // corpus 模式：全量 gz 语料（build-hot-data.mjs 产物）
+  // books/<id>.json.gz 是拆页 meta；全文按需从 memoirs/<mid>.json.gz 取
+  const corpusDir = resolve(ROOT, 'public/hot/books')
+  const fullDir = resolve(ROOT, 'public/hot/memoirs')
+  if (corpus && existsSync(corpusDir)) {
+    const books = []
+    for (const fn of readdirSync(corpusDir)) {
+      if (!fn.endsWith('.json.gz')) continue
+      try {
+        const payload = JSON.parse(gunzipSync(readFileSync(resolve(corpusDir, fn))))
+        if (!payload.book || !payload.memoirs?.length) continue
+        const memoirs = payload.memoirs.map(mm => {
+          const ff = resolve(fullDir, `${mm.id}.json.gz`)
+          if (existsSync(ff)) {
+            try { return JSON.parse(gunzipSync(readFileSync(ff))) } catch { return mm }
+          }
+          return mm
+        })
+        books.push({ ...payload.book, memoirs })
+      } catch { /* 跳过坏块 */ }
+    }
+    if (books.length) return books
+  }
+  // 默认：hotBooks.js 兼容切片（精选 69 本）
   const raw = readFileSync(resolve(ROOT, 'src/data/hotBooks.js'), 'utf-8')
   const start = raw.indexOf('const hotBooks = [')
   const end = raw.lastIndexOf(']')
@@ -456,13 +481,17 @@ ${book.intro ? `- **简介**：${book.intro.slice(0, 200)}` : ''}
 // ─── Main ───
 
 function main() {
-  const hotBooks = loadHotBooks()
+  const corpus = process.argv.includes('--corpus')
+  const limitArg = process.argv.find(a => a.startsWith('--limit='))
+  const limit = limitArg ? parseInt(limitArg.split('=')[1], 10) : Infinity
+  const hotBooks = loadHotBooks({ corpus })
   if (!existsSync(SKILLS_DIR)) mkdirSync(SKILLS_DIR, { recursive: true })
 
   let total = 0
 
   for (const book of hotBooks) {
     if (!book.memoirs || book.memoirs.length === 0) continue
+    if (total >= limit) break
 
     for (const memoir of book.memoirs) {
       const explains = memoir.texts?.[0]?.explains || ''

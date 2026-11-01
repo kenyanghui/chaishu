@@ -3,14 +3,44 @@
  * v2: 全面覆盖各种 RIA 格式，优先提取步骤和 A 内容
  */
 
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs'
 import { resolve, dirname } from 'path'
+import { gunzipSync } from 'zlib'
 import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
 
 function loadHotBooks() {
+  // 优先精选语料：books/<id>.json.gz（meta）+ memoirs/<mid>.json.gz（全文按需）
+  const corpusDir = resolve(ROOT, 'public/hot/books')
+  const fullDir = resolve(ROOT, 'public/hot/memoirs')
+  if (existsSync(corpusDir)) {
+    const curatedPath = resolve(ROOT, 'scripts/curated-books.json')
+    if (existsSync(curatedPath)) {
+      const curated = JSON.parse(readFileSync(curatedPath, 'utf-8'))
+      const books = []
+      for (const c of curated) {
+        const bf = resolve(corpusDir, `${c.id}.json.gz`)
+        if (!existsSync(bf)) continue
+        try {
+          const payload = JSON.parse(gunzipSync(readFileSync(bf)))
+          if (!payload.book || !payload.memoirs?.length) continue
+          const memoirs = payload.memoirs
+            .filter(mm => c.memoirIds.includes(mm.id))
+            .map(mm => {
+              const ff = resolve(fullDir, `${mm.id}.json.gz`)
+              if (existsSync(ff)) {
+                try { return JSON.parse(gunzipSync(readFileSync(ff))) } catch { return mm }
+              }
+              return mm
+            })
+          if (memoirs.length) books.push({ ...payload.book, memoirs })
+        } catch { /* 跳过坏块 */ }
+      }
+      if (books.length) return books
+    }
+  }
   const raw = readFileSync(resolve(ROOT, 'src/data/hotBooks.js'), 'utf-8')
   const start = raw.indexOf('const hotBooks = [')
   const end = raw.lastIndexOf(']')
