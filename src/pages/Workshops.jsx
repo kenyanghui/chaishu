@@ -48,6 +48,88 @@ function SupportCard({ t, i }) {
   )
 }
 
+const NEEDS_API = 'https://api.aibay.asia/needs/needs'
+
+function NeedsForm() {
+  const [form, setForm] = useState({ software: '', scene: '', expect: '', contact: '', website: '' })
+  const [state, setState] = useState('idle')
+  const [msg, setMsg] = useState('')
+  const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  const submit = async e => {
+    e.preventDefault()
+    if (state === 'sending') return
+    if (form.contact.trim().length < 5) {
+      setState('error')
+      setMsg('请留联系方式（微信号 / 手机号）')
+      return
+    }
+    if (form.software.trim().length + form.scene.trim().length + form.expect.trim().length < 4) {
+      setState('error')
+      setMsg('请至少写一点想拆的软件或使用场景')
+      return
+    }
+    setState('sending')
+    setMsg('')
+    try {
+      const r = await fetch(NEEDS_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const d = await r.json().catch(() => ({}))
+      if (r.ok && d.ok) {
+        setState('ok')
+        setForm({ software: '', scene: '', expect: '', contact: '', website: '' })
+      } else {
+        setState('error')
+        setMsg(d.error || '提交失败，请稍后再试，或直接加微信 ikoning365')
+      }
+    } catch {
+      setState('error')
+      setMsg('网络异常，提交失败——加微信 ikoning365 一样能提需求')
+    }
+  }
+
+  return (
+    <form onSubmit={submit} className="apple-card p-6 md:p-10 text-left">
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-[13px] font-bold text-[#1d1d1f] mb-1.5">想拆的软件 / 工具 <span className="text-[#86868b] font-normal">（可不填）</span></label>
+          <input value={form.software} onChange={set('software')} maxLength={120} className="w-full rounded-xl bg-[#f5f5f7] px-4 py-3 text-[14px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-[#0071e3]/40" placeholder="如：京东价保监控、券商 App" />
+        </div>
+        <div>
+          <label className="block text-[13px] font-bold text-[#1d1d1f] mb-1.5">联系方式 <span className="text-[#ff2d55]">*</span></label>
+          <input value={form.contact} onChange={set('contact')} maxLength={60} className="w-full rounded-xl bg-[#f5f5f7] px-4 py-3 text-[14px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-[#0071e3]/40" placeholder="微信号 / 手机号" />
+        </div>
+        <div className="md:col-span-2">
+          <label className="block text-[13px] font-bold text-[#1d1d1f] mb-1.5">你现在是怎么做的</label>
+          <textarea value={form.scene} onChange={set('scene')} rows={3} maxLength={600} className="w-full rounded-xl bg-[#f5f5f7] px-4 py-3 text-[14px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-[#0071e3]/40 resize-none" placeholder="比如：每天早上手动打开 5 个软件挨个看，大概花 40 分钟" />
+        </div>
+        <div className="md:col-span-2">
+          <label className="block text-[13px] font-bold text-[#1d1d1f] mb-1.5">想要 AI 帮你做到什么</label>
+          <textarea value={form.expect} onChange={set('expect')} rows={3} maxLength={600} className="w-full rounded-xl bg-[#f5f5f7] px-4 py-3 text-[14px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-[#0071e3]/40 resize-none" placeholder="比如：早上 8 点自动汇总成一条消息发给我" />
+        </div>
+      </div>
+      <input type="text" name="website" value={form.website} onChange={set('website')} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      {state === 'ok' ? (
+        <div className="mt-5 rounded-xl bg-[#34c759]/10 text-[#1d8a3e] text-[14px] px-4 py-3 font-semibold">已收到！我们按需求排期后，会通过你留的联系方式告诉你。</div>
+      ) : (
+        <div className="mt-5 flex flex-wrap items-center gap-4">
+          <button type="submit" disabled={state === 'sending'} className="btn-primary">{state === 'sending' ? '提交中…' : '提交需求 →'}</button>
+          <span className="text-[13px] text-[#86868b]">提交后由工作坊老师人工跟进，不群发打扰。</span>
+        </div>
+      )}
+      {state === 'error' && (
+        <div className="mt-4 rounded-xl bg-[#ff2d55]/10 text-[#d1334e] text-[13.5px] px-4 py-3">
+          {msg}
+          <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="ml-2 underline font-semibold">复制微信 ikoning365</button>
+        </div>
+      )}
+    </form>
+  )
+}
+
 export default function Workshops() {
   const open = workshops.filter(w => w.status === 'open')
   const soon = workshops.filter(w => w.status === 'soon')
@@ -188,7 +270,7 @@ export default function Workshops() {
             <div className="eyebrow mb-3">想拆哪个 · 我支持</div>
             <h2 className="headline text-[30px] md:text-[38px] mb-4">主题投票，<span className="gradient-text">支持数高的先开</span></h2>
             <p className="text-[15px] text-[#6e6e73] max-w-2xl mx-auto">
-              同类软件已合并为一个主题，开课时用你手头那款。优先平台 LoongBuddy（25+ 官方连接器），workbuddy 同步支持；带「连接器待补」的主题票高就立项补连接器。点「我支持」为你想拆的主题投票——支持数最高的优先排期开课。列表里没有你想拆的？加微信 ikoning365 告诉我。
+              同类软件已合并为一个主题，开课时用你手头那款。优先平台 LoongBuddy（25+ 官方连接器），workbuddy 同步支持；带「连接器待补」的主题票高就立项补连接器。点「我支持」为你想拆的主题投票——支持数最高的优先排期开课。列表里没有你想拆的？到下方「说出你的需求」填一下。
             </p>
           </div>
           {cats.map(cat => (
@@ -212,6 +294,20 @@ export default function Workshops() {
             <a href="https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q" target="_blank" rel="noreferrer" className="btn-primary">报名首场（拆书帮公众号）→</a>
             <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-secondary" title="点击复制微信号">后续场次报名：微信 ikoning365 📋</button>
           </div>
+        </div>
+      </section>
+
+      {/* ==================== 说出你的需求：客户自助填 ==================== */}
+      <section className="px-4 pb-20">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="eyebrow mb-3">列表里没有 · 说出你的需求</div>
+            <h2 className="headline text-[26px] md:text-[32px] mb-4">你想要的工作坊，<span className="gradient-text">填了就算投票</span></h2>
+            <p className="text-[15px] text-[#6e6e73] max-w-xl mx-auto">
+              想拆的软件不在列表里？花一分钟写下你现在的做法和想要的效果——需求集中同类多，就优先开成新一期工作坊。
+            </p>
+          </div>
+          <NeedsForm />
         </div>
       </section>
     </div>
