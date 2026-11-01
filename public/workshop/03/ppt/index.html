@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>企查查 · 读懂你的客户｜AI 拆书课</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0d16; --bg2:#0d1220; --panel:#111a2c; --panel2:#0e1524;
+  --line:rgba(255,255,255,.10); --line2:rgba(215,176,113,.34);
+  --ink:#e9edf6; --mute:#8f9ab2; --dim:#5d6880;
+  --gold:#d7b071; --gold2:#f0d5a6; --cy:#58c7d4;
+  --red:#e06a67; --yel:#e0b45c; --grn:#62c08c;
+}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(1200px 700px at 82% -12%, rgba(88,199,212,.10), transparent 60%),
+    radial-gradient(900px 600px at -8% 108%, rgba(215,176,113,.09), transparent 62%),
+    var(--bg);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+.deck{position:fixed;inset:0}
+
+.slide{
+  position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:5.2vh 6.4vw 9vh;transition:padding-bottom .28s ease;
+}
+.slide.on{display:flex;opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease}
+.slide.on.vis{opacity:1;transform:none}
+
+.kicker{
+  font-size:1.45vh;letter-spacing:.34em;color:var(--gold);
+  font-weight:600;margin-bottom:2.2vh;text-transform:uppercase;
+}
+.kicker .ln{display:inline-block;width:3.4vw;height:1px;background:var(--line2);vertical-align:middle;margin-right:.9em;transform:translateY(-2px)}
+h1{font-size:8.2vh;line-height:1.1;font-weight:800;letter-spacing:.02em}
+h1 .gold{color:var(--gold2)}
+h2{font-size:4.5vh;line-height:1.22;font-weight:700;letter-spacing:.01em}
+h2 .gold{color:var(--gold2)}
+h3{font-size:2.5vh;font-weight:700;margin-bottom:1.2vh}
+p{font-size:2.05vh;line-height:1.72;color:#c8d1e2}
+.lead{font-size:2.2vh;color:var(--mute);line-height:1.75;max-width:66ch;margin-top:2vh}
+.muted{color:var(--mute)}
+.gold{color:var(--gold2)}
+.cy{color:var(--cy)}
+.small{font-size:1.65vh;line-height:1.65;color:var(--mute)}
+
+.spread{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.grid{display:grid;gap:1.5vh;min-height:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g23{grid-template-columns:1.15fr .85fr}
+.mt2{margin-top:2vh}.mt3{margin-top:3vh}.mt4{margin-top:4vh}
+
+.card{
+  background:linear-gradient(160deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:14px;padding:2.2vh 1.5vw;
+  position:relative;overflow:hidden;
+}
+.card::before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,var(--line2),transparent)}
+.card.g{border-color:rgba(215,176,113,.30);background:linear-gradient(160deg,#191712,#0f1219)}
+.card.c{border-color:rgba(88,199,212,.26)}
+.card h3{margin-bottom:1vh}
+.card p{font-size:1.85vh;line-height:1.66;color:#b8c3d6}
+.card .no{
+  font-family:ui-monospace,Menlo,monospace;font-size:1.4vh;color:var(--gold);
+  letter-spacing:.18em;margin-bottom:1.1vh;display:block;
+}
+.card .ic{font-size:3vh;line-height:1;margin-bottom:1.2vh;color:var(--gold)}
+
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:999px;
+  padding:.5vh 1.1vw;font-size:1.55vh;color:var(--gold2);margin:0 .5vw .9vh 0;background:rgba(215,176,113,.06)}
+.pill.c{border-color:rgba(88,199,212,.34);color:#a8e4ec;background:rgba(88,199,212,.07)}
+.pill.k{border-color:var(--line);color:var(--mute);background:rgba(255,255,255,.03)}
+
+.dot{display:inline-block;width:.75vh;height:.75vh;border-radius:50%;margin-right:.6em;vertical-align:middle}
+.d-r{background:var(--red);box-shadow:0 0 0 3px rgba(224,106,103,.15)}
+.d-y{background:var(--yel);box-shadow:0 0 0 3px rgba(224,180,92,.15)}
+.d-g{background:var(--grn);box-shadow:0 0 0 3px rgba(98,192,140,.15)}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:1.85vh;line-height:1.55}
+table.tbl th{
+  text-align:left;font-size:1.5vh;letter-spacing:.1em;color:var(--gold);
+  font-weight:600;padding:1.1vh 1vw;border-bottom:1px solid var(--line2);
+  background:rgba(215,176,113,.05);white-space:nowrap;
+}
+table.tbl td{padding:1.25vh 1vw;border-bottom:1px solid var(--line);color:#c2cbdd;vertical-align:top}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl td strong,table.tbl td b{color:#eef2fa}
+table.tbl .mono{font-family:ui-monospace,Menlo,monospace;color:var(--gold2);font-size:1.65vh;white-space:nowrap}
+
+.bigq{font-size:3.4vh;line-height:1.5;font-weight:700;color:#eef2fa;letter-spacing:.01em}
+.bigq .mark{color:var(--gold)}
+.hr{height:1px;background:var(--line);margin:2.6vh 0}
+
+/* cover */
+.cover{justify-content:center}
+.cover h1{font-size:10.5vh;letter-spacing:.03em}
+.cover .sub{font-size:2.35vh;color:#b9c4d6;margin-top:2.4vh;line-height:1.7;max-width:48ch}
+.cover .meta{display:flex;gap:0;margin-top:5.2vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cover .meta div{padding:2.1vh 2vw 2.1vh 0;min-width:14vw}
+.cover .meta dt{font-size:1.35vh;letter-spacing:.22em;color:var(--dim);margin-bottom:.9vh}
+.cover .meta dd{font-size:1.85vh;color:#dbe2ef;line-height:1.5}
+.cover .meta div + div{padding-left:2vw;border-left:1px solid var(--line)}
+
+/* section divider */
+.sec{justify-content:center;align-items:flex-start}
+.sec .num{
+  font-family:ui-monospace,Menlo,monospace;font-size:26vh;line-height:.8;font-weight:800;
+  color:transparent;-webkit-text-stroke:1.5px rgba(215,176,113,.42);
+  position:absolute;right:8vw;top:50%;transform:translateY(-52%);opacity:.85;
+}
+.sec h1{font-size:9vh}
+.sec .sub{font-size:2.3vh;color:var(--mute);margin-top:2vh;letter-spacing:.02em}
+.sec .line{width:82px;height:3px;background:var(--gold);margin:3vh 0;border-radius:2px}
+
+/* footer bits */
+.tagrow{display:flex;flex-wrap:wrap;gap:.9vh 0;margin-top:2.4vh}
+.footnote{margin-top:auto;font-size:1.4vh;color:var(--dim);letter-spacing:.06em;padding-top:2vh}
+
+/* chrome */
+.pager{position:fixed;right:3vw;bottom:2.6vh;font-family:ui-monospace,Menlo,monospace;
+  font-size:1.5vh;letter-spacing:.16em;color:var(--mute);z-index:40;transition:bottom .28s ease}
+.pager b{color:var(--gold2);font-weight:700}
+.bar{position:fixed;left:0;bottom:0;height:3px;width:100%;background:rgba(255,255,255,.06);z-index:45}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8f6a2e,var(--gold),var(--gold2));
+  transition:width .3s ease;box-shadow:0 0 12px rgba(215,176,113,.5)}
+.hint{position:fixed;left:3vw;bottom:2.6vh;font-size:1.35vh;color:#4a5368;letter-spacing:.1em;z-index:40;
+  transition:opacity .5s ease}
+.hint.off{opacity:0}
+
+.notes{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;
+  background:rgba(9,12,20,.97);border-top:1px solid rgba(215,176,113,.45);
+  padding:2.2vh 6.4vw 3vh;max-height:32vh;overflow:auto;
+  box-shadow:0 -20px 50px rgba(0,0,0,.5);
+}
+.slide .notes{display:none}
+body.notes-on #notesBar{display:block}
+.deck{transition:transform .3s ease}
+body.notes-on .deck{transform:translateY(-15vh) scale(.68);transform-origin:center center}
+body.notes-on .pager{bottom:calc(32vh + 1.6vh)}
+body.notes-on .hint{bottom:calc(32vh + 1.6vh)}
+.notes .lbl{font-size:1.25vh;letter-spacing:.3em;color:var(--gold);margin-bottom:1.1vh;font-weight:600}
+.notes p{font-size:1.85vh;line-height:1.7;color:#cfd7e6;max-width:96ch}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- 01 cover -->
+<section class="slide cover on">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · 企查查场</div>
+  <h1>读懂你的<span class="gold">客户</span></h1>
+  <p class="sub">接单之前，先读懂你的客户——他是谁、靠什么赚钱、账期稳不稳。</p>
+  <div class="meta">
+    <div><dt>时间</dt><dd>11 月 · 时间待定<br><span class="muted" style="font-size:1.55vh">（报名后群内通知）</span></dd></div>
+    <div><dt>地点</dt><dd>广州越秀区<br>雅苑·培正 5 号楼</dd></div>
+    <div><dt>席位与费用</dt><dd>仅限 10 人<br>会员免费，非会员 39 元</dd></div>
+    <div><dt>报名</dt><dd>拆书帮公众号<br>微信 ikoning365</dd></div>
+  </div>
+  <div class="footnote">含茶歇 + 资料 · 全场 3 小时 · 请带一台能上网的电脑　|　© 2026 杨辉（玄龙堂主理人）· 拆书帮广州小蛮腰分舵</div>
+  <div class="notes"><div class="lbl">讲师备注 01</div><p>开场 8 分钟：先问一句"最近有没有一单，签完才后悔没查对方的底"，把痛点立起来。今天不教话术，教两条流程：查清楚、判明白。</p></div>
+</section>
+
+<!-- 02 why -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>为什么是企查查</div>
+  <h2>你踩过的坑，八成都在<span class="gold">签约前</span>就已经写在数据里</h2>
+  <div class="spread">
+    <div class="grid g3 mt3">
+      <div class="card"><span class="no">坑 01</span><h3>签完才知道在打官司</h3><p>合同盖完章，第三个月听说对方被列为被执行人。信息不是没有，是你没在签字前看。</p></div>
+      <div class="card"><span class="no">坑 02</span><h3>账期全凭对方一张嘴</h3><p>"我们从不欠款"——听着都对。可参保人数在掉、涉诉集中在买卖合同，嘴和账本说的是两件事。</p></div>
+      <div class="card"><span class="no">坑 03</span><h3>客户信息散在脑子里</h3><p>微信一段、名片一张、饭桌上一句。下次打电话前，你其实什么都没带。</p></div>
+    </div>
+    <div class="grid g2 mt2">
+      <div class="card g"><span class="ic">◧</span><h3>企查查给你的是<span class="gold">公开的四张底牌</span></h3><p>工商底盘 · 股权关系 · 风险记录 · 关联企业。全部公开可查，不碰隐私，只查"这家公司是谁、还撑不撑得住"。</p></div>
+      <div class="card c"><span class="ic">◨</span><h3>今天要换的，是<span class="cy">判断的顺序</span></h3><p>过去：先聊得来 → 再报价 → 最后才担心回款。<br>今天：先查清 → 再判风险 → 最后才决定报多少、给几天账期。</p></div>
+    </div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 02</div><p>三个坑每个只讲一句，把时间留给第三张牌：判断顺序的调换。强调今天所有数据都来自公开渠道，边界先立住。</p></div>
+</section>
+
+<!-- 03 RIA map -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>怎么学 · RIA 四拍</div>
+  <h2>看一遍、听一遍、想一遍，<span class="gold">最后一定要做出来</span></h2>
+  <div class="grid g4 mt4">
+    <div class="card"><span class="no">R</span><h3>看官方视频</h3><p>每节开头 4–5 分钟官方演示，第二遍带问题看：哪几个字段决定判断。</p></div>
+    <div class="card"><span class="no">I</span><h3>听拆解</h3><p>讲师把这节的动作拆成步骤，讲清"为什么是这一步、卡在哪"。</p></div>
+    <div class="card"><span class="no">A1</span><h3>反思经验</h3><p>对照自己手上真实的一单：上次我漏查了什么？</p></div>
+    <div class="card g"><span class="no">A2</span><h3>当场做出来</h3><p><b class="gold">今天唯一的硬指标</b>：三件交付物现场产出，截图存档，组长打勾。</p></div>
+  </div>
+  <div class="hr"></div>
+  <div class="grid g4">
+    <div><div class="small gold" style="letter-spacing:.2em">第 1 节 · 50′</div><h3 style="font-size:3.2vh">查</h3><p class="small">企查查拉全貌<br>交付 ① 客户自动画像</p></div>
+    <div><div class="small gold" style="letter-spacing:.2em">第 2 节 · 55′</div><h3 style="font-size:3.2vh">判</h3><p class="small">workbuddy 接企查查<br>交付 ② 风险与关联速查</p></div>
+    <div><div class="small gold" style="letter-spacing:.2em">第 3 节 · 40′</div><h3 style="font-size:3.2vh">沉</h3><p class="small">客户情报档案<br>交付 ③ 跟进档案 + 30 天计划</p></div>
+    <div><div class="small gold" style="letter-spacing:.2em">收尾 · 10′</div><h3 style="font-size:3.2vh">合</h3><p class="small">互换测试 · 复盘卡<br>30 天承诺 · 合影</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 03</div><p>重点压在 A2：今天没有"回去再做"。同时说明三节是同一个客户的同一条链——查出来的东西，判的时候要用，沉的时候要存。</p></div>
+</section>
+
+<!-- 04 agenda -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>今天的三小时</div>
+  <h2>173 分钟净时长，<span class="gold">超时只砍讨论，不砍交付</span></h2>
+  <div class="spread">
+    <table class="tbl mt3">
+      <tr><th style="width:20%">时间</th><th style="width:26%">环节</th><th>你要做的事</th><th style="width:10%">时长</th></tr>
+      <tr><td class="mono">00:00–00:08</td><td>开场</td><td>签到分组、学习地图、RIA 四拍与交付规则</td><td>8′</td></tr>
+      <tr><td class="mono">00:08–00:58</td><td><b>第 1 节 · 查</b></td><td>看官方片 + 拆解，现场给一家真客户建画像（交付 ①）</td><td>50′</td></tr>
+      <tr><td class="mono">00:58–01:08</td><td>中场休息</td><td>走动、看板贴便签，没出画像的找助教</td><td>10′</td></tr>
+      <tr><td class="mono">01:08–02:03</td><td><b>第 2 节 · 判</b></td><td>workbuddy 接企查查，跑出红黄绿 + 账期参数（交付 ②）</td><td>55′</td></tr>
+      <tr><td class="mono">02:03–02:43</td><td><b>第 3 节 · 沉</b></td><td>七栏档案 + 更新节奏 + 30 天客户情报计划（交付 ③）</td><td>40′</td></tr>
+      <tr><td class="mono">02:43–02:53</td><td>收尾</td><td>互换测试、复盘卡、承诺、合影</td><td>10′</td></tr>
+      <tr><td class="mono">02:53–03:00</td><td>弹性</td><td>答疑、补交付、个别辅导</td><td>7′</td></tr>
+    </table>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 04</div><p>把时间表打成大字贴讲台。提醒学员：三个交付物是三次"必须动手"，不是三次"听懂了"。</p></div>
+</section>
+
+<!-- 05 sec1 -->
+<section class="slide sec">
+  <div class="num">01</div>
+  <div class="kicker"><span class="ln"></span>第 1 节 · 50 分钟</div>
+  <h1>查 · <span class="gold">他是谁</span></h1>
+  <div class="line"></div>
+  <p class="sub">企查查拉全貌：工商 / 股权 / 风险 / 关联企业　　交付 ① 读懂客户的自动画像</p>
+  <div class="tagrow"><span class="pill">R 看官方视频 5′</span><span class="pill">I 拆解 10′</span><span class="pill c">A2 现场建画像 15′</span><span class="pill k">验收 18′</span></div>
+  <div class="notes"><div class="lbl">讲师备注 05</div><p>进第 1 节只讲一句：今天查的不是"背景"，是"这单该不该接、该报多少"的依据。让每个人先在纸上写下明天要报价的客户名。</p></div>
+</section>
+
+<!-- 06 three questions -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>查 · 先回答三个问题</div>
+  <h2>一张画像，只需要回答<span class="gold">三件事</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">Q1 · 他是谁</span><h3>主体真实吗、多大</h3><p>成立几年、注册资本和实缴差多少、参保几个人、有没有资质。名字像大公司，参保 3 人，这就已经是判断了。</p></div>
+    <div class="card"><span class="no">Q2 · 靠什么赚钱</span><h3>钱从哪来、稳不稳</h3><p>经营范围告诉你他能做什么，客户类型和旺淡季告诉你他实际在赚什么。推测要标"推测"。</p></div>
+    <div class="card"><span class="no">Q3 · 账期稳不稳</span><h3>他付得起吗</h3><p>涉诉集中在买卖 / 借款？股东一年内换过？对外担保多不多？这三个信号直接换算成"给几天账期"。</p></div>
+  </div>
+  <p class="lead">三个问题答不上来，就还没到报价那一步。<span class="gold">画像不是简历，是决策依据。</span></p>
+  <div class="notes"><div class="lbl">讲师备注 06</div><p>现场点名两位学员，用 20 秒口述"你明天要报价那家是谁、靠什么赚钱"，暴露"其实我也说不清"，再进工具演示。</p></div>
+</section>
+
+<!-- 07 four entrances -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>查 · 工具地图</div>
+  <h2>企查查四个入口，<span class="gold">按顺序点，不要乱翻</span></h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">① 工商底盘</span><p><b>成立时间</b><br>注册资本 / 实缴<br>参保人数<br>经营范围<br>注册地址</p></div>
+    <div class="card"><span class="no">② 股权关系</span><p><b>股东与持股比例</b><br>实际控制人<br>对外投资<br>分支机构<br>历史名称变更</p></div>
+    <div class="card"><span class="no">③ 风险面</span><p><b>司法案件</b><br>被执行 / 失信<br>经营异常<br>行政处罚<br>股权出质 / 动产抵押</p></div>
+    <div class="card g"><span class="no">④ 关联企业</span><p><b>同一实控人名下</b><br>同址同电话的公司<br>互相担保关系<br>上下游疑似主体</p></div>
+  </div>
+  <div class="grid g2 mt3">
+    <div class="card"><h3 style="font-size:2.1vh">先看哪个？</h3><p class="small">先 ① 确认是这家（统一社会信用代码对得上），再 ② 看谁说了算，然后 ③ 看有没有雷，最后 ④ 看他背后还有谁。</p></div>
+    <div class="card"><h3 style="font-size:2.1vh">别看哪个？</h3><p class="small">别一上来就翻几十页裁判文书。红黄灯只看四类信号，其余留给第 3 节的档案。</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 07</div><p>这一页是全场的地图，讲慢一点。用手比划顺序 ①②③④，让学员在任务卡上同样标号，后面演示就照着这个顺序走。</p></div>
+</section>
+
+<!-- 08 five steps -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>查 · 现场动作</div>
+  <h2>五步建档，<span class="gold">15 分钟出第一版</span></h2>
+  <div class="spread">
+    <table class="tbl mt3">
+      <tr><th style="width:10%">时间</th><th style="width:34%">动作</th><th>你要留下什么</th></tr>
+      <tr><td class="mono">0–3′</td><td><b>定对象</b>：搜客户全称，同名就加城市 + 行业，认准统一社会信用代码</td><td>信用代码抄在任务卡上</td></tr>
+      <tr><td class="mono">3–6′</td><td><b>拉工商</b>：成立时间、注册资本与实缴、参保人数、经营范围、注册地址</td><td>成立 ____ 年 · 参保 ____ 人</td></tr>
+      <tr><td class="mono">6–9′</td><td><b>拉关系网</b>：股东与比例、实际控制人、对外投资、分支机构、历史名称</td><td>实控人是谁、还控着哪几家</td></tr>
+      <tr><td class="mono">9–12′</td><td><b>拉风险面</b>：司法案件、被执行 / 失信、经营异常、行政处罚、股权出质</td><td>风险条数 + 最严重的一条</td></tr>
+      <tr><td class="mono">12–15′</td><td><b>交 workbuddy</b>：字段贴进画像流程出一页，<b class="gold">你补一句判断</b>，截图</td><td>判断句 + 截图各一份</td></tr>
+    </table>
+  </div>
+  <p class="lead">15 分钟不是把公司查穿，是查够做判断的那几栏。剩下的，第 3 节再沉。</p>
+  <div class="notes"><div class="lbl">讲师备注 08</div><p>掐表。到 3 分钟必喊"选好客户了吗"，到 12 分钟必喊"开始写判断句"。卡在第一步的人，助教直接给备用样例公司。</p></div>
+</section>
+
+<!-- 09 demo -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>现场演示 · 讲师跑一遍</div>
+  <h2>4 分钟，跟着点一遍<span class="gold">（投影同屏，你先别动手）</span></h2>
+  <div class="grid g23 mt3" style="align-items:start">
+    <div>
+      <div class="grid" style="gap:1vh">
+        <div class="card" style="padding:1.5vh 1.2vw"><p style="font-size:1.8vh"><span class="gold">①</span>　搜索框输入<b>客户全称</b>，同名过多就加城市 + 行业，点开认<span class="cy">统一社会信用代码</span></p></div>
+        <div class="card" style="padding:1.5vh 1.2vw"><p style="font-size:1.8vh"><span class="gold">②</span>　扫一眼<b>工商信息</b>：成立时间、注册资本 / 实缴、参保人数、经营范围</p></div>
+        <div class="card" style="padding:1.5vh 1.2vw"><p style="font-size:1.8vh"><span class="gold">③</span>　点<b>股权穿透</b>：谁是大股东、实际控制人是谁、名下还有几家</p></div>
+        <div class="card" style="padding:1.5vh 1.2vw"><p style="font-size:1.8vh"><span class="gold">④</span>　点<b>风险 / 司法</b>：只看被执行、失信、经营异常、行政处罚四类</p></div>
+        <div class="card" style="padding:1.5vh 1.2vw"><p style="font-size:1.8vh"><span class="gold">⑤</span>　<b>截图四张</b>，命名"客户简称_日期"，扔进一个文件夹</p></div>
+      </div>
+    </div>
+    <div class="card g" style="height:100%">
+      <span class="no">讲师同步解说</span>
+      <p style="margin-bottom:1.6vh">"我为什么先点股权？因为<b class="gold">股东变了，责任主体就变了</b>，合同签给谁比签什么更要紧。"</p>
+      <p style="margin-bottom:1.6vh">"这里有一笔被执行，金额不大——<b class="gold">但时间在最近 12 个月</b>，这就是黄灯，不是无视。"</p>
+      <p style="margin-bottom:0">"字段看不懂没关系，先把<b class="gold">能用来说话的那三条</b>记下来。"</p>
+    </div>
+  </div>
+  <div class="footnote">演示用公开样例公司，不用任何学员的客户 · 演示期间只动嘴不动手，下一段才轮到你的键盘</div>
+  <div class="notes"><div class="lbl">讲师备注 09</div><p>演示必须提前跑通并录屏备份。全程只念"我在点什么、为什么点"，不要念字段解释；让学员看的是路径，不是术语。</p></div>
+</section>
+
+<!-- 10 risk surface -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>查 · 风险面怎么读</div>
+  <h2>四类信号，<span class="gold">只有第一类能当场否掉一单</span></h2>
+  <div class="grid g2 mt3">
+    <div class="card"><span class="no"><span class="dot d-r"></span>信号一</span><h3>被执行 / 失信</h3><p>看三件事：<b>金额、时间、有没有履行</b>。近 12 个月内的被执行，比三年前的一笔大额更值得警惕。失信被执行人 = 直接谈预付款。</p></div>
+    <div class="card"><span class="no"><span class="dot d-y"></span>信号二</span><h3>涉诉集中在买卖合同</h3><p>判决书里出现大量"买卖合同纠纷"，且角色多为被告——说明它<b>习惯性拖欠供应商</b>。这就是账期的真相。</p></div>
+    <div class="card"><span class="no"><span class="dot d-y"></span>信号三</span><h3>经营异常 / 地址失联</h3><p>列入经营异常名录、注册地址查无此人。轻则管理混乱，重则壳公司在换壳，合同主体随时消失。</p></div>
+    <div class="card"><span class="no"><span class="dot d-g"></span>信号四</span><h3>股权出质 / 对外担保</h3><p>不是坏事，是<b>杠杆</b>。股权已质押给银行、替关联公司担保上千万——赚钱能力还在，但抗风险余量已经很薄。</p></div>
+  </div>
+  <p class="lead">判断口径：<span class="cy">金额 × 时间 × 是否履行 × 是否与你的业务同类</span>。四个都中，才是红灯。</p>
+  <div class="notes"><div class="lbl">讲师备注 10</div><p>反复强调"金额大不大不重要，时间和同类性才重要"。用一句土话收尾：欠别人货款的公司，也会欠你的。</p></div>
+</section>
+
+<!-- 11 profile page -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>查 · 交付长什么样</div>
+  <h2>画像页四块，<span class="gold">最后一块必须你自己写</span></h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">第一块</span><h3>主体</h3><p>全称 · 信用代码<br>成立年限<br>注册地址</p></div>
+    <div class="card"><span class="no">第二块</span><h3>人</h3><p>股东结构<br>实际控制人<br>决策人猜测</p></div>
+    <div class="card"><span class="no">第三块</span><h3>钱</h3><p>营收规模（推测）<br>参保人数<br>风险条数</p></div>
+    <div class="card g"><span class="no">第四块 · 你的</span><h3>判断</h3><p>一句结论：<br>接 / 缓 / 不接<br>+ 一条理由 + 建议账期</p></div>
+  </div>
+  <div class="hr"></div>
+  <div class="grid g2">
+    <div>
+      <h3>❌ 机器写的那句</h3>
+      <p class="small">"该公司成立于 2016 年，注册资本 500 万元，经营范围包括……"<br><span class="muted">—— 这是简历，不是判断，看完不知道该报多少。</span></p>
+    </div>
+    <div>
+      <h3 class="gold">✓ 你该写的那句</h3>
+      <p class="small">"成立 9 年、参保 42 人，是做实事的；但近一年 3 起买卖合同被告，<b class="gold">账期最多给 30 天，超过要求预付 40%</b>。"</p>
+    </div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 11</div><p>现场念这两句对比，让学员听出差别：一句在复述数据，一句在替自己省钱。要求每人至少写出一句带数字的判断。</p></div>
+</section>
+
+<!-- 12 stuck points -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>查 · 四个常见卡点</div>
+  <h2>卡住不是你的问题，<span class="gold">是没人告诉你这时候该怎么办</span></h2>
+  <div class="spread">
+    <div class="grid g2 mt3">
+      <div class="card"><span class="no">卡点 01</span><h3>搜不到 / 搜出一堆同名</h3><p><b>处置</b>：换成执照上的全称；加城市 + 行业筛选；用统一社会信用代码反查；个体户查"字号"不查人名。</p></div>
+      <div class="card"><span class="no">卡点 02</span><h3>字段太多，看不完</h3><p><b>处置</b>：只答三个问题（他是谁 / 靠什么赚钱 / 账期稳不稳），其余一律先跳过。查得完不是目标，判得出才是。</p></div>
+      <div class="card"><span class="no">卡点 03</span><h3>画出来像简历</h3><p><b>处置</b>：删掉所有形容词，只留数字 + 一句结论 + 一个动作。留白比堆满更有用。</p></div>
+      <div class="card"><span class="no">卡点 04</span><h3>客户是个人 / 个体户</h3><p><b>处置</b>：按"个人 + 其关联公司"两条线查；个体户查营业执照字号；档案照样建，只是字段更少。</p></div>
+    </div>
+  </div>
+  <p class="lead">15 分钟做不完的，先交一版"半成品 + 一句判断"，第 3 节补完整。</p>
+  <div class="notes"><div class="lbl">讲师备注 12</div><p>卡点 01 和 04 现场最常见，让助教把这两条写在白板角落。别让任何人在搜索框里耗超过 3 分钟。</p></div>
+</section>
+
+<!-- 13 deliverable 1 -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>交付 ① · 达标验收</div>
+  <h2>读懂客户的<span class="gold">自动画像</span></h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card g">
+      <span class="no">达标线</span>
+      <p style="font-size:2.1vh;line-height:1.75">一张画像页做出来并存档。<b class="gold">陌生人看完，能说出他是谁、靠什么赚钱、这单值不值得接。</b></p>
+      <div class="hr" style="margin:1.8vh 0"></div>
+      <p style="font-size:1.8vh">交付形态：一页图 + 一张截图，命名"客户简称_日期"，交组长登记。</p>
+    </div>
+    <div class="card">
+      <span class="no">组长三问 · 各 30 秒</span>
+      <p style="font-size:1.8vh;line-height:2">① 这家的实际控制人是谁？<br>② 参保多少人、和注册资本差多少？<br>③ 你给的判断是接、缓、还是不接，<b class="gold">理由是哪条数据</b>？</p>
+    </div>
+  </div>
+  <div class="grid g4 mt2">
+    <div class="card" style="padding:1.4vh 1vw"><p class="small">☐ 主体已核实</p></div>
+    <div class="card" style="padding:1.4vh 1vw"><p class="small">☐ 有实控人</p></div>
+    <div class="card" style="padding:1.4vh 1vw"><p class="small">☐ 有风险条数</p></div>
+    <div class="card g" style="padding:1.4vh 1vw"><p class="small gold">☐ 有一句自己的判断</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 13</div><p>验收只挑 2 份现场点评，一句好、一句改，绝不逐条。重点表扬"判断句里有具体数字"的那份，树立标准。</p></div>
+</section>
+
+<!-- 14 sec2 -->
+<section class="slide sec">
+  <div class="num">02</div>
+  <div class="kicker"><span class="ln"></span>第 2 节 · 55 分钟</div>
+  <h1>判 · <span class="gold">这单能不能接</span></h1>
+  <div class="line"></div>
+  <p class="sub">workbuddy 接企查查　　交付 ② 风险与关联关系速查　　"先看数据，再签合同"</p>
+  <div class="tagrow"><span class="pill">R 风险模块官方片 4′</span><span class="pill">I 判断标准 10′</span><span class="pill c">A2 搭流程 + 速查 24′</span><span class="pill k">互测验收 21′</span></div>
+  <div class="notes"><div class="lbl">讲师备注 14</div><p>开场先把问题抛回去："上一节你查出三条风险，那你打算怎么办？"——没有人回答得干脆，这正是本节要给的判断标准。</p></div>
+</section>
+
+<!-- 15 three cuts -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>判 · 先量化，再定性</div>
+  <h2>判断不是感觉，是<span class="gold">四个变量 + 一个上限</span></h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">变量 01</span><h3>回款能力</h3><p>被执行 / 失信 / 经营异常<br><span class="small">→ 决定"要不要预付款"</span></p></div>
+    <div class="card"><span class="no">变量 02</span><h3>履约习惯</h3><p>买卖类涉诉 / 被告占比<br><span class="small">→ 决定"账期给几天"</span></p></div>
+    <div class="card"><span class="no">变量 03</span><h3>主体实力</h3><p>实缴 / 参保 / 成立年限<br><span class="small">→ 决定"这单值不值得接"</span></p></div>
+    <div class="card"><span class="no">变量 04</span><h3>关联风险</h3><p>对外担保 / 同一实控人<br><span class="small">→ 决定"能不能只签这家"</span></p></div>
+  </div>
+  <div class="card g mt3">
+    <h3>最后一个上限：<span class="gold">这单我亏得起多少</span></h3>
+    <p>先写下"最坏情况我损失多少"，再回头看数据。风险等级不是给客户打分，是给<b class="gold">自己的敞口</b>设上限。<b>亏得起 → 绿灯也只是谨慎；亏不起 → 绿灯也要分期。</b></p>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 15</div><p>这一页是本节的核心，慢讲。强调顺序：先算自己的敞口，再看客户的分数——很多人反了，被"大客户"三个字冲昏头。</p></div>
+</section>
+
+<!-- 16 workbuddy flow -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>判 · 工具怎么接</div>
+  <h2>workbuddy 接企查查：<span class="gold">一条能反复跑的流程</span></h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">STEP 1</span><h3>喂料</h3><p>把企查查四张截图 / 复制的字段，作为输入丢进去。</p></div>
+    <div class="card"><span class="no">STEP 2</span><h3>定规则</h3><p>写死判断标准：哪三类算红灯、哪两类算黄灯、绿灯要满足什么。</p></div>
+    <div class="card"><span class="no">STEP 3</span><h3>出结论</h3><p>输出红黄绿 + 三条追问 + 建议账期与预付款比例。</p></div>
+    <div class="card g"><span class="no">STEP 4</span><h3>复用</h3><p>换个客户名再跑一遍。<b class="gold">流程一次搭好，单子越接越省事。</b></p></div>
+  </div>
+  <div class="grid g2 mt3">
+    <div class="card"><h3 style="font-size:2.1vh">它替你做<span class="cy">整理</span></h3><p class="small">把散落的字段排成同一张表、同一套话，第二次、第十次都不用重想格式。</p></div>
+    <div class="card"><h3 style="font-size:2.1vh">它不替你做<span class="gold">决定</span></h3><p class="small">红灯要不要放弃、黄灯怎么谈，永远是你的判断。流程只负责"不漏看"。</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 16</div><p>边界必须讲透：流程是防漏的清单，不是替你签字的军师。举例说明同一份数据、两个人可以得出不同结论，但都不该漏看同一栏。</p></div>
+</section>
+
+<!-- 17 red yellow green -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>判 · 速查表</div>
+  <h2>红黄绿，<span class="gold">只看能落地的那几条</span></h2>
+  <div class="spread">
+    <table class="tbl mt3">
+      <tr><th style="width:12%">灯</th><th style="width:30%">命中条件（满足任一条）</th><th style="width:26%">动作</th><th>话术</th></tr>
+      <tr><td><span class="dot d-r"></span><b style="color:#e06a67">红</b></td><td>失信被执行人 / 近 12 个月被执行且未履行 / 已停业吊销</td><td><b>不接</b>，或全额预付 + 担保</td><td>"这单我们只做款到发货。"</td></tr>
+      <tr><td><span class="dot d-y"></span><b style="color:#e0b45c">黄</b></td><td>买卖类涉诉 3 起以上且多为被告 / 经营异常 / 股权高比例质押 / 关联担保超过净资产</td><td><b>缓</b>：缩账期、分期、加违约条款</td><td>"账期 30 天，首单预付 40%。"</td></tr>
+      <tr><td><span class="dot d-g"></span><b style="color:#62c08c">绿</b></td><td>无被执行 / 无异常 / 参保稳定 / 实控人清晰且未频繁变更</td><td><b>接</b>：按常规账期，季度复查</td><td>"可以先做，合同照常走。"</td></tr>
+    </table>
+  </div>
+  <p class="lead">规则写进流程，才不会因为"这次对方态度特别好"而破例。</p>
+  <div class="notes"><div class="lbl">讲师备注 17</div><p>让学员把这张表拍照存档，第 3 节建档案时会直接引用红黄绿。提醒：绿灯也要季度复查一次，客户是活的。</p></div>
+</section>
+
+<!-- 18 payment terms -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>判 · 把结论变成条款</div>
+  <h2>账期不是谈出来的，<span class="gold">是算出来的</span></h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">依据一</span><h3>看他的现金流节奏</h3><p>参保人数在降、涉诉在增 → 他的钱在变紧 → <b>账期只能缩，不能放</b>。</p></div>
+    <div class="card"><span class="no">依据二</span><h3>看他的付款历史</h3><p>同类供应商起诉过多起 → 他的"习惯"就是拖 → <b>首单必须预付</b>。</p></div>
+    <div class="card"><span class="no">依据三</span><h3>看你自己的敞口</h3><p>这单金额占你月流水三成 → 你没有资格赌 → <b>分期 + 里程碑付款</b>。</p></div>
+  </div>
+  <div class="hr"></div>
+  <div class="grid g2">
+    <div class="card g"><h3>签约前必问的三句</h3><p style="line-height:2">① "合同签给哪家主体？"（和查到的信用代码对得上吗）<br>② "这笔款由谁审批、多久能付？"（找得到具体的人吗）<br>③ "上一家同类供应商，你们合作多久了？"（敢不敢回答）</p></div>
+    <div class="card"><h3>三个答案怎么用</h3><p style="line-height:2">主体不一致 → 补授权或换签约方<br>审批人说不清 → 预付款比例上调<br>回避第三问 → 按黄灯处理，缩账期</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 18</div><p>这三句现场让两人一组对练 90 秒，一人问一人答。听完立刻能感到"问不出口"的那句，往往就是最该问的。</p></div>
+</section>
+
+<!-- 19 demo 2 -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>现场演示 · 8 分钟搭流程</div>
+  <h2>workbuddy 三步上手，<span class="gold">先照抄，再改</span></h2>
+  <div class="grid g23 mt3" style="align-items:start">
+    <div class="grid" style="gap:1.2vh">
+      <div class="card" style="padding:1.8vh 1.3vw">
+        <span class="no">STEP 1 · 3′</span>
+        <p style="font-size:1.85vh">新建流程，命名为「风险速查」，把四类输入写进说明：工商、股权、风险、关联。</p>
+      </div>
+      <div class="card" style="padding:1.8vh 1.3vw">
+        <span class="no">STEP 2 · 3′</span>
+        <p style="font-size:1.85vh">把上一页的红黄绿规则原样贴进去，<b class="gold">一个字都别改</b>——第一次跑通比跑好重要。</p>
+      </div>
+      <div class="card" style="padding:1.8vh 1.3vw">
+        <span class="no">STEP 3 · 2′</span>
+        <p style="font-size:1.85vh">用第 1 节那家客户试跑，看输出是否给出：灯色、三条追问、账期建议。截图。</p>
+      </div>
+    </div>
+    <div class="card g" style="height:100%">
+      <span class="no">试跑后检查这三行</span>
+      <p style="margin-bottom:1.4vh;font-size:1.8vh">① 灯色有没有<b class="gold">写明理由</b>（不能只有颜色）</p>
+      <p style="margin-bottom:1.4vh;font-size:1.8vh">② 三条追问是不是<b class="gold">能直接问出口</b>的话</p>
+      <p style="margin-bottom:1.4vh;font-size:1.8vh">③ 账期建议有没有<b class="gold">具体天数 + 预付比例</b></p>
+      <p class="small" style="margin-bottom:0">三行缺一行，就回去补规则，不是重跑。</p>
+    </div>
+  </div>
+  <div class="footnote">流程模板讲师版可直接扫码取用 · 现场跑不通的，助教接管，你只负责补判断</div>
+  <div class="notes"><div class="lbl">讲师备注 19</div><p>8 分钟到点必须停。允许"流程搭好但结论粗糙"，不允许"还在改提示词"。粗糙的结论正好是下一段互测的素材。</p></div>
+</section>
+
+<!-- 20 pitfalls -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>判 · 三个坑与三条红线</div>
+  <h2>查得少不可怕，<span class="gold">查了却用错才可怕</span></h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">坑 01</span><h3>查不到 ≠ 没有</h3><p>没查到判决，只说明"公开渠道没有"，不等于"没有纠纷"。结论里要写"未发现"，不写"没有"。</p></div>
+    <div class="card"><span class="no">坑 02</span><h3>看不完就不敢下结论</h3><p>信息永远看不完。够四条就下结论，剩下的交给季度复查。犹豫的成本，比误判还高。</p></div>
+    <div class="card"><span class="no">坑 03</span><h3>结论指不到数据</h3><p>"我感觉这公司不太行"——这不是判断，是印象。说"不接"，要说得出一条具体风险。</p></div>
+  </div>
+  <div class="hr"></div>
+  <div class="grid g3">
+    <div><p class="small"><b class="gold">红线一</b>　只查公开信息：工商、股权、司法、关联企业。不碰个人隐私，不买来路不明的"内部数据"。</p></div>
+    <div><p class="small"><b class="gold">红线二</b>　结论必须能指到数据，不做印象判决。</p></div>
+    <div><p class="small"><b class="gold">红线三</b>　客户档案不外传：互发客户档案 = 当场取消交付资格。</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 20</div><p>红线要一条一条念，念完停 3 秒。第三条现场最容易破，提前说清"练习客户可以共享，真实客户绝不互传"。</p></div>
+</section>
+
+<!-- 21 deliverable 2 -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>交付 ② · 达标验收</div>
+  <h2>风险与关联关系<span class="gold">速查</span></h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card g">
+      <span class="no">达标线</span>
+      <p style="font-size:2.05vh;line-height:1.75">一张速查结果页：<b class="gold">红 / 黄 / 绿 + 一句理由 + 三条追问 + 账期与预付建议</b>，并注明依据来自哪条数据。</p>
+      <div class="hr" style="margin:1.6vh 0"></div>
+      <p style="font-size:1.75vh">交付形态：流程截图 + 结论页，与交付 ① 同一位客户。</p>
+    </div>
+    <div class="card">
+      <span class="no">两人互测 · 各 90 秒</span>
+      <p style="font-size:1.8vh;line-height:1.95">对方只看你的结论页，回答：<br>① 这单你会接、缓还是不接？<br>② 你是根据哪一条判断的？<br>③ 如果客户说"给我 60 天账期"，你怎么回？</p>
+    </div>
+  </div>
+  <div class="grid g4 mt2">
+    <div class="card" style="padding:1.3vh 1vw"><p class="small">☐ 灯色已定</p></div>
+    <div class="card" style="padding:1.3vh 1vw"><p class="small">☐ 理由指到数据</p></div>
+    <div class="card" style="padding:1.3vh 1vw"><p class="small">☐ 三条追问可问出口</p></div>
+    <div class="card g" style="padding:1.3vh 1vw"><p class="small gold">☐ 账期 + 预付比例</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 21</div><p>互测标准只有一条：陌生人看不看得懂"接 / 缓 / 不接"。看不懂就是没交付，回去改那句结论，不用重做流程。</p></div>
+</section>
+
+<!-- 22 sec3 -->
+<section class="slide sec">
+  <div class="num">03</div>
+  <div class="kicker"><span class="ln"></span>第 3 节 · 40 分钟</div>
+  <h1>沉 · <span class="gold">把接触变成资产</span></h1>
+  <div class="line"></div>
+  <p class="sub">客户情报档案 + 30 天客户情报计划　　交付 ③ 跟进客户情报档案</p>
+  <div class="tagrow"><span class="pill">R 流程官方片 4′</span><span class="pill">I 档案字段 6′</span><span class="pill c">A2 建档 20′</span><span class="pill k">30 天计划 10′</span></div>
+  <div class="notes"><div class="lbl">讲师备注 22</div><p>过渡一句话："前两节你查了、判了，但三个月后还记得吗？"档案是为了让下一次打电话前，30 秒能读完一个人。</p></div>
+</section>
+
+<!-- 23 why archive -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>沉 · 为什么是档案</div>
+  <h2>档案不是给领导看的台账，<span class="gold">是给自己留的弹药</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">第一次</span><h3>查一次，30 分钟</h3><p>查完就散在浏览器历史、微信收藏、脑子里。</p></div>
+    <div class="card"><span class="no">第二次</span><h3>再查一次，还是 30 分钟</h3><p>甚至更久，因为连"上次查到什么"都忘了。</p></div>
+    <div class="card g"><span class="no">有档案之后</span><h3>30 秒读完，直接开聊</h3><p>上次聊到哪、他在意什么、下次该说什么，一页全在。<b class="gold">同一份时间，用两遍。</b></p></div>
+  </div>
+  <p class="lead">档案的价值不在"建得漂亮"，在"下次还敢打开它"。所以七栏就够，多了没人填。</p>
+  <div class="notes"><div class="lbl">讲师备注 23</div><p>用一个真实复购案例讲：第二次见面能说出对方去年提的难点，成交率立刻不一样。档案是复购的杠杆，不是行政任务。</p></div>
+</section>
+
+<!-- 24 seven columns -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>沉 · 档案七栏</div>
+  <h2>七栏，<span class="gold">一页一人</span></h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">01</span><h3>客户与主体</h3><p>全称 · 信用代码<br>成立年限</p></div>
+    <div class="card"><span class="no">02</span><h3>决策人</h3><p>谁拍板<br>怎么沟通最顺</p></div>
+    <div class="card"><span class="no">03</span><h3>靠什么赚钱</h3><p>主营 · 客户类型<br>旺淡季</p></div>
+    <div class="card"><span class="no">04</span><h3>体量与账期</h3><p>参保数 · 实缴<br>实际账期</p></div>
+  </div>
+  <div class="grid g4 mt2">
+    <div class="card"><span class="no">05</span><h3>风险等级</h3><p><span class="dot d-r"></span>红 / <span class="dot d-y"></span>黄 / <span class="dot d-g"></span>绿 + 一句理由</p></div>
+    <div class="card"><span class="no">06</span><h3>上次接触</h3><p>日期 + 谈了什么<br><b>他的原话</b></p></div>
+    <div class="card g"><span class="no">07</span><h3>下次动作</h3><p>具体动作 + 日期<br><span class="small">不是"再联系"</span></p></div>
+    <div class="card"><span class="no">+</span><h3>情报来源</h3><p>企查查 / 当面 / 转介<br><span class="small">有来源才敢信</span></p></div>
+  </div>
+  <p class="lead">第 6、7 栏是灵魂：<span class="gold">没有"下次动作 + 日期"的档案，就是一份过期的简历。</span></p>
+  <div class="notes"><div class="lbl">讲师备注 24</div><p>现场让学员指一指自己现在用的记录方式，多数只有第 1、2 栏。强调"原话"要照抄，不要翻译成你的总结。</p></div>
+</section>
+
+<!-- 25 rhythm -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>沉 · 更新节奏</div>
+  <h2>档案会死，<span class="gold">是因为没人给它定节奏</span></h2>
+  <div class="spread">
+    <table class="tbl mt3">
+      <tr><th style="width:24%">时点</th><th style="width:12%">花多久</th><th>做什么</th><th style="width:26%">判断标准</th></tr>
+      <tr><td><b>每次接触后 24 小时</b></td><td class="mono">3 分钟</td><td>补一行：聊了什么、他在意什么、下次动作定哪天</td><td>超过 24 小时，细节就丢了</td></tr>
+      <tr><td><b>每周五</b></td><td class="mono">10 分钟</td><td>扫一遍"下次动作"，过期的重排日期，本周没动静的标黄</td><td>一屏内看完所有待办</td></tr>
+      <tr><td><b>每月末</b></td><td class="mono">20 分钟</td><td>企查查复查风险栏：红黄绿是否变化，股东 / 涉诉有无新增</td><td>灯色变了，动作就要变</td></tr>
+      <tr><td><b>每季度</b></td><td class="mono">30 分钟</td><td>清理三个月无接触的客户，或降级、或明确放弃</td><td>不做无谓的维护</td></tr>
+    </table>
+  </div>
+  <p class="lead">节奏写进日历，不靠记性。<span class="gold">靠记性的流程，第二周就断了。</span></p>
+  <div class="notes"><div class="lbl">讲师备注 25</div><p>让每个人现在就在手机上设一个周五的 10 分钟提醒——现场动作，不是口头承诺。设完举手，看得见才有用。</p></div>
+</section>
+
+<!-- 26 three steps -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>沉 · 现场三步</div>
+  <h2>20 分钟，<span class="gold">把档案建起来并接上流程</span></h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">① 建档 · 8′</span><h3>合并成一页</h3><p>把交付 ① 的画像和交付 ② 的红黄绿并进七栏档案。没模板用讲师版，字段对齐即可，不追求好看。</p></div>
+    <div class="card"><span class="no">② 定节奏 · 6′</span><h3>写两条规则</h3><p>接触后 24 小时内补一行；每周五盘一遍"下次动作"。规则写下来，贴在看得见的地方。</p></div>
+    <div class="card g"><span class="no">③ 接流程 · 6′</span><h3>让 workbuddy 记住</h3><p>建「客户情报」流程：输入一次接触记录 → 输出档案增量 + 下次提醒日期。试跑一次并截图。</p></div>
+  </div>
+  <div class="hr"></div>
+  <div class="grid g3">
+    <div><p class="small"><b class="gold">验收 ①</b>　七栏齐，第 7 栏有日期</p></div>
+    <div><p class="small"><b class="gold">验收 ②</b>　两条节奏规则已写</p></div>
+    <div><p class="small"><b class="gold">验收 ③</b>　流程试跑截图已存</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 26</div><p>三步分三段时间喊开始。第 ③ 步最容易卡在"不知道输入什么"，示范一句真实接触记录：今天见了谁、说了什么、约了哪天。</p></div>
+</section>
+
+<!-- 27 30-day plan -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>30 天客户情报计划</div>
+  <h2>回去之后，<span class="gold">三栏写满就是承诺</span></h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">第 1 周 · 查</span><h3>查 5 家</h3><p>每天早上 20 分钟，查一家手上的客户或潜在客户，出画像。</p><p class="small" style="margin-top:1vh">完成标志：5 张画像页存在同一个文件夹</p></div>
+    <div class="card"><span class="no">第 2–3 周 · 判</span><h3>判 3 单</h3><p>把正在谈的 3 单跑一遍风险速查，红黄绿写进报价方案。</p><p class="small" style="margin-top:1vh">完成标志：3 份结论页，每份都有账期建议</p></div>
+    <div class="card g"><span class="no">第 4 周 · 沉</span><h3>沉 1 套</h3><p>把这一个月接触过的客户全部建进七栏档案，接上 24 小时规则。</p><p class="small" style="margin-top:1vh">完成标志：周五复盘一次 + 下月第一个"下次动作"已排期</p></div>
+  </div>
+  <div class="card mt2" style="border-color:rgba(88,199,212,.26)">
+    <p style="font-size:1.9vh"><span class="cy">30 天自检一句话</span>　"我能在一分钟内，说出手上最重要的三个客户：他是谁、靠什么赚钱、什么时候该再联系。"<b style="color:var(--gold2)">　说不出，就回到第 1 周。</b></p>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 27</div><p>计划要具体到时间点，否则等于许愿。让学员现场写下第 1 周要查的第一家客户名，写在计划表上并拍照发群。</p></div>
+</section>
+
+<!-- 28 deliverable 3 -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>交付 ③ · 达标验收</div>
+  <h2>跟进<span class="gold">客户情报档案</span></h2>
+  <div class="grid g2 mt3" style="align-items:stretch">
+    <div class="card g">
+      <span class="no">达标线</span>
+      <p style="font-size:2.05vh;line-height:1.75">一页档案建起来 + 两条更新节奏写在纸上 + <b class="gold">下次接触的提醒已设好（截图）</b> + 30 天计划三栏写满。</p>
+      <div class="hr" style="margin:1.6vh 0"></div>
+      <p style="font-size:1.75vh">判断它合格的唯一标准：<b class="gold">明天的你，打开这页能不能直接打电话。</b></p>
+    </div>
+    <div class="card">
+      <span class="no">交卷前的三个自问</span>
+      <p style="font-size:1.85vh;line-height:2.05">① 第 7 栏写的是日期，还是"再联系"？<br>② 风险灯色后面，有一句理由吗？<br>③ 下一周的周五，日历里有那 10 分钟吗？</p>
+      <p class="small" style="margin-top:1.4vh">三问全"是"，组长打勾；有一个"否"，补齐再交。</p>
+    </div>
+  </div>
+  <div class="grid g4 mt2">
+    <div class="card" style="padding:1.3vh 1vw"><p class="small">☐ 七栏齐</p></div>
+    <div class="card" style="padding:1.3vh 1vw"><p class="small">☐ 有原话</p></div>
+    <div class="card" style="padding:1.3vh 1vw"><p class="small">☐ 有下次日期</p></div>
+    <div class="card g" style="padding:1.3vh 1vw"><p class="small gold">☐ 提醒已设</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 28</div><p>这一页是全场最后一个交付关口。留 30 秒让全场安静下来自查，助教逐桌收勾，未完成的现场补。</p></div>
+</section>
+
+<!-- 29 wrap -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>收尾 · 10 分钟</div>
+  <h2>带走三样东西，<span class="gold">和一句承诺</span></h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">01 · 互换测试</span><h3>两人一组，各 90 秒</h3><p>把你的交付 ② 递给对面，问一句："你看得懂我为什么这么判吗？"听不懂的地方，就是他也不会懂的地方。</p></div>
+    <div class="card"><span class="no">02 · 复盘卡</span><h3>只写一条改进</h3><p>哪一步最卡？下次改什么？什么时候验证？三格填完，沿虚线剪下贴电脑边。攒够 5 张，就是你自己的方法。</p></div>
+    <div class="card g"><span class="no">03 · 30 天承诺</span><h3>当场说给一个人听</h3><p>对同桌说出：第 1 周我要查的 5 家是谁。说出口的才算承诺，写下来的是计划。</p></div>
+  </div>
+  <div class="hr"></div>
+  <div class="grid g2">
+    <div><p class="small">明天开始的最小动作：<b class="gold">打开企查查，查一家你明天要联系的客户，写一句判断。</b>不用等计划表做好。</p></div>
+    <div style="text-align:right"><p class="small">方法论支持：<b class="gold">拆书帮（chaishubang.net）</b></p></div>
+  </div>
+  <div class="footnote">课后：材料 01–09 全套带走 · 复盘卡随课程资料发放 · 群里继续答疑</div>
+  <div class="notes"><div class="lbl">讲师备注 29</div><p>互换测试严格掐 90 秒一人。最后三分钟留合影和一句收束：客户不是靠感觉读的，是靠数据读的。</p></div>
+</section>
+
+<!-- 30 end -->
+<section class="slide cover">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · 企查查场</div>
+  <h1 style="font-size:7.4vh">接单之前，<br><span class="gold">先读懂你的客户</span></h1>
+  <p class="sub" style="max-width:52ch">查清楚他是谁，判明白这单能不能接，沉下来让每一次接触都算数。<br>三件交付物带走，30 天计划带走，剩下的靠你自己跑。</p>
+  <div class="hr" style="margin:3.6vh 0 2.6vh"></div>
+  <div class="grid g3" style="max-width:78vw">
+    <div><div class="small" style="letter-spacing:.22em;color:var(--dim)">下一场报名</div><p style="margin-top:.8vh;font-size:1.8vh">拆书帮公众号<br>微信 ikoning365<br><span class="muted">554176937@qq.com</span></p></div>
+    <div><div class="small" style="letter-spacing:.22em;color:var(--dim)">时间地点</div><p style="margin-top:.8vh;font-size:1.8vh">11 月 · 时间待定<br>广州越秀区雅苑·培正 5 号楼<br><span class="muted">仅限 10 人 · 39 元（会员免费）</span></p></div>
+    <div><div class="small" style="letter-spacing:.22em;color:var(--dim)">致谢</div><p style="margin-top:.8vh;font-size:1.8vh">方法论支持：拆书帮<br><span class="muted">chaishubang.net</span></p></div>
+  </div>
+  <div class="footnote">© 2026 杨辉（玄龙堂主理人）· 拆书帮广州小蛮腰分舵　|　场地：雅苑·培正 5 号楼　|　含茶歇 + 资料</div>
+  <div class="notes"><div class="lbl">讲师备注 30</div><p>结尾页停留，方便拍照。口头补一句：材料全套在群里，回去第一件事是查第一家客户，不是整理笔记。</p></div>
+</section>
+
+</div>
+
+<div class="hint" id="hint">← → 翻页　·　N 讲师备注</div>
+<div class="pager"><b id="cur">01</b> / <span id="tot">30</span></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="notes" id="notesBar"><div class="lbl">讲师备注</div><p id="notesTxt"></p></div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0, n = slides.length;
+  var cur = document.getElementById('cur');
+  var tot = document.getElementById('tot');
+  var prog = document.getElementById('prog');
+  var notesTxt = document.getElementById('notesTxt');
+  var hint = document.getElementById('hint');
+
+  function pad(x){ return (x < 10 ? '0' : '') + x; }
+
+  function show(k){
+    if (k < 0) k = 0;
+    if (k > n - 1) k = n - 1;
+    slides[i].classList.remove('on','vis');
+    i = k;
+    slides[i].classList.add('on');
+    (function(s){ setTimeout(function(){ s.classList.add('vis'); }, 20); })(slides[i]);
+    cur.textContent = pad(i + 1);
+    tot.textContent = n;
+    prog.style.width = ((i + 1) / n * 100).toFixed(2) + '%';
+    var s = slides[i].querySelector('.notes');
+    notesTxt.textContent = s ? s.textContent.replace(/讲师备注\s*\d+/, '').trim() : '（本页无备注）';
+    if (location.hash !== '#' + (i + 1)) {
+      try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+    }
+  }
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ' || k === 'Enter') {
+      e.preventDefault(); show(i + 1); hint.classList.add('off');
+    } else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') {
+      e.preventDefault(); show(i - 1); hint.classList.add('off');
+    } else if (k === 'Home') {
+      e.preventDefault(); show(0);
+    } else if (k === 'End') {
+      e.preventDefault(); show(n - 1);
+    } else if (k === 'n' || k === 'N') {
+      e.preventDefault(); document.body.classList.toggle('notes-on');
+      hint.classList.add('off');
+    } else if (k === 'f' || k === 'F') {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest('a')) return;
+    if (document.body.classList.contains('notes-on') && e.target.closest('#notesBar')) return;
+    if (e.clientX > window.innerWidth * 0.55) show(i + 1);
+    else if (e.clientX < window.innerWidth * 0.45) show(i - 1);
+    hint.classList.add('off');
+  });
+
+  var start = parseInt((location.hash || '').replace('#',''), 10);
+  if (!start || start < 1 || start > n) start = 1;
+  i = 0;
+  show(start - 1);
+  setTimeout(function(){ hint.classList.add('off'); }, 6000);
+})();
+</script>
+</body>
+</html>

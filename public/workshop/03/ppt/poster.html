@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>企查查 · 读懂你的客户 — 玄龙·拆AI 活动海报</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  @page{size:A4 portrait;margin:0}
+  *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  :root{
+    --ink:#101b2e; --ink2:#42526b; --line:#dbe3ee; --mute:#8894a8;
+    --blue:#1f5eff; --blue-soft:#eef4ff; --gold:#e2a020; --gold-soft:#fdf5e3;
+    --green:#17845b; --green-soft:#e9f7f0;
+  }
+  html,body{margin:0;padding:0;background:#eef1f6}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    color:var(--ink); -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    width:210mm; height:297mm; margin:0 auto; background:#fff;
+    padding:14mm 15mm 11mm; display:flex; flex-direction:column;
+    justify-content:space-between; overflow:hidden; position:relative;
+    box-shadow:0 10px 30px rgba(16,27,46,.14);
+  }
+  .page::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:6mm;
+    background:linear-gradient(90deg,var(--blue) 0%,#4b83ff 55%,var(--gold) 100%);
+  }
+
+  /* ---------- head ---------- */
+  .brand{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:11.5px; letter-spacing:.18em; color:var(--mute); font-weight:600;
+    border-bottom:1px solid var(--line); padding-bottom:9px;
+  }
+  .brand b{color:var(--ink); letter-spacing:.1em; font-size:12.5px}
+  h1{font-size:54px; line-height:1.16; margin:18px 0 0; letter-spacing:-.6px; font-weight:800}
+  h1 .thin{color:var(--blue)}
+  .sub{
+    font-size:22px; color:var(--ink2); margin:15px 0 0; font-weight:600;
+    display:flex; align-items:center; gap:8px;
+  }
+  .sub::before{content:""; display:block; width:18mm; height:4px; border-radius:2px;
+    background:linear-gradient(90deg,var(--gold),#f0c465); flex:0 0 auto}
+  .lede{
+    font-size:13.4px; color:var(--ink2); line-height:1.92; margin:16px 0 0;
+    max-width:170mm;
+  }
+  .lede b{color:var(--ink); font-weight:700; background:#fff5d6; padding:0 2px}
+
+  /* ---------- info ---------- */
+  .info{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:6px;
+    border-top:2.5px solid var(--ink); padding-top:12px;
+  }
+  .cell{background:#fafcff; border:1px solid var(--line); border-radius:10px; padding:18px 14px 20px}
+  .cell .k{font-size:10px; letter-spacing:.22em; color:var(--mute); font-weight:700; margin-bottom:6px}
+  .cell .v{font-size:14.2px; line-height:1.6; color:var(--ink); font-weight:600}
+  .cell .v small{display:block; font-size:11.4px; color:var(--ink2); font-weight:400; margin-top:3px}
+  .cell.free{background:var(--gold-soft); border-color:#f0dcaa}
+  .cell.free .v .free-tag{color:#b8791a; font-weight:800}
+
+  /* ---------- takeaway ---------- */
+  .sec-h{
+    display:flex; align-items:baseline; gap:9px; margin:0 0 11px;
+    font-size:15.5px; font-weight:800; color:var(--ink);
+  }
+  .sec-h span{font-size:10px; letter-spacing:.18em; color:var(--mute); font-weight:700}
+  .sec-h::after{content:""; flex:1; height:1px; background:var(--line)}
+  .three{display:grid; grid-template-columns:repeat(3,1fr); gap:7px}
+  .take{border:1px solid var(--line); border-radius:10px; padding:18px 15px 20px; background:#fff;
+    border-top:3px solid var(--blue)}
+  .take:nth-child(2){border-top-color:var(--gold)}
+  .take:nth-child(3){border-top-color:var(--green)}
+  .take .n{font-size:10.5px; font-weight:800; color:var(--blue); letter-spacing:.08em}
+  .take:nth-child(2) .n{color:#b8791a}
+  .take:nth-child(3) .n{color:var(--green)}
+  .take .t{font-size:16.5px; font-weight:800; margin:6px 0 8px}
+  .take .d{font-size:12px; color:var(--ink2); line-height:1.82}
+
+  /* ---------- line ---------- */
+  .flow{
+    display:flex; align-items:stretch; gap:0; margin-top:5px;
+    border:1px solid #cfdcf7; background:var(--blue-soft); border-radius:11px; padding:22px 12px 20px;
+  }
+  .step{flex:1; text-align:center; position:relative; padding:0 4px}
+  .step .s{font-size:32px; font-weight:800; color:var(--blue); line-height:1.1}
+  .step .x{font-size:13px; color:var(--ink2); margin-top:6px; font-weight:600}
+  .step .m{font-size:11px; color:var(--mute); margin-top:3px; letter-spacing:.05em}
+  .arrow{flex:0 0 auto; align-self:center; color:#9db6e8; font-size:16px; font-weight:700; padding:0 2px}
+  .step:nth-of-type(3) .s{color:#b8791a}
+  .step:nth-of-type(5) .s{color:var(--green)}
+  .ria{font-size:11px; color:var(--ink2); margin:8px 0 0; text-align:center; letter-spacing:.02em}
+  .ria b{color:var(--blue); font-weight:800}
+
+  /* ---------- signup ---------- */
+  .join{
+    margin-top:0; border-top:2.5px solid var(--ink); padding-top:16px;
+    display:flex; gap:14px; align-items:stretch;
+  }
+  .join-main{flex:1; min-width:0}
+  .join-title{font-size:16.5px; font-weight:800; margin:0 0 11px}
+  .join-title small{font-weight:400; color:var(--mute); font-size:10px; margin-left:6px; letter-spacing:.06em}
+  .ways{display:grid; grid-template-columns:1fr; gap:6px; margin:0 0 10px}
+  .way{display:flex; align-items:baseline; gap:8px; font-size:13.2px; color:var(--ink2)}
+  .way i{font-style:normal; flex:0 0 auto; font-size:9.5px; letter-spacing:.08em; font-weight:800;
+    color:#fff; background:var(--blue); border-radius:4px; padding:1.5px 5px}
+  .way i.g{background:#b8791a}
+  .way b{color:var(--ink); font-weight:700}
+  .note{
+    font-size:11.4px; color:var(--mute); line-height:1.8; margin:0;
+    border-left:2px solid var(--line); padding-left:8px;
+  }
+  .qr{flex:0 0 auto; width:120px; text-align:center; align-self:center}
+  .qr .frame{
+    width:120px; height:120px; border:2px dashed #b8c6dc; border-radius:10px;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    color:var(--mute); font-size:11px; line-height:1.6; background:#fcfdff;
+  }
+  .qr .frame span{display:block; font-size:9px; letter-spacing:.12em; margin-top:2px; color:#aab6c8}
+  .qr .cap{font-size:9.5px; color:var(--mute); margin-top:5px; letter-spacing:.06em}
+
+  /* ---------- foot ---------- */
+  .foot{
+    margin-top:0; border-top:1px solid var(--line); padding-top:7px;
+    display:flex; justify-content:space-between; gap:10px;
+    font-size:10.8px; color:#a5b1c3; line-height:1.6;
+  }
+  .foot b{color:#7c8aa0; font-weight:600}
+
+  @media print{
+    html,body{background:#fff}
+    .page{width:210mm; height:297mm; box-shadow:none; margin:0; page-break-after:avoid; break-inside:avoid}
+  }
+  @media screen and (max-width:820px){
+    .page{width:100%; height:auto; min-height:297mm; padding:7mm 6mm}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="brand">
+      <span><b>玄龙·拆AI</b> · AI 拆书课</span>
+      <span>企查查 · 现场实操 · 广州</span>
+    </div>
+
+    <h1>企查查 · <span class="thin">读懂你的客户</span></h1>
+
+    <p class="sub">接单之前，先读懂你的客户</p>
+
+    <p class="lede">他是谁、靠什么赚钱、账期稳不稳、上下游绑了谁、有没有涉诉与失信——
+      现场把这些<b>一次查清</b>，做成一页能直接用的客户画像，再把每次接触<b>沉成档案</b>。
+      不猜、不靠感觉、不凭对方一张名片下判断。</p>
+  </header>
+
+  <section class="info">
+    <div class="cell">
+      <div class="k">时 间</div>
+      <div class="v">11 月 · 时间待定<small>（报名后群内通知）</small></div>
+    </div>
+    <div class="cell">
+      <div class="k">地 点</div>
+      <div class="v">广州越秀区<small>雅苑·培正 5 号楼</small></div>
+    </div>
+    <div class="cell">
+      <div class="k">人 数</div>
+      <div class="v">仅限 10 人<small>小班现场动手</small></div>
+    </div>
+    <div class="cell free">
+      <div class="k">费 用</div>
+      <div class="v"><span class="free-tag">会员免费</span><small>非会员 39 元（含茶歇+资料）</small></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h">带走三样东西 <span>TAKE AWAY</span></div>
+    <div class="three">
+      <div class="take">
+        <div class="n">① 交付一</div>
+        <div class="t">客户自动画像</div>
+        <div class="d">工商、股权、实控人、主营与规模一屏拉全，落成一张能贴进客户档案的画像页。</div>
+      </div>
+      <div class="take">
+        <div class="n">② 交付二</div>
+        <div class="t">风险与关联速查</div>
+        <div class="d">涉诉、被执行、失信、经营异常、关联企业与担保链，签约前 5 分钟跑完一遍。</div>
+      </div>
+      <div class="take">
+        <div class="n">③ 交付三</div>
+        <div class="t">跟进客户情报档案</div>
+        <div class="d">每次接触沉淀一条，越用越准；配 30 天客户情报计划，回去就能跑。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h">三节主线 <span>查 → 判 → 沉</span></div>
+    <div class="flow">
+      <div class="step"><div class="s">查</div><div class="x">客户画像</div><div class="m">50′</div></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="s">判</div><div class="x">风险速查工作流</div><div class="m">55′</div></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="s">沉</div><div class="x">客户情报档案</div><div class="m">40′</div></div>
+    </div>
+    <p class="ria">每节都按 4 拍走：<b>看</b>官方视频 → <b>听</b>拆解 → <b>反思</b>自己的客户 → <b>当场做出来</b></p>
+  </section>
+
+  <section class="join">
+    <div class="join-main">
+      <div class="join-title">报名 <small>席位有限，先到先得</small></div>
+      <div class="ways">
+        <div class="way"><i>优先</i><span>拆书帮公众号，回复「企查查」</span></div>
+        <div class="way"><i class="g">微信</i><span>ikoning365（备注：企查查）</span></div>
+      </div>
+      <p class="note">带上笔记本电脑与 1 个真实在谈客户（可打码）。现场用企查查 + workbuddy 做出自己的画像、风险清单与情报档案，不做演示、只做你的活儿。</p>
+    </div>
+    <div class="qr">
+      <div class="frame">报名二维码<span>SCAN TO JOIN</span></div>
+      <div class="cap">扫码进群 · 获取时间通知</div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>方法论支持：<b>拆书帮（chaishubang.net）</b> · 拆书帮广州小蛮腰分舵</span>
+    <span>© 2026 杨辉（玄龙堂主理人）</span>
+  </footer>
+
+</div>
+</body>
+</html>
