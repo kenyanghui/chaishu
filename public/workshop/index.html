@@ -114,6 +114,25 @@
   .res b{color:var(--ink)}
   .res a{color:var(--blue);font-weight:600}
 
+  .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px}
+  .fstep{position:relative;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:16px 16px 14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .fstep .fn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;
+    background:var(--blue);color:#fff;font-size:12.5px;font-weight:700;margin-bottom:8px}
+  .fstep:nth-child(9) .fn{background:var(--teal)}
+  .fstep b{display:block;font-size:14.5px;color:var(--ink);margin-bottom:3px}
+  .fstep span{font-size:12.5px;color:var(--ink2);line-height:1.55;display:block}
+  .fstep .tag{display:inline-block;margin-top:8px;font-size:11px;font-weight:600;color:var(--blue);
+    border:1px solid rgba(0,113,227,.35);border-radius:999px;padding:1px 9px;background:rgba(0,113,227,.05)}
+  .rsi{max-width:980px;margin-top:14px;border:1px solid rgba(0,199,190,.45);border-radius:16px;
+    background:rgba(0,199,190,.06);padding:14px 18px;font-size:13.5px;color:var(--ink2);line-height:1.7}
+  .rsi b{color:var(--ink)}
+  .rsi .loop{color:var(--teal);font-weight:700}
+  .guard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px;margin-top:14px}
+  .gcard{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;background:var(--card);
+    padding:12px 16px;font-size:13px;color:var(--ink2);line-height:1.6}
+  .gcard b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:2px}
+  @media(max-width:860px){.flow,.guard{grid-template-columns:1fr}}
+
   .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
     font-size:12.5px;color:var(--mute);text-align:center;line-height:1.9}
 
@@ -204,6 +223,28 @@
   </div>
   <div class="res">
     📦 源码下载：<b>WorkBuddy 工作流</b>（GitHub 开源）<a href="https://github.com/kenyanghui/wechat-pub-workbuddy" target="_blank" rel="noopener">github.com/kenyanghui/wechat-pub-workbuddy ↗</a>
+  </div>
+
+  <h2 class="sec">这条工作流怎么跑：九步全自动，越用越聪明</h2>
+  <p style="color:var(--ink2);font-size:14px;max-width:820px;margin:0">就是上面这份开源源码——课上第 2 节要现场跑通的 workbuddy 技能。从你的 ima 知识库出发，到公众号草稿箱为止，中间九步自动接力：</p>
+  <div class="flow" style="margin-top:14px">
+    <div class="fstep"><span class="fn">1</span><b>热点采集</b><span>抓取当天行业热点，作为今天的选题输入。</span></div>
+    <div class="fstep"><span class="fn">2</span><b>素材运营</b><span>从你的 ima 知识库调素材，台账避重，不炒冷饭。</span></div>
+    <div class="fstep"><span class="fn">3</span><b>选题定题</b><span>定下 topic 与切入角度，素材不足自动减产。</span></div>
+    <div class="fstep"><span class="fn">4</span><b>写作成稿</b><span>产出 2200–2600 字原创长文初稿。</span></div>
+    <div class="fstep"><span class="fn">5</span><b>七维质检</b><span>≥85 分才过审，四类硬伤一票否决。</span></div>
+    <div class="fstep"><span class="fn">6</span><b>排版配图</b><span>按你的账号风格完成排版与配图。</span></div>
+    <div class="fstep"><span class="fn">7</span><b>推进草稿箱</b><span>只进草稿箱不群发，发布由你最后把关。</span><span class="tag">人工闸门</span></div>
+    <div class="fstep"><span class="fn">8</span><b>git 归档</b><span>成稿与过程文件自动归档，可追溯可回滚。</span></div>
+    <div class="fstep"><span class="fn">9</span><b>成稿回存</b><span>写回 ima 知识库，完成一圈循环。</span><span class="tag">回存 ima</span></div>
+  </div>
+  <div class="rsi">
+    🧠 <b>RSI 进化台账（Recursive Self-Improvement）</b>：每跑完一轮，自动回写<b>素材避重、风格偏好、金句库、人工修正</b>四本台账；下一轮把上一轮的教训当硬约束——<span class="loop">跑得越多，越懂你的账号</span>。这就是第 3 节「进化」要现场看的东西。
+  </div>
+  <div class="guard">
+    <div class="gcard"><b>🛡️ 绝不自动群发</b>只推草稿箱，「发布」这最后一道闸门永远在你手里。</div>
+    <div class="gcard"><b>⚠️ 投资内容必含风险提示</b>无收益承诺、绝对化用语、无源数据——命中即一票否决。</div>
+    <div class="gcard"><b>🎯 truth-first 不凑数</b>素材不足自动减产并留痕，绝不硬凑空心文。</div>
   </div>
 
   <h2 class="sec">现场快捷入口（扫码/点开即用）</h2>
