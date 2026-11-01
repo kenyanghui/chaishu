@@ -201,10 +201,14 @@ export default function Home() {
       <section className="py-20 px-4 bg-white border-t border-black/[.05]">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="headline text-[28px] md:text-[36px] mb-4">第一期，从你的知识库开始。</h2>
-          <p className="text-[#6e6e73] text-[15px] mb-8">
+          <p className="text-[#6e6e73] text-[15px] mb-6">
             2026-11-01（周日）14:00–17:00 · 广州越秀 · 仅限 10 人，先到先得。
           </p>
-          <a href="/workshop/" className="btn-primary">锁定座位 · 微信 ikoning365</a>
+          <div className="flex flex-col items-center gap-3">
+            <img src="/images/ima-knowledge-qr.png" alt="【AI拆书帮】知识库二维码" className="w-[200px] rounded-2xl border border-black/[.06] shadow-[0_8px_28px_rgba(0,0,0,.10)]" />
+            <p className="text-[14px] text-[#6e6e73] font-semibold">微信或 ima 扫码，订阅【AI拆书帮】知识库</p>
+            <a href="/workshop/" className="text-[13px] text-[#0071e3] hover:underline">了解第一期课程 →</a>
+          </div>
         </div>
       </section>
     </div>
