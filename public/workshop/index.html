@@ -114,6 +114,17 @@
   .res b{color:var(--ink)}
   .res a{color:var(--blue);font-weight:600}
 
+  .recap{display:flex;gap:16px;align-items:flex-start;max-width:980px;margin:0 0 34px;
+    border:1px solid rgba(178,80,0,.4);border-radius:18px;padding:18px 22px;
+    background:linear-gradient(135deg,rgba(178,80,0,.07),rgba(0,113,227,.05));
+    text-decoration:none;transition:border-color .2s,transform .2s}
+  .recap:hover{border-color:rgba(178,80,0,.7);transform:translateY(-1px)}
+  .recap .rk{flex-shrink:0;font-size:11px;letter-spacing:2px;font-weight:700;color:#b25000;
+    border:1px solid rgba(178,80,0,.45);border-radius:999px;padding:3px 12px;margin-top:2px;background:rgba(178,80,0,.06)}
+  .recap b{display:block;font-size:16.5px;color:var(--ink);margin-bottom:4px}
+  .recap p{margin:0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+  .recap p em{font-style:normal;color:#b25000;font-weight:600}
+
   .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px}
   .fstep{position:relative;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:16px 16px 14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
   .fstep .fn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;
@@ -165,6 +176,14 @@
       <a class="btn ghost" href="https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q">原文招募推文 ↗</a>
     </div>
   </div>
+
+  <a class="recap" href="https://mp.weixin.qq.com/s/l1D2IEV5DugJAfR5RgW4UQ" target="_blank" rel="noopener">
+    <span class="rk">首场实录</span>
+    <span>
+      <b>15 个人，3 小时，一套系统 —— 首期课程总结已发布</b>
+      <p>原定十个座位来了十五位：一个知识库、一条跑通的工作流、一份 30 天计划，人人当场带走。<em>存 → 流 → 进化</em>完整复盘（含现场照片与学员作品），点击读全文 ↗</p>
+    </span>
+  </a>
 
   <div class="grid">
     <a class="card" href="ppt/index.html">
