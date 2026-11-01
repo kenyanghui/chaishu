@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import workshops, { seriesIntro, voteThemes } from '../data/workshops'
+import workshops, { seriesIntro, voteThemes, stageOf, statusLabelOf, shortDate, nextOpen, doneList } from '../data/workshops'
 
 const VOTE_KEY = 'chai-votes-v1'
 const HEART = 'M12 21s-6.7-4.35-9.33-8.11C.9 10.2 1.96 6.5 5.05 5.36 7.13 4.6 9.4 5.3 12 7.5c2.6-2.2 4.87-2.9 6.95-2.14 3.09 1.14 4.15 4.84 2.38 7.53C18.7 16.65 12 21 12 21z'
@@ -132,8 +132,10 @@ function NeedsForm() {
 }
 
 export default function Workshops() {
-  const open = workshops.filter(w => w.status === 'open')
-  const soon = workshops.filter(w => w.status === 'soon')
+  const openLive = workshops.filter(w => ['open', 'live'].includes(stageOf(w)))
+  const soon = workshops.filter(w => stageOf(w) === 'soon')
+  const done = doneList()
+  const nx = nextOpen()
   const cats = [...new Set(voteThemes.map(t => t.cat))]
 
   return (
@@ -146,7 +148,9 @@ export default function Workshops() {
         </div>
       </section>
 
-      {open.map(w => (
+      {openLive.map(w => {
+        const s = stageOf(w)
+        return (
         <motion.section
           key={w.id}
           initial={{ opacity: 0, y: 16 }}
@@ -158,7 +162,7 @@ export default function Workshops() {
             <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071e3]/10 text-[#0071e3] text-[12px] font-semibold">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#0071e3] animate-pulse" />
-                {w.statusLabel}
+                {statusLabelOf(w)}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <span className="text-[11px] text-[#86868b] font-semibold tracking-wide">拆的软件</span>
@@ -208,21 +212,32 @@ export default function Workshops() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {w.signupUrl ? (
+              {s === 'done' ? (
+                <>
+                  {w.link && <a href={w.link} className="btn-primary">材料回看 · 课件与学员材料 →</a>}
+                  <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-secondary" title="点击复制微信号">想听下一场：微信 ikoning365 📋</button>
+                </>
+              ) : s === 'live' ? (
+                <>
+                  <span className="btn-primary pointer-events-none opacity-80">今天进行中 · 报名已截止</span>
+                  {w.link && <a href={w.link} className="btn-secondary">现场材料入口 →</a>}
+                </>
+              ) : w.signupUrl ? (
                 <a href={w.signupUrl} target="_blank" rel="noreferrer" className="btn-primary">立即报名（拆书帮公众号）→</a>
               ) : (
                 <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-primary" title="点击复制微信号">立即报名（微信 ikoning365）→</button>
               )}
-              {w.link && <a href={w.link} className="btn-secondary">看本场完整介绍 →</a>}
+              {s !== 'done' && w.link && <a href={w.link} className="btn-secondary">看本场完整介绍 →</a>}
             </div>
           </div>
         </motion.section>
-      ))}
+        )
+      })}
 
       {soon.length > 0 && (
       <section className="px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <div className="eyebrow mb-6">已排上 · 11 月排期中</div>
+          <div className="eyebrow mb-6">已排上 · 排期中（定档后开放报名）</div>
           <div className="space-y-4">
             {soon.map((w, i) => (
               <motion.div
@@ -237,7 +252,7 @@ export default function Workshops() {
                   <div className="min-w-0">
                     <div className="flex items-center gap-3 mb-2">
                       <span className="text-[22px] font-bold text-[#c7c7cc]">{w.no}</span>
-                      <span className="px-2.5 py-0.5 rounded-full bg-black/[.05] text-[#86868b] text-[11.5px] font-semibold">{w.statusLabel}</span>
+                      <span className="px-2.5 py-0.5 rounded-full bg-black/[.05] text-[#86868b] text-[11.5px] font-semibold">{statusLabelOf(w)}</span>
                     </div>
                     <h3 className="text-[19px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</h3>
                     <p className="text-[14px] text-[#6e6e73] leading-relaxed mb-2.5 max-w-xl">{w.short}</p>
@@ -255,6 +270,47 @@ export default function Workshops() {
                     {w.link && (
                       <div className="mt-3">
                         <a href={w.link} className="text-[13px] font-semibold text-[#0071e3] hover:underline">看本场完整介绍 →</a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      )}
+
+      {done.length > 0 && (
+      <section className="px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="eyebrow mb-6">已交付 · 材料回看</div>
+          <div className="space-y-4">
+            {done.map((w, i) => (
+              <motion.div
+                key={w.id}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="apple-card p-6 md:p-7 opacity-[.92]"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-[22px] font-bold text-[#c7c7cc]">{w.no}</span>
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#0071e3]/[.07] text-[#0071e3] text-[11.5px] font-semibold">✓ 已交付 · {w.date}</span>
+                    </div>
+                    <h3 className="text-[19px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</h3>
+                    <p className="text-[14px] text-[#6e6e73] leading-relaxed mb-2.5 max-w-xl">{w.short}</p>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {w.outcomes.map(o => (
+                        <span key={o} className="px-2.5 py-1 rounded-lg bg-[#0071e3]/[.06] text-[#424245] text-[12.5px]">{o}</span>
+                      ))}
+                    </div>
+                    {w.link && (
+                      <div className="mt-1">
+                        <a href={w.link} className="text-[13px] font-semibold text-[#0071e3] hover:underline">材料回看 · 课件与学员材料 →</a>
                       </div>
                     )}
                   </div>
@@ -294,7 +350,11 @@ export default function Workshops() {
             <p className="text-[14px] text-[#6e6e73] mb-5">
               投完票想聊聊？加微信 ikoning365，备注「工作坊」——也帮你想拆的软件出出主意。
             </p>
-            <a href="https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q" target="_blank" rel="noreferrer" className="btn-primary">报名首场（拆书帮公众号）→</a>
+            {nx ? (
+              <a href={nx.signupUrl || nx.link} target={nx.signupUrl ? '_blank' : undefined} rel="noreferrer" className="btn-primary">报名 {shortDate(nx)} 场（{nx.title.split(' · ')[0]}）→</a>
+            ) : (
+              <a href={done.length ? done[done.length - 1].link : '/workshops'} className="btn-primary">看已交付课程材料 →</a>
+            )}
             <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-secondary" title="点击复制微信号">后续场次报名：微信 ikoning365 📋</button>
           </div>
         </div>

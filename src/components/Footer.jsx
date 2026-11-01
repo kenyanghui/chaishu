@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+import { nextOpen } from '../data/workshops'
 
 export default function Footer() {
+  const nx = nextOpen()
   return (
     <footer className="border-t border-black/[.06] bg-[#f5f5f7]">
       <div className="max-w-6xl mx-auto px-4 py-12">
@@ -16,7 +18,7 @@ export default function Footer() {
             <ul className="space-y-2 text-[13px] text-[#6e6e73]">
               <li><Link to="/workshops" className="hover:text-[#0071e3] transition-colors">工作坊全系列</Link></li>
               <li><Link to="/learning-path" className="hover:text-[#0071e3] transition-colors">成长路径</Link></li>
-              <li><a href="/workshop/" className="hover:text-[#0071e3] transition-colors">11·1 首场报名</a></li>
+              <li><a href={nx ? nx.link : '/workshops'} className="hover:text-[#0071e3] transition-colors">{nx ? '报名下一场' : '课程材料回看'}</a></li>
             </ul>
           </div>
           <div>

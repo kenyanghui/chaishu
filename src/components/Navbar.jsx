@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { nextOpen } from '../data/workshops'
 
 const navLinks = [
   { path: '/workshops', label: '拆AI工作坊' },
@@ -13,6 +14,7 @@ const navLinks = [
 export default function Navbar() {
   const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
+  const nx = nextOpen()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -44,14 +46,14 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href="/workshop/"
+            href={nx ? nx.link : '/workshops'}
             className="ml-2 px-4 py-1.5 rounded-full text-[13.5px] font-semibold bg-[#0071e3] text-white hover:bg-[#0077ed] transition-colors shadow-[0_4px_14px_rgba(0,113,227,.3)]"
           >
-            报名工作坊
+            {nx ? '报名工作坊' : '课程回看'}
           </a>
         </div>
 
-        <a href="/workshop/" className="md:hidden px-3.5 py-1.5 rounded-full text-[13px] font-semibold bg-[#0071e3] text-white">报名</a>
+        <a href={nx ? nx.link : '/workshops'} className="md:hidden px-3.5 py-1.5 rounded-full text-[13px] font-semibold bg-[#0071e3] text-white">{nx ? '报名' : '回看'}</a>
       </div>
     </nav>
   )

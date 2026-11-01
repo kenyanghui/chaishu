@@ -5,8 +5,11 @@ const workshops = [
     title: '知识库 · 微信公众号自动化工作流',
     short: '把读过的、想的、写的，全部装进 AI，让它替你干活',
     tools: ['ima', 'workbuddy'],
-    status: 'open',
-    statusLabel: '11 月 1 日（周日）14:00 · 报名中',
+    // ============ 生命周期只认这两个字段 ============
+    // 定档：填 dateISO（带 +08:00 时区）；结课：填 dateEndISO。到点页面自动翻转，
+    // 报名/已交付/排期中/文案/按钮全部派生，改站只需改这里两行。
+    dateISO: '2026-11-01T14:00:00+08:00',
+    dateEndISO: '2026-11-01T17:00:00+08:00',
     signupUrl: 'https://mp.weixin.qq.com/s/4lIyWBUPOFqsNlyJNd1K-Q',
     date: '2026-11-01（周日）14:00–17:00',
     location: '广州越秀区雅苑·培正 5 号楼',
@@ -22,8 +25,6 @@ const workshops = [
     title: '个人网站 · 知识变现工作流',
     short: '半天做出你的个人网站，让个人品牌和你的服务有一个打开就能看的家',
     tools: ['GitHub Pages', 'workbuddy'],
-    status: 'open',
-    statusLabel: '11 月 · 具体时间待定',
     date: '11 月 · 具体时间待定',
     location: '广州越秀区雅苑·培正 5 号楼',
     fee: '非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人',
@@ -38,8 +39,6 @@ const workshops = [
     title: '企查查 · 读懂你的客户',
     short: '接单之前，先读懂你的客户——他是谁、靠什么赚钱、账期稳不稳',
     tools: ['企查查', 'workbuddy'],
-    status: 'open',
-    statusLabel: '11 月 · 具体时间待定',
     date: '11 月 · 具体时间待定',
     location: '广州越秀区雅苑·培正 5 号楼',
     fee: '非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人',
@@ -54,8 +53,6 @@ const workshops = [
     title: '知识星球 · 私域知识变现工作流',
     short: '把持续输出的内容，变成持续收到的年费',
     tools: ['知识星球', 'workbuddy'],
-    status: 'open',
-    statusLabel: '11 月 · 具体时间待定',
     date: '11 月 · 具体时间待定',
     location: '广州越秀区雅苑·培正 5 号楼',
     fee: '非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人',
@@ -70,8 +67,6 @@ const workshops = [
     title: 'DeepSeek Harness · 搭建企业自动化工作台',
     short: '把重复的文档审核，交给一条你亲手搭出来的工作流',
     tools: ['DeepSeek Harness', 'workbuddy'],
-    status: 'open',
-    statusLabel: '11 月 · 具体时间待定',
     date: '11 月 · 具体时间待定',
     location: '广州越秀区雅苑·培正 5 号楼',
     fee: '非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人',
@@ -86,8 +81,6 @@ const workshops = [
     title: 'AI 手机 · 让手机成为你的 AI 生产力',
     short: '拍照、录音、说句话——杂事在路上就办完',
     tools: ['手机 AI', 'workbuddy'],
-    status: 'open',
-    statusLabel: '11 月 · 具体时间待定',
     date: '11 月 · 具体时间待定',
     location: '广州越秀区雅苑·培正 5 号楼',
     fee: '非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人',
@@ -125,6 +118,51 @@ export const voteThemes = [
   { id: 'c-jindiao', cat: '做生意 · 尽调风控', title: '企业尽调与法律风控', platform: 'loongbuddy', desc: '客户画像、风险速查、合同法律检查，接单前先读懂对方——企查查/元典' },
 ]
 
-export const seriesIntro = '每期一个真实 AI 软件，当场拆、当场接、当场跑通。首场 11 月 1 日开课，更多主题 11 月排期中；其余全部开放投票——点「我支持」，支持数高的先开。想拆的在列表里没有？加微信 ikoning365 告诉我。'
+// ============ 生命周期状态机：站点文案全部由 dateISO 派生 ============
+// open=报名中（现在 < 开课）；live=进行中（开课~结课之间）；done=已交付；soon=排期中（未定档）。
+// React 客户端渲染，Date.now() 取访客侧时间——到点自动翻转，改站只需在对应场次填/改
+// dateISO、dateEndISO 两行，任何组件都不用再动。
+const HOUR = 3600 * 1000
+const ts = w => (w.dateISO ? new Date(w.dateISO).getTime() : NaN)
+const endTs = w => (w.dateEndISO ? new Date(w.dateEndISO).getTime() : ts(w) + 4 * HOUR)
+
+export function stageOf(w) {
+  const t = ts(w)
+  if (Number.isNaN(t)) return 'soon'
+  const now = Date.now()
+  if (now >= endTs(w)) return 'done'
+  if (now >= t) return 'live'
+  return 'open'
+}
+
+export function statusLabelOf(w) {
+  const s = stageOf(w)
+  if (s === 'open') return `${w.date} · 报名中`
+  if (s === 'live') return '今天进行中'
+  if (s === 'done') return '已交付 · 材料回看'
+  return `${w.date} · 排期中`
+}
+
+export function shortDate(w) {
+  const d = new Date(w.dateISO)
+  return `${d.getMonth() + 1} 月 ${d.getDate()} 日`
+}
+
+export const nextOpen = () =>
+  workshops.filter(w => stageOf(w) === 'open').sort((a, b) => ts(a) - ts(b))[0] || null
+
+export const doneList = () => workshops.filter(w => stageOf(w) === 'done')
+
+export const seriesIntro = (() => {
+  const nx = nextOpen()
+  const n = doneList().length
+  const lead = '每期一个真实 AI 软件，当场拆、当场接、当场跑通。'
+  const mid = nx
+    ? `下一场 ${shortDate(nx)} 开课，正在报名`
+    : n > 0
+      ? '上一场已交付，材料可回看，下一期排期中'
+      : '首场时间即将公布'
+  return `${lead}${mid}；其余全部开放投票——点「我支持」，支持数高的先开。想拆的在列表里没有？加微信 ikoning365 告诉我。`
+})()
 
 export default workshops
