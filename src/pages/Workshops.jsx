@@ -26,8 +26,16 @@ function SupportCard({ t, i }) {
       className="apple-card p-5 text-left transition-all hover:-translate-y-0.5"
     >
       <div className="flex items-start justify-between gap-3 mb-2">
-        <span className="px-2 py-0.5 rounded-full bg-[#0071e3]/[.07] text-[#0071e3] text-[11px] font-semibold">{t.cat}</span>
-        <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#ff2d55]">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="px-2 py-0.5 rounded-full bg-[#0071e3]/[.07] text-[#0071e3] text-[11px] font-semibold">{t.cat}</span>
+          {t.platform === 'loongbuddy' && (
+            <span className="px-2 py-0.5 rounded-full bg-[#1d1d1f]/[.06] text-[#1d1d1f] text-[11px] font-semibold">⚡ LoongBuddy</span>
+          )}
+          {t.platform === 'need' && (
+            <span className="px-2 py-0.5 rounded-full bg-[#86868b]/[.12] text-[#86868b] text-[11px] font-medium">连接器待补</span>
+          )}
+        </div>
+        <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#ff2d55] shrink-0">
           <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="#ff2d55" stroke="#ff2d55" strokeWidth={1.8}>
             <path d={HEART} />
           </svg>
@@ -180,7 +188,7 @@ export default function Workshops() {
             <div className="eyebrow mb-3">想拆哪个 · 我支持</div>
             <h2 className="headline text-[30px] md:text-[38px] mb-4">主题投票，<span className="gradient-text">支持数高的先开</span></h2>
             <p className="text-[15px] text-[#6e6e73] max-w-2xl mx-auto">
-              默认 AI 平台 workbuddy。点「我支持」为你想拆的主题投票——支持数最高的优先排期开课。列表里没有你想拆的？加微信 ikoning365 告诉我。
+              同类软件已合并为一个主题，开课时用你手头那款。优先平台 LoongBuddy（25+ 官方连接器），workbuddy 同步支持；带「连接器待补」的主题票高就立项补连接器。点「我支持」为你想拆的主题投票——支持数最高的优先排期开课。列表里没有你想拆的？加微信 ikoning365 告诉我。
             </p>
           </div>
           {cats.map(cat => (

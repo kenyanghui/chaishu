@@ -66,47 +66,28 @@ const workshops = [
 // ============ 投票主题池：点「我支持」，支持数高的先开 ============
 // 均基于 workbuddy 平台；证券类为需求探测（暂无连接器，票高优先补）
 export const voteThemes = [
-  // —— AI量化投资 · 看盘 ——
-  { id: 'v-tdx', cat: 'AI量化投资', title: '通达信', desc: '盯盘的事交给它——自选股异动、指标预警、盘后复盘一条龙' },
-  { id: 'v-ths', cat: 'AI量化投资', title: '同花顺', desc: '选股器结果 AI 逐条解读，持仓异常第一时间叫你' },
-  { id: 'v-em', cat: 'AI量化投资', title: '东方财富', desc: '股吧情绪、资金流向，AI 替你盯住散户和主力' },
-  { id: 'v-xueqiu', cat: 'AI量化投资', title: '雪球', desc: '你关注的组合动了、大V发声了，AI 第一时间告诉你' },
-  { id: 'v-wencai', cat: 'AI量化投资', title: '问财 iwencai', desc: '说人话就能选股，结果自动进表格、自动进复盘' },
-  { id: 'v-futu', cat: 'AI量化投资', title: '富途牛牛', desc: '美股开盘前，AI 已把要闻和持仓分析摆上你桌' },
-  { id: 'v-tiger', cat: 'AI量化投资', title: '老虎证券', desc: '多市场账户每天一份 AI 日报，交易记录自动归档' },
-  { id: 'v-level2', cat: 'AI量化投资', title: 'Level-2 行情', desc: '逐笔大单、异动秒推——比你自己刷盘快 100 倍' },
-  // —— AI量化投资 · 复盘选股 ——
-  { id: 'v-lhb', cat: 'AI量化投资', title: '龙虎榜监控', desc: '游资动向自动汇总成日报，龙虎榜不用再手工翻' },
-  { id: 'v-caibao', cat: 'AI量化投资', title: '财报自动解读', desc: '年报季报一键拆解，关键指标对比 AI 直接给结论' },
-  { id: 'v-xuang', cat: 'AI量化投资', title: '打新监控', desc: '新股日历、申购提醒、中签追踪，全自动不错过' },
-  { id: 'v-chan', cat: 'AI量化投资', title: '缠论自动画笔', desc: '分型、笔、中枢自动标注，背驰预警不用再盯图' },
-  { id: 'v-kcb', cat: 'AI量化投资', title: '科创板/北交所盯盘', desc: '做市异动、解禁日历，科创北交的坑 AI 先替你看见' },
-  { id: 'v-wind', cat: 'AI量化投资', title: 'Wind / Choice 终端', desc: '研报速读+宏观早报，AI 替你读完一夜的信息' },
-  // —— 办公协同 ——
-  { id: 'v-meeting', cat: '办公提效', title: '腾讯会议', desc: '开完会纪要就出炉——录音转写、待办自动进清单' },
-  { id: 'v-feishu', cat: '办公提效', title: '飞书', desc: '多维表格+机器人，跨应用流转的活儿全自动化' },
-  { id: 'v-dida', cat: '办公提效', title: '滴答清单', desc: '任务自动捕获、每天一份早报，日程不再靠脑子记' },
-  { id: 'v-tdocs', cat: '办公提效', title: '腾讯文档', desc: '表格一变 AI 就知道，汇总自动成文发给你' },
-  { id: 'v-wecom', cat: '办公提效', title: '企业微信', desc: '客户跟进自动提醒，群消息 AI 值日生替你盯着' },
-  { id: 'v-qqmail', cat: '办公提效', title: 'QQ 邮箱', desc: '重要邮件自动摘要转待办，收件箱不再堆积焦虑' },
-  // —— 知识内容 ——
-  { id: 'v-weread', cat: '知识变现', title: '微信读书', desc: '划线笔记自动入库，写作素材随取随用' },
-  { id: 'v-youdao', cat: '知识变现', title: '有道云笔记', desc: '多端笔记聚合一处，AI 帮你整理归档' },
-  { id: 'v-notion', cat: '知识变现', title: 'Notion', desc: '数据库+AI，一个人运营一个编辑部' },
-  { id: 'v-lexiang', cat: '知识变现', title: '腾讯乐享', desc: '企业知识库自动问答，新人不用再反复问人' },
-  { id: 'v-weiyun', cat: '知识变现', title: '腾讯微云', desc: '文件自动归档、按需取用，找文件不再翻聊天记录' },
-  { id: 'v-tnews', cat: '知识变现', title: '腾讯新闻', desc: '行业情报日报，只看该看的，AI 帮你滤掉噪音' },
-  // —— 生活出行 ——
-  { id: 'v-fliggy', cat: '数字生活', title: '飞猪', desc: '机票酒店 AI 比价，行程一句话自动生成' },
-  { id: 'v-ctrip', cat: '数字生活', title: '携程问道', desc: '攻略自动成稿、路线一键生成，说走就走' },
-  { id: 'v-meituan', cat: '数字生活', title: '美团', desc: '本地优惠自动聚合+提醒，薅羊毛不靠运气' },
-  { id: 'v-map', cat: '数字生活', title: '百度地图', desc: '通勤规划、出行日程自动排，晚高峰心里有数' },
-  { id: 'v-qqmusic', cat: '数字生活', title: 'QQ音乐', desc: '歌单自动生成、年度听歌报告，懂你的 AI DJ' },
-  { id: 'v-didi', cat: '数字生活', title: '滴滴', desc: '行程记录自动归档，月度出行报表一键出' },
-  // —— 专业数据 ——
-  { id: 'v-openalex', cat: '学术科研', title: 'OpenAlex 学术', desc: '文献追踪、研究综述自动起草，AI 替你读论文' },
-  { id: 'v-dify', cat: '学术科研', title: 'Dify 自托管', desc: '搭自己的 AI 应用工厂，私有化不限量' },
-  { id: 'v-weknora', cat: '学术科研', title: 'WeKnora 知识库', desc: '文档智能问答私有部署，知识库自己说了算' },
+  // —— 赚钱 · 盯盘投研（原 14 条按交付价值聚合成 3 个主题，竞品合并）——
+  { id: 'c-pan', cat: '赚钱 · 盯盘投研', title: 'AI 盯盘与自动复盘', platform: 'need', desc: '自选股异动、龙虎榜、打新日历全盯住，收盘后自动出复盘和次日关注清单——通达信/同花顺/东方财富/雪球等任选' },
+  { id: 'c-touyan', cat: '赚钱 · 盯盘投研', title: 'AI 投研助手', platform: 'need', desc: '输入一只票，10 分钟出财报要点、同行对比与可溯源结论，不构成投资建议——问财/Wind/Choice 等任选' },
+  { id: 'c-gangmei', cat: '赚钱 · 盯盘投研', title: '港美股账户 AI 日报', platform: 'need', desc: '开盘前要闻+持仓分析自动摆上桌，多市场账户每天一份日报——富途/老虎等任选' },
+  // —— 上班 · 办公一条线 ——
+  { id: 'c-jiyao', cat: '上班 · 办公一条线', title: '会议纪要到待办闭环', platform: 'loongbuddy', desc: '录音一键变带出处的纪要和待办，自动进清单——腾讯会议/飞书/企业微信任选' },
+  { id: 'c-zhoubao', cat: '上班 · 办公一条线', title: '周报日报自动生成', platform: 'loongbuddy', desc: '从邮件、文档、群消息自动起草，人只核对口径——QQ 邮箱/腾讯文档/企业微信/滴答清单任选' },
+  { id: 'c-ppt', cat: '上班 · 办公一条线', title: '汇报 PPT 一键成稿', platform: 'loongbuddy', desc: '素材自动盘点、大纲到成稿一键完成，汇报前夜不再熬夜' },
+  { id: 'c-duowei', cat: '上班 · 办公一条线', title: '多维表格 AI 中枢', platform: 'loongbuddy', desc: '表格一键清洗汇总，变成能对话的轻 CRM——飞书/腾讯文档多维表格任选' },
+  // —— 认知 · 知识产线 ——
+  { id: 'c-zhishiku', cat: '认知 · 知识产线', title: '个人 AI 知识库（收藏变可用）', platform: 'loongbuddy', desc: '网页、视频、书、PDF 自动剪藏、摘要、归档，收藏变成随时能用的素材库——ima/微信读书/有道云笔记/Notion/微云等' },
+  { id: 'c-wiki', cat: '认知 · 知识产线', title: 'AI 笔记整理与个人 Wiki', platform: 'loongbuddy', desc: '笔记自动打标归类、建立连接，沉淀成 AI 能读懂的个人知识库' },
+  { id: 'c-tuandui', cat: '认知 · 知识产线', title: '团队知识库与自建 AI 平台', platform: 'loongbuddy', desc: '企业知识库问答、私有化部署、自建 AI 应用——腾讯乐享/WeKnora/Dify 任选' },
+  // —— 生活 · 出行账本 ——
+  { id: 'c-xingcheng', cat: '生活 · 出行账本', title: 'AI 行程规划与出行代办', platform: 'loongbuddy', desc: '一句话出含预算的行程，订票订房打车一条线——飞猪/携程/美团/百度地图/滴滴任选' },
+  { id: 'c-jizhang', cat: '生活 · 出行账本', title: 'AI 记账与账单整理', platform: 'need', desc: '微信/支付宝账单自动导入、分类、对账，钱花哪儿了一目了然' },
+  { id: 'c-jiuzhi', cat: '生活 · 出行账本', title: 'AI 求职流水线', platform: 'need', desc: '简历定制、岗位匹配、自动投递与进度跟踪，求职全流程 AI 代办' },
+  { id: 'c-shenghuo', cat: '生活 · 出行账本', title: 'AI 懂你的生活', platform: 'loongbuddy', desc: '歌单自动生成、年度听歌报告、你的私人 AI DJ——QQ音乐等' },
+  // —— 科研 · 文献综述 ——
+  { id: 'c-wenxian', cat: '科研 · 文献综述', title: '文献综述与选题助手', platform: 'loongbuddy', desc: '从检索到综述初稿，全程真实引用可核查——OpenAlex 学术数据库' },
+  // —— 做生意 · 尽调风控 ——
+  { id: 'c-jindiao', cat: '做生意 · 尽调风控', title: '企业尽调与法律风控', platform: 'loongbuddy', desc: '客户画像、风险速查、合同法律检查，接单前先读懂对方——企查查/元典' },
 ]
 
 export const seriesIntro = '每期一个真实 AI 软件，当场拆、当场接、当场跑通。首场 11 月 1 日开课，更多主题 11 月排期中；其余全部开放投票——点「我支持」，支持数高的先开。想拆的在列表里没有？加微信 ikoning365 告诉我。'
