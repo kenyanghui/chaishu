@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GitHub 网站工作坊 · 你的第一个网站和第一条自动产线｜玄龙 · AI 拆书</title>
+<meta name="description" content="3 小时做出你的个人网站 + 自动更新产线。GitHub Pages 免费安家，workbuddy 写完即发布。2026-11-08 广州越秀，仅限 10 人。">
+<style>
+  :root{
+    --bg:#0a0d16; --bg2:#0e1220; --card:#131829; --line:#232b42;
+    --ink:#e8ecf5; --ink2:#9aa6bd; --mute:#5d6a83;
+    --purple:#a78bfa; --cyan:#22d3ee; --gold:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:
+      radial-gradient(900px 480px at 85% -10%, rgba(167,139,250,.13), transparent 60%),
+      radial-gradient(700px 420px at -5% 105%, rgba(34,211,238,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; padding:0 0 70px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+    background:rgba(10,13,22,.85);border-bottom:1px solid var(--line)}
+  .nav .in{max-width:1060px;margin:0 auto;padding:0 22px;height:60px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:900;letter-spacing:.5px}
+  .nav .logo b{background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13.5px;color:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:7px 14px;transition:.2s}
+  .nav .back:hover{color:var(--ink);border-color:#3b4666}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+  .hero{text-align:center;padding:64px 0 44px}
+  .pill{display:inline-block;font-size:12.5px;letter-spacing:2px;color:var(--cyan);
+    border:1px solid rgba(34,211,238,.3);border-radius:999px;padding:7px 16px;margin-bottom:22px;
+    background:rgba(34,211,238,.06)}
+  h1{font-size:44px;line-height:1.25;margin:0 0 18px;font-weight:900;letter-spacing:-.5px}
+  h1 em{font-style:normal;background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--ink2);font-size:16.5px;max-width:760px;margin:0 auto 26px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:34px}
+  .meta span{font-size:13px;color:var(--ink2);border:1px solid var(--line);background:var(--bg2);
+    border-radius:999px;padding:7px 15px}
+  .meta span b{color:var(--gold);font-weight:700}
+  .cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+  .cta .btn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:13px 26px;font-size:15.5px;font-weight:700;transition:.2s}
+  .btn.main{background:linear-gradient(90deg,#7c3aed,#0891b2);color:#fff}
+  .btn.main:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(124,58,237,.35)}
+  .btn.ghost{border:1px solid var(--line);color:var(--ink2);background:var(--bg2)}
+  .btn.ghost:hover{color:var(--ink);border-color:#3b4666}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:44px 0 8px}
+  .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--bg2));
+    border-radius:16px;padding:24px;transition:.2s;position:relative;overflow:hidden}
+  .card:hover{border-color:rgba(167,139,250,.45);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+  .card .k{font-size:11.5px;letter-spacing:2.5px;font-weight:800;margin-bottom:10px}
+  .card:nth-child(1) .k{color:var(--purple)} .card:nth-child(2) .k{color:var(--cyan)} .card:nth-child(3) .k{color:var(--gold)}
+  .card b.t{display:block;font-size:18.5px;margin-bottom:8px}
+  .card p{margin:0;font-size:13.5px;color:var(--ink2)}
+  .card .go{display:inline-block;margin-top:14px;font-size:13px;color:var(--purple)}
+  .card:nth-child(2) .go{color:var(--cyan)} .card:nth-child(3) .go{color:var(--gold)}
+
+  h2.sec{font-size:24px;font-weight:900;margin:56px 0 6px;text-align:center}
+  p.secs{color:var(--mute);font-size:14px;text-align:center;margin:0 0 26px}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{border:1px solid var(--line);border-radius:16px;padding:22px;background:var(--bg2)}
+  .step .n{font-size:12px;font-weight:900;letter-spacing:1.5px;color:var(--cyan);margin-bottom:10px}
+  .step b{display:block;font-size:18px;margin-bottom:8px}
+  .step p{margin:0;font-size:13.5px;color:var(--ink2)}
+  .step .out{margin-top:12px;font-size:12.5px;color:var(--gold);border-top:1px dashed var(--line);padding-top:10px}
+  .step .out b{font-size:12.5px;display:inline;margin:0}
+
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px}
+  .pain{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--bg2);font-size:14px;color:var(--ink2)}
+  .pain b{color:var(--ink);display:block;margin-bottom:6px;font-size:15px}
+
+  .teacher{display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--line);border-radius:18px;
+    overflow:hidden;margin-top:44px}
+  .teacher .in{display:flex;gap:26px;padding:28px;background:linear-gradient(180deg,var(--card),var(--bg2))}
+  .teacher .av{width:84px;height:84px;border-radius:50%;flex:0 0 84px;
+    background:linear-gradient(135deg,#7c3aed,#0891b2);display:flex;align-items:center;justify-content:center;
+    font-size:30px;font-weight:900;color:#fff}
+  .teacher b{font-size:20px}
+  .teacher .l1{font-size:14px;color:var(--gold);margin:4px 0 10px}
+  .teacher ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink2);line-height:1.9}
+
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  .links a{border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--ink2);
+    background:var(--bg2);transition:.15s}
+  .links a:hover{color:var(--cyan);border-color:rgba(34,211,238,.4)}
+  .links a::before{content:"› ";color:var(--mute)}
+
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--mute);text-align:center;line-height:1.9}
+
+  @media(max-width:860px){.grid,.steps,.pains{grid-template-columns:1fr}.links{grid-template-columns:1fr}.teacher .in{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="in">
+  <div class="logo"><b>玄龙·拆AI</b>&nbsp;<span style="font-size:12px;color:var(--mute)">/ GitHub 网站工作坊</span></div>
+  <a class="back" href="https://chai.aibay.asia/">← 返回主站</a>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="pill">AI 拆书课 · 11 月场 · 拆书帮广州小蛮腰分舵</div>
+    <h1>3 小时做出你的<br><em>个人网站</em> + <em>自动更新产线</em></h1>
+    <p class="sub">用 GitHub 安家，用 workbuddy 跑活 —— 你的第一个网站和第一条自动产线。<br>
+      本站 chai.aibay.asia 就是这么搭的，现场照着拆。</p>
+    <div class="meta">
+      <span><b>11/08</b> 周六 14:00–17:00</span>
+      <span><b>广州越秀</b> 雅苑·培正 5 号楼</span>
+      <span><b>仅 10 人</b> 小班现场动手</span>
+      <span><b>会员免费</b> 非会员 39 元含茶歇</span>
+    </div>
+    <div class="cta">
+      <button class="btn main" onclick="copyWeChat(this)">立即报名（微信 ikoning365）</button>
+      <a class="btn ghost" href="handouts/07-课前准备清单.html">📋 课前准备清单</a>
+    </div>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="ppt/index.html">
+      <div class="k">课 件</div>
+      <b class="t">HTML 幻灯片 · 30 页</b>
+      <p>安 → 跑 → 阵地，三节完整课件。方向键翻页，N 看讲师备注，可离线放映。</p>
+      <span class="go">进入课件 →</span>
+    </a>
+    <a class="card" href="handouts/index.html">
+      <div class="k">学 员 材 料</div>
+      <b class="t">A4 打印材料 · 9 份</b>
+      <p>学习地图、两节任务卡、30 天阵地计划、复盘卡、自检表、自评量表。</p>
+      <span class="go">查看材料 →</span>
+    </a>
+    <a class="card" href="ppt/poster.html">
+      <div class="k">海 报</div>
+      <b class="t">活动海报 · A4</b>
+      <p>课程定位、三节结构、适合谁，一页说清。可直接打印张贴。</p>
+      <span class="go">查看海报 →</span>
+    </a>
+  </div>
+
+  <h2 class="sec">三个"卡住"的瞬间</h2>
+  <p class="secs">中了一条，这节课就是为你开的</p>
+  <div class="pains">
+    <div class="pain"><b>名片困在微信里</b>想给别人介绍自己，只能发一段微信自我介绍——没有一个是"打开就能看"的。</div>
+    <div class="pain"><b>作品散落各处</b>写过的东西、做过的案例，散在聊天记录和收藏里，想展示时一件都拿不出手。</div>
+    <div class="pain"><b>网站想做做不动</b>知道该有个网站，一听"要服务器、要备案、要找人做"，就放下了。</div>
+  </div>
+
+  <h2 class="sec">三节 · 三个交付物</h2>
+  <p class="secs">不是听，是当场做出来、带走的</p>
+  <div class="steps">
+    <div class="step">
+      <div class="n">第 1 节 · 安 · 50′</div>
+      <b>GitHub 安家</b>
+      <p>免费托管、全球可访问。15 分钟五步上线：注册 → 建仓 → 写三段 → 开 Pages → 打开网址。</p>
+      <div class="out">交付 ① <b>个人网站已上线</b>（网址能打开）</div>
+    </div>
+    <div class="step">
+      <div class="n">第 2 节 · 跑 · 55′</div>
+      <b>workbuddy 自动产线</b>
+      <p>把"写内容"和"上网站"焊在一起：选内容 → 接源 → 运行预览，写完即发布，零道工序。</p>
+      <div class="out">交付 ② <b>自动更新产线跑通</b>（有截图）</div>
+    </div>
+    <div class="step">
+      <div class="n">第 3 节 · 阵地 · 40′</div>
+      <b>把网站长成阵地</b>
+      <p>栏目按"别人来想看什么"规划，30 天更新节律 + 复盘卡，让网站自己长大。</p>
+      <div class="out">交付 ③ <b>30 天阵地计划</b>（三栏写满）</div>
+    </div>
+  </div>
+
+  <div class="teacher">
+    <div class="in">
+      <div class="av">杨</div>
+      <div>
+        <b>杨辉（杨老师）</b>
+        <div class="l1">玄龙堂主理人 · 三级拆书家 · 拆书帮广州小蛮腰分舵</div>
+        <ul>
+          <li>混沌学园 AI 创新领教 / 国际人工智能产业联盟首席生态官 / 企业AI FDE教练</li>
+          <li>本站 chai.aibay.asia 即讲师用同样方法所搭——课上现场拆的就是它</li>
+          <li>微信 ikoning365 · 邮箱 554176937@qq.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="links">
+      <a href="https://chai.aibay.asia/workshops">全部工作坊排期 →</a>
+      <a href="https://chai.aibay.asia/">玄龙·拆AI 主站 →</a>
+    </div>
+  </div>
+
+  <div class="foot">
+    方法论支持：拆书帮（chaishubang.net） · 拆为己用<br>
+    © 2026 杨辉（玄龙堂主理人） · 微信 ikoning365 · 邮箱 554176937@qq.com
+  </div>
+</div>
+<script>
+function copyWeChat(btn){
+  var t='ikoning365';
+  function ok(){var o=btn.textContent;btn.textContent='✅ 已复制：'+t;setTimeout(function(){btn.textContent=o},2000)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb()})}else{fb()}
+  function fb(){var i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){alert('微信号：'+t)}document.body.removeChild(i)}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3 小时，把星球变成能续费的私域阵地 — 知识星球·私域知识变现工作流｜AI 拆书课</title>
+<style>
+  :root{
+    --ink:#12213a; --ink-2:#4a5a72; --line:#dfe6f0;
+    --blue:#1f5eff; --blue-soft:#e8efff;
+    --gold:#c8860d; --gold-soft:#fdf3dc;
+    --green:#17845b; --green-soft:#e6f6ee;
+    --paper:#ffffff; --bg:#0b1220;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;
+    transform-origin:center center;background:var(--paper);overflow:hidden;
+    box-shadow:0 30px 90px rgba(0,0,0,.55);}
+  .slide{position:absolute;inset:0;padding:64px 76px;display:none;
+    flex-direction:column;background:var(--paper);color:var(--ink);}
+  .slide.on{display:flex}
+
+  h1{margin:0;font-size:62px;line-height:1.12;letter-spacing:-.5px;font-weight:800}
+  h2{margin:0 0 10px;font-size:42px;line-height:1.2;font-weight:800;letter-spacing:-.3px}
+  h3{margin:0 0 6px;font-size:26px;font-weight:700;color:var(--ink)}
+  p,li{font-size:24px;line-height:1.62;color:var(--ink-2);margin:0 0 10px}
+  .kicker{font-size:19px;letter-spacing:3px;font-weight:700;color:var(--blue);
+    text-transform:uppercase;margin-bottom:18px}
+  .lead{font-size:27px;color:var(--ink-2);line-height:1.6}
+  .em{color:var(--ink);font-weight:700}
+  .num{color:var(--blue);font-weight:800}
+  .rule{height:5px;width:78px;background:var(--blue);border-radius:3px;margin:20px 0 26px}
+
+  /* 封面 */
+  .cover{justify-content:center;background:
+      radial-gradient(1200px 520px at 88% -10%, #eaf1ff 0%, transparent 62%),
+      radial-gradient(900px 420px at 4% 108%, #fdf3dc 0%, transparent 60%), #fff}
+  .cover h1{font-size:74px;margin-bottom:18px}
+  .cover .sub{font-size:31px;color:var(--ink-2);font-weight:600;margin-bottom:34px}
+  .cover .meta{font-size:21px;color:#7b8798;line-height:1.9}
+  .brand{position:absolute;right:76px;bottom:56px;text-align:right;font-size:19px;color:#93a0b1;line-height:1.7}
+
+  /* 通用布局 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:34px;flex:1;align-content:start}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;align-content:start}
+  .cards{display:grid;gap:18px;flex:1;align-content:start}
+  .card{border:1px solid var(--line);border-radius:16px;padding:24px 26px;background:#fbfcfe}
+  .card.blue{background:var(--blue-soft);border-color:#c9d8ff}
+  .card.gold{background:var(--gold-soft);border-color:#f2e0b6}
+  .card.green{background:var(--green-soft);border-color:#c6ecd8}
+  .card h3{font-size:27px}
+  .card p{font-size:21px;margin:0;line-height:1.55}
+  .card .badge{display:inline-block;font-size:15px;font-weight:800;letter-spacing:1px;
+    padding:3px 10px;border-radius:999px;background:var(--blue);color:#fff;margin-bottom:10px}
+  .card .badge.gold{background:var(--gold)}
+  .card .badge.green{background:var(--green)}
+  .cards.tight{gap:13px}
+  .cards.tight .card{padding:17px 22px}
+  .cards.tight .card h3{font-size:25px;margin-bottom:3px}
+  .cards.tight .card p{font-size:20px;line-height:1.5}
+  .cards.tight .card .badge{margin-bottom:6px}
+
+  ul.big{margin:0;padding-left:0;list-style:none;display:grid;gap:13px}
+  ul.big li{position:relative;padding-left:40px;font-size:24px;color:var(--ink);line-height:1.5}
+  ul.big li::before{content:"";position:absolute;left:8px;top:12px;width:12px;height:12px;
+    border-radius:50%;background:var(--blue)}
+  ul.big li.g::before{background:var(--gold)}
+  ul.big li small{display:block;font-size:19px;color:var(--ink-2);margin-top:5px;font-weight:400}
+
+  /* 分节页 */
+  .divider{justify-content:center;background:var(--ink);color:#fff}
+  .divider .kicker{color:#7fa8ff}
+  .divider h1{color:#fff;font-size:76px}
+  .divider .lead{color:#b9c6da;font-size:28px;margin-top:16px}
+  .divider .chip{display:inline-block;margin-top:34px;font-size:20px;color:#0b1220;
+    background:#ffd77a;border-radius:999px;padding:9px 20px;font-weight:800}
+
+  /* 时间表 */
+  table{width:100%;border-collapse:collapse;font-size:20px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{font-size:16px;letter-spacing:1px;color:#8894a8;font-weight:700;text-transform:uppercase}
+  td.t{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700;white-space:nowrap}
+  td.d{text-align:right;font-variant-numeric:tabular-nums;color:var(--blue);font-weight:700;white-space:nowrap}
+  tr.hl td{background:#f4f7ff}
+
+  /* 地图 */
+  .map{display:flex;align-items:stretch;gap:0;flex:1;margin-top:6px}
+  .map .node{flex:1;border:2px solid var(--line);border-radius:18px;padding:22px;
+    display:flex;flex-direction:column;justify-content:center;background:#fbfcfe}
+  .map .node .s{font-size:17px;letter-spacing:2px;font-weight:800;color:var(--blue);margin-bottom:8px}
+  .map .node h3{font-size:29px;margin-bottom:8px}
+  .map .node p{font-size:19px;margin:0;line-height:1.5}
+  .map .arrow{display:flex;align-items:center;justify-content:center;width:56px;
+    font-size:34px;color:#b9c6da;font-weight:800}
+
+  /* 大字块 */
+  .statement{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .statement q{font-size:52px;line-height:1.35;font-weight:800;color:var(--ink);
+    quotes:"“" "”";display:block}
+  .statement .after{margin-top:28px;font-size:24px;color:var(--ink-2)}
+
+  .foot{position:absolute;left:76px;bottom:26px;font-size:16px;color:#a9b4c4;letter-spacing:1px}
+  .pageno{position:absolute;right:76px;bottom:26px;font-size:16px;color:#a9b4c4;
+    font-variant-numeric:tabular-nums}
+
+  /* 演讲者备注 */
+  .notes{display:none}
+  body.notes-on .notes{display:block;position:fixed;left:0;right:0;bottom:0;max-height:34vh;
+    overflow:auto;background:#0e1626;color:#cfd9e8;font-size:15px;line-height:1.7;
+    padding:14px 22px;border-top:2px solid #22314d;z-index:50}
+  body.notes-on .notes b{color:#8fb4ff}
+
+  /* 控件 */
+  #hud{position:fixed;right:14px;top:12px;display:flex;gap:8px;font-size:13px;z-index:60;
+    font-family:inherit}
+  #hud button{background:rgba(255,255,255,.1);color:#cfd9e8;border:1px solid rgba(255,255,255,.18);
+    border-radius:8px;padding:6px 11px;cursor:pointer;font-size:13px}
+  #hud button:hover{background:rgba(255,255,255,.2)}
+  #bar{position:fixed;left:0;bottom:0;height:3px;background:var(--blue);width:0;z-index:60;transition:width .18s}
+
+  @media print{
+    @page{size:1280px 720px;margin:0}
+    html,body{overflow:visible;background:#fff}
+    #hud,#bar,.notes{display:none!important}
+    #stage{position:static;transform:none!important;box-shadow:none;width:1280px;height:auto}
+    .slide{display:flex!important;position:relative;inset:auto;width:1280px;height:720px;
+      page-break-after:always;break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- 01 封面 -->
+<section class="slide cover on">
+  <div class="kicker">AI 拆书课 · 知识星球场 · 拆书帮广州小蛮腰分舵</div>
+  <h1>3 小时，把星球变成<br>能续费的私域阵地</h1>
+  <div class="sub">知识星球 · 私域知识变现工作流 —— 更、沉、续三步跑通</div>
+  <div class="rule"></div>
+  <div class="meta">
+    3 小时 · 拆书 RIA 方法 · 现场做出三件交付物<br>
+    11 月 · 时间待定（报名后群内通知） · 广州越秀区雅苑·培正 5 号楼<br>
+    主讲：杨辉（杨老师）· 玄龙堂主理人 · 三级拆书家
+  </div>
+  <div class="brand">更 → 沉 → 续<br>让内容能沉淀，让会员愿意留</div>
+  <aside class="notes"><b>开场词</b>：今天不讲"如何一夜涨粉"，讲"怎么让已经进来的人留下来、愿意续费"。不预习、不用提前准备素材，带着电脑来就行。<br><b>控场</b>：手机静音、电脑打开、星球账号和 ima 知识库提前登录好。</aside>
+</section>
+
+<!-- 02 痛点 -->
+<section class="slide">
+  <div class="kicker">你是不是也这样</div>
+  <h2>开了星球，然后就没有然后了</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>📌 想起来才发一条</h3><p>没有节奏、没有选题库，发帖全靠当天有没有灵感。</p></div>
+    <div class="card"><h3>📌 发完就沉底</h3><p>三个月后自己都翻不到，新来的人更不知道从哪看起。</p></div>
+    <div class="card"><h3>📌 到期没人管</h3><p>会员什么时候到期不知道，到期了也不好意思开口问。</p></div>
+  </div>
+  <p style="margin-top:18px">中了一条，今天这场课就是为你开的。 <span class="em">不讲道理，当场把产线、引导包、续费流程都做出来。</span></p>
+  <div class="foot">开场 · 举手互动</div><div class="pageno">02</div>
+  <aside class="notes">念三条痛点，举手互动：中一条举手/中两条举手/三条全中——制造"我们都有病"的共鸣，再进入交付物承诺。</aside>
+</section>
+
+<!-- 03 交付物 -->
+<section class="slide">
+  <div class="kicker">今天你带走什么</div>
+  <h2>不是"听过"，是三件能截图的真东西</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card blue"><span class="badge">交付 ①</span><h3>一条星球内容产线</h3><p>选题 → 素材 → 初稿 → 署名判断 → 发布，当天真的发出 1 帖（有截图）。</p></div>
+    <div class="card blue"><span class="badge">交付 ②</span><h3>一份新人引导包</h3><p>置顶三篇 + 精华 2–3 类 + 引导帖——新人进来 30 秒知道该看什么。</p></div>
+    <div class="card gold"><span class="badge gold">交付 ③</span><h3>一套续费提醒工作流</h3><p>到期名单 + 三个时点话术 + 流程截图——续费不再靠"想起来"。</p></div>
+  </div>
+  <p style="margin-top:18px">当天验收、有截图、课后照着跑。 <span class="em">这就叫拆书课的"当场交付"。</span></p>
+  <div class="foot">承诺 · 三件交付物</div><div class="pageno">03</div>
+  <aside class="notes">强调：三小时你不会带走一个"感觉很有收获"，是三件能截图、能给别人看的东西。彩蛋先埋一句：现场跑通的伙伴，课后发讲师同款星球运营素材包（第 28 页回收）。</aside>
+</section>
+
+<!-- 04 学习地图 -->
+<section class="slide">
+  <div class="kicker">学习地图</div>
+  <h2>更 → 沉 → 续</h2>
+  <div class="rule"></div>
+  <div class="map">
+    <div class="node"><div class="s">第 1 节 · 50′</div><h3>更</h3><p>星球内容半自动产线<br>发得出、发得稳</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 2 节 · 55′</div><h3>沉</h3><p>精华沉淀 + 新人引导包<br>老内容变新入口</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 3 节 · 40′</div><h3>续</h3><p>续费提醒工作流<br>到期有人管</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:25px">第 1 节先让内容发得出来，第 2 节让它沉淀成入口，第 3 节让它变成续费的理由——<span class="em">每一节都交一件东西。</span></p>
+  <div class="foot">对应材料 01 · 学习地图</div><div class="pageno">04</div>
+  <aside class="notes">强调结构：三节各攻一个交付物，第 3 节把前两件拼回去——别担心"学不完"，每一节都有小结和交付。</aside>
+</section>
+
+<!-- 05 时间表 -->
+<section class="slide">
+  <div class="kicker">时间表 · 净 165 分钟</div>
+  <h2>硬卡时间，每节都交东西</h2>
+  <table>
+    <tr><th>时间</th><th>环节</th><th>关键动作</th><th style="text-align:right">时长</th></tr>
+    <tr><td class="t">00:00–00:08</td><td>开场</td><td>点题、学习地图、分组、RIA 与交付规则</td><td class="d">8′</td></tr>
+    <tr class="hl"><td class="t">00:08–00:58</td><td>第 1 节｜更</td><td>R5 + I7 + A1 10 + 产线 21 + 验收 7</td><td class="d">50′</td></tr>
+    <tr><td class="t">00:58–01:08</td><td>中场休息</td><td>走动、补未完成者、助教巡查</td><td class="d">10′</td></tr>
+    <tr class="hl"><td class="t">01:08–02:03</td><td>第 2 节｜沉</td><td>R5 + I7 + A1 10 + 搭包 24 + 验收 9</td><td class="d">55′</td></tr>
+    <tr class="hl"><td class="t">02:03–02:43</td><td>第 3 节｜续</td><td>R4 + I6 + 名单话术 25 + 承诺 5</td><td class="d">40′</td></tr>
+    <tr><td class="t">02:43–02:53</td><td>收尾</td><td>三件交付物合一、30 天计划、合影</td><td class="d">10′</td></tr>
+    <tr><td class="t">02:53–03:00</td><td>弹性</td><td>答疑 / 超时缓冲</td><td class="d">7′</td></tr>
+  </table>
+  <div class="foot">准时开始，准时结束</div><div class="pageno">05</div>
+  <aside class="notes">讲师自己盯时间：每节结束前 5 分钟提醒。若第 2 节实操超时，用弹性 7′ + 压缩第 3 节 I 至 4′。</aside>
+</section>
+
+<!-- 06 RIA -->
+<section class="slide">
+  <div class="kicker">今天怎么上</div>
+  <h2>拆书帮 RIA：把"拆页"换成"星球实例"</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><span class="badge">R</span><h3>精挑片段</h3><p>讲师自己星球的真实帖子与后台，5 分钟内，放两遍：先看结果，再带问题看。</p></div>
+    <div class="card"><span class="badge">I</span><h3>我的解读</h3><p>3 个锚点，把实例讲成你能上手的方法。</p></div>
+    <div class="card"><span class="badge">A1</span><h3>反思经验</h3><p>显像提问：讲具体情境 + 具体行为 + 具体结果。</p></div>
+    <div class="card"><span class="badge gold">A2</span><h3>实践计划</h3><p>谁 + 何时 + 做什么 + 到什么程度，写便签。</p></div>
+  </div>
+  <p style="margin-top:20px">规矩只有三条：<span class="em">① 不预习也能上　② 当场动手必交东西　③ A1 必须讲具体事，不许"我经常觉得……"</span></p>
+  <div class="foot">R → I → A1 → A2</div><div class="pageno">06</div>
+  <aside class="notes">10 人小班，分 2–3 组（每组 3–4 人），选组长计时。每人桌上：三色便签、任务卡、A2 便签纸、自检表。案例截图全部提前离线备好（见资控手册材料 08）。</aside>
+</section>
+
+<!-- 07 拆书家工具箱 -->
+<section class="slide">
+  <div class="kicker">加餐 · 来自《拆书家成长手册》TF1–TF3 全技能</div>
+  <h2>拆书家工具箱：今天就用得上的 6 个招</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card"><span class="badge">量表自测</span><h3>先定位再上课</h3><p>把知识改成频度量表，测完就知道自己站在哪——材料 09 用的就是这招。</p></div>
+    <div class="card"><span class="badge">填空式提问</span><h3>I 环节安全互动</h3><p>判断/填空比问答安全：八成把握学员会怎么答，才开口问。</p></div>
+    <div class="card"><span class="badge">微行动学习</span><h3>5 步主持讨论</h3><p>明确问题 → 分组挖本质 → 明确本质 → 分组出方案 → 收敛共识。</p></div>
+    <div class="card"><span class="badge">回应反馈</span><h3>不说"挺好的"</h3><p>追问确认、好奇反问、摘要点评、号召鼓掌——把分享接回原页。</p></div>
+    <div class="card"><span class="badge">FAB 介绍</span><h3>一分钟讲清价值</h3><p>特征 F · 优势 A · 好处 B；或场景法：事件-提问-影响-解决。</p></div>
+    <div class="card"><span class="badge gold">编剧本</span><h3>脑中过一遍</h3><p>在脑中演练一遍 = 实际应用一遍——A2 计划要具体到画面。</p></div>
+  </div>
+  <div class="foot">拆书技巧 · 全天都在用</div><div class="pageno">07</div>
+  <aside class="notes">这页是给"想继续学拆书"的学员留的钩子：今天每个环节都藏着这 6 招，课后对照回看。第 3 节我会用"微行动学习 5 步"主持互评，学员可以留意怎么用。</aside>
+</section>
+
+<!-- 08 核心命题 -->
+<section class="slide">
+  <div class="statement">
+    <div class="kicker">今天唯一要记住的一句话</div>
+    <q>星球难的不是开起来，是让人愿意留下来。</q>
+    <div class="after">所以今天第二件事不是"多发帖"，是把发出去的内容<span class="em">沉淀成新人看得懂的入口</span>——这就是"沉"。</div>
+  </div>
+  <div class="foot">第 1 节预告</div><div class="pageno">08</div>
+  <aside class="notes">这句话是全课钩子，开场抛出，第 2 节 I 环节回收。让学员把这句话抄在任务卡封面。</aside>
+</section>
+
+<!-- 09 分节页 第1节 -->
+<section class="slide divider">
+  <div class="kicker">第 1 节 · 50 分钟 · R5 / I7 / A1 10 / 产线 21 / 验收 7</div>
+  <h1>更</h1>
+  <div class="lead">星球内容半自动产线 —— 让内容发得出、发得稳</div>
+  <div class="chip">本节交付：① 星球内容产线跑通，当天发出 1 帖（截图 + 署名判断）</div>
+  <aside class="notes">节奏：R5 + I7 + A1 10 + 产线 21 + 验收 7 = 50′。材料 02 任务卡人手一张，先念一遍五步再放人动手。</aside>
+</section>
+
+<!-- 10 R+I 第1节 -->
+<section class="slide">
+  <div class="kicker">R · 5 分钟｜I · 三个锚点 · 7 分钟</div>
+  <h2>把"灵感发帖"变成"流程发帖"</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card blue"><span class="badge">锚点 1</span><h3>选题来自问题，不来自灵感</h3><p>最近有人问过你的问题，就是最好的选题库——问过三个人，就够发三帖。</p></div>
+    <div class="card blue"><span class="badge">锚点 2</span><h3>素材先行，AI 只做初稿</h3><p>先有 3–5 条你的笔记/聊天记录，再让 ima 整理成初稿——没有素材，AI 只会写空话。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>署名判断：哪句是你的</h3><p>发布前圈出"这句是我的判断"，其余当资料。观点必须是你的，AI 只负责把手写顺。</p></div>
+  </div>
+  <div class="foot">R + I</div><div class="pageno">10</div>
+  <aside class="notes">R 片段：讲师星球三帖真实截图（离线备好），放两遍，第二遍按暂停指出"选题/素材/署名"三个画面。锚点 2 现场演示一遍 ima 知识库检索，别只讲。回收开场那句话：开起来不难——难的是让人留下。</aside>
+</section>
+
+<!-- 11 A1 第1节 -->
+<section class="slide">
+  <div class="kicker">A1 · 显像提问 · 10 分钟</div>
+  <h2>最近一次"想发但没发出去"，卡在哪一步？</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>讲一个具体的事</h3><p style="font-size:22px">最近一条你想发到星球、最后没发的帖子：<br><br>题目是什么？卡在选题、写不动、还是怕写得不好？后来那条去哪了？</p></div>
+    <div class="card gold"><h3>如果当时有产线</h3><p style="font-size:22px">假如当时有一份问题清单、一份素材夹、一个初稿工具——<br><br>那一条，现在会是什么样？</p></div>
+  </div>
+  <p style="margin-top:18px">规矩：<span class="em">讲具体事——什么题目、卡在哪、最后怎么处理。</span>不许"我经常发不出来"。</p>
+  <div class="foot">A1 · 小组内轮流讲</div><div class="pageno">11</div>
+  <aside class="notes">控场：优先点"看起来有话要说"的人；冷场则讲师先讲一个自己的卡壳案例（30 秒）做示范。每组抽 1 人给全班复述队友的故事。</aside>
+</section>
+
+<!-- 12 A2 五步产线 -->
+<section class="slide">
+  <div class="kicker">A2 · 任务卡 · 21 分钟 · 逐项打勾</div>
+  <h2>五步产线：21 分钟发出今天这一帖</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:12%">时间</th><th>动作</th><th style="width:34%">我的记录</th></tr>
+    <tr class="hl"><td class="t">0–4′</td><td>选题：从问题清单挑 1 个<b>最近真被问过</b>的问题</td><td>题目：______</td></tr>
+    <tr><td class="t">4–9′</td><td>素材：翻出 3–5 条自己的笔记 / 聊天记录 / 读书摘录</td><td>素材 ☐ 已凑齐</td></tr>
+    <tr class="hl"><td class="t">9–14′</td><td>初稿：让 ima 把素材整理成帖子（标题 + 开头 30 字 + 分点正文 + 结尾引导）</td><td>初稿 ☐ 已生成</td></tr>
+    <tr><td class="t">14–19′</td><td>改稿 + 署名判断：圈出"这句是我的判断"，删掉 AI 写的空话</td><td>我的判断：______</td></tr>
+    <tr class="hl"><td class="t">19–21′</td><td>发布到星球，<b>截图交给组长</b></td><td>已发布 ☐</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">达标线：<span class="em">星球里能看到你今天这一帖 + 截图 + 一句署名判断。</span>写不完整没关系，先发出去，再改。</p>
+  <div class="foot">A2 · 材料 02 任务卡</div><div class="pageno">12</div>
+  <aside class="notes">陪跑重点：① 卡在"选题"的人最多——提醒"从最近三个人问过你的问题里挑"；② 素材不够的，当场翻聊天记录；③ 5 分钟节点报时一次。未完成者登记名字，休息时间补。</aside>
+</section>
+
+<!-- 13 一帖的结构 -->
+<section class="slide">
+  <div class="kicker">一帖的最小结构 · 4 个零件</div>
+  <h2>标题 / 开头 / 正文 / 结尾引导</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><h3>① 标题</h3><p>说清楚"解决谁的问题"，别起口号式标题。</p></div>
+    <div class="card"><h3>② 开头 30 字</h3><p>一句话点出读者的处境——他才会往下看。</p></div>
+    <div class="card"><h3>③ 正文分点</h3><p>2–4 个要点，每点一句结论 + 一句解释。</p></div>
+    <div class="card gold"><h3>④ 结尾引导</h3><p>留一个问题或下一步动作，把人带进评论区。</p></div>
+  </div>
+  <p style="margin-top:18px">照这个结构写，<span class="em">你每次只换内容，不用每次重新想格式。</span></p>
+  <div class="foot">参考 · 讲师帖子投影拆解</div><div class="pageno">13</div>
+  <aside class="notes">把讲师自己的一条帖子投影出来，现场拆这四个零件。提醒：结尾引导不是"求点赞"，是"问一个具体问题"。</aside>
+</section>
+
+<!-- 14 第1节小结 -->
+<section class="slide">
+  <div class="kicker">第 1 节小结 · 交付 ① 验收</div>
+  <h2>现在举手：帖子已经发出去的</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card green"><h3>已完成（截图交组长）</h3><p style="font-size:22px">恭喜，你有产线了。帮一下旁边没完成的——你刚踩过的坑，正是他卡住的地方。</p></div>
+    <div class="card gold"><h3>未完成</h3><p style="font-size:22px">举手，助教马上到。中场休息 10 分钟里补完——别带着遗憾进第 2 节。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">帖子发出去只是起点——它现在还只是<span class="em">一条躺在时间线里的内容</span>。下一节，让它变成新人看得懂的入口。</p>
+  <div class="foot">中场休息 · 10 分钟</div><div class="pageno">14</div>
+  <aside class="notes">组长报完成数。休息时助教巡查未完成者。宣布：中场休息 10 分钟，Wi-Fi 不挤就别走远。</aside>
+</section>
+
+<!-- 15 分节页 第2节 -->
+<section class="slide divider">
+  <div class="kicker">第 2 节 · 55 分钟 · R5 / I7 / A1 10 / 搭包 24 / 验收 9</div>
+  <h1>沉</h1>
+  <div class="lead">精华沉淀与新人引导包 —— 让老内容变成新入口</div>
+  <div class="chip">本节交付：② 新人引导包初版（置顶三篇 + 精华 2–3 类 + 引导帖）</div>
+  <aside class="notes">节奏：R5 + I7 + A1 10 + 搭包 24 + 验收 9 = 55′。材料 03 任务卡人手一张。<b>课前必须自己实测一遍</b>置顶与精华设置路径，并把界面截图放进本页备注；界面以现场版本为准。</aside>
+</section>
+
+<!-- 16 为什么需要沉淀 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 1</div>
+  <h2>没有沉淀的星球，是内容坟场</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card" style="background:#fff5f5;border-color:#f8d5d5"><h3>坟场式</h3><p style="font-size:23px">每天都有新帖，但翻十条都找不到"我该从哪开始"——新人看两眼就退出了。</p></div>
+    <div class="card green"><h3>档案馆式</h3><p style="font-size:23px">新人进来有置顶、有分类、有引导帖，半小时能看完你的体系——他才觉得"值"。</p></div>
+  </div>
+  <p style="margin-top:22px;font-size:25px">第 1 节解决了"发得出来"，这一节解决 <span class="em">"看得明白、找得到"</span>。</p>
+  <div class="foot">I</div><div class="pageno">16</div>
+  <aside class="notes">用比喻：帖子是货，引导包是货架和导购。货再多，没有货架，客人进来也是空转。</aside>
+</section>
+
+<!-- 17 引导包三件套 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 2</div>
+  <h2>新人引导包：三件套</h2>
+  <div class="rule"></div>
+  <div class="map" style="flex:0 0 auto">
+    <div class="node"><div class="s">件 1</div><h3>置顶三篇</h3><p>谁适合 · 怎么用 · 一个案例</p></div>
+    <div class="arrow">+</div>
+    <div class="node"><div class="s">件 2</div><h3>精华 2–3 类</h3><p>方法 / 案例 / 答疑，按来客想看的分类</p></div>
+    <div class="arrow">+</div>
+    <div class="node"><div class="s">件 3</div><h3>引导帖</h3><p>新人第一帖：欢迎 + 三步指引 + 提问方式</p></div>
+  </div>
+  <p style="margin-top:24px;font-size:25px">三件齐了，新人不用问你"从哪开始"——<span class="em">结构替你说完了 80% 的话。</span></p>
+  <div class="foot">I</div><div class="pageno">17</div>
+  <aside class="notes">强调"按来客想看什么分类，不按我想写什么分类"。示例：方法类（怎么做）/ 案例类（别人怎么做的）/ 答疑类（常见问题）。</aside>
+</section>
+
+<!-- 18 与拆书的连接 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 3</div>
+  <h2>这就是你的"导读页"</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card blue"><h3>拆书家的导读思维</h3><p style="font-size:22px">带人读一本书，先讲"这本书讲什么、从哪页读起、读到哪算入门"。</p></div>
+    <div class="card gold"><h3>你的引导包同理</h3><p style="font-size:22px">新人进来先给"这里有什么、从哪篇看起、看完可以做什么"——你只负责最关键的判断：<b>哪三篇最能代表你</b>。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">拆的还是同一件事：<span class="em">把散落的内容整理成别人能用的路径。</span></p>
+  <div class="foot">I · 拆书连接</div><div class="pageno">18</div>
+  <aside class="notes">这是本节最"拆书帮"的一点，务必讲透——学员最容易接受"导读页"这个类比。</aside>
+</section>
+
+<!-- 19 A1 第2节 -->
+<section class="slide">
+  <div class="kicker">A1 · 显像提问 · 10 分钟</div>
+  <h2>你最近一次"加入一个新圈子"，是怎么看懂的？</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>回想一次真实经历</h3><p style="font-size:22px">最近加入的群 / 星球 / 社群：<br><br>你第一件事是做什么？是有人给你指路，还是自己翻半天？翻了多久？</p></div>
+    <div class="card gold"><h3>换到你自己</h3><p style="font-size:22px">如果是你自己的星球——新人现在进来，要翻多久才看得懂？<br><br>——大多数人答不出，因为从没以新人视角看过。</p></div>
+  </div>
+  <p style="margin-top:18px">规矩：<span class="em">讲具体事——哪个圈子、第一件事做了什么、花了多久。</span></p>
+  <div class="foot">A1 · 小组内轮流讲</div><div class="pageno">19</div>
+  <aside class="notes">多数学员会承认"自己翻半天"。引导发现：卡点几乎都在"没有入口"——这正是引导包要解决的。</aside>
+</section>
+
+<!-- 20 A2 搭引导包 -->
+<section class="slide">
+  <div class="kicker">A2 · 任务卡 · 24 分钟 · 骨架已给你，你只填空</div>
+  <h2>三步搭包：把老内容变成新入口</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:16%">步骤</th><th style="width:10%">时间</th><th>动作</th><th style="width:26%">我的记录</th></tr>
+    <tr class="hl"><td><b>① 置顶三篇</b></td><td class="t">6′</td><td>从历史帖里选 3 篇：谁适合 / 怎么用 / 一个案例</td><td>三篇：______</td></tr>
+    <tr><td><b>② 精华分类</b></td><td class="t">9′</td><td>把历史帖子归成 2–3 类（方法 / 案例 / 答疑），打标签或建目录</td><td>分类：______</td></tr>
+    <tr class="hl"><td><b>③ 写引导帖</b></td><td class="t">9′</td><td>新人第一帖：欢迎 + 三步指引 + 怎么提问</td><td>草稿 ☐ 已写</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">达标线：<span class="em">置顶三篇定下来 + 精华分类 2–3 类 + 引导帖草稿成文。</span>不用追求完美，先有骨架，课后补内容。</p>
+  <div class="foot">A2 · 材料 03 任务卡</div><div class="pageno">20</div>
+  <aside class="notes">陪跑重点：① 选"最能代表你"的三篇，不是"最好的"三篇；② 分类别超过 3 类，否则新人选择困难；③ 9 分钟节点报时。未完成者登记名字，课后跟。</aside>
+</section>
+
+<!-- 21 第2节小结 -->
+<section class="slide">
+  <div class="kicker">第 2 节小结 · 交付 ② 验收</div>
+  <h2>现在举手：引导包三件齐了的</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card green"><h3>已完成</h3><p style="font-size:22px">拿手机用"新人视角"走一遍自己的星球——从进星球到看完三篇，用了多久？</p></div>
+    <div class="card gold"><h3>未完成</h3><p style="font-size:22px">举手，助教优先处理。登记名字，课后线上跟到你补齐为止。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">你刚刚做的事，很多运营要请人做一周：选品、分类、写欢迎语。<span class="em">引导包把一周压成 24 分钟：你选，结构替你说。</span></p>
+  <div class="foot">第 3 节预告</div><div class="pageno">21</div>
+  <aside class="notes">组长报完成数。若超时：用弹性 7′，压缩第 3 节 I 至 4′。</aside>
+</section>
+
+<!-- 22 分节页 第3节 -->
+<section class="slide divider">
+  <div class="kicker">第 3 节 · 40 分钟 · R4 / I6 / 名单话术 25 / 承诺 5</div>
+  <h1>续</h1>
+  <div class="lead">续费提醒工作流 —— 让到期有人管</div>
+  <div class="chip">本节交付：③ 到期名单 + 三时点话术 + 流程截图</div>
+  <aside class="notes">节奏：R4 + I6 + 名单话术 25 + 承诺 5 = 40′。材料 04（续费提醒与 30 天计划）+ 材料 05（复盘卡）人手一份。</aside>
+</section>
+
+<!-- 23 R+I 第3节 -->
+<section class="slide">
+  <div class="kicker">R · 4 分钟｜I · 三个锚点 · 6 分钟</div>
+  <h2>续费不是"到期再问"，是三个时点</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card green"><span class="badge green">锚点 1</span><h3>提前 7 天：提醒 + 价值回顾</h3><p>不是催钱，是帮他算账："这 11 个月你看过 23 篇、用过 4 次模板。"</p></div>
+    <div class="card green"><span class="badge green">锚点 2</span><h3>到期前 1 天：给一个明确动作</h3><p>一句话说清怎么续、续了能接着用什么——别让人自己找入口。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>到期后 1 天：留门，不纠缠</h3><p>"先出去也没关系，这是你之前问过的问题合集"——体面，才可能回来。</p></div>
+  </div>
+  <div class="foot">R + I</div><div class="pageno">23</div>
+  <aside class="notes">I 压到 4–6′，多出的时间给名单实操。强调口径：不承诺"续费率翻倍"，只讲流程：有人管、有时点、有话术。</aside>
+</section>
+
+<!-- 24 三时点 -->
+<section class="slide">
+  <div class="kicker">续费工作流 · 一张表跑完</div>
+  <h2>名单在手，流程才跑得起来</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:14%">时点</th><th style="width:20%">动作</th><th>话术要点</th><th style="width:18%">记录</th></tr>
+    <tr class="hl"><td class="t">T–7 天</td><td>私信提醒</td><td>价值回顾 + 下期预告，问一句"还想看到什么"</td><td>已触达 ☐</td></tr>
+    <tr><td class="t">T–1 天</td><td>续费指引</td><td>一句话说清怎么续 + 续后能接着用什么</td><td>已回复 ☐</td></tr>
+    <tr class="hl"><td class="t">T+1 天</td><td>留门</td><td>不催、不劝，给一份对他有用的资料</td><td>已发 ☐</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">名单必备四列：<span class="em">姓名 / 到期日 / 最近一次互动 / 续费意向</span>——没有名单，再好的话术也发不出去。</p>
+  <div class="foot">I · 材料 04</div><div class="pageno">24</div>
+  <aside class="notes">现场演示一分钟：在表格里按到期日排序，圈出本周要触达的人。提醒：只发"真有用"的资料，别群发广告。</aside>
+</section>
+
+<!-- 25 互评 -->
+<section class="slide">
+  <div class="kicker">现场互评 · 10 分钟</div>
+  <h2>互换走查：用清单，不用直觉</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card blue"><h3>互换测试（已完成者）</h3><p style="font-size:22px">两人交换手机，用<b>对方</b>的星球走一遍"新人视角"：置顶清不清楚、分类找不找得到、引导帖有没有说清怎么提问。</p></div>
+    <div class="card gold"><h3>清单走查（未完成者）</h3><p style="font-size:22px">用《自检表》（材料 06）逐条走查对方的引导包与续费流程，给 2 条具体改进建议——照样有收获。</p></div>
+  </div>
+  <p style="margin-top:20px">规则：<span class="em">只提具体建议，不许说"挺好的"</span>。因为"挺好的"帮不了任何人。</p>
+  <div class="foot">互评 · 两两互换 · 2 轮</div><div class="pageno">25</div>
+  <aside class="notes">10 人小班就两两互换，A↔B，2 轮。若多数人没跑通，直接全员转"清单走查"，别硬撑互换测试。用"微行动学习 5 步"主持。</aside>
+</section>
+
+<!-- 26 A2 30天 -->
+<section class="slide">
+  <div class="kicker">A2 · 30 天星球经营计划 · 5 分钟 · 当场承诺</div>
+  <h2>三栏一次写满：更 → 沉 → 续</h2>
+  <div class="rule"></div>
+  <div class="card blue" style="font-size:24px;line-height:1.95">
+    <b>第一栏 · 更</b>：每周固定 <b>____</b> 分钟，从问题清单里挑 1 个，走一遍五步产线发 1 帖；<br>
+    <b>第二栏 · 沉</b>：每月把新帖归进精华分类 <b>______</b>，更新一次置顶与引导帖；<br>
+    <b>第三栏 · 续</b>：每月 1 号看一遍到期名单，T–7 / T–1 / T+1 三时点各触达一次。
+  </div>
+  <p style="margin-top:18px">当天你已把"更"和"沉"各走通一遍——30 天不是从零开始，是把走通的路<strong>每周跑一遍</strong>。写完，上台读 1–2 条。<span class="em">说出口的计划，才会真的发生。</span></p>
+  <div class="foot">A2 · 上台承诺</div><div class="pageno">26</div>
+  <aside class="notes">难度口径：当天学员已走通"更"和"沉"各一次，所以 30 天 = 每周 1 帖 + 每月归一次档 + 每月看一次名单，不是"日更起步"。控场：先请最活跃的 1 位起头，再点 1 位安静的。承诺不评价、不点评，只鼓掌。</aside>
+</section>
+
+<!-- 27 收尾 -->
+<section class="slide">
+  <div class="kicker">收尾 · 10 分钟</div>
+  <h2>三件交付物，合成一件事</h2>
+  <div class="rule"></div>
+  <div class="map" style="flex:0 0 auto">
+    <div class="node"><div class="s">交付 ①</div><h3>更</h3><p>内容发得出、发得稳</p></div>
+    <div class="arrow">+</div>
+    <div class="node"><div class="s">交付 ②</div><h3>沉</h3><p>老内容变成新入口</p></div>
+    <div class="arrow">=</div>
+    <div class="node" style="background:var(--blue-soft);border-color:#c9d8ff"><div class="s">交付 ③</div><h3>续</h3><p>到期有人管，会员愿意留</p></div>
+  </div>
+  <p style="margin-top:22px;font-size:24px">下个月你就会发现：<span class="em">不是会员变忠诚了，是留下来的理由，终于被你写清楚了。</span></p>
+  <div class="foot">合影 · 交付物验收</div><div class="pageno">27</div>
+  <aside class="notes">收尾动作：① 组长报"我们组 X 人完成交付①、Y 人完成交付②、Z 人完成交付③"；② 宣布彩蛋（素材包领取方式，下一页）；③ 合影；④ 群里发作业打卡模板。</aside>
+</section>
+
+<!-- 28 彩蛋 -->
+<section class="slide">
+  <div class="kicker">现场彩蛋</div>
+  <h2>讲师的星球运营素材包</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>📦 领取条件</h3><p>今天帖子已发出 + 引导包三件齐的伙伴，人手一份。</p></div>
+    <div class="card"><h3>🧰 包含什么</h3><p>50 条选题清单 + 引导帖模板 + 三时点续费话术模板——都是今天课上用的同一套。</p></div>
+    <div class="card gold"><h3>⚠️ 但记住</h3><p>模板只是骨架，观点还得靠你自己写——产线已经给你了。</p></div>
+  </div>
+  <p style="margin-top:18px">领取方式：课后发到群里。<span class="em">先把今天的帖子截图发群里，算完成打卡。</span></p>
+  <div class="foot">彩蛋 · 素材包</div><div class="pageno">28</div>
+  <aside class="notes">领取方式发群里（素材包 + 一行说明）。提醒：素材包与今天课上五步是同一套结构，回家可对照复盘。</aside>
+</section>
+
+<!-- 29 尾页 -->
+<section class="slide cover">
+  <div class="kicker">AI 拆书课 · 知识星球场 · 拆书帮广州小蛮腰分舵</div>
+  <h1>更 → 沉 → 续</h1>
+  <div class="sub">你今天不是学会了几个功能，<br>是让星球有了产线、有了入口、有了让人留下的理由。</div>
+  <div class="rule"></div>
+  <div class="meta">
+    主讲：杨辉（杨老师）· 三级拆书家 · 玄龙堂主理人<br>
+    主办：拆书帮广州小蛮腰分舵<br>
+    课后作业与素材包：见群公告 · 加微信 ikoning365（备注"知识星球"）
+  </div>
+  <div class="brand">谢谢，下次带着你经营了一个月的星球来。</div>
+  <aside class="notes">留 2 分钟给答疑（来自弹性 7′）。结束时提醒：把 30 天计划第一页拍照发群里，算完成课后打卡。</aside>
+</section>
+
+</div>
+
+<div id="hud">
+  <button id="btnNotes" title="N">备注</button>
+  <button id="btnFull" title="F">全屏</button>
+  <button id="btnPrint" title="P">打印/PDF</button>
+  <button id="btnTimer" title="计时">计时</button>
+</div>
+<div id="bar"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, stage=document.getElementById('stage'), bar=document.getElementById('bar');
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){ s.classList.toggle('on',k===i); });
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  window.addEventListener('resize',fit); fit();
+  var h=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(h)?0:h-1);
+
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].indexOf(e.key)>=0){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>=0){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);} else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('notes-on');}
+    else if(e.key==='f'||e.key==='F'){toggleFull();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#hud')) return;
+    if(e.clientX > window.innerWidth*0.62) show(i+1); else if(e.clientX < window.innerWidth*0.38) show(i-1);
+  });
+  function toggleFull(){
+    if(!document.fullscreenElement){ (document.documentElement.requestFullscreen||function(){}).call(document.documentElement); }
+    else { document.exitFullscreen(); }
+  }
+  document.getElementById('btnNotes').onclick=function(){document.body.classList.toggle('notes-on');};
+  document.getElementById('btnFull').onclick=toggleFull;
+  document.getElementById('btnPrint').onclick=function(){window.print();};
+
+  var t0=0, ticking=false, accum=0, timerBtn=document.getElementById('btnTimer');
+  timerBtn.onclick=function(){
+    ticking=!ticking;
+    if(ticking){ t0=Date.now(); if(!accum) accum=0; }
+    else { accum+=Date.now()-t0; }
+  };
+  setInterval(function(){
+    if(!ticking) return;
+    var sec=Math.floor((accum+Date.now()-t0)/1000);
+    timerBtn.textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+  },500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3 小时，把你的名字上线 — 个人网站+自动更新产线｜AI 拆书课·GitHub 网站工作坊</title>
+<style>
+  :root{
+    --ink:#12213a; --ink-2:#4a5a72; --line:#dfe6f0;
+    --blue:#1f5eff; --blue-soft:#e8efff;
+    --gold:#c8860d; --gold-soft:#fdf3dc;
+    --green:#17845b; --green-soft:#e6f6ee;
+    --paper:#ffffff; --bg:#0b1220;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;
+    transform-origin:center center;background:var(--paper);overflow:hidden;
+    box-shadow:0 30px 90px rgba(0,0,0,.55);}
+  .slide{position:absolute;inset:0;padding:64px 76px;display:none;
+    flex-direction:column;background:var(--paper);color:var(--ink);}
+  .slide.on{display:flex}
+
+  h1{margin:0;font-size:62px;line-height:1.12;letter-spacing:-.5px;font-weight:800}
+  h2{margin:0 0 10px;font-size:42px;line-height:1.2;font-weight:800;letter-spacing:-.3px}
+  h3{margin:0 0 6px;font-size:26px;font-weight:700;color:var(--ink)}
+  p,li{font-size:24px;line-height:1.62;color:var(--ink-2);margin:0 0 10px}
+  .kicker{font-size:19px;letter-spacing:3px;font-weight:700;color:var(--blue);
+    text-transform:uppercase;margin-bottom:18px}
+  .lead{font-size:27px;color:var(--ink-2);line-height:1.6}
+  .em{color:var(--ink);font-weight:700}
+  .num{color:var(--blue);font-weight:800}
+  .rule{height:5px;width:78px;background:var(--blue);border-radius:3px;margin:20px 0 26px}
+
+  /* 封面 */
+  .cover{justify-content:center;background:
+      radial-gradient(1200px 520px at 88% -10%, #eaf1ff 0%, transparent 62%),
+      radial-gradient(900px 420px at 4% 108%, #fdf3dc 0%, transparent 60%), #fff}
+  .cover h1{font-size:74px;margin-bottom:18px}
+  .cover .sub{font-size:31px;color:var(--ink-2);font-weight:600;margin-bottom:34px}
+  .cover .meta{font-size:21px;color:#7b8798;line-height:1.9}
+  .brand{position:absolute;right:76px;bottom:56px;text-align:right;font-size:19px;color:#93a0b1;line-height:1.7}
+
+  /* 通用布局 */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:34px;flex:1;align-content:start}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;align-content:start}
+  .cards{display:grid;gap:18px;flex:1;align-content:start}
+  .card{border:1px solid var(--line);border-radius:16px;padding:24px 26px;background:#fbfcfe}
+  .card.blue{background:var(--blue-soft);border-color:#c9d8ff}
+  .card.gold{background:var(--gold-soft);border-color:#f2e0b6}
+  .card.green{background:var(--green-soft);border-color:#c6ecd8}
+  .card h3{font-size:27px}
+  .card p{font-size:21px;margin:0;line-height:1.55}
+  .card .badge{display:inline-block;font-size:15px;font-weight:800;letter-spacing:1px;
+    padding:3px 10px;border-radius:999px;background:var(--blue);color:#fff;margin-bottom:10px}
+  .card .badge.gold{background:var(--gold)}
+  .card .badge.green{background:var(--green)}
+  .cards.tight{gap:13px}
+  .cards.tight .card{padding:17px 22px}
+  .cards.tight .card h3{font-size:25px;margin-bottom:3px}
+  .cards.tight .card p{font-size:20px;line-height:1.5}
+  .cards.tight .card .badge{margin-bottom:6px}
+
+  ul.big{margin:0;padding-left:0;list-style:none;display:grid;gap:13px}
+  ul.big li{position:relative;padding-left:40px;font-size:24px;color:var(--ink);line-height:1.5}
+  ul.big li::before{content:"";position:absolute;left:8px;top:12px;width:12px;height:12px;
+    border-radius:50%;background:var(--blue)}
+  ul.big li.g::before{background:var(--gold)}
+  ul.big li small{display:block;font-size:19px;color:var(--ink-2);margin-top:5px;font-weight:400}
+
+  /* 分节页 */
+  .divider{justify-content:center;background:var(--ink);color:#fff}
+  .divider .kicker{color:#7fa8ff}
+  .divider h1{color:#fff;font-size:76px}
+  .divider .lead{color:#b9c6da;font-size:28px;margin-top:16px}
+  .divider .chip{display:inline-block;margin-top:34px;font-size:20px;color:#0b1220;
+    background:#ffd77a;border-radius:999px;padding:9px 20px;font-weight:800}
+
+  /* 时间表 */
+  table{width:100%;border-collapse:collapse;font-size:20px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);color:var(--ink-2)}
+  th{font-size:16px;letter-spacing:1px;color:#8894a8;font-weight:700;text-transform:uppercase}
+  td.t{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700;white-space:nowrap}
+  td.d{text-align:right;font-variant-numeric:tabular-nums;color:var(--blue);font-weight:700;white-space:nowrap}
+  tr.hl td{background:#f4f7ff}
+
+  /* 地图 */
+  .map{display:flex;align-items:stretch;gap:0;flex:1;margin-top:6px}
+  .map .node{flex:1;border:2px solid var(--line);border-radius:18px;padding:22px;
+    display:flex;flex-direction:column;justify-content:center;background:#fbfcfe}
+  .map .node .s{font-size:17px;letter-spacing:2px;font-weight:800;color:var(--blue);margin-bottom:8px}
+  .map .node h3{font-size:29px;margin-bottom:8px}
+  .map .node p{font-size:19px;margin:0;line-height:1.5}
+  .map .arrow{display:flex;align-items:center;justify-content:center;width:56px;
+    font-size:34px;color:#b9c6da;font-weight:800}
+
+  /* 大字块 */
+  .statement{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .statement q{font-size:52px;line-height:1.35;font-weight:800;color:var(--ink);
+    quotes:"“" "”";display:block}
+  .statement .after{margin-top:28px;font-size:24px;color:var(--ink-2)}
+
+  .foot{position:absolute;left:76px;bottom:26px;font-size:16px;color:#a9b4c4;letter-spacing:1px}
+  .pageno{position:absolute;right:76px;bottom:26px;font-size:16px;color:#a9b4c4;
+    font-variant-numeric:tabular-nums}
+
+  /* 演讲者备注 */
+  .notes{display:none}
+  body.notes-on .notes{display:block;position:fixed;left:0;right:0;bottom:0;max-height:34vh;
+    overflow:auto;background:#0e1626;color:#cfd9e8;font-size:15px;line-height:1.7;
+    padding:14px 22px;border-top:2px solid #22314d;z-index:50}
+  body.notes-on .notes b{color:#8fb4ff}
+
+  /* 控件 */
+  #hud{position:fixed;right:14px;top:12px;display:flex;gap:8px;font-size:13px;z-index:60;
+    font-family:inherit}
+  #hud button{background:rgba(255,255,255,.1);color:#cfd9e8;border:1px solid rgba(255,255,255,.18);
+    border-radius:8px;padding:6px 11px;cursor:pointer;font-size:13px}
+  #hud button:hover{background:rgba(255,255,255,.2)}
+  #bar{position:fixed;left:0;bottom:0;height:3px;background:var(--blue);width:0;z-index:60;transition:width .18s}
+
+  @media print{
+    @page{size:1280px 720px;margin:0}
+    html,body{overflow:visible;background:#fff}
+    #hud,#bar,.notes{display:none!important}
+    #stage{position:static;transform:none!important;box-shadow:none;width:1280px;height:auto}
+    .slide{display:flex!important;position:relative;inset:auto;width:1280px;height:720px;
+      page-break-after:always;break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- 01 封面 -->
+<section class="slide cover on">
+  <div class="kicker">AI 拆书课 · GitHub 网站工作坊 · 拆书帮广州小蛮腰分舵</div>
+  <h1>3 小时，把你的名字上线</h1>
+  <div class="sub">个人网站 + 自动更新产线 —— 从内容到上站</div>
+  <div class="rule"></div>
+  <div class="meta">
+    3 小时 · 拆书 RIA 方法 · 现场做出三件交付物<br>
+    2026 年 11 月 · 时间待定 · 广州越秀区雅苑·培正 5 号楼<br>
+    主讲：杨辉（杨老师）· 玄龙堂主理人 · 三级拆书家
+  </div>
+  <div class="brand">安 → 跑 → 阵地<br>先让名字上线，再让网站自己长大</div>
+  <aside class="notes"><b>开场词</b>：今天不讲"AI 有多神"，讲"怎么让你在网上有个打开就能看的家"。不预习、不用提前看书，带着电脑来就行（GitHub 账号课前已注册）。<br><b>控场</b>：手机静音、电脑打开、Wi-Fi 连上（宣布网络名与密码）。</aside>
+</section>
+
+<!-- 02 痛点 -->
+<section class="slide">
+  <div class="kicker">你是不是也这样</div>
+  <h2>三个"拿不出手"的瞬间</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>📌 自我介绍只有一段微信</h3><p>想给别人介绍自己，只能发一段文字——没有一个是"打开就能看"的。</p></div>
+    <div class="card"><h3>📌 东西全散在聊天记录里</h3><p>写过的文章、做过的案例，想展示的时候，一件都拿不出手。</p></div>
+    <div class="card"><h3>📌 一听"建网站"就放下</h3><p>服务器、备案、找人做……一听就头大，默默放弃了。</p></div>
+  </div>
+  <p style="margin-top:18px">中了一条，今天这场课就是为你开的。 <span class="em">不讲大道理，当场把网站做出来、上线。</span></p>
+  <div class="foot">开场 · 举手互动</div><div class="pageno">02</div>
+  <aside class="notes">念三条痛点，举手互动：中一条举手/中两条举手/三条全中——制造"我们都有病"的共鸣，再进入交付物承诺。</aside>
+</section>
+
+<!-- 03 交付物 -->
+<section class="slide">
+  <div class="kicker">今天你带走什么</div>
+  <h2>不是"听过"，是三件能截图的真东西</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card blue"><span class="badge">交付 ①</span><h3>一个免费上线的个人网站</h3><p>GitHub Pages 免费托管，全球可访问。首页三段：我是谁、我做什么、怎么找到我。</p></div>
+    <div class="card blue"><span class="badge">交付 ②</span><h3>一条自动更新产线</h3><p>workbuddy 把"写内容"和"上网站"焊在一起：写完即发布，中间零道工序。</p></div>
+    <div class="card gold"><span class="badge gold">交付 ③</span><h3>一份 30 天阵地计划</h3><p>栏目规划 + 更新节律 + 复盘卡——不是听，是做出来，课后照着跑。</p></div>
+  </div>
+  <p style="margin-top:18px">当天验收、有截图、课后照着跑。 <span class="em">这就叫拆书课的"当场交付"。</span></p>
+  <div class="foot">承诺 · 三件交付物</div><div class="pageno">03</div>
+  <aside class="notes">强调：三小时你不会带走一个"感觉很有收获"，是三件能截图、能给别人看的东西。彩蛋先埋一句：现场上线成功的有讲师同款模板仓（第 27 页回收）。</aside>
+</section>
+
+<!-- 04 学习地图 -->
+<section class="slide">
+  <div class="kicker">学习地图</div>
+  <h2>安 → 跑 → 阵地</h2>
+  <div class="rule"></div>
+  <div class="map">
+    <div class="node"><div class="s">第 1 节 · 50′</div><h3>安</h3><p>GitHub 安家<br>让名字上线</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 2 节 · 55′</div><h3>跑</h3><p>workbuddy 自动产线<br>从内容到上站</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">第 3 节 · 40′</div><h3>阵地</h3><p>30 天更新计划<br>让网站自己长大</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:25px">第 1 节把网站上线，第 2 节让它会更新，第 3 节让它一直活着——<span class="em">每一节都交一件东西。</span></p>
+  <div class="foot">对应材料 01 · 学习地图</div><div class="pageno">04</div>
+  <aside class="notes">强调结构：三节各攻一个交付物，第 3 节把前两件拼回去——别担心"学不完"，每一节都有小结和交付。</aside>
+</section>
+
+<!-- 05 时间表 -->
+<section class="slide">
+  <div class="kicker">时间表 · 净 165 分钟</div>
+  <h2>硬卡时间，每节都交东西</h2>
+  <table>
+    <tr><th>时间</th><th>环节</th><th>关键动作</th><th style="text-align:right">时长</th></tr>
+    <tr><td class="t">00:00–00:08</td><td>开场</td><td>点题、学习地图、分组、RIA 与交付规则</td><td class="d">8′</td></tr>
+    <tr class="hl"><td class="t">00:08–00:58</td><td>第 1 节｜安</td><td>R5 + I12 + A1 10 + 建站 15 + A2 8</td><td class="d">50′</td></tr>
+    <tr><td class="t">00:58–01:08</td><td>中场休息</td><td>走动、补未完成者、助教巡查</td><td class="d">10′</td></tr>
+    <tr class="hl"><td class="t">01:08–02:03</td><td>第 2 节｜跑</td><td>R5 + I13 + A1 10 + 产线 19 + A2 8</td><td class="d">55′</td></tr>
+    <tr class="hl"><td class="t">02:03–02:43</td><td>第 3 节｜阵地</td><td>R4 + I10 + 互评 10 + A2 16</td><td class="d">40′</td></tr>
+    <tr><td class="t">02:43–02:53</td><td>收尾</td><td>三件交付物合一、A2 承诺、合影</td><td class="d">10′</td></tr>
+    <tr><td class="t">02:53–03:00</td><td>弹性</td><td>答疑 / 超时缓冲</td><td class="d">7′</td></tr>
+  </table>
+  <div class="foot">准时开始，准时结束</div><div class="pageno">05</div>
+  <aside class="notes">讲师自己盯时间：每节结束前 5 分钟提醒。若第 2 节实操超时，用弹性 7′ + 压缩第 3 节 I 至 7′。</aside>
+</section>
+
+<!-- 06 RIA -->
+<section class="slide">
+  <div class="kicker">今天怎么上</div>
+  <h2>拆书帮 RIA：把"拆页"换成"官方产品视频片段"</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card"><span class="badge">R</span><h3>精挑片段</h3><p>GitHub / workbuddy 官方介绍视频，5 分钟内，放两遍：先看点，再带问题看。</p></div>
+    <div class="card"><span class="badge">I</span><h3>我的解读</h3><p>3 个锚点，把片段讲成你能上手的方法。</p></div>
+    <div class="card"><span class="badge">A1</span><h3>反思经验</h3><p>显像提问：讲具体情境 + 具体行为 + 具体结果。</p></div>
+    <div class="card"><span class="badge gold">A2</span><h3>实践计划</h3><p>谁 + 何时 + 做什么 + 到什么程度，写便签。</p></div>
+  </div>
+  <p style="margin-top:20px">规矩只有三条：<span class="em">① 不预习也能上　② 当场动手必交东西　③ A1 必须讲具体事，不许"我经常觉得……"</span></p>
+  <div class="foot">R → I → A1 → A2</div><div class="pageno">06</div>
+  <aside class="notes">10 人小班，分 2–3 组（每组 3–4 人），选组长计时。每人桌上：三色便签、任务卡、A2 便签纸、自检表。片源全部提前下载离线版（见资控手册材料 08）。</aside>
+</section>
+
+<!-- 06b 拆书家工具箱 -->
+<section class="slide">
+  <div class="kicker">加餐 · 来自《拆书家成长手册》TF1–TF3 全技能</div>
+  <h2>拆书家工具箱：今天就用得上的 6 个招</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card"><span class="badge">量表自测</span><h3>先定位再上课</h3><p>把知识改成频度量表，测完就知道自己站在哪——材料 09 用的就是这招。</p></div>
+    <div class="card"><span class="badge">填空式提问</span><h3>I 环节安全互动</h3><p>判断/填空比问答安全：八成把握学员会怎么答，才开口问。</p></div>
+    <div class="card"><span class="badge">微行动学习</span><h3>5 步主持讨论</h3><p>明确问题 → 分组挖本质 → 明确本质 → 分组出方案 → 收敛共识。</p></div>
+    <div class="card"><span class="badge">回应反馈</span><h3>不说"挺好的"</h3><p>追问确认、好奇反问、摘要点评、号召鼓掌——把分享接回原页。</p></div>
+    <div class="card"><span class="badge">FAB 介绍</span><h3>一分钟讲清价值</h3><p>特征 F · 优势 A · 好处 B；或场景法：事件-提问-影响-解决。</p></div>
+    <div class="card"><span class="badge gold">编剧本</span><h3>脑中过一遍</h3><p>在脑中演练一遍 = 实际应用一遍——A2 计划要具体到画面。</p></div>
+  </div>
+  <div class="foot">拆书技巧 · 全天都在用</div><div class="pageno">07</div>
+  <aside class="notes">这页是给"想继续学拆书"的学员留的钩子：今天每个环节都藏着这 6 招，课后对照回看。互评环节我会用"微行动学习 5 步"主持，学员可以留意怎么用。</aside>
+</section>
+
+<!-- 07 开场核心命题 -->
+<section class="slide">
+  <div class="statement">
+    <div class="kicker">今天唯一要记住的一句话</div>
+    <q>网站难的不是搭起来，是让它一直活着。</q>
+    <div class="after">所以今天第二件事不是"美化"，是把<span class="em">"写完即发布"的自动产线</span>接上——这就是"跑"。</div>
+  </div>
+  <div class="foot">第 1 节预告</div><div class="pageno">08</div>
+  <aside class="notes">这句话是全课钩子，开场抛出，第 1 节 I 环节回收。让学员把这句话抄在任务卡封面。</aside>
+</section>
+
+<!-- 08 分节页 第1节 -->
+<section class="slide divider">
+  <div class="kicker">第 1 节 · 50 分钟 · R5 / I12 / A1 10 / 建站 15 / A2 8</div>
+  <h1>安</h1>
+  <div class="lead">GitHub 安家 —— 让名字上线</div>
+  <div class="chip">本节交付：① 一个免费上线的个人网站（能打开 · 有截图）</div>
+  <aside class="notes">节奏：R5 + I12 + A1 10 + 建站 15 + A2 8 = 50′。材料 02 任务卡人手一张，先念一遍五步再放人动手。</aside>
+</section>
+
+<!-- 09 R+I 第1节 -->
+<section class="slide">
+  <div class="kicker">R · 5 分钟｜I · 三个锚点 · 12 分钟</div>
+  <h2>GitHub：全世界开发者的"客厅"</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card blue"><span class="badge">锚点 1</span><h3>免费的永久门牌</h3><p>你的网址 = 用户名.github.io——不用买服务器、不用备案，注册就有。</p></div>
+    <div class="card blue"><span class="badge">锚点 2</span><h3>仓库 = 网站的地基</h3><p>一个仓库就是一个网站：网页文件放进去，Pages 开关一开就上线。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>先丑着，先上线</h3><p>今天不做美化——三段话先上线。<b>"能打开"比"好看"重要一百倍。</b></p></div>
+  </div>
+  <div class="foot">R + I</div><div class="pageno">10</div>
+  <aside class="notes">R 片段：GitHub 官方介绍视频（离线版见资控手册），放两遍，第二遍按暂停指出"仓库 / 发布"两个画面。锚点 2 一定现场演示建仓界面（投影），别只讲。回收开场那句话：网站难的不是搭起来——所以先花 15 分钟把它搭起来。</aside>
+</section>
+
+<!-- 10 A1 第1节 -->
+<section class="slide">
+  <div class="kicker">A1 · 显像提问 · 10 分钟</div>
+  <h2>上一次"拿得出手的自我介绍"，是什么时候？</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>讲一个具体场景</h3><p style="font-size:22px">最近一次想给别人展示自己（谈合作 / 换工作 / 新加好友），你是怎么介绍的？<br><br>发了一段文字？一张名片？还是一个链接？对方收到了什么？</p></div>
+    <div class="card gold"><h3>如果当时有个网站</h3><p style="font-size:22px">假如你当时能发一个"打开就能看"的网址——三段话、你的作品、怎么找到你。<br><br>那次介绍，会变成什么样？</p></div>
+  </div>
+  <p style="margin-top:18px">规矩：<span class="em">讲具体事——时间、对象、你发了什么、对方回了什么。</span>不许"我经常觉得……"</p>
+  <div class="foot">A1 · 小组内轮流讲</div><div class="pageno">11</div>
+  <aside class="notes">控场：优先点"看起来有话要说"的人；冷场则讲师先讲一个自己的案例（30 秒）做示范。每组抽 1 人给全班复述队友的故事。</aside>
+</section>
+
+<!-- 11 A2 五步安家 -->
+<section class="slide">
+  <div class="kicker">A2 · 任务卡 · 15 分钟 · 逐项打勾</div>
+  <h2>五步安家：15 分钟让名字上线</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:12%">时间</th><th>动作</th><th style="width:34%">我的记录</th></tr>
+    <tr class="hl"><td class="t">0–3′</td><td>登录 GitHub（课前已注册）——用户名就是你的网址</td><td>用户名：______</td></tr>
+    <tr><td class="t">3–6′</td><td>新建仓库，名字按 <b>用户名.github.io</b> 格式填</td><td>仓库名：______</td></tr>
+    <tr class="hl"><td class="t">6–11′</td><td>编辑首页：写下"我是谁 / 我做什么 / 怎么找到我"三段</td><td>三段齐 ☐</td></tr>
+    <tr><td class="t">11–14′</td><td>开启 Pages（网站开关），选好分支保存</td><td>已开启 ☐</td></tr>
+    <tr class="hl"><td class="t">14–15′</td><td>浏览器打开你的网址，确认能访问，<b>截图交给组长</b></td><td>已完成 ☐</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">达标线：<span class="em">浏览器打开你的网址，能看到三段话——截图存档。</span>没准备好素材？现场写三句话也够，先上线，再完善。</p>
+  <div class="foot">A2 · 材料 02 任务卡</div><div class="pageno">12</div>
+  <aside class="notes">陪跑重点：① 卡在"用户名想不好"的人最多——提醒"先定一个，以后可以换"；② Pages 开关位置以现场界面为准，别念旧截图；③ 5 分钟节点报时一次。未完成者登记名字，休息时间补。</aside>
+</section>
+
+<!-- 12 首页三段 -->
+<section class="slide">
+  <div class="kicker">首页三段 · 最小可用的个人网站</div>
+  <h2>我是谁 / 我做什么 / 怎么找到我</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>① 我是谁</h3><p>一句话身份 + 1–2 个标签。<br><br>如：拆书家 / 顾问 / 设计师。</p></div>
+    <div class="card"><h3>② 我做什么</h3><p>作品、服务、案例，2–3 条。<br><br>每条一句话 + 一个例子。</p></div>
+    <div class="card"><h3>③ 怎么找到我</h3><p>微信 / 邮箱，给一个行动指令。<br><br>"想聊？加我微信。"</p></div>
+  </div>
+  <p style="margin-top:18px">三段各一句话也行——<span class="em">今天的完整，好过明天的完美。</span>课后随时可以加。</p>
+  <div class="foot">参考 · 讲师首页投影示范</div><div class="pageno">13</div>
+  <aside class="notes">把讲师自己的首页三段投影出来做示范。提醒：别写公司简介式的空话，写"别人能记住你"的那一句。</aside>
+</section>
+
+<!-- 13 第1节小结 -->
+<section class="slide">
+  <div class="kicker">第 1 节小结 · 交付 ① 验收</div>
+  <h2>现在举手：网址能打开的</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card green"><h3>已完成（截图交组长）</h3><p style="font-size:22px">恭喜，你有网址了。帮一下旁边没完成的——你刚踩过的坑，正是他卡住的地方。</p></div>
+    <div class="card gold"><h3>未完成</h3><p style="font-size:22px">举手，助教马上到。中场休息 10 分钟里补完——别带着遗憾进第 2 节。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">网站上线只是起点——它现在还是一张<span class="em">"静态名片"</span>。下一节，让它自己会长。</p>
+  <div class="foot">中场休息 · 10 分钟</div><div class="pageno">14</div>
+  <aside class="notes">组长报完成数。休息时助教巡查未完成者。宣布：中场休息 10 分钟，Wi-Fi 不挤就别走远。</aside>
+</section>
+
+<!-- 14 分节页 第2节 -->
+<section class="slide divider">
+  <div class="kicker">第 2 节 · 55 分钟 · R5 / I13 / A1 10 / 产线 19 / A2 8</div>
+  <h1>跑</h1>
+  <div class="lead">workbuddy 自动产线 —— 从内容到上站</div>
+  <div class="chip">本节交付：② 一条跑得通的自动更新产线（内容 → 站点更新，有截图）</div>
+  <aside class="notes">节奏：R5 + I13 + A1 10 + 产线 19 + A2 8 = 55′。<b>课前必须自己实测一遍全流程</b>，并把界面截图放进本页备注。界面按钮名以现场版本为准，不念旧截图。</aside>
+</section>
+
+<!-- 15 为什么需要产线 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 1</div>
+  <h2>上线不动 = 电子名片，不是阵地</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card" style="background:#fff5f5;border-color:#f8d5d5"><h3>死网站</h3><p style="font-size:23px">上线那天是它最好的样子——之后再也不更新，三个月后你自己都忘了网址。</p></div>
+    <div class="card green"><h3>活网站</h3><p style="font-size:23px">每周都有新内容进来，每次来的人都看到"这人还活着、还在做事"。</p></div>
+  </div>
+  <p style="margin-top:22px;font-size:25px">第 1 节解决了"上线"，这一节解决 <span class="em">"会更新、跑得动"</span>。</p>
+  <div class="foot">I</div><div class="pageno">16</div>
+  <aside class="notes">用比喻：网站是店面，产线是后厨。店面再好看，后厨不开火，菜单永远是那一页。</aside>
+</section>
+
+<!-- 16 四步链条 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 2</div>
+  <h2>你的产线长这样：四步链条</h2>
+  <div class="rule"></div>
+  <div class="map" style="flex:0 0 auto">
+    <div class="node"><div class="s">STEP 1</div><h3>写/选内容</h3><p>我想让网站多一篇什么</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">STEP 2</div><h3>提交进仓</h3><p>内容进仓库，站点自动认得它</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">STEP 3</div><h3>自动构建</h3><p>自动生成/更新网页</p></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="s">STEP 4</div><h3>你把关</h3><p>校对、看线上效果</p></div>
+  </div>
+  <p style="margin-top:24px;font-size:25px">写完即发布，中间零道工序——<span class="em">把重复动作固定成流程，质量才稳定。</span></p>
+  <div class="foot">I</div><div class="pageno">17</div>
+  <aside class="notes">强调第 4 步"你把关"——口径是"初稿自动生成，发布由你把关"。不要承诺"一键发布、马上有客户"，那是投诉高发点。workbuddy 界面/按钮名以讲师课前实测为准，课上只讲流程定位："从内容到上站"。</aside>
+</section>
+
+<!-- 17 与拆书的连接 -->
+<section class="slide">
+  <div class="kicker">I · 锚点 3</div>
+  <h2>这就是你的"预备提示表"</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card blue"><h3>拆书家的预备提示表</h3><p style="font-size:22px">不是每场都现想，而是提前把"读什么、怎么拆、带什么走"固定成表。</p></div>
+    <div class="card gold"><h3>你的产线同理</h3><p style="font-size:22px">把"写什么、怎么上站、谁把关"固定成流程——你只负责最关键的两步：<b>选题</b>和<b>把关</b>。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">拆的还是同一件事：<span class="em">把重复动作固定成流程。</span></p>
+  <div class="foot">I · 拆书连接</div><div class="pageno">18</div>
+  <aside class="notes">这是本节最"拆书帮"的一点，务必讲透——学员最容易接受"预备提示表"这个类比。</aside>
+</section>
+
+<!-- 18 A1 第2节 -->
+<section class="slide">
+  <div class="kicker">A1 · 显像提问 · 10 分钟</div>
+  <h2>你上次更新"对外展示的东西"，是什么时候？</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card"><h3>盘点一下</h3><p style="font-size:22px">朋友圈签名？公众号？简历？个人主页？<br><br>最近半年，你更新过哪个？后来为什么停了？</p></div>
+    <div class="card gold"><h3>找到卡点</h3><p style="font-size:22px">停更的原因，是"没东西可写"，还是"写了也发不出去"？<br><br>——大多数人是后者。</p></div>
+  </div>
+  <p style="margin-top:18px">规矩：<span class="em">讲具体事——哪个渠道、停了多久、卡在哪一步。</span></p>
+  <div class="foot">A1 · 小组内轮流讲</div><div class="pageno">19</div>
+  <aside class="notes">多数学员会承认"半年以上没更新"。引导发现：卡点几乎都在"写完到发布"之间——这正是产线要解决的。</aside>
+</section>
+
+<!-- 19 A2 三步补全 -->
+<section class="slide">
+  <div class="kicker">A2 · 任务卡 · 19 分钟 · 骨架已给你，你只填空</div>
+  <h2>三步补全：让网站多一篇内容</h2>
+  <div class="rule"></div>
+  <table>
+    <tr><th style="width:16%">步骤</th><th style="width:10%">时间</th><th>动作</th><th style="width:26%">我的记录</th></tr>
+    <tr class="hl"><td><b>① 选内容</b></td><td class="t">5′</td><td>挑一篇你<b>已经写熟</b>的内容——熟的才输出得快</td><td>主题：______</td></tr>
+    <tr><td><b>② 接源</b></td><td class="t">6′</td><td>把流程连到你的网站仓库 / 内容源，或直接喂 2–3 份素材</td><td>来源：______</td></tr>
+    <tr class="hl"><td><b>③ 运行 + 预览</b></td><td class="t">8′</td><td>点运行，等内容上站；校对一遍，看线上效果</td><td>截图 ☐ 已存</td></tr>
+  </table>
+  <p style="margin-top:16px;font-size:23px">达标线：<span class="em">跑通到"新内容生成 + 站点更新预览"，截图存档。</span>真实对外宣传留到课后——产线跑稳了，再拉人来客。</p>
+  <div class="foot">A2 · 材料 03 任务卡</div><div class="pageno">20</div>
+  <aside class="notes">陪跑重点：① 选"写熟的内容"的人最快完成——开工前强提醒一遍；② 界面按钮以现场版本为准，别照念旧截图；③ 8 分钟节点报时。未完成者登记名字，课后跟。</aside>
+</section>
+
+<!-- 20 第2节小结 -->
+<section class="slide">
+  <div class="kicker">第 2 节小结 · 交付 ② 验收</div>
+  <h2>现在举手：站点更新预览截图在手</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card green"><h3>已完成</h3><p style="font-size:22px">和旁边的人互换看一眼对方的新页面——你会发现同一产线，长出完全不同的内容。</p></div>
+    <div class="card gold"><h3>未完成</h3><p style="font-size:22px">举手，助教优先处理。登记名字，课后线上跟到你跑通为止。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">你刚刚做的事，传统流程要五个人：编辑、排版、开发、运维、审核。<span class="em">产线把五步压成两步：你选题，你把关。</span></p>
+  <div class="foot">第 3 节预告</div><div class="pageno">21</div>
+  <aside class="notes">组长报完成数。若超时：用弹性 7′，压缩第 3 节 I 至 7′。</aside>
+</section>
+
+<!-- 21 分节页 第3节 -->
+<section class="slide divider">
+  <div class="kicker">第 3 节 · 40 分钟 · R4 / I10 / 互评 10 / A2 16</div>
+  <h1>阵地</h1>
+  <div class="lead">把网站长成阵地 —— 30 天更新计划</div>
+  <div class="chip">本节交付：③ 30 天阵地计划（三栏写满 + 复盘卡）</div>
+  <aside class="notes">节奏：R4 + I10 + 互评 10 + A2 16 = 40′。材料 04（30 天计划）+ 材料 05（复盘卡）人手一份。</aside>
+</section>
+
+<!-- 22 R+I 第3节 -->
+<section class="slide">
+  <div class="kicker">R · 4 分钟｜I · 三个锚点 · 10 分钟</div>
+  <h2>单点好用 ≠ 一直活着</h2>
+  <div class="rule"></div>
+  <div class="cards tight">
+    <div class="card green"><span class="badge green">锚点 1</span><h3>网站 + 产线 ≠ 阵地</h3><p>还得"跑一次、看一次、改一次、好一次"，它才长成你的阵地。</p></div>
+    <div class="card green"><span class="badge green">锚点 2</span><h3>栏目按"别人想看什么"分</h3><p>不是按"我想写什么"分——来客三秒内要知道，在你这能看到什么。</p></div>
+    <div class="card gold"><span class="badge gold">锚点 3</span><h3>这就是拆书的"学以致用"</h3><p>不只懂方法，而是真的跑起来、改了行为——A2 的意义就在这儿。</p></div>
+  </div>
+  <div class="foot">R + I</div><div class="pageno">23</div>
+  <aside class="notes">I 压到 7–10′，多出的时间给复盘卡实物讲解。栏目示例：讲师本站四栏（成长路径 / 经典拆页 / 技能萃取 / 拆书赏鉴）就是按"来客想看什么"分的。</aside>
+</section>
+
+<!-- 23 复盘卡 -->
+<section class="slide">
+  <div class="kicker">带走第三件东西 · 复盘卡</div>
+  <h2>跑一次，记一次</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>① 哪一步最卡？</h3><p>选题 / 接源 / 运行 / 把关——圈一个。</p></div>
+    <div class="card"><h3>② 下次改什么？</h3><p>只写一条，能明天就执行的改动。</p></div>
+    <div class="card"><h3>③ 什么时候验证？</h3><p>写具体日期，不写"以后"。</p></div>
+  </div>
+  <p style="margin-top:20px;font-size:24px">这张卡就是你产线的<span class="em">版本日志</span>——攒够 5 张，你就有了自己的方法论。</p>
+  <div class="foot">A4 打印材料 · 人手一份</div><div class="pageno">24</div>
+  <aside class="notes">把复盘卡实物举起来给大家看：每更新一篇，填一行，贴在电脑边。这比任何"AI 思维课"都管用。</aside>
+</section>
+
+<!-- 24 互评 -->
+<section class="slide">
+  <div class="kicker">现场互评 · 10 分钟</div>
+  <h2>互换走查：用清单，不用直觉</h2>
+  <div class="rule"></div>
+  <div class="two">
+    <div class="card blue"><h3>互换测试（已完成者）</h3><p style="font-size:22px">两人交换，用对方的网站 + 产线视角走查一次<b>自己的</b>选题。看栏目清不清楚、首屏三秒能不能看懂。</p></div>
+    <div class="card gold"><h3>清单走查（未完成者）</h3><p style="font-size:22px">用《自检表》（材料 06）逐条走查对方的网站与产线设计，给 2 条具体改进建议——照样有收获。</p></div>
+  </div>
+  <p style="margin-top:20px">规则：<span class="em">只提具体建议，不许说"挺好的"</span>。因为"挺好的"帮不了任何人。</p>
+  <div class="foot">互评 · 两两互换 · 2 轮</div><div class="pageno">25</div>
+  <aside class="notes">10 人小班就两两互换，A↔B，2 轮。若多数人没跑通，直接全员转"清单走查"，别硬撑互换测试。用"微行动学习 5 步"主持。</aside>
+</section>
+
+<!-- 25 A2 30天 -->
+<section class="slide">
+  <div class="kicker">A2 · 30 天阵地计划 · 16 分钟 · 当场承诺</div>
+  <h2>三栏一次写满：安 → 跑 → 阵地</h2>
+  <div class="rule"></div>
+  <div class="card blue" style="font-size:24px;line-height:1.95">
+    <b>第一栏 · 安</b>：课后 3 天内补齐首页三段，固化每周 <b>____</b> 分钟整理上站；<br>
+    <b>第二栏 · 跑</b>：栏目定 <b>______</b>（2–3 个，按"别人来想看什么"分），<strong>每周至少 1 篇</strong>走产线；<br>
+    <b>第三栏 · 阵地</b>：每次更新后看 <b>______</b>（访问 / 转发 / 咨询），<strong>每月至少调一次产线</strong>。
+  </div>
+  <p style="margin-top:18px">当天你已把"安"和"跑"各走通一遍——30 天不是从零开始，是把走通的路<strong>每周跑一遍</strong>。写完，上台读 1–2 条。<span class="em">说出口的计划，才会真的发生。</span></p>
+  <div class="foot">A2 · 上台承诺</div><div class="pageno">26</div>
+  <aside class="notes">难度口径：当天学员已走通"安"和"跑"各一次，所以 30 天 = 每周 1 篇 + 看反馈 + 月调产线，不是"日更起步"。控场：先请最活跃的 1 位起头，再点 1 位安静的。承诺不评价、不点评，只鼓掌。</aside>
+</section>
+
+<!-- 26 收尾 -->
+<section class="slide">
+  <div class="kicker">收尾 · 10 分钟</div>
+  <h2>三件交付物，合成一件事</h2>
+  <div class="rule"></div>
+  <div class="map" style="flex:0 0 auto">
+    <div class="node"><div class="s">交付 ①</div><h3>网站</h3><p>名字上线，打开就能看</p></div>
+    <div class="arrow">+</div>
+    <div class="node"><div class="s">交付 ②</div><h3>产线</h3><p>内容自己流进来</p></div>
+    <div class="arrow">=</div>
+    <div class="node" style="background:var(--blue-soft);border-color:#c9d8ff"><div class="s">交付 ③</div><h3>阵地</h3><p>30 天，自己长大</p></div>
+  </div>
+  <p style="margin-top:22px;font-size:24px">下周你就会发现：<span class="em">不是你变勤快了，是更新这件事，终于比不更新还省力。</span></p>
+  <div class="foot">合影 · 交付物验收</div><div class="pageno">27</div>
+  <aside class="notes">收尾动作：① 组长报"我们组 X 人完成交付①、Y 人完成交付②"；② 宣布彩蛋（模板仓领取方式，下一页）；③ 合影；④ 群里发作业打卡模板。</aside>
+</section>
+
+<!-- 27 彩蛋 -->
+<section class="slide">
+  <div class="kicker">现场彩蛋</div>
+  <h2>讲师的同款模板仓</h2>
+  <div class="rule"></div>
+  <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+    <div class="card"><h3>📦 领取条件</h3><p>今天网站上线的伙伴，人手一份。</p></div>
+    <div class="card"><h3>🏗 同款结构</h3><p>讲师本站 chai.aibay.asia 就是这么搭的——回去照着换内容，不用从零开始。</p></div>
+    <div class="card gold"><h3>⚠️ 但记住</h3><p>模板只是骨架，内容还得靠自己写——产线已经给你了。</p></div>
+  </div>
+  <p style="margin-top:18px">领取方式：课后发到群里。<span class="em">先把今天的网址截图发群里，算完成打卡。</span></p>
+  <div class="foot">彩蛋 · 模板仓</div><div class="pageno">28</div>
+  <aside class="notes">领取方式发群里（仓库地址 + 一行说明）。提醒：模板仓与今天课上五步是同一套结构，回家可对照复盘。</aside>
+</section>
+
+<!-- 28 尾页 -->
+<section class="slide cover">
+  <div class="kicker">AI 拆书课 · GitHub 网站工作坊</div>
+  <h1>安 → 跑 → 阵地</h1>
+  <div class="sub">你今天不是学会了两个工具，<br>是让自己的名字在网上有了地址、有了产线、有了长大的计划。</div>
+  <div class="rule"></div>
+  <div class="meta">
+    主讲：杨辉（杨老师）· 三级拆书家 · 玄龙堂主理人<br>
+    主办：拆书帮广州小蛮腰分舵<br>
+    课后作业与模板仓：见群公告 · 30 天后复盘见
+  </div>
+  <div class="brand">谢谢，下次带着你更新后的网站来。</div>
+  <aside class="notes">留 2 分钟给答疑（来自弹性 7′）。结束时提醒：把 30 天计划第一页拍照发群里，算完成课后打卡。</aside>
+</section>
+
+</div>
+
+<div id="hud">
+  <button id="btnNotes" title="N">备注</button>
+  <button id="btnFull" title="F">全屏</button>
+  <button id="btnPrint" title="P">打印/PDF</button>
+  <button id="btnTimer" title="计时">计时</button>
+</div>
+<div id="bar"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, stage=document.getElementById('stage'), bar=document.getElementById('bar');
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='translate(-50%,-50%) scale('+s+')';
+  }
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){ s.classList.toggle('on',k===i); });
+    bar.style.width=((i+1)/slides.length*100)+'%';
+    if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  }
+  window.addEventListener('resize',fit); fit();
+  var h=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(h)?0:h-1);
+
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].indexOf(e.key)>=0){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>=0){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);} else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('notes-on');}
+    else if(e.key==='f'||e.key==='F'){toggleFull();}
+    else if(e.key==='p'||e.key==='P'){window.print();}
+  });
+  document.addEventListener('click',function(e){
+    if(e.target.closest('#hud')) return;
+    if(e.clientX > window.innerWidth*0.62) show(i+1); else if(e.clientX < window.innerWidth*0.38) show(i-1);
+  });
+  function toggleFull(){
+    if(!document.fullscreenElement){ (document.documentElement.requestFullscreen||function(){}).call(document.documentElement); }
+    else { document.exitFullscreen(); }
+  }
+  document.getElementById('btnNotes').onclick=function(){document.body.classList.toggle('notes-on');};
+  document.getElementById('btnFull').onclick=toggleFull;
+  document.getElementById('btnPrint').onclick=function(){window.print();};
+
+  var t0=0, ticking=false, accum=0, timerBtn=document.getElementById('btnTimer');
+  timerBtn.onclick=function(){
+    ticking=!ticking;
+    if(ticking){ t0=Date.now(); if(!accum) accum=0; }
+    else { accum+=Date.now()-t0; }
+  };
+  setInterval(function(){
+    if(!ticking) return;
+    var sec=Math.floor((accum+Date.now()-t0)/1000);
+    timerBtn.textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+  },500);
+})();
+</script>
+</body>
+</html>

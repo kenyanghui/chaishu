@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>活动海报｜3小时做出你的个人网站+自动更新产线</title>
+<style>
+  :root{
+    --ink:#101b2e; --ink2:#4a5a72; --blue:#1f5eff; --gold:#e2a020; --bg:#f4f6fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);padding:28px 14px 60px;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased}
+
+  .poster{width:760px;margin:0 auto;background:#fff;border-radius:22px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(16,27,46,.14);position:relative}
+
+  .hero{padding:48px 52px 40px;color:#fff;position:relative;
+    background:radial-gradient(800px 400px at 92% -20%, #3d78ff 0%, transparent 60%),
+               linear-gradient(150deg,#0d1a30 0%,#132a4d 55%,#1b3a66 100%)}
+  .hero .tag{display:inline-block;font-size:14px;letter-spacing:2px;font-weight:700;
+    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);
+    border-radius:999px;padding:6px 14px;margin-bottom:20px}
+  .hero h1{margin:0 0 14px;font-size:46px;line-height:1.2;font-weight:900;letter-spacing:-.5px}
+  .hero h1 em{font-style:normal;color:#ffd77a}
+  .hero .sub{font-size:19px;color:#bfd0e8;line-height:1.7}
+  .hero .strip{display:flex;gap:26px;margin-top:30px;padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.16);font-size:15px;color:#d8e3f3}
+  .hero .strip b{display:block;font-size:22px;color:#fff;margin-bottom:2px}
+
+  .body{padding:40px 52px 8px}
+  h2{margin:0 0 16px;font-size:23px;font-weight:900;display:flex;align-items:center;gap:10px}
+  h2::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--blue)}
+  .sec{margin-bottom:34px}
+  .pain{display:grid;gap:12px}
+  .pain div{background:#f6f8fc;border-left:4px solid #c9d6ea;border-radius:0 10px 10px 0;
+    padding:14px 18px;font-size:17px;color:var(--ink2);line-height:1.6}
+
+  .gains{display:grid;gap:14px}
+  .gain{display:flex;gap:16px;padding:18px 20px;border-radius:14px;background:#eef4ff;
+    border:1px solid #d3e0ff}
+  .gain .ico{font-size:26px;line-height:1}
+  .gain b{display:block;font-size:19px;margin-bottom:5px}
+  .gain span{font-size:16px;color:var(--ink2);line-height:1.55}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .step{border:1px solid #e2e8f2;border-radius:14px;padding:16px 16px 18px;background:#fcfdff}
+  .step .n{font-size:13px;font-weight:900;color:var(--blue);letter-spacing:1px;margin-bottom:8px}
+  .step b{display:block;font-size:19px;margin-bottom:6px}
+  .step span{font-size:14.5px;color:var(--ink2);line-height:1.5}
+
+  .ria{font-size:16px;color:var(--ink2);line-height:1.85;background:#f7f9fc;border-radius:12px;
+    padding:16px 20px;border:1px solid #e8eef7}
+  .ria b{color:var(--ink)}
+
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;font-size:16px;color:var(--ink2)}
+  .who div::before{content:"✔ ";color:var(--blue);font-weight:900}
+
+  .teacher{display:flex;gap:18px;align-items:flex-start;background:#0d1a30;color:#fff;
+    border-radius:16px;padding:24px 26px}
+  .teacher .av{width:66px;height:66px;border-radius:50%;flex:0 0 66px;
+    background:linear-gradient(135deg,#3d78ff,#ffd77a);display:flex;align-items:center;
+    justify-content:center;font-size:26px;font-weight:900;color:#0d1a30}
+  .teacher b{font-size:21px}
+  .teacher .l1{font-size:15px;color:#ffd77a;margin:4px 0 10px}
+  .teacher ul{margin:0;padding-left:18px;font-size:14.5px;color:#c2d1e6;line-height:1.75}
+
+  .signup{margin:0 0 0;padding:30px 52px 38px;background:#f7f9fd;
+    border-top:1px solid #e6ecf6}
+  .signup table{width:100%;border-collapse:collapse;font-size:17px}
+  .signup td{padding:10px 0;vertical-align:top}
+  .signup td.k{width:78px;color:#8494ab;font-size:15px}
+  .signup td.v{font-weight:700;color:var(--ink)}
+  .signup .price{color:#c0392b;font-weight:900}
+  .signup .limit{margin-top:18px;font-size:15px;color:var(--ink2);
+    background:#fff3d9;border:1px dashed #e8c477;border-radius:12px;padding:14px 18px;line-height:1.7}
+  .signup .limit b{color:#a86500}
+  .cta{margin-top:20px;background:var(--blue);color:#fff;text-align:center;font-size:20px;
+    font-weight:900;border-radius:999px;padding:16px;letter-spacing:1px}
+
+  .foot{padding:18px 52px 30px;text-align:center;font-size:13px;color:#93a1b5;line-height:1.8}
+
+  .toolbar{width:760px;margin:0 auto 16px;display:flex;gap:10px;justify-content:flex-end}
+  .toolbar button{border:1px solid #cdd7e6;background:#fff;color:#3c4a5f;border-radius:10px;
+    padding:9px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+  .toolbar button:hover{background:#eef3fb}
+
+  @media print{
+    @page{size:A4;margin:0}
+    body{background:#fff;padding:0}
+    .toolbar{display:none}
+    .poster{width:210mm;height:297mm;box-shadow:none;border-radius:0;margin:0;overflow:hidden;
+      display:flex;flex-direction:column}
+    .hero{padding:26px 28px 20px}
+    .hero .tag{font-size:11px;padding:4px 10px;margin-bottom:13px}
+    .hero h1{font-size:31px;margin-bottom:9px}
+    .hero .sub{font-size:14px}
+    .hero .strip{margin-top:16px;padding-top:12px;gap:18px;font-size:11.5px}
+    .hero .strip b{font-size:16px}
+    .body{padding:16px 28px 0;flex:1}
+    .sec{margin-bottom:13px}
+    h2{font-size:15px;margin-bottom:8px}
+    h2::before{height:16px;width:4px}
+    .pain{gap:7px}
+    .pain div{padding:9px 12px;font-size:11.6px}
+    .gains{gap:8px}
+    .gain{padding:10px 13px;gap:11px}
+    .gain .ico{font-size:18px}
+    .gain b{font-size:13.4px;margin-bottom:2px}
+    .gain span{font-size:11.6px}
+    .steps{gap:8px}
+    .step{padding:10px 11px 12px}
+    .step .n{font-size:10.5px;margin-bottom:5px}
+    .step b{font-size:13.4px;margin-bottom:3px}
+    .step span{font-size:11px;line-height:1.45}
+    .ria{font-size:11.6px;line-height:1.7;padding:10px 13px}
+    .who{font-size:11.6px;gap:5px 14px}
+    .teacher{padding:14px 16px;gap:13px;border-radius:11px}
+    .teacher .av{width:44px;height:44px;flex:0 0 44px;font-size:17px}
+    .teacher b{font-size:14.5px}
+    .teacher .l1{font-size:11px;margin:3px 0 6px}
+    .teacher ul{font-size:10.8px;line-height:1.6;padding-left:15px}
+    .signup{padding:14px 28px 12px}
+    .signup table{font-size:12px}
+    .signup td{padding:5px 0}
+    .signup td.k{width:52px;font-size:11px}
+    .signup .limit{margin-top:9px;padding:9px 12px;font-size:11px;line-height:1.6;border-radius:9px}
+    .cta{margin-top:10px;padding:10px;font-size:14px}
+    .foot{padding:8px 28px;font-size:9.5px;line-height:1.5}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">打印 / 存 PDF（A4）</button>
+</div>
+
+<div class="poster">
+
+  <div class="hero">
+    <div class="tag">AI 拆书课 · GitHub 网站工作坊 · 拆书帮广州小蛮腰分舵</div>
+    <h1>3 小时做出<br>你的<em>个人网站</em>+<em>自动更新产线</em></h1>
+    <div class="sub">用 GitHub 安家，用 workbuddy 跑活 —— 你的第一个网站和第一条自动产线<br>本站 chai.aibay.asia 就是这么搭的，现场照着拆</div>
+    <div class="strip">
+      <div><b>11/08</b>周六 14:00–17:00</div>
+      <div><b>广州越秀</b>雅苑·培正 5 号楼</div>
+      <div><b>仅 10 人</b>小班现场动手</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="sec">
+      <h2>你是不是也这样？</h2>
+      <div class="pain">
+        <div>📌 想给别人介绍自己，只能发一段微信自我介绍——没有一个是"打开就能看"的？</div>
+        <div>📌 写过的东西、做过的案例，散在聊天记录和收藏里，想展示时一件都拿不出手？</div>
+        <div>📌 知道该有个网站，一听"要服务器、要备案、要找人做"，就默默放下了？</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>这门课，现场带走三件真东西</h2>
+      <div class="gains">
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一个免费上线的个人网站</b>
+          <span>GitHub Pages 免费托管，全球可访问。三段式首页：我是谁、我做什么、怎么找到我。</span>
+        </div></div>
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一条内容 → 网站自动更新产线</b>
+          <span>workbuddy 把"写内容"和"上网站"焊在一起：写完即发布，中间零道工序。</span>
+        </div></div>
+        <div class="gain"><div class="ico">✅</div><div>
+          <b>一份 30 天阵地更新计划</b>
+          <span>不是听，是做出来。当天验收、有截图、课后照着跑。</span>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>3 小时怎么上？</h2>
+      <div class="steps">
+        <div class="step"><div class="n">01 · 安</div><b>GitHub 安家</b><span>现场五步上线你的网站：注册、建仓、写三段、开 Pages、打开网址。</span></div>
+        <div class="step"><div class="n">02 · 跑</div><b>workbuddy 自动产线</b><span>选内容、接源、运行预览——让网站多一篇内容，不再动手改网页。</span></div>
+        <div class="step"><div class="n">03 · 阵地</div><b>把网站长成阵地</b><span>栏目规划 + 30 天更新节律 + 复盘卡，让网站自己长大。</span></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>全程用拆书帮 RIA 方法</h2>
+      <div class="ria">
+        看短视频（<b>R</b>）→ 听我拆解（<b>I</b>）→ 反思你的经验（<b>A1</b>）→ 当场做出来（<b>A2</b>）。<br>
+        不用提前看书，不用会写代码，带着一台笔记本电脑来就行。<br>
+        拆书课的传统就是：<b>现场学、现场拆、现场用。</b>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>这门课，适合谁？</h2>
+      <div class="who">
+        <div>想要个人网站 / 作品集的你</div>
+        <div>自由职业者、顾问、教练</div>
+        <div>想给小生意建阵地的个体户</div>
+        <div>完全零基础也行——从"注册第一个账号"讲起</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>主讲的拆书家</h2>
+      <div class="teacher">
+        <div class="av">杨</div>
+        <div>
+          <b>杨辉（杨老师）</b>
+          <div class="l1">玄龙堂主理人 · 三级拆书家</div>
+          <ul>
+            <li>混沌学园 AI 创新领教 / 企业AI FDE教练</li>
+            <li>国际人工智能产业联盟首席生态官</li>
+            <li>本站 chai.aibay.asia 即讲师用同样方法所搭——课上现场拆的就是它</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="signup">
+    <table>
+      <tr><td class="k">时间</td><td class="v">2026 年 11 月 · 时间待定</td></tr>
+      <tr><td class="k">地点</td><td class="v">广州越秀区雅苑·培正 5 号楼</td></tr>
+      <tr><td class="k">费用</td><td class="v">非会员 <span class="price">39 元</span>（含茶歇 + 资料）；会员免费</td></tr>
+      <tr><td class="k">报名</td><td class="v">微信 ikoning365（杨辉）· 邮箱 554176937@qq.com</td></tr>
+    </table>
+    <div class="limit">
+      🎁 <b>现场彩蛋</b>：网站上线的伙伴，可获得讲师的个人网站模板仓一份（本站同款结构，回去照着换内容）。<br>
+      ⚠️ <b>仅限 10 人</b>，先到先得——为保证每个人都能当场做出来，不做大班。
+    </div>
+    <div class="cta">来现场，把名字上线 🚀</div>
+  </div>
+
+  <div class="foot">
+    拆书帮广州小蛮腰分舵 · AI 拆书课 · GitHub 网站工作坊<br>
+    如果你也想有个"打开就能看"的名片——这次来现场，把它上线。
+  </div>
+
+</div>
+</body>
+</html>

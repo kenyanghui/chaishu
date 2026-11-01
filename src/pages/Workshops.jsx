@@ -122,7 +122,7 @@ export default function Workshops() {
               ) : (
                 <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-primary" title="点击复制微信号">立即报名（微信 ikoning365）→</button>
               )}
-              <a href="/workshop/" className="btn-secondary">看本场完整介绍 →</a>
+              {w.link && <a href={w.link} className="btn-secondary">看本场完整介绍 →</a>}
             </div>
           </div>
         </motion.section>
@@ -160,6 +160,11 @@ export default function Workshops() {
                         <span key={o} className="px-2.5 py-1 rounded-lg bg-[#0071e3]/[.06] text-[#424245] text-[12.5px]">{o}</span>
                       ))}
                     </div>
+                    {w.link && (
+                      <div className="mt-3">
+                        <a href={w.link} className="text-[13px] font-semibold text-[#0071e3] hover:underline">看本场完整介绍 →</a>
+                      </div>
+                    )}
                   </div>
                 </div>
               </motion.div>
