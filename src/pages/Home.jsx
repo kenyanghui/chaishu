@@ -205,7 +205,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="headline text-[28px] md:text-[36px] mb-4">{nx ? `第 ${parseInt(first.no, 10)} 期开课前，先上知识库。` : '先上知识库，课程持续开。'}</h2>
           <p className="text-[#6e6e73] text-[15px] mb-6">
-            {nx ? `${nx.date} · 广州越秀 · 仅限 10 人，先到先得。` : '下一期定档后第一时间在这里公布；已交付课程材料随时回看。'}
+            {nx ? `${nx.date} · 广州越秀 · ${nx.fee.split('·').pop().trim()}，先到先得。` : '下一期定档后第一时间在这里公布；已交付课程材料随时回看。'}
           </p>
           <div className="flex flex-col items-center gap-3">
             <img src="/images/ima-knowledge-qr.png" alt="【AI拆书帮】知识库二维码" className="w-[200px] rounded-2xl border border-black/[.06] shadow-[0_8px_28px_rgba(0,0,0,.10)]" />
