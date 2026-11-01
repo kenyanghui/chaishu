@@ -218,6 +218,7 @@ export default function Workshops() {
         </motion.section>
       ))}
 
+      {soon.length > 0 && (
       <section className="px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="eyebrow mb-6">已排上 · 11 月排期中</div>
@@ -262,6 +263,7 @@ export default function Workshops() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ==================== 主题投票：我支持 ==================== */}
       <section className="px-4 py-16">
