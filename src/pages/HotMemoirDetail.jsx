@@ -27,7 +27,7 @@ export default function HotMemoirDetail() {
       <div className="min-h-screen flex items-center justify-center pt-16">
         <div className="text-center">
           <h2 className="text-xl font-bold text-[#1d1d1f] mb-3">未找到该拆页</h2>
-          <Link to="/hot" className="text-[#0071e3] hover:underline">返回经典拆页</Link>
+          <Link to="/hot/books" className="text-[#0071e3] hover:underline">返回经典拆页</Link>
         </div>
       </div>
     )

@@ -40,7 +40,7 @@ export default function HotBookDetail() {
       <div className="min-h-screen flex items-center justify-center pt-16">
         <div className="text-center">
           <h2 className="text-xl font-bold text-[#1d1d1f] mb-3">未找到该书</h2>
-          <Link to="/hot" className="text-[#0071e3] hover:underline">返回经典拆页</Link>
+          <Link to="/hot/books" className="text-[#0071e3] hover:underline">返回经典拆页</Link>
         </div>
       </div>
     )
@@ -59,7 +59,7 @@ export default function HotBookDetail() {
   return (
     <div className="pt-24 pb-20">
       <div className="max-w-5xl mx-auto px-4">
-        <Link to="/hot" className="inline-flex items-center gap-2 text-sm text-[#86868b] hover:text-[#0071e3] transition-colors mb-6">
+        <Link to="/hot/books" className="inline-flex items-center gap-2 text-sm text-[#86868b] hover:text-[#0071e3] transition-colors mb-6">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>

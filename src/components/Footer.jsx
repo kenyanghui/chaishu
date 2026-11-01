@@ -24,7 +24,7 @@ export default function Footer() {
           <div>
             <div className="text-[12px] font-semibold text-[#1d1d1f] mb-3">资源</div>
             <ul className="space-y-2 text-[13px] text-[#6e6e73]">
-              <li><Link to="/hot" className="hover:text-[#0071e3] transition-colors">经典拆页</Link></li>
+              <li><Link to="/hot/books" className="hover:text-[#0071e3] transition-colors">经典拆页</Link></li>
               <li><Link to="/skills" className="hover:text-[#0071e3] transition-colors">技能萃取</Link></li>
               <li><a href="https://www.aibay.asia" target="_blank" rel="noreferrer" className="hover:text-[#0071e3] transition-colors">aibay.asia</a></li>
             </ul>

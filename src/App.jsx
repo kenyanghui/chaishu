@@ -33,7 +33,8 @@ function App() {
           <Route path="/book/:title" element={<RedirectBook />} />
           <Route path="/memoir/:id" element={<RedirectMemoir />} />
           <Route path="/about" element={<About />} />
-          <Route path="/hot" element={<HotBooks />} />
+          <Route path="/hot" element={<Navigate to="/hot/books" replace />} />
+          <Route path="/hot/books" element={<HotBooks />} />
           <Route path="/hot/book/:id" element={<HotBookDetail />} />
           <Route path="/hot/memoir/:id" element={<HotMemoirDetail />} />
           <Route path="/skills" element={<Skills />} />
