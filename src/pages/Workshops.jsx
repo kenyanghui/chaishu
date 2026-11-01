@@ -80,6 +80,7 @@ function NeedsForm() {
       const d = await r.json().catch(() => ({}))
       if (r.ok && d.ok) {
         setState('ok')
+        window.alert(d.mailed ? '提交成功！需求已发送到站长邮箱，我们会尽快回复你。' : '提交成功！我们按需求排期后，会通过你留的联系方式告诉你。')
         setForm({ software: '', scene: '', expect: '', contact: '', website: '' })
       } else {
         setState('error')
