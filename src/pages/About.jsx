@@ -15,7 +15,7 @@ export default function About() {
               杨
             </div>
             <h1 className="text-3xl md:text-4xl font-black text-[#1d1d1f] mb-2">杨辉</h1>
-            <p className="text-neon-purple font-medium">玄龙堂主理人 · 企业 AI 落地教练</p>
+            <p className="text-neon-purple font-medium">心光成长中心 · 企业 AI 落地教练 · 拆书帮三级拆书家</p>
           </div>
 
           {/* Info grid */}
