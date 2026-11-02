@@ -21,7 +21,7 @@ export default function About() {
           {/* Info grid */}
           <div className="grid md:grid-cols-2 gap-4 mb-10">
             {[
-              { label: '笔名', value: '玄龙' },
+              { label: '角色', value: '玄龙系统开发者' },
               { label: '所在地', value: '广州' },
               { label: '所属分舵', value: '广州小蛮腰分舵' },
               { label: '拆书等级', value: '三级拆书家' },
@@ -39,14 +39,13 @@ export default function About() {
           <div className="mb-10">
             <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">关于我</h2>
             <div className="space-y-3 text-sm text-[#6e6e73] leading-relaxed">
-              <p>
-                我是杨辉，玄龙是我的笔名——玄龙堂主理人，企业 AI 落地教练。以"AI+心智"双轮驱动，帮助企业及二代接班人构建 AI 时代的核心竞争力，实现可持续增长与代际跃迁。
-              </p>
-              <p>
-                混沌学园 AI 创新领教，国际人工智能产业联盟首席生态官，企业AI FDE教练。
-                前微软、惠普、北电工程师，二十年企业咨询服务与科技创业经验，
-                8 年二代传承内创业协同探索，专注 AI 赋能二代教育传承，成就企业家的幸福望族。
-              </p>
+              <p className="text-base font-bold text-[#1d1d1f]">AI FDE教练｜AI量化教练</p>
+              <p>心光咨询玄龙FDE｜万丰金融大模型 联合创始人</p>
+              <ul className="space-y-2 pt-1">
+                <li>🌐 混沌学园 AI 创新领教</li>
+                <li>💡 前微软、惠普、北电工程师</li>
+                <li>🌍 国际人工智能产业联盟 首席生态官</li>
+              </ul>
               <p className="flex flex-wrap gap-2 mt-4">
                 {['企业AI FDE教练', '数字员工方案讲师', '组织转型心智教练'].map(tag => (
                   <span key={tag} className="px-3 py-1 rounded-full bg-neon-purple/10 border border-neon-purple/20 text-neon-purple text-xs">
