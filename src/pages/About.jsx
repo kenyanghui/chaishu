@@ -74,15 +74,14 @@ export default function About() {
             </div>
           </div>
 
-          {/* 擅长领域 */}
+          {/* 个人微信公众号 */}
           <div className="mb-10">
-            <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">擅长领域</h2>
-            <div className="flex flex-wrap gap-2">
-              {['企业内部创业辅导', '科技成果转化咨询', '服务咨询教育行业', 'AI 赋能二代教育传承', '企业数字化转型', '高管心智成长'].map((area, i) => (
-                <span key={i} className="px-3 py-1.5 rounded-lg bg-dark-card-hover/50 border border-dark-border text-sm text-[#6e6e73]">
-                  {area}
-                </span>
-              ))}
+            <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">个人微信公众号</h2>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="px-4 py-2 rounded-lg bg-neon-purple/10 border border-neon-purple/20 text-base font-bold text-neon-purple">
+                AI创新增长杨教练
+              </span>
+              <span className="text-sm text-[#6e6e73]">微信搜索「AI创新增长杨教练」关注</span>
             </div>
           </div>
 
@@ -92,12 +91,11 @@ export default function About() {
             <p className="text-sm text-[#6e6e73] mb-4">
               培训 · 咨询 · 教练 · 投资
             </p>
-            <a
-              href="mailto:554176937@qq.com"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-medium text-sm hover:shadow-lg hover:shadow-neon-purple/25 transition-all"
+            <span
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white font-medium text-sm"
             >
-              联系我
-            </a>
+              微信联系 · ikoning365
+            </span>
           </div>
         </motion.div>
       </div>
