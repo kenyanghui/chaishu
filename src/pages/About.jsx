@@ -22,7 +22,7 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-4 mb-10">
             {[
               { label: '角色', value: '玄龙AI FDE系统开发者' },
-              { label: '所在地', value: '广州' },
+              { label: '所在地', value: '广州越秀区雅苑·培正 5 号楼（工作坊地址）' },
               { label: '所属分舵', value: '广州小蛮腰分舵' },
               { label: '拆书等级', value: '三级拆书家' },
               { label: '微信', value: 'ikoning365' },
