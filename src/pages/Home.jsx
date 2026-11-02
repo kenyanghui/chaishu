@@ -203,9 +203,9 @@ export default function Home() {
       {/* ==================== CTA ==================== */}
       <section className="py-20 px-4 bg-white border-t border-black/[.05]">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="headline text-[28px] md:text-[36px] mb-4">{nx ? `第 ${parseInt(first.no, 10)} 期开课前，先上知识库。` : '先上知识库，课程持续开。'}</h2>
-          <p className="text-[#6e6e73] text-[15px] mb-6">
-            {nx ? `${nx.date} · 广州越秀 · ${nx.fee.split('·').pop().trim()}，先到先得。` : '下一期定档后第一时间在这里公布；已交付课程材料随时回看。'}
+          <h2 className="headline text-[28px] md:text-[36px] mb-4">先上知识库，开课前就把方法装进口袋。</h2>
+          <p className="text-[#6e6e73] text-[15px] leading-relaxed mb-6">
+            这里是【小蛮腰AI拆书帮】的线上知识库：六期工作坊的全部课件与材料、25 本经典共拆电子书、TF1–TF3 拆书法全套指导，还有广州小蛮腰、北京宇宙中心两个分舵 500+ 期活动的真实拆书实录。AI 帮你把书拆成能用的能力——扫码订阅，随时搜、随时问。
           </p>
           <div className="flex flex-col items-center gap-3">
             <img src="/images/ima-knowledge-qr.png" alt="【小蛮腰AI拆书帮】知识库二维码" className="w-[200px] rounded-2xl border border-black/[.06] shadow-[0_8px_28px_rgba(0,0,0,.10)]" />
