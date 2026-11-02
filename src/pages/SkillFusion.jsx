@@ -65,14 +65,14 @@ export default function SkillFusion() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-black mb-3">
-            <span className="gradient-text">拆分身工坊</span>
+            <span className="gradient-text">拆专家工坊</span>
           </h1>
           <p className="text-[#6e6e73] text-lg max-w-2xl mx-auto">
-            把思想家蒸馏成可召唤的 AI 分身：<span className="text-neon-purple font-bold">8</span> 套思想体系、<span className="text-neon-purple font-bold">{total}</span> 个技能、<span className="text-neon-purple font-bold">6</span> 个专家团 — 全部本站直接下载
+            把思想家蒸馏成可召唤的 AI 专家：<span className="text-neon-purple font-bold">8</span> 套思想体系、<span className="text-neon-purple font-bold">{total}</span> 个技能、<span className="text-neon-purple font-bold">6</span> 个专家团 — 全部本站直接下载
           </p>
           <p className="text-[#86868b] text-sm max-w-3xl mx-auto mt-4 leading-relaxed">
             以《毛泽东选集》为示范：把原著蒸馏成矛盾分析、调查研究等技能与工作流，结合毛选拆书精华，
-            让教员思想落到你的真实决策与执行里。未来这些分身将以「专家」形态进入
+            让教员思想落到你的真实决策与执行里。未来这些专家将进入
             <span className="text-[#1d1d1f] font-medium"> WorkBuddy</span>，随时召唤调用。
           </p>
         </div>
