@@ -7,7 +7,7 @@ const navLinks = [
   { path: '/learning-path', label: '成长路径' },
   { path: '/hot', label: '经典拆页' },
   { path: '/skills', label: '技能萃取' },
-  { path: '/skill-fusion', label: '技能融合' },
+  { path: '/skill-fusion', label: '专家分身' },
   { path: '/hd-gallery', label: '拆书赏鉴' },
   { path: '/about', label: '关于' },
 ]
