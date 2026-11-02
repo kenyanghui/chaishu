@@ -47,7 +47,7 @@ export default function About() {
                 <li>🌍 国际人工智能产业联盟 首席生态官</li>
               </ul>
               <p className="flex flex-wrap gap-2 mt-4">
-                {['企业AI FDE教练', '数字员工方案讲师', '组织转型心智教练'].map(tag => (
+                {['企业AI FDE教练', '数字员工方案讲师', 'AI量化投资教练'].map(tag => (
                   <span key={tag} className="px-3 py-1 rounded-full bg-neon-purple/10 border border-neon-purple/20 text-neon-purple text-xs">
                     {tag}
                   </span>
