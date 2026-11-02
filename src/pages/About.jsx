@@ -21,7 +21,7 @@ export default function About() {
           {/* Info grid */}
           <div className="grid md:grid-cols-2 gap-4 mb-10">
             {[
-              { label: '角色', value: '玄龙系统开发者' },
+              { label: '角色', value: '玄龙AI FDE系统开发者' },
               { label: '所在地', value: '广州' },
               { label: '所属分舵', value: '广州小蛮腰分舵' },
               { label: '拆书等级', value: '三级拆书家' },
