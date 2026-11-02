@@ -86,7 +86,7 @@ export default function SkillFusion() {
               onClick={() => setTab(t.k)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
                 tab === t.k
-                  ? 'bg-neon-purple text-white'
+                  ? 'bg-[#1d1d1f] text-white shadow-sm'
                   : 'bg-black/[.04] text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[.06]'
               }`}
             >{t.l}</button>
