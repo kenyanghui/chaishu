@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import levels from '../data/learningPath'
-import skills from '../data/skills'
+
+const officialSkillCount = levels.slice(0, 3).reduce((n, l) => n + l.skills.length, 0)
 
 const levelIcons = [
   <svg key="tf1" className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M4 19.5v-15A2.5 2.5 0 016.5 2H20v20H6.5a2.5 2.5 0 010-5H20" /><path d="M8 7h6" /><path d="M8 11h8" /><path d="M8 15h5" /></svg>,
@@ -11,18 +12,6 @@ const levelIcons = [
 ]
 
 export default function LearningPath() {
-  const classified = skills.map(s => ({
-    ...s,
-    levelIndex: (() => {
-      const tfs = s.items.map(i => i.level).filter(l => l && l.startsWith('TF'))
-      if (tfs.length === 0) return 3
-      const min = Math.min(...tfs.map(l => parseInt(l.replace('TF', '').split('-')[0])))
-      if (min <= 1) return 0
-      if (min <= 2) return 1
-      return 2
-    })(),
-  }))
-
   return (
     <div className="pt-24 pb-20">
       {/* Hero */}
@@ -42,8 +31,8 @@ export default function LearningPath() {
               <span className="gradient-text">拆书家成长之路</span>
             </h1>
             <p className="text-lg text-[#6e6e73] max-w-2xl mx-auto leading-relaxed">
-              从零基础到 AI 拆书家，四个阶段、三级九拆、58 个技能包。
-              每一级都有真实过级记录背书，按你的节奏，走自己的拆书成长之路。
+              从零基础到三级拆书家：三级九拆 {officialSkillCount} 个官方技能点，逐项对照观察家记录表拆解。
+              按你的节奏，走自己的拆书成长之路。
             </p>
           </motion.div>
         </div>
@@ -52,7 +41,6 @@ export default function LearningPath() {
       {/* Level Map — 前三级 */}
       <div className="max-w-6xl mx-auto px-4 space-y-6">
         {levels.slice(0, 3).map((level, i) => {
-          const levelSkillsCount = classified.filter(s => s.levelIndex === i).length
           return (
             <motion.section
               key={level.id}
@@ -87,7 +75,7 @@ export default function LearningPath() {
                 {/* Skills */}
                 <div className="mb-6">
                   <h3 className="text-xs font-bold text-[#6e6e73] uppercase tracking-wider mb-3">
-                    核心技能 · {levelSkillsCount} 个技能
+                    过级技能点 · {level.skills.length} 项
                   </h3>
                   <div className="grid sm:grid-cols-2 gap-2">
                     {level.skills.map((skill, j) => (
@@ -135,25 +123,19 @@ export default function LearningPath() {
                 </div>
 
                 {/* CTA */}
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    to={`/skills?level=${i + 1}`}
-                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-white text-sm font-bold hover:shadow-lg transition-all`}
-                  >
-                    查看 Level {i + 1} 技能
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                  {i < 2 && (
+                {i < 2 && (
+                  <div className="flex flex-wrap gap-3">
                     <Link
                       to={`/learning-path#lvl${i + 2}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-[#424245] text-sm font-medium hover:text-[#1d1d1f] transition-all border border-dark-border"
+                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-white text-sm font-bold hover:shadow-lg transition-all`}
                     >
                       了解 Level {i + 2}
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
                     </Link>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
               {/* Arrow between levels */}
