@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { nextOpen } from '../data/workshops'
 
 const navLinks = [
-  { path: '/workshops', label: '拆AI工坊' },
+  { path: '/workshops', label: '想拆的AI软件/技能/专家/案例' },
   { path: '/learning-path', label: '成长路径' },
   { path: '/hot', label: '经典拆页' },
   { path: '/skills', label: '技能工坊' },
