@@ -3,15 +3,15 @@ import { useState } from 'react'
 
 const projects = [
   {
-    id: 'chai-for-live',
-    name: 'chai-for-live',
+    id: 'chailive',
+    name: 'chailive',
     tag: 'RIA 全库',
     status: '已上线',
     desc: '拆书为生 · RIA 便签读书法全库：2255 本书、1713 本有拆页、19262 个拆页。单文件零依赖架构，双击即开、离线可用；RIA 三段卡（R 原文 / I 讲解 / A 促动）、全局拆页主题检索、大书自动分片、2229 张封面自托管。',
     stats: ['2255 本书', '19262 拆页', '零依赖单文件'],
     links: [
-      { label: '在线阅读', href: 'https://www.aibay.asia/chai-for-live/', primary: true },
-      { label: 'GitHub 源码', href: 'https://github.com/kenyanghui/chai-for-live' },
+      { label: '在线阅读', href: 'https://www.aibay.asia/chailive/', primary: true },
+      { label: 'GitHub 源码', href: 'https://github.com/kenyanghui/chailive' },
     ],
     accent: { text: 'text-amber-400', border: 'border-amber-500/30', bg: 'bg-amber-500/10', glow: 'bg-amber-500/10' },
   },
