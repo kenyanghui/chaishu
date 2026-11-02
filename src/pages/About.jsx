@@ -77,11 +77,18 @@ export default function About() {
           {/* 个人微信公众号 */}
           <div className="mb-10">
             <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">个人微信公众号</h2>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="px-4 py-2 rounded-lg bg-neon-purple/10 border border-neon-purple/20 text-base font-bold text-neon-purple">
-                AI创新增长杨教练
-              </span>
-              <span className="text-sm text-[#6e6e73]">微信搜索「AI创新增长杨教练」关注</span>
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <img
+                src="/images/gzh-qr.png"
+                alt="公众号「AI创新增长杨教练」二维码"
+                className="w-44 h-44 rounded-xl border border-dark-border bg-white"
+              />
+              <div className="text-center sm:text-left space-y-3">
+                <span className="inline-block px-4 py-2 rounded-lg bg-neon-purple/10 border border-neon-purple/20 text-base font-bold text-neon-purple">
+                  AI创新增长杨教练
+                </span>
+                <p className="text-sm text-[#6e6e73]">微信扫码，或搜索「AI创新增长杨教练」关注</p>
+              </div>
             </div>
           </div>
 
