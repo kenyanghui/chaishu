@@ -208,8 +208,8 @@ export default function Home() {
             {nx ? `${nx.date} · 广州越秀 · ${nx.fee.split('·').pop().trim()}，先到先得。` : '下一期定档后第一时间在这里公布；已交付课程材料随时回看。'}
           </p>
           <div className="flex flex-col items-center gap-3">
-            <img src="/images/ima-knowledge-qr.png" alt="【AI拆书帮】知识库二维码" className="w-[200px] rounded-2xl border border-black/[.06] shadow-[0_8px_28px_rgba(0,0,0,.10)]" />
-            <p className="text-[14px] text-[#6e6e73] font-semibold">微信或 ima 扫码，订阅【AI拆书帮】知识库</p>
+            <img src="/images/ima-knowledge-qr.png" alt="【小蛮腰AI拆书帮】知识库二维码" className="w-[200px] rounded-2xl border border-black/[.06] shadow-[0_8px_28px_rgba(0,0,0,.10)]" />
+            <p className="text-[14px] text-[#6e6e73] font-semibold">微信或 ima 扫码，订阅【小蛮腰AI拆书帮】知识库</p>
             <a href={nx ? first.link : '/workshops'} className="text-[13px] text-[#0071e3] hover:underline">{nx ? `了解第 ${parseInt(first.no, 10)} 期课程 →` : '看全部课程与材料回看 →'}</a>
           </div>
         </div>
