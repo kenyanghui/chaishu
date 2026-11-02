@@ -36,14 +36,14 @@ export default function LearningPath() {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/25 text-indigo-700 text-sm font-semibold">
-              拆书帮 · 六级过级体系
+              拆书帮 · 三级九拆 · TF1-1 ~ TF3-3
             </div>
             <h1 className="text-4xl md:text-6xl font-black mb-4">
               <span className="gradient-text">拆书家成长之路</span>
             </h1>
             <p className="text-lg text-[#6e6e73] max-w-2xl mx-auto leading-relaxed">
-              从零基础到 AI 拆书家，四个阶段、六级过级、288+ 教练技能。
-              按你的节奏，走自己的拆书成长之路。
+              从零基础到 AI 拆书家，四个阶段、三级九拆、58 个技能包。
+              每一级都有真实过级记录背书，按你的节奏，走自己的拆书成长之路。
             </p>
           </motion.div>
         </div>
@@ -97,6 +97,23 @@ export default function LearningPath() {
                       >
                         <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${level.color} mt-2 shrink-0`} />
                         <span className="text-sm text-[#6e6e73]">{skill}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Value */}
+                <div className="mb-6 rounded-xl border border-emerald-500/30 bg-emerald-500/[.06] p-4">
+                  <h3 className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">
+                    这一级能带走什么
+                  </h3>
+                  <div className="space-y-1.5">
+                    {level.value.map((v, j) => (
+                      <div key={j} className="flex items-start gap-2 text-sm text-[#48484a]">
+                        <svg className="w-4 h-4 mt-0.5 shrink-0 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        {v}
                       </div>
                     ))}
                   </div>
@@ -195,6 +212,23 @@ export default function LearningPath() {
                           </div>
                           <p className="text-xs font-bold text-[#1d1d1f] mb-1">{step.name}</p>
                           <p className="text-[12px] text-[#6e6e73] leading-relaxed">{step.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Value */}
+                  <div className="mb-6 rounded-xl border border-emerald-500/30 bg-emerald-500/[.06] p-4">
+                    <h3 className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">
+                      这一级能带走什么
+                    </h3>
+                    <div className="space-y-1.5">
+                      {ai.value.map((v, j) => (
+                        <div key={j} className="flex items-start gap-2 text-sm text-[#48484a]">
+                          <svg className="w-4 h-4 mt-0.5 shrink-0 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                          </svg>
+                          {v}
                         </div>
                       ))}
                     </div>
