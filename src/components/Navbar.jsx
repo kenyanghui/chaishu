@@ -5,6 +5,7 @@ import { nextOpen } from '../data/workshops'
 const navLinks = [
   { path: '/learning-path', label: '成长路径' },
   { path: '/hot', label: '经典拆页' },
+  { path: '/chai-for-live/', label: '拆学习', external: true },
   { path: '/workshops', label: '拆软件' },
   { path: '/skills', label: '拆技能' },
   { path: '/skill-fusion', label: '拆专家' },
@@ -33,7 +34,15 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map(link => (
+          {navLinks.map(link => link.external ? (
+            <a
+              key={link.path}
+              href={link.path}
+              className="px-3.5 py-1.5 rounded-full text-[13.5px] font-medium transition-all duration-200 text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[.04]"
+            >
+              {link.label}
+            </a>
+          ) : (
             <Link
               key={link.path}
               to={link.path}
