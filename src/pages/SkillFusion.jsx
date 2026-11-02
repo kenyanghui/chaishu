@@ -65,7 +65,7 @@ export default function SkillFusion() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-black mb-3">
-            <span className="gradient-text">拆专家工坊</span>
+            <span className="gradient-text">拆分身工坊</span>
           </h1>
           <p className="text-[#6e6e73] text-lg max-w-2xl mx-auto">
             把思想家蒸馏成可召唤的 AI 分身：<span className="text-neon-purple font-bold">8</span> 套思想体系、<span className="text-neon-purple font-bold">{total}</span> 个技能、<span className="text-neon-purple font-bold">6</span> 个融合组合包 — 全部本站直接下载
@@ -79,8 +79,8 @@ export default function SkillFusion() {
 
         <div className="flex justify-center gap-2 mb-10">
           {[
-            { k: 'sources', l: '技能来源' },
-            { k: 'fusion', l: '融合组合包' },
+            { k: 'sources', l: '专家' },
+            { k: 'fusion', l: '专家团' },
           ].map(t => (
             <button key={t.k}
               onClick={() => setTab(t.k)}
