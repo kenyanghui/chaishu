@@ -1,10 +1,11 @@
 /**
  * build-hot-data.mjs — 从爬取的 chaishubang 原始数据生成站点懒加载数据
  *
- * 输入: /tmp/octopus/hot-crawl/{books.json, memoirs/<bookId>.json}
- * 输出: public/hot/index.json          全量书目轻索引（列表页）
- *       public/hot/books/<id>.json     每本书拆页 meta（详情页懒加载，不含全文）
- *       public/hot/memoirs/<mid>.json  单拆页全文（RIA 三段，拆页详情页懒加载）
+ * 输入: $CRAWL_DIR（默认 /root/chaishu-hot/raw）/{books.json, memoirs/<bookId>.json}
+ * 输出: public/hot/index.json(.gz)    全量书目轻索引（列表页，gz 优先）
+ *       public/hot/covers/<id>.jpg    自托管封面（fetch-covers.py 产物，构建时只引用）
+ *       public/hot/books/<id>.json    每本书拆页 meta（详情页懒加载，不含全文）
+ *       public/hot/memoirs/<mid>.json.gz 单拆页全文（RIA 三段，拆页详情页懒加载）
  *       public/hot/memoir-index.json   memoirId → bookId（拆页详情路由）
  *       public/hot/stats.json          总量统计
  *       src/data/hotBooks.js           Top30 兼容切片含全文（仓颉管线输入，不进 bundle）
@@ -18,7 +19,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
-const CRAWL = process.env.CRAWL_DIR || '/tmp/octopus/hot-crawl'
+const CRAWL = process.env.CRAWL_DIR || '/root/chaishu-hot/raw'
 const OUT = resolve(ROOT, 'public/hot')
 const TOP_N = 30
 
@@ -70,8 +71,28 @@ function readGz(path) {
 const books = JSON.parse(readFileSync(resolve(CRAWL, 'books.json'), 'utf-8'))
 books.sort((a, b) => (b.memCount || 0) - (a.memCount || 0))
 
-// ── 轻索引
+// ── 封面自托管：本地 covers/<id>.jpg 优先，远程 URL 降级为 imageFallback
+const coversDir = resolve(OUT, 'covers')
+function coverFor(b) {
+  if (existsSync(resolve(coversDir, `${b.id}.jpg`))) {
+    return { image: `/hot/covers/${b.id}.jpg`, imageFallback: b.image || '' }
+  }
+  return { image: b.image || '', imageFallback: '' }
+}
+
+// ── 轻索引：列表页消费面（id/title/author/translator/tags/image/memCount），详情字段全在 books/<id>.json
 const index = books.map(b => ({
+  id: b.id,
+  title: b.title,
+  author: b.author,
+  translator: b.translator || '',
+  tags: b.tags || '',
+  ...coverFor(b),
+  memCount: b.memCount || 0,
+}))
+
+// ── 详情页全书字段（bookFull 独立于轻索引，两页消费面解耦）
+const bookMeta = b => ({
   id: b.id,
   title: b.title,
   author: b.author,
@@ -79,12 +100,11 @@ const index = books.map(b => ({
   publisher: b.publisher || '',
   pubdate: b.pubdate || '',
   isbn: b.isbn || '',
-  image: b.image || '',
+  ...coverFor(b),
   url: b.url || '',
   tags: b.tags || '',
-  intro: stripHtml(b.intro).slice(0, 120),
   memCount: b.memCount || 0,
-}))
+})
 
 // ── 每本书拆页数据 + memoir 索引
 mkdirSync(resolve(OUT, 'books'), { recursive: true })
@@ -154,13 +174,15 @@ for (const b of books) {
   })
   if (memoirs.length > 0) booksWithMemoirs++
   totalMemoirs += memoirs.length
-  const bookFull = { ...index.find(x => x.id === b.id), intro: stripHtml(b.intro) }
+  const bookFull = { ...bookMeta(b), intro: stripHtml(b.intro) }
   const payload = { book: bookFull, memoirs }
   writeFileSync(resolve(OUT, 'books', `${b.id}.json`), JSON.stringify(payload))
   if (topBooks.length < TOP_N) topBooks.push(payload)
 }
 
-writeFileSync(resolve(OUT, 'index.json'), JSON.stringify(index))
+const indexJson = JSON.stringify(index)
+writeFileSync(resolve(OUT, 'index.json'), indexJson)
+writeGz(resolve(OUT, 'index.json.gz'), index)
 writeFileSync(resolve(OUT, 'memoir-index.json'), JSON.stringify(memoirIndex))
 writeFileSync(resolve(OUT, 'stats.json'), JSON.stringify({
   totalBooks: books.length,

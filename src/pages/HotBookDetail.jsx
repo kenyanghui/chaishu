@@ -76,8 +76,14 @@ export default function HotBookDetail() {
               {book.image ? (
                 <img src={book.image} alt={book.title} className="w-full h-full object-cover"
                   onError={e => {
-                    e.target.onerror = null
-                    e.target.src = `https://placehold.co/128x176/1e1e4a/06b6d4?text=${encodeURIComponent(book.title.slice(0, 2))}`
+                    const img = e.target
+                    if (book.imageFallback && !img.dataset.fb) {
+                      img.dataset.fb = '1'
+                      img.src = book.imageFallback
+                    } else {
+                      img.onerror = null
+                      img.src = `https://placehold.co/128x176/1e1e4a/06b6d4?text=${encodeURIComponent(book.title.slice(0, 2))}`
+                    }
                   }}
                 />
               ) : (
