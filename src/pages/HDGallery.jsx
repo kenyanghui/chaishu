@@ -28,6 +28,18 @@ const projects = [
     accent: { text: 'text-emerald-400', border: 'border-emerald-500/30', bg: 'bg-emerald-500/10', glow: 'bg-emerald-500/10' },
   },
   {
+    id: 'workbuddy',
+    name: 'wechat-pub-workbuddy',
+    tag: '内容工厂 Skill',
+    status: '已开源',
+    desc: 'WorkBuddy 技能：把你的 IMA 知识库变成公众号内容工厂——每天自动产 3 篇原创长文进草稿箱，RSI 自进化选题，绝不自动群发。本站二期「一库一站一号」飞轮里「一号」的生产引擎，现场照着拆的就是它。',
+    stats: ['日更 3 篇进草稿箱', 'RSI 自进化', '绝不自动群发'],
+    links: [
+      { label: 'GitHub 仓库', href: 'https://github.com/kenyanghui/wechat-pub-workbuddy', primary: true },
+    ],
+    accent: { text: 'text-sky-400', border: 'border-sky-500/30', bg: 'bg-sky-500/10', glow: 'bg-sky-500/10' },
+  },
+  {
     id: 'hd-gallery',
     name: '拆书赏鉴',
     tag: '知识视觉化共创',
