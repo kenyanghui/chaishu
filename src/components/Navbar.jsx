@@ -6,8 +6,6 @@ const navLinks = [
   { path: '/learning-path', label: '成长路径' },
   { path: '/hot', label: '经典拆页' },
   { path: '/workshops', label: '拆软件工坊' },
-  { path: '/learning-path', label: '成长路径' },
-  { path: '/hot', label: '经典拆页' },
   { path: '/skills', label: '拆技能工坊' },
   { path: '/skill-fusion', label: '拆分身工坊' },
   { path: '/hd-gallery', label: '拆书赏鉴' },
