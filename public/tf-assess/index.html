@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>过级自评表 · TF1-1 ~ TF3-3 · 线上可填写 | 玄龙·拆AI</title>
+<meta name="description" content="拆书帮三级九拆官方技能点自评表：逐项 0/1/2 三档自评，一票否决项自动判定，自动保存，一键导出 Markdown。">
+<style>
+  :root{--bg:#0a0d16;--bg2:#0e1220;--card:#131829;--line:#232b42;--ink:#e8ecf5;--ink2:#9aa6bd;--mute:#5d6a83;--purple:#a78bfa;--cyan:#22d3ee;--gold:#fbbf24;--green:#34d399;--red:#f87171}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:radial-gradient(900px 480px at 85% -10%,rgba(167,139,250,.13),transparent 60%),radial-gradient(700px 420px at -5% 105%,rgba(34,211,238,.08),transparent 55%),var(--bg);color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;padding:0 0 90px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(10,13,22,.85);border-bottom:1px solid var(--line)}
+  .nav .in{max-width:980px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:900;letter-spacing:.5px}
+  .nav .logo b{background:linear-gradient(90deg,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13px;color:var(--ink2);border:1px solid var(--line);border-radius:10px;padding:6px 12px}
+  .nav .back:hover{color:var(--ink);border-color:#3b4668}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px}
+  .hero{padding:34px 0 10px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--purple);font-weight:700}
+  h1{font-size:30px;line-height:1.25;margin:8px 0 6px;font-weight:900}
+  .sub{color:var(--ink2);font-size:14.5px;max-width:700px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 16px}
+  .tab{border:1px solid var(--line);background:var(--bg2);color:var(--ink2);border-radius:12px;padding:8px 14px;font-size:13.5px;cursor:pointer;font-weight:600}
+  .tab:hover{color:var(--ink);border-color:#3b4668}
+  .tab.on{color:#0a0d16;background:linear-gradient(90deg,#a78bfa,#22d3ee);border-color:transparent;font-weight:800}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:0 0 16px}
+  h2{font-size:18px;margin:0 0 8px;font-weight:800}
+  .hint{color:var(--mute);font-size:13px;margin:0 0 14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  label.fl{display:block;font-size:12.5px;color:var(--ink2);margin-bottom:4px;font-weight:600}
+  input[type=text]{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:9px 12px;font-size:14px;font-family:inherit}
+  input[type=text]:focus{outline:none;border-color:#4b5b85}
+  .row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .row .sk{flex:1;min-width:0;font-size:14.5px}
+  .row .sk .tf{color:var(--mute);font-size:12px;margin-left:6px}
+  .veto{display:inline-block;font-size:11px;color:var(--red);border:1px solid rgba(248,113,113,.4);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:1px;font-weight:700}
+  .opts{display:flex;gap:6px;flex-shrink:0}
+  .opts label{display:flex;align-items:center;gap:3px;font-size:12px;color:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:5px 8px;cursor:pointer;user-select:none}
+  .opts input{accent-color:#a78bfa;margin:0}
+  .opts label:has(input:checked){color:#0a0d16;background:var(--ink);border-color:var(--ink);font-weight:800}
+  .res{border:1px solid var(--line);background:var(--bg2);border-radius:12px;padding:14px 16px;margin-top:6px}
+  .res .big{font-size:16px;font-weight:800;margin-bottom:4px}
+  .res .det{color:var(--ink2);font-size:13px}
+  .res .veto-warn{color:var(--red);font-size:13px;margin-top:6px;font-weight:600}
+  .res.ok .big{color:var(--green)} .res.mid .big{color:var(--gold)} .res.low .big{color:var(--red)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .btn{border:none;border-radius:10px;padding:9px 16px;font-size:13.5px;font-weight:700;cursor:pointer;color:#0a0d16;background:linear-gradient(90deg,#a78bfa,#22d3ee)}
+  .btn.ghost{background:transparent;color:var(--ink2);border:1px solid var(--line)}
+  .btn.ghost:hover{color:var(--ink);border-color:#3b4668}
+  .foot{color:var(--mute);font-size:12.5px;text-align:center;margin-top:10px}
+  #saved{color:var(--green);font-size:12.5px;margin-left:8px}
+  @media (max-width:640px){.row{flex-direction:column}.opts{align-self:flex-end}}
+</style>
+</head>
+<body>
+<div class="nav"><div class="in">
+  <div class="logo">玄龙·拆AI <b>过级自评表</b><span id="saved"></span></div>
+  <a class="back" href="/learning-path">← 返回成长路径</a>
+</div></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">拆书帮 · 三级九拆 · 观察家记录表口径</div>
+    <h1>过级自评表 · 对照官方技能点逐项打分</h1>
+    <p class="sub">每一项按 <b>0 还没做到 / 1 部分做到 / 2 完全做到</b> 三档自评。标 <span style="color:var(--red);font-weight:700">⛔ 一票否决</span> 的项必须做到满分，否则该级评审不通过。填完自动保存在你自己的浏览器里，可一键导出 Markdown 存档或发给师父。</p>
+  </div>
+  <div class="card" style="padding:14px 20px">
+    <div class="grid">
+      <div><label class="fl">姓名（出现在导出文件里）</label><input type="text" id="m_name" placeholder="你的名字"></div>
+      <div><label class="fl">当前目标</label><input type="text" id="m_goal" placeholder="如：三个月内过 TF2-2"></div>
+    </div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div id="app"></div>
+  <p class="foot">技能点口径 = 拆书帮 TF1-1 ~ TF3-3 观察家记录表（含 2026 新增 AI 技能点）。自评结果仅供参考，正式过级以现场观察家评审为准。</p>
+</div>
+
+<script>
+var SPECS=[
+ {id:"tf1",tag:"TF1",title:"基础拆书家",range:"TF1-1 / TF1-2",veto:[7],skills:[
+  "选书与选拆页：实用类/理论类图书，不超 2 页内页","拆书预备表：含 I/A1/A2 逐字稿与各环节时间分配","介绍「拆书是什么」：2~3 分钟讲清拆书与拆书帮","【I】用自己的话重述：诠释、准确、清晰、致用","【A1】鲜活经验：自己的具体经历，有时间有人物有起因结果","【A2】规划应用：写下未来可执行的具体行动","how 拆页讲解：复述行动步骤，并配成功案例","现场分组与指令：3~6 人一组，指令五要素清晰"]},
+ {id:"tf2",tag:"TF2",title:"拆书教练",range:"TF2-1 ~ TF2-4",veto:[2,4,5,6],skills:[
+  "学习目标设计：可观察、可测量的行为动词","FAB 图书介绍法：特征 F、优势 A、利益 B","讲清不做的坏处：惯常做法与糟糕后果","举例子：具体案例对应 how，反例变正例","预防异议：预判学习者异议，给预防性讲解","细化行动步骤：给出比原文更易操作的 how","意译案例：脉络一致、贴近学习者的本土案例","显像提问：用情境画面激活过往经验","分步催化：分步勾勒未来应用场景","A3 场景演练：设计具体、确定的演练场景","双拆页逻辑设计：递进或补充，总内容不超 4 页"]},
+ {id:"tf3",tag:"TF3",title:"高级拆书家",range:"TF3-1 ~ TF3-3",veto:[0],skills:[
+  "why/what 拆页：选择不带 how 的理念或案例拆页","从原文提炼 how：给出行动建议与具体步骤","场景介绍法四步：事件、提问、影响、解决","概念辨析：概念与例子对比、易混概念与适用边界","控场互动：选择题、填空题等精准互动技术","自测量表设计：一题一事，引发自我觉察","编剧本催化：人物、对话、起因经过结果的故事创作","小组讨论引导：形成解决方案的 A3 设计","课后任务设计：五要素指令，回收学习者应用实录","时间掌控：总时长与各环节时长精准分配","微行动学习 MAL：引导提问题、讨本质、定方案五步","回应式反馈：用提问话术回应学习者的分享与提问","2026 新增·AI 备稿协作：苏格拉底式量表设计、任务找茬","2026 新增·人机协作指挥官：现场五步与 AI 共创方案"]},
+ {id:"ai",tag:"AI",title:"AI 拆书家",range:"元技能 + AI 管线",veto:[],skills:[
+  "作者蒸馏 → 用 AI 分析作者思想体系，构建知识图谱","便签拆书 → 自动从拆页提取 RIA 内容，生成教练 SKILL","拆书赏鉴 → 将技能框架转化为信息图","知识卡片 → 生成 Anki 间隔复习卡片","达尔文进化 → 评分+爬山优化，持续迭代技能"]}
+];
+var KEY="tf_assess_", cur=null, saveTimer=null;
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function load(id){try{return JSON.parse(localStorage.getItem(KEY+id)||"{}")}catch(e){return{}}}
+function save(){var s=load(cur.id);document.querySelectorAll("[data-k]").forEach(function(n){s[n.dataset.k]=n.type==="radio"?n.value:(n.value||"")});try{localStorage.setItem(KEY+cur.id,JSON.stringify(s));document.getElementById("saved").textContent="已自动保存";setTimeout(function(){var n=document.getElementById("saved");if(n)n.textContent=""},1500)}catch(e){}compute()}
+function meta(){try{return JSON.parse(localStorage.getItem(KEY+"meta")||"{}")}catch(e){return{}}}
+function saveMeta(){var m={name:document.getElementById("m_name").value,goal:document.getElementById("m_goal").value};try{localStorage.setItem(KEY+"meta",JSON.stringify(m))}catch(e){}}
+function setVal(n,v){if(n&&v!=null&&v!=="")n.value=v}
+function renderTabs(){
+  var box=document.getElementById("tabs");box.innerHTML="";
+  SPECS.forEach(function(s){
+    var b=el("button","tab"+(cur&&cur.id===s.id?" on":""),s.tag+" · "+s.title);
+    b.type="button";b.onclick=function(){location.hash=s.id};box.appendChild(b);
+  });
+}
+function compute(){
+  var app=document.getElementById("app");var res=document.getElementById("resbox");if(!res)return;
+  var s=load(cur.id),sum=0,n=cur.skills.length,filled=0,viol=[];
+  cur.skills.forEach(function(_,i){var v=s["r_"+i];if(v!=null&&v!==""){filled++;sum+=+v}if(cur.veto.indexOf(i)>-1&&+s["r_"+i]!==2)viol.push(i)});
+  var pct=n*2?sum/(n*2):0;
+  var big,det,cls;
+  if(filled===0){big="尚未开始自评";det="从上面第一项开始，逐项如实打分。";cls=""}
+  else if(viol.length){big="⛔ 一票否决项未达标";det="完成度 "+Math.round(pct*100)+"%（已评 "+filled+"/"+n+" 项），但第 "+viol.map(function(i){return i+1}).join("、")+" 项为一票否决点，必须做到「完全做到」才算过。";cls="low"}
+  else if(pct>=.8&&filled===n){big="✅ 可约观察家实测";det="完成度 "+Math.round(pct*100)+"%，全部技能点达标，且无一票否决项遗漏。"+(cur.id==="ai"?"":"建议预约分舵过级现场。");cls="ok"}
+  else if(pct>=.6){big="🟡 基本具备，补短板再约";det="完成度 "+Math.round(pct*100)+"%（已评 "+filled+"/"+n+" 项）。把 0 分项逐个补齐后再约观察家。";cls="mid"}
+  else{big="🔴 尚需修炼";det="完成度 "+Math.round(pct*100)+"%（已评 "+filled+"/"+n+" 项）。先回成长路径页复习该级技能点。";cls="low"}
+  res.className="res "+cls;
+  res.innerHTML="";
+  res.appendChild(el("div","big",big));
+  res.appendChild(el("div","det",det));
+}
+function render(){
+  var id=(location.hash||"").replace("#","")||SPECS[0].id;
+  cur=SPECS.filter(function(s){return s.id===id})[0]||SPECS[0];
+  renderTabs();
+  var s=load(cur.id),m=meta();
+  setVal(document.getElementById("m_name"),m.name);setVal(document.getElementById("m_goal"),m.goal);
+  var app=document.getElementById("app");app.innerHTML="";
+  var c=el("div","card");
+  c.appendChild(el("h2",null,cur.tag+" · "+cur.title+"（"+cur.range+"）"));
+  var tags=cur.skills.length+" 个技能点";if(cur.veto.length)tags+="，其中 "+cur.veto.length+" 项⛔一票否决";
+  c.appendChild(el("p","hint",tags+"。0=还没做到，1=部分做到，2=完全做到。"));
+  cur.skills.forEach(function(sk,i){
+    var row=el("div","row");
+    var box=el("div","sk");box.appendChild(document.createTextNode((i+1)+". "+sk));
+    var mm=sk.match(/（([^）]+)）/);if(mm)box.appendChild(el("span","tf","（"+mm[1]+"）"));
+    if(cur.veto.indexOf(i)>-1)box.appendChild(el("span","veto","⛔ 一票否决"));
+    row.appendChild(box);
+    var opts=el("div","opts");
+    [0,1,2].forEach(function(v){
+      var lb=el("label");var r=document.createElement("input");r.type="radio";r.name="r_"+i;r.value=v;r.dataset.k="r_"+i;
+      if(s["r_"+i]===String(v))r.checked=true;
+      lb.appendChild(r);lb.appendChild(el("span",null,v+" "+["还没","部分","完全"][v]));
+      opts.appendChild(lb);
+    });
+    row.appendChild(opts);c.appendChild(row);
+  });
+  var res=el("div","res");res.id="resbox";c.appendChild(res);
+  var btns=el("div","btns");
+  var b1=el("button","btn","导出 Markdown");b1.type="button";b1.onclick=toMd;
+  var b2=el("button","btn ghost","复制到剪贴板");b2.type="button";b2.onclick=copyMd;
+  var b3=el("button","btn ghost","清空本级");b3.type="button";b3.onclick=function(){if(confirm("清空「"+cur.title+"」的全部自评记录？")){try{localStorage.removeItem(KEY+cur.id)}catch(e){};render()}};
+  btns.appendChild(b1);btns.appendChild(b2);btns.appendChild(b3);c.appendChild(btns);
+  app.appendChild(c);
+  compute();
+}
+function toMdText(){
+  var s=load(cur.id),m=meta(),lines=[];
+  lines.push("# "+cur.tag+" · "+cur.title+"（"+cur.range+"）过级自评");
+  lines.push("");
+  lines.push("- 姓名："+(m.name||"（未填）")+"　目标："+(m.goal||"（未填）"));
+  lines.push("- 导出时间："+new Date().toLocaleString("zh-CN"));
+  var sum=0,n=cur.skills.length,filled=0,viol=[];
+  lines.push("");
+  lines.push("| # | 技能点 | 自评（0/1/2） |");
+  lines.push("|---|--------|------|");
+  cur.skills.forEach(function(sk,i){
+    var v=s["r_"+i];if(v!=null&&v!==""){filled++;sum+=+v}else v="—";
+    if(cur.veto.indexOf(i)>-1)viol.push(i+1);
+    lines.push("| "+(i+1)+" | "+sk+(cur.veto.indexOf(i)>-1?" ⛔":"")+" | "+v+" |");
+  });
+  var pct=n*2?Math.round(sum/(n*2)*100):0;
+  lines.push("");
+  lines.push("**完成度 "+pct+"%**（已评 "+filled+"/"+n+" 项）"+(viol.length?"；⚠️ 一票否决项：第 "+viol.join("、")+" 项（需=2）":""));
+  return lines.join("\n");
+}
+function download(name,text){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/markdown"}));a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},3000)}
+function toMd(){saveMeta();download("自评_"+cur.tag+"_"+((meta().name||"我").replace(/[\/\\:*?"<>|]/g,""))+"_"+new Date().toISOString().slice(0,10)+".md",toMdText())}
+function copyMd(){
+  saveMeta();var t=toMdText();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){alert("已复制 Markdown，可粘贴给师父或存档")},function(){fallback()})}else fallback();
+  function fallback(){var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");alert("已复制 Markdown")}catch(e){alert("复制失败，请用「导出 Markdown」")}document.body.removeChild(ta)}
+}
+document.getElementById("m_name").addEventListener("input",saveMeta);
+document.getElementById("m_goal").addEventListener("input",saveMeta);
+window.addEventListener("hashchange",render);
+render();
+</script>
+</body>
+</html>

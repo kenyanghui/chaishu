@@ -122,20 +122,18 @@ export default function LearningPath() {
                   </div>
                 </div>
 
-                {/* CTA */}
-                {i < 2 && (
-                  <div className="flex flex-wrap gap-3">
-                    <Link
-                      to={`/learning-path#lvl${i + 2}`}
-                      className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-white text-sm font-bold hover:shadow-lg transition-all`}
-                    >
-                      了解 Level {i + 2}
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </Link>
-                  </div>
-                )}
+                {/* CTA：在线自评 */}
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={`/tf-assess/#${level.id}`}
+                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r ${level.color} text-white text-sm font-bold hover:shadow-lg transition-all`}
+                  >
+                    在线自评 · {level.range.split(' ')[0]}
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    </svg>
+                  </a>
+                </div>
               </div>
 
               {/* Arrow between levels */}
@@ -242,12 +240,12 @@ export default function LearningPath() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
                     </Link>
-                    <Link
-                      to="/skills?level=4"
+                    <a
+                      href="/tf-assess/#ai"
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-[#424245] text-sm font-medium hover:text-[#1d1d1f] transition-all border border-violet-500/20"
                     >
-                      查看 S 级技能
-                    </Link>
+                      在线自评 · AI 管线
+                    </a>
                   </div>
                 </div>
               </div>
