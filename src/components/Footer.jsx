@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
-            <div className="text-[17px] font-bold text-[#1d1d1f] mb-2">玄龙·拆AI</div>
+            <div className="text-[17px] font-bold text-[#1d1d1f] mb-2">小蛮腰·拆AI</div>
             <p className="text-[13px] leading-relaxed text-[#86868b] max-w-sm">
               拆的是 AI 软件，拆的是 AI，拆为己用。面向学习者的工作坊课程阵地。
             </p>

@@ -28,7 +28,7 @@ export default function Navbar() {
     }`}>
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-[19px] font-bold tracking-tight text-[#1d1d1f]">玄龙·拆AI</span>
+          <span className="text-[19px] font-bold tracking-tight text-[#1d1d1f]">小蛮腰·拆AI</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
