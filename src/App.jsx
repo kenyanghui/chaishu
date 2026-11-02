@@ -11,6 +11,7 @@ import LearningPath from './pages/LearningPath'
 import HDGallery from './pages/HDGallery'
 import SkillFusion from './pages/SkillFusion'
 import Workshops from './pages/Workshops'
+import Camp from './pages/Camp'
 
 function RedirectBook() {
   const { title } = useParams()
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/workshops" element={<Workshops />} />
+          <Route path="/camp" element={<Camp />} />
           <Route path="/book/:title" element={<RedirectBook />} />
           <Route path="/memoir/:id" element={<RedirectMemoir />} />
           <Route path="/about" element={<About />} />

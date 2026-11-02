@@ -356,6 +356,9 @@ export default function Workshops() {
               <a href={done.length ? done[done.length - 1].link : '/workshops'} className="btn-primary">看已交付课程材料 →</a>
             )}
             <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-secondary" title="点击复制微信号">后续场次报名：微信 ikoning365 📋</button>
+            <div className="mt-5">
+              <a href="/camp" className="text-[14px] text-[#2997ff] hover:underline">线上也能玩：拆AI营 · 工作流/工作台/量化三版块，每周三晚开拆 →</a>
+            </div>
           </div>
         </div>
       </section>
