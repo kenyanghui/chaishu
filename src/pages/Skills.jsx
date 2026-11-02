@@ -68,9 +68,9 @@ export default function Skills() {
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-[120px]" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-pink-500/10 to-violet-500/10 border border-pink-500/20 text-pink-400 text-sm">
-            便签拆书 · 技能工坊
+            便签拆书 · 拆技能工坊
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">Skill 技能工坊</h1>
+          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">Skill 拆技能工坊</h1>
           <p className="text-[#6e6e73] max-w-2xl mx-auto mb-6">
             从拆书实录中萃取可执行的技能框架，共 <span className="text-neon-purple font-bold">{totalItems}</span> 个教练技能
           </p>

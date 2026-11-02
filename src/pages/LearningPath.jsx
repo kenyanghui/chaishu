@@ -235,7 +235,7 @@ export default function LearningPath() {
                       to="/skill-fusion"
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-purple-500 text-white text-sm font-bold hover:shadow-lg hover:shadow-violet-500/25 transition-all"
                     >
-                      进入分身工坊
+                      进入拆分身工坊
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
