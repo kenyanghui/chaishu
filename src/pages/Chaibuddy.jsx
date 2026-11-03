@@ -73,14 +73,141 @@ const ALL_MODES = { ...MODES, start: DEFAULT_MODE }
 const CONTACT_URL = 'https://www.chaishubang.com/'
 const OWNER_MAIL = '554176937@qq.com'
 const OWNER_WX = 'ikoning365'
-function brokerMailto(p) {
-  const subject = `共拆AI合作牵线 · ${p.n}（${p.r}）`
-  const body = `杨辉你好，我是${p.n}（${p.r}拆书家）。\n\n我在 chai.aibay.asia/chaibuddy 上看到了基于我的标签推荐的共拆AI合作模式，想进一步聊聊：\n\n（你想聊的合作模式 / 你的想法）\n\n—— 微信/邮箱回复均可`
-  return `mailto:${OWNER_MAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+const NEEDS_API = 'https://api.aibay.asia/needs/needs'
+
+// ===== 牵线弹窗表单 =====
+function BrokerModal({ p, onClose }) {
+  const isPerson = !!p
+  const [form, setForm] = useState({ name: isPerson ? p.n : '', rudder: isPerson ? p.r : '', contact: '', note: '' })
+  const [picked, setPicked] = useState(isPerson && p.m && p.m.length ? [...p.m] : [])
+  const [state, setState] = useState('idle')
+  const [msg, setMsg] = useState('')
+  const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }))
+  const toggle = id => setPicked(v => (v.includes(id) ? v.filter(x => x !== id) : [...v, id]))
+
+  useEffect(() => {
+    const onKey = e => { if (e.key === 'Escape' && state !== 'sending') onClose() }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose, state])
+
+  const modeNames = picked.map(id => (ALL_MODES[id] ? ALL_MODES[id].full : '另有想法'))
+  const mailtoHref = `mailto:${OWNER_MAIL}?subject=${encodeURIComponent(`拆搭子合作牵线 · ${form.name.trim() || '（未署名）'}`)}&body=${encodeURIComponent(`杨辉你好，我是${form.name.trim()}${form.rudder.trim() ? `（${form.rudder.trim()}）` : ''}。\n\n想聊的合作模式：${modeNames.length ? modeNames.join('；') : '待定'}\n\n我的想法：${form.note.trim() || '（见面聊）'}\n\n我的联系方式：${form.contact.trim() || '（邮件回复即可）'}`)}`
+
+  const submit = async e => {
+    e.preventDefault()
+    if (state === 'sending') return
+    if (form.name.trim().length < 1) { setState('error'); setMsg('请留下你的名字'); return }
+    if (form.contact.trim().length < 5) { setState('error'); setMsg('请留联系方式（微信号 / 手机号 / 邮箱）'); return }
+    if (picked.length === 0 && form.note.trim().length < 4) { setState('error'); setMsg('挑一个感兴趣的合作模式，或写一句你的想法'); return }
+    setState('sending'); setMsg('')
+    try {
+      const r = await fetch(NEEDS_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          software: `【拆搭子牵线】${form.name.trim()}（${form.rudder.trim() || '未填分舵'}）`,
+          scene: `想聊的模式：${modeNames.length ? modeNames.join('；') : '待定'}${isPerson && p.t && p.t.length ? ` ｜ 标签：${p.t.join('/')}` : ''}`,
+          expect: form.note.trim() || '（未填具体想法，待联系）',
+          contact: form.contact.trim(),
+          website: '',
+        }),
+      })
+      const d = await r.json().catch(() => ({}))
+      if (r.ok && d.ok) setState('ok')
+      else { setState('error'); setMsg(d.error || '提交失败，请稍后再试') }
+    } catch {
+      setState('error'); setMsg('网络异常，提交失败——可改用邮件发送')
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="找站长牵线">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={state === 'sending' ? undefined : onClose} />
+      <div className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto rounded-2xl bg-white border border-black/10 shadow-2xl">
+        {state === 'ok' ? (
+          <div className="p-8 text-center">
+            <div className="w-14 h-14 mx-auto rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">🤝</div>
+            <h3 className="text-lg font-black text-[#1d1d1f] mt-4">牵线卡已发出！</h3>
+            <p className="text-sm text-[#6e6e73] mt-2 leading-relaxed">
+              你的合作意向已发到站长邮箱（{OWNER_MAIL}），杨辉会通过你留的联系方式尽快回复你。
+            </p>
+            <button type="button" onClick={onClose} className="mt-6 px-6 py-2.5 rounded-xl text-xs font-bold bg-[#1d1d1f] text-white hover:bg-[#3a3a3c] transition-colors">好的</button>
+          </div>
+        ) : (
+          <form onSubmit={submit} className="p-6 md:p-8">
+            <div className="flex items-start justify-between gap-3 mb-1">
+              <h3 className="text-lg font-black text-[#1d1d1f]">找站长牵线 🤝</h3>
+              <button type="button" onClick={onClose} className="text-[#86868b] hover:text-[#1d1d1f] text-lg leading-none" aria-label="关闭">✕</button>
+            </div>
+            <p className="text-xs text-[#6e6e73] mb-5">
+              {isPerson ? '已按你的名片预填，补上联系方式和想法即可发送' : '填一张合作意向卡，站长收到邮件后直接联系你'}
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 mb-3">
+              <label className="flex flex-col gap-1">
+                <span className="text-[11px] font-bold text-[#1d1d1f]">名字</span>
+                <input value={form.name} onChange={set('name')} maxLength={30} className="rounded-xl bg-[#f5f5f7] px-3.5 py-2.5 text-[13px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-amber-500/40" placeholder="你的名字" />
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-[11px] font-bold text-[#1d1d1f]">分舵</span>
+                <input value={form.rudder} onChange={set('rudder')} maxLength={30} className="rounded-xl bg-[#f5f5f7] px-3.5 py-2.5 text-[13px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-amber-500/40" placeholder="如：广州小蛮腰分舵" />
+              </label>
+            </div>
+
+            <div className="mb-3">
+              <span className="text-[11px] font-bold text-[#1d1d1f]">想聊的合作模式 <span className="text-[#86868b] font-normal">（可多选）</span></span>
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {Object.entries(MODES).map(([id, m]) => (
+                  <button type="button" key={id} onClick={() => toggle(id)}
+                    className={`px-2.5 py-1.5 rounded-full text-[11px] font-bold border transition-colors ${picked.includes(id) ? 'bg-amber-500/15 text-amber-600 border-amber-500/50' : 'bg-black/[.03] text-[#6e6e73] border-black/10 hover:border-black/25'}`}>
+                    {picked.includes(id) ? '✓ ' : ''}{m.name}
+                  </button>
+                ))}
+                <button type="button" onClick={() => toggle('other')}
+                  className={`px-2.5 py-1.5 rounded-full text-[11px] font-bold border transition-colors ${picked.includes('other') ? 'bg-amber-500/15 text-amber-600 border-amber-500/50' : 'bg-black/[.03] text-[#6e6e73] border-black/10 hover:border-black/25'}`}>
+                  {picked.includes('other') ? '✓ ' : ''}另有想法
+                </button>
+              </div>
+            </div>
+
+            <label className="flex flex-col gap-1 mb-3">
+              <span className="text-[11px] font-bold text-[#1d1d1f]">联系方式 <span className="text-rose-500">*</span></span>
+              <input value={form.contact} onChange={set('contact')} maxLength={60} className="rounded-xl bg-[#f5f5f7] px-3.5 py-2.5 text-[13px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-amber-500/40" placeholder="微信号 / 手机号 / 邮箱（站长通过它联系你）" />
+            </label>
+
+            <label className="flex flex-col gap-1 mb-4">
+              <span className="text-[11px] font-bold text-[#1d1d1f]">想说的话 <span className="text-[#86868b] font-normal">（可不填）</span></span>
+              <textarea value={form.note} onChange={set('note')} maxLength={300} rows={3} className="rounded-xl bg-[#f5f5f7] px-3.5 py-2.5 text-[13px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-amber-500/40 resize-none" placeholder="一句话介绍你自己 / 你想怎么合作 / 你的疑问……" />
+            </label>
+
+            {state === 'error' && (
+              <div className="mb-4 rounded-xl bg-rose-500/10 border border-rose-500/25 px-4 py-3 text-xs text-rose-600">
+                {msg}
+                <a href={mailtoHref} className="underline underline-offset-2 ml-1 font-bold">改用邮件发送 →</a>
+              </div>
+            )}
+
+            <div className="flex items-center gap-3">
+              <button type="submit" disabled={state === 'sending'} className="flex-1 px-5 py-3 rounded-xl text-sm font-bold bg-[#1d1d1f] text-white hover:bg-[#3a3a3c] transition-colors disabled:opacity-50">
+                {state === 'sending' ? '发送中…' : '发送牵线卡 ✉️'}
+              </button>
+              <a href={mailtoHref} className="px-4 py-3 rounded-xl text-xs font-medium text-[#6e6e73] hover:text-[#1d1d1f] underline underline-offset-2 whitespace-nowrap">改用邮件</a>
+            </div>
+            <p className="text-[10px] text-[#86868b] mt-3 text-center">直接发到站长邮箱 {OWNER_MAIL} · 不自动群发、不留存名录</p>
+          </form>
+        )}
+      </div>
+    </div>
+  )
 }
 
 // ===== 单人卡 =====
-function PersonCard({ p, highlight = false }) {
+function PersonCard({ p, highlight = false, onBroker }) {
   const modes = (p.m && p.m.length ? p.m : ['start']).map(id => ALL_MODES[id] || DEFAULT_MODE)
   return (
     <div className={`glass rounded-2xl border p-5 ${highlight ? 'border-amber-500/40 shadow-lg shadow-amber-500/10' : 'border-white/10'} hover:border-white/25 transition-all`}>
@@ -123,7 +250,7 @@ function PersonCard({ p, highlight = false }) {
         </p>
         <div className="flex items-center gap-2">
           <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer" className="text-[10px] text-[#86868b] hover:text-[#0071e3] underline underline-offset-2">官网查询</a>
-          <a href={brokerMailto(p)} className="px-3 py-1.5 rounded-lg text-[10px] font-bold bg-[#1d1d1f] text-white hover:bg-[#3a3a3c] transition-colors">找站长牵线</a>
+          <button type="button" onClick={() => onBroker(p)} className="px-3 py-1.5 rounded-lg text-[10px] font-bold bg-[#1d1d1f] text-white hover:bg-[#3a3a3c] transition-colors">找站长牵线</button>
         </div>
       </div>
     </div>
@@ -252,6 +379,8 @@ export default function Chaibuddy() {
   const [onlyRec, setOnlyRec] = useState(false)
   const [page, setPage] = useState(1)
   const [galleryOpen, setGalleryOpen] = useState(false)
+  const [broker, setBroker] = useState(null) // null=关 | {}=通用 | person=预填
+  const openBroker = p => setBroker(p)
 
   useEffect(() => {
     fetch('/chaibuddy/people.json')
@@ -371,7 +500,7 @@ export default function Chaibuddy() {
                   </div>
                 ) : (
                   <div className="grid md:grid-cols-2 gap-4">
-                    {found.slice(0, 12).map(p => <PersonCard key={p.i} p={p} highlight />)}
+                    {found.slice(0, 12).map(p => <PersonCard key={p.i} p={p} highlight onBroker={openBroker} />)}
                     {found.length > 12 && (
                       <div className="glass rounded-2xl border border-white/10 p-6 text-center text-xs text-[#86868b] flex items-center justify-center">
                         还有 {found.length - 12} 位，去下方名录里按条件筛选查看 →
@@ -460,7 +589,7 @@ export default function Chaibuddy() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {pageRows.map(p => <PersonCard key={p.i} p={p} />)}
+          {pageRows.map(p => <PersonCard key={p.i} p={p} onBroker={openBroker} />)}
         </div>
 
         {filtered.length > PAGE_SIZE && (
@@ -628,12 +757,13 @@ export default function Chaibuddy() {
               名录以拆书帮官网公开数据为准；合作模式也随时欢迎你提出第七种。加站长微信或邮件，聊 15 分钟就能定。
             </p>
             <div className="flex items-center justify-center gap-3 flex-wrap">
-              <a
-                href={`mailto:${OWNER_MAIL}?subject=${encodeURIComponent('共拆AI合作咨询')}&body=${encodeURIComponent('杨辉你好，我是……（分舵/职业/兴趣），想聊的合作是……')}`}
+              <button
+                type="button"
+                onClick={() => setBroker({})}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-[#1d1d1f] text-white hover:bg-[#3a3a3c] transition-colors"
               >
-                ✉️ 邮件 {OWNER_MAIL}
-              </a>
+                🤝 填一张合作意向卡
+              </button>
               <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold glass border border-amber-500/30 text-amber-600">
                 微信 {OWNER_WX}
               </span>
@@ -641,6 +771,8 @@ export default function Chaibuddy() {
           </div>
         </div>
       </section>
+
+      {broker && <BrokerModal p={broker.i ? broker : null} onClose={() => setBroker(null)} />}
     </div>
   )
 }
