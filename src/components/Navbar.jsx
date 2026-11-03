@@ -9,7 +9,7 @@ const navLinks = [
   { path: '/workshops', label: '拆软件' },
   { path: '/skills', label: '拆技能' },
   { path: '/skill-fusion', label: '拆专家' },
-  { path: '/hd-gallery', label: '共拆AI' },
+  { path: '/chaibuddy', label: '共拆AI' },
   { path: '/about', label: '关于' },
 ]
 
@@ -24,10 +24,6 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  useEffect(() => {
-    setMenuOpen(false)
-  }, [location.pathname])
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
