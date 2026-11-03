@@ -79,11 +79,6 @@ function brokerMailto(p) {
   return `mailto:${OWNER_MAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }
 
-function levelBadge(p) {
-  if (p.l >= 2) return `Lv.${p.l} 拆书家`
-  return '拆书家'
-}
-
 // ===== 单人卡 =====
 function PersonCard({ p, highlight = false }) {
   const modes = (p.m && p.m.length ? p.m : ['start']).map(id => ALL_MODES[id] || DEFAULT_MODE)
@@ -93,7 +88,7 @@ function PersonCard({ p, highlight = false }) {
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h3 className="text-lg font-black text-[#1d1d1f]">{p.n}</h3>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/25">{levelBadge(p)}</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/25">AI 拆书家</span>
           </div>
           <p className="text-xs text-[#6e6e73] mt-1">
             {p.r}{p.c ? ` · ${p.c}` : ''}
