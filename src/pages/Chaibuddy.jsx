@@ -88,23 +88,17 @@ function PersonCard({ p, highlight = false }) {
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h3 className="text-lg font-black text-[#1d1d1f]">{p.n}</h3>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/25">AI 拆书家</span>
+            {(p.t || []).map(t => (
+              <span key={t} className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/25">{t}</span>
+            ))}
           </div>
           <p className="text-xs text-[#6e6e73] mt-1">
-            {p.r}{p.c ? ` · ${p.c}` : ''}
+            认证拆书家 · {p.r}{p.c ? ` · ${p.c}` : ''}
           </p>
         </div>
       </div>
 
       {p.d && <p className="text-xs text-[#6e6e73] leading-relaxed mt-3 line-clamp-3">{p.d}</p>}
-
-      {p.t && p.t.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-3">
-          {p.t.map(t => (
-            <span key={t} className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-black/[.05] text-[#48484a] border border-black/10">{t}</span>
-          ))}
-        </div>
-      )}
 
       <div className="mt-4 space-y-2">
         {modes.map(m => (
