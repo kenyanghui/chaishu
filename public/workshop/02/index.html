@@ -83,6 +83,8 @@
   .step .out b{font-size:12.5px;display:inline;margin:0}
 
   .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:8px}
+  .pains.prework{grid-template-columns:1fr;max-width:880px}
+  .pains.prework .pain{line-height:2}
   .pain{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--bg2);font-size:14px;color:var(--ink2)}
   .pain b{color:var(--ink);display:block;margin-bottom:6px;font-size:15px}
 
@@ -207,7 +209,7 @@
 
   <h2 class="sec">开工前三件事 · 备好钥匙，查一遍家底</h2>
   <p class="secs">前两件各 10 分钟；第三件几分钟，确认第一期的 ima、公众号、工作流都还在跑</p>
-  <div class="pains">
+  <div class="pains prework">
     <div class="pain"><b>① GitHub 注册 + 领「钥匙」</b>
       1. 打开 github.com → Sign up：填邮箱、密码、用户名，去邮箱点验证链接；<br>
       2. 登录后右上角头像 → Settings → Developer settings → Personal access tokens → Tokens (classic)；<br>
@@ -226,7 +228,7 @@
   </div>
 
   <h2 class="sec" id="prompts">🔑 WorkBuddy 提示词 · 复制即用</h2>
-  <p class="secs" style="margin:0 0 4px">两句话把网站变成你的。用法：复制 → 贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">www.workbuddy.cn</a> 对话框 → 把你领好的钥匙贴在冒号后面 → 发送。钥匙还没领？先看上方「开工前三件事」。完整跟做见 <a href="guide.html" style="color:var(--cyan);font-weight:600">跟做手册 →</a></p>
+  <p class="secs" style="margin:0 0 4px">两句话把网站搭起来。用法：复制 → 贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">www.workbuddy.cn</a> 对话框 → 把你领好的钥匙贴在冒号后面 → 发送。钥匙还没领？先看上方「开工前三件事」。换品牌、换自我介绍等进阶玩法，见 <a href="guide.html" style="color:var(--cyan);font-weight:600">跟做手册 →</a></p>
   <div class="pcards">
     <div class="pcard">
       <div class="pk">指令卡 ① · 交钥匙</div>
@@ -235,10 +237,10 @@
       <div class="pnote">钥匙哪里拿：github.com → Settings → Developer settings → Tokens (classic)</div>
     </div>
     <div class="pcard">
-      <div class="pk">指令卡 ② · 改成我的网站</div>
+      <div class="pk">指令卡 ② · 要一个同款网站</div>
       <div class="ptext">接下来改我的网站品牌、定位和我的自我介绍，并根据我的需求响应改网站设计</div>
       <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">品牌名和三段话先想好，写法见手册第 3 节</div>
+      <div class="pnote">几分钟出网址：https://你的用户名.github.io/chaiAI</div>
     </div>
   </div>
   <p class="pnote" style="margin:6px 0 0">💡 出错统一动作：把报错原话发回给 WorkBuddy，说「请修好后继续」。</p>
