@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import skills from '../data/skills'
 
 // ===== 合作模式（与构建脚本 /tmp/octopus/csb/build_buddy.py 的 MODES 同源，改文案两边同步）=====
@@ -207,7 +207,7 @@ function BrokerModal({ p, onClose }) {
 }
 
 // ===== 单人卡 =====
-function PersonCard({ p, highlight = false, onBroker }) {
+function PersonCard({ p, highlight = false, onBroker, onFind }) {
   const modes = (p.m && p.m.length ? p.m : ['start']).map(id => ALL_MODES[id] || DEFAULT_MODE)
   return (
     <div className={`glass rounded-2xl border p-5 ${highlight ? 'border-amber-500/40 shadow-lg shadow-amber-500/10' : 'border-white/10'} hover:border-white/25 transition-all`}>
@@ -222,6 +222,37 @@ function PersonCard({ p, highlight = false, onBroker }) {
           <p className="text-xs text-[#6e6e73] mt-1">
             认证拆书家 · {p.r}{p.c ? ` · ${p.c}` : ''}
           </p>
+          {(p.sf || (p.td && p.td.length > 0)) && (
+            <p className="text-[11px] text-[#86868b] mt-1.5 leading-relaxed">
+              {p.sf && (
+                <>
+                  <span className="mr-1">师承</span>
+                  {p.sf.in && onFind ? (
+                    <button type="button" onClick={() => onFind(p.sf.n)} className="font-bold text-[#6e6e73] hover:text-amber-600 underline underline-offset-2 decoration-amber-500/40">{p.sf.n}</button>
+                  ) : (
+                    <span className="font-bold text-[#6e6e73]">{p.sf.n}</span>
+                  )}
+                </>
+              )}
+              {p.sf && p.td && p.td.length > 0 && <span className="mx-1.5">·</span>}
+              {p.td && p.td.length > 0 && (
+                <>
+                  <span className="mr-1">徒弟</span>
+                  {p.td.slice(0, 3).map((t, idx) => (
+                    <span key={t.i}>
+                      {t.in && onFind ? (
+                        <button type="button" onClick={() => onFind(t.n)} className="font-bold text-[#6e6e73] hover:text-amber-600 underline underline-offset-2 decoration-amber-500/40">{t.n}</button>
+                      ) : (
+                        <span className="font-bold text-[#6e6e73]">{t.n}</span>
+                      )}
+                      {idx < Math.min(p.td.length, 3) - 1 && '、'}
+                    </span>
+                  ))}
+                  {p.td.length > 3 && <span className="ml-1">等 {p.td.length} 人</span>}
+                </>
+              )}
+            </p>
+          )}
         </div>
       </div>
 
@@ -381,6 +412,13 @@ export default function Chaibuddy() {
   const [galleryOpen, setGalleryOpen] = useState(false)
   const [broker, setBroker] = useState(null) // null=关 | {}=通用 | person=预填
   const openBroker = p => setBroker(p)
+  const searchBoxRef = useRef(null)
+  const handleFind = name => {
+    setQ(name)
+    setCity(''); setRudder(''); setTag(''); setOnlyRec(false)
+    setPage(1)
+    if (searchBoxRef.current) window.scrollTo({ top: searchBoxRef.current.offsetTop - 90, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     fetch('/chaibuddy/people.json')
@@ -456,7 +494,7 @@ export default function Chaibuddy() {
 
       {/* ===== 找搭子搜索 ===== */}
       <section className="max-w-6xl mx-auto px-4 mb-14">
-        <div className="glass rounded-2xl border border-amber-500/25 p-6 md:p-8 relative overflow-hidden">
+        <div ref={searchBoxRef} className="glass rounded-2xl border border-amber-500/25 p-6 md:p-8 relative overflow-hidden">
           <div className="absolute -top-16 -right-16 w-56 h-56 bg-amber-500/10 rounded-full blur-[70px]" />
           <div className="relative z-10">
             <h2 className="text-xl md:text-2xl font-black text-[#1d1d1f] mb-1">找到你自己 🔍</h2>
@@ -500,7 +538,7 @@ export default function Chaibuddy() {
                   </div>
                 ) : (
                   <div className="grid md:grid-cols-2 gap-4">
-                    {found.slice(0, 12).map(p => <PersonCard key={p.i} p={p} highlight onBroker={openBroker} />)}
+                    {found.slice(0, 12).map(p => <PersonCard key={p.i} p={p} highlight onBroker={openBroker} onFind={handleFind} />)}
                     {found.length > 12 && (
                       <div className="glass rounded-2xl border border-white/10 p-6 text-center text-xs text-[#86868b] flex items-center justify-center">
                         还有 {found.length - 12} 位，去下方名录里按条件筛选查看 →
@@ -589,7 +627,7 @@ export default function Chaibuddy() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {pageRows.map(p => <PersonCard key={p.i} p={p} onBroker={openBroker} />)}
+          {pageRows.map(p => <PersonCard key={p.i} p={p} onBroker={openBroker} onFind={handleFind} />)}
         </div>
 
         {filtered.length > PAGE_SIZE && (
