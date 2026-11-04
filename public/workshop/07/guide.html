@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>07 · DSA · 每日股票分析｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#12233f,#1f5eff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.goal b,.mins{color:var(--blue);font-weight:700}
+.box{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#27406b}
+.warnbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#5c4408}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;color:#3c4d68;font-weight:700}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;margin:12px 0}
+.step .head{display:flex;gap:10px;align-items:flex-start}
+.step .num{background:var(--green);color:#fff;font-weight:700;border-radius:50%;min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:2px}
+.step .do{font-weight:700;font-size:15px}
+.step ul{margin:8px 0 4px;padding-left:20px;color:var(--ink2);font-size:14px}
+.step li{margin:4px 0}
+.dev{margin:8px 0 0;border-radius:8px;overflow:hidden;border:1px dashed #b9c8e2}
+.dev .d{padding:7px 10px;font-size:13px}
+.dev .d b{color:var(--blue);margin-right:6px}
+.dev .d+.d{border-top:1px dashed #d5dfef}
+.check{background:var(--green-soft);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13.5px}
+.check b{color:var(--green)}
+.nofix{background:var(--warn-soft);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13.5px;color:#6b3417}
+.nofix b{color:var(--warn)}
+label.tick{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid #eef2f8;font-size:14px;color:var(--ink2);cursor:pointer}
+label.tick:last-child{border-bottom:0}
+label.tick input{margin-top:4px;flex:none;accent-color:var(--green);width:16px;height:16px}
+label.tick input:checked+span{color:var(--mute);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:9;background:#eef1f6ee;backdrop-filter:blur(4px);padding:8px 0 6px;font-size:13px;color:var(--ink2);border-bottom:1px solid #dfe6f0}
+.progress .bar{height:6px;background:#d7e0ee;border-radius:99px;overflow:hidden;margin-top:4px}
+.progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green));width:0;transition:width .3s}
+footer.g{background:#fff;border-radius:14px;padding:16px;margin:14px 0;text-align:center;color:var(--ink2);font-size:13.5px}
+footer.g .wx{display:inline-block;background:var(--green);color:#fff;font-weight:700;border-radius:8px;padding:6px 16px;margin:8px 0;letter-spacing:1px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
+.tip{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+@media print{
+ body{background:#fff;padding:0;font-size:12px}
+ .page{max-width:none;padding:0}
+ section.card,header.g,footer.g{box-shadow:none;border-radius:0;padding:10px 8px;border-bottom:1px solid #ddd}
+ .progress{display:none}
+ header.g{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .step,.check,.nofix,.box,.warnbox{break-inside:avoid}
+}
+</style></head>
+<body data-wk="wk7"><div class="page">
+<header class="g">
+<div class="no">小蛮腰·拆AI｜工作坊 07 · 自助跟做手册 <span class="badge">自助版</span></div>
+<h1>DSA · 每日股票分析</h1>
+<div class="meta">预计总时长：2–3 小时（电脑或平板操作，可分 3 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
+<div class="outcomes"><b>跟做完，你能得到：</b><ul>
+<li>你的 DSA 自选股清单 + 第一份个股分析报告（可导出 Markdown 存档）</li>
+<li>一条大盘复盘 / 告警规则工作流（AI 帮你盯盘）</li>
+<li>一份持仓组合快照与风险分析框架</li>
+<li>30 天盯盘复盘计划：把「看盘」变成有节奏的复盘动作</li>
+</ul>
+<div style="font-size:12px;margin-top:6px;opacity:.85">合规提示：分析结果由 AI 生成，仅供学习研究参考，不构成投资建议。</div></div></header>
+<div class="progress"><span class="pc">0/0</span> 步已完成（勾选会自动保存在这台设备上）<div class="bar"><i></i></div></div>
+<section class="card"><h2 class="sec"><span class="n">备</span>开始之前：设备与账号自查</h2>
+<p class="goal">本场全程用电脑浏览器最顺手（平板可做备选）。所有步骤基于讲师部署的 DSA 实例，无需自己装环境。</p>
+<table><tr><th style="width:26%">你需要有</th><th style="width:30%">怎么确认已有</th><th>没有怎么办</th></tr>
+<tr><td><b>电脑浏览器</b></td><td>Chrome / Edge 均可，能打开 http://39.108.95.179:8000</td><td>平板浏览器也能完成大部分操作；手机屏太小不推荐</td></tr>
+<tr><td><b>DSA 实例访问密码</b></td><td>开课时群里发：AIBay666（输入密码进入工作台）</td><td>密码丢了：微信 ikoning365 找讲师要</td></tr>
+<tr><td><b>3–5 只你想盯的股票代码</b></td><td>自己的持仓 / 自选都行，知道 6 位代码即可</td><td>没想好：先用演示码 600519 贵州茅台练手，跑通后换自己的</td></tr>
+<tr><td><b>备忘录或笔记 App</b></td><td>电脑自带就行</td><td>用来存复盘记录和 30 天计划，第 3 节会给模板</td></tr>
+</table>
+<div class="warnbox">DSA 是开源项目（源码镜像见本站 Gitea Loong/daily_stock_analysis）。AI 分析要消耗 LLM token，实例已配置用量监控——请按手册步骤跑，不要批量提交几十只股票的任务。所有分析结果由 AI 生成，仅供学习研究参考，不构成投资建议。</div>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">1</span>第 1 节 · 认识 DSA：建好你的自选股清单</h2>
+<p class="goal">本节目标：进入工作台，认识八大模块，把 3–5 只自选股加进清单｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>浏览器能打开 http://39.108.95.179:8000，手边有访问密码。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">打开 DSA 并登录
+<ul>
+<li>浏览器访问 http://39.108.95.179:8000</li>
+<li>输入访问密码 AIBay666 进入工作台</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>看到深色界面首页，导航里有「个股分析」「问股」「大盘复盘」等入口</div>
+<div class="nofix"><b>没看到怎么办：</b>打不开：检查网址有没有多空格；再不行换 Chrome 或清除缓存重试；仍不行截图发群里</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">花 5 分钟逛一遍八大模块
+<ul>
+<li>按顺序点一遍：首页·个股分析 / 问股 Agent / 大盘复盘 / 告警 / 回测 / 持仓 / 选股 / 设置+用量</li>
+<li>每个模块只看「它能干什么」，不用细研究参数</li>
+<li>记一句：输入代码出报告 → 问股管多轮问答 → 复盘管大盘 → 告警管盯梢</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>八个入口都点开过，能说出每个模块一句话用途</div>
+<div class="nofix"><b>没看到怎么办：</b>入口位置变了：以页面导航实际为准，功能名基本不变</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">建自选股清单：加 3–5 只你的股票
+<ul>
+<li>找到自选股管理入口，逐个输入 6 位代码添加</li>
+<li>没想好就先加演示码：600519 贵州茅台、000858 五粮液、300750 宁德时代、600036 招商银行</li>
+<li>清单里确认代码和名称对得上号</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>自选股清单里至少 3 只，代码-名称一一对应</div>
+<div class="nofix"><b>没看到怎么办：</b>搜不到代码：确认是 6 位 A 股代码（0/3/6 开头）；名称对不上：看是否输错位</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">顺手看一眼 K 线与用量
+<ul>
+<li>点开清单里任意一只，看它的 K 线历史数据能不能显示</li>
+<li>进「设置+用量」看 LLM token 消耗监控界面，确认用量在正常范围</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>K 线能显示；用量页有 token 数字且数值不大</div>
+<div class="nofix"><b>没看到怎么办：</b>K 线空白：可能是非交易时段数据未加载，刷新一次；用量异常大：别再批量提交任务，发群里问讲师</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>实例打不开</td><td>网络 / 服务重启</td><td>换浏览器、清缓存；持续打不开就截图发群，先用演示截图跟读</td></tr>
+<tr><td>密码不对进不去</td><td>密码改了或记错</td><td>微信 ikoning365 找讲师确认最新密码</td></tr>
+<tr><td>加自选股没反应</td><td>代码输错 / 非交易日数据未就绪</td><td>核对 6 位代码；刷新页面再试一次</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">2</span>第 2 节 · 跑通个股分析 + 大盘复盘 + 告警规则</h2>
+<p class="goal">本节目标：出第一份个股分析报告并导出；跑一次大盘复盘；建一条告警规则｜预计 <span class="mins">45 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 1 节自选股清单已建好，浏览器会话没掉。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">跑一份个股分析报告
+<ul>
+<li>进「首页·个股分析」，输入清单里你最关心的一只代码</li>
+<li>提交后注意：分析是<b>异步任务</b>——提交后会排队，等它跑完再看结果</li>
+<li>报告出来后通读一遍：基本面、技术面、AI 建议、风险观察条件各在讲什么</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>拿到一份完整分析报告，AI 建议和风险观察条件两块都能看到</div>
+<div class="nofix"><b>没看到怎么办：</b>任务一直排队：token 用量可能紧张，稍等几分钟；报告字段缺失：换 600519 再跑一份对照</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">导出报告并存档
+<ul>
+<li>找到历史报告列表，选中刚才那份</li>
+<li>导出为 Markdown 文件，存到本地一个专门文件夹（如 dsa-reports/）</li>
+<li>再试一次「分享图」导出，存一张图片版</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>本地文件夹里有 1 个 .md 文件 + 1 张分享图</div>
+<div class="nofix"><b>没看到怎么办：</b>导出按钮找不到：在报告详情页找「导出 / 分享」入口；下载没反应：换 Chrome 试</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">跑一次大盘复盘
+<ul>
+<li>进「大盘复盘」，触发一次复盘任务（同样异步，等它跑完）</li>
+<li>通读复盘结论：市场整体温度、板块动向、风险提示</li>
+<li>用「问股 Agent」追问一句，例如「今天大盘为什么这样走？」验证多轮问答</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>拿到一份大盘复盘结论；问股 Agent 能就复盘内容多轮追问</div>
+<div class="nofix"><b>没看到怎么办：</b>复盘任务排队：同 s2-1，等几分钟；Agent 答非所问：把问题问得更具体（带上股票名或板块名）</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">建一条告警规则
+<ul>
+<li>进「告警」模块，新建规则：选一只自选股，设一个条件（如涨跌幅超过阈值）</li>
+<li>开启通知，确认规则状态为「已启用」</li>
+<li>截图存档——这是交付 ② 的工作流凭证</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>告警列表里有 1 条「已启用」的规则，截图已存</div>
+<div class="nofix"><b>没看到怎么办：</b>条件不会设：先设最简单的涨跌幅阈值；通知不触发：非交易时段不触发属正常，交易日再验证</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>分析任务一直转圈</td><td>异步任务排队 / token 紧张</td><td>等 3–5 分钟刷新；不要连续提交多只，一次跑一只</td></tr>
+<tr><td>报告结论看不懂</td><td>术语太多</td><td>把报告关键段贴给问股 Agent，让它用大白话解释一遍</td></tr>
+<tr><td>告警规则不触发</td><td>阈值太宽 / 非交易时段</td><td>阈值先设小一点验证链路；交易日盘中再确认通知</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">3</span>第 3 节 · 持仓组合 + 30 天盯盘复盘计划</h2>
+<p class="goal">本节目标：建持仓组合快照，读懂风险分析；把 30 天盯盘复盘计划写满｜预计 <span class="mins">35 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 2 节的个股报告与告警规则已就位。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">建持仓组合快照
+<ul>
+<li>进「持仓」模块，把你的真实或模拟持仓录进去（股票代码 + 大致仓位）</li>
+<li>不想暴露真实仓位：用演示自选股 12 只里的 4–5 只建一个模拟组合</li>
+<li>生成组合快照，看它给出的持仓结构与风险分析</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>组合快照已生成，能看到集中度 / 风险维度的分析结论</div>
+<div class="nofix"><b>没看到怎么办：</b>仓位数字不想填真的：按比例填（如 30/30/40），分析照样能跑</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">（可选）跑一次选股候选
+<ul>
+<li>进「选股」模块，选一个策略跑出候选清单</li>
+<li>把 1–2 只候选加进自选，标记「候选」——只做研究，不等于买入指令</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>选股出了候选列表，至少 1 只已加进自选并标记</div>
+<div class="nofix"><b>没看到怎么办：</b>策略参数不会选：全部用默认值先跑通；记住候选仅供研究参考</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">写满 30 天盯盘复盘计划
+<ul>
+<li>在笔记里按模板写三行承诺：每日（盘中看告警 2 分钟）/ 每周（大盘复盘 + 持仓快照各一次）/ 每月（复盘卡自查一次）</li>
+<li>给每行写上「完成标志」，能截图的写截图</li>
+<li>打印或贴电脑边——30 天后才算这套工作流是你的</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>30 天计划三行齐：每日 / 每周 / 每月，各有完成标志</div>
+<div class="nofix"><b>没看到怎么办：</b>节奏定不出来：先用手册的默认节奏（每日 2′/ 每周 15′/ 每月 30′），跑两周再调</div>
+</div>
+<h3>本节排障表（2 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>组合风险分析看不懂</td><td>指标陌生</td><td>截图贴给问股 Agent：「帮我用大白话解释这个组合的风险点」</td></tr>
+<tr><td>30 天计划坚持不了</td><td>动作太重</td><td>把每日动作压到 2 分钟（只看告警通知），先保节奏再保深度</td></tr>
+</table>
+</section>
+<section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
+<p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。分析结果由 AI 生成，仅供学习研究参考，不构成投资建议。</p>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>DSA 实例已登录，八大模块都点开过</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>自选股清单已建：至少 3 只，代码-名称对应</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>交付 ①：第一份个股分析报告已跑出并导出 Markdown 存档</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>大盘复盘跑过一次，问股 Agent 能多轮追问</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>交付 ②：告警规则已建且「已启用」，截图存档</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>持仓组合快照已生成，风险分析看过一遍</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>交付 ③：30 天盯盘复盘计划三行写满（每日/每周/每月）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-8"><span>（可选）选股候选跑过一次，至少 1 只加进自选</span></label>
+</section>
+<section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
+<p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
+<table><tr><th style="width:16%">时间</th><th>做什么</th><th style="width:34%">怎么自查没掉队</th></tr>
+<tr><td><b>第 1 周</b></td><td>建档周：自选股补到 5–8 只，每只都出过一次分析报告</td><td>≥5 份报告导出存档</td></tr>
+<tr><td><b>第 2 周</b></td><td>复盘周：每天看告警通知 2 分钟；周五跑一次大盘复盘并记三行结论</td><td>≥4 次告警查看 + 1 份复盘记录</td></tr>
+<tr><td><b>第 3 周</b></td><td>持仓周：更新一次持仓快照；用问股 Agent 追问一次组合风险</td><td>1 份新快照 + 1 段追问记录</td></tr>
+<tr><td><b>第 4 周</b></td><td>复盘月：填一张复盘卡；对照自评量表再测一次，看分数变化</td><td>1 张复盘卡 + 1 次量表复测</td></tr>
+</table></section>
+<footer class="g"><b>卡住怎么办（按顺序试）</b><br>1. 重读当前步骤的「检查点」和本节排障表——90% 的卡点都在里面；<br>2. 把你看到的界面截图保存下来，对照排障表找「症状」一栏；<br>3. 还不行：带上截图来微信群问，微信 <span class="wx">ikoning365</span>（点击不了就手动复制添加）。<br><p class="tip">小蛮腰·拆AI 工作坊系列 · 自助跟做手册 · 可打印（A4）· 分析结果由 AI 生成，仅供学习研究参考，不构成投资建议</p></footer>
+</div><script>
+(function(){
+ var K='guide-'+document.body.dataset.wk;
+ var save=function(id,v){try{localStorage.setItem(K+'-'+id,v?'1':'0')}catch(e){}};
+ var load=function(id){try{return localStorage.getItem(K+'-'+id)==='1'}catch(e){return false}};
+ var all=document.querySelectorAll('input.gtick');
+ var bar=document.querySelector('.progress .bar i');
+ var txt=document.querySelector('.progress .pc');
+ function refresh(){var n=0;all.forEach(function(c){if(c.checked)n++});
+  if(bar)bar.style.width=(all.length?Math.round(n/all.length*100):0)+'%';
+  if(txt)txt.textContent=n+'/'+all.length;}
+ all.forEach(function(c){
+  c.checked=load(c.dataset.id);
+  c.addEventListener('change',function(){save(this.dataset.id,this.checked);refresh()});
+ });
+ refresh();
+})();
+</script></body></html>

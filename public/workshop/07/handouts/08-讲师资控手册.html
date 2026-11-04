@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 08｜讲师资控手册（不发给学员）</title>
+<link rel="stylesheet" href="handout.css">
+<style>body{font-size:9.9px;line-height:1.38}h2{margin:5px 0 3px;font-size:11.2px}td,th{padding:2px 4px}table{font-size:9.7px}.box p{margin:0 0 3px}.chk{margin:0 0 2px}.sheet{padding:4mm 3.5mm;min-height:265mm}.sub{margin-bottom:5px}h1{font-size:16.5px}.foot{margin-top:5px}</style>
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>讲师资控手册</h1>
+      <div class="sub">讲师自用 · 打印一张放讲台 · 不发给学员</div>
+    </div>
+    <div class="brand">11 月 · 时间待定<br>10 人 · 材料 08</div>
+  </div>
+
+  <h2>一、课前 24 小时必做（关掉六个雷）</h2>
+  <table>
+    <tr><th style="width:8%">✓</th><th>动作</th><th style="width:34%">不做的后果</th></tr>
+    <tr><td class="center">☐</td><td><b>从零跑一遍</b> DSA 全链路（登录→建清单→个股分析→导出→大盘复盘→告警→持仓快照），录屏留档</td><td>演示卡壳，学员当场失去信任</td></tr>
+    <tr><td class="center">☐</td><td>确认<b>实例当日状态</b>：http://39.108.95.179:8000 可访问、密码有效、异步任务排队时长、「设置+用量」token 余量充足</td><td>任务排队 10 分钟，第 2 节整体报废</td></tr>
+    <tr><td class="center">☐</td><td>备好<b>演示自选股 12 只</b>清单（600519/000858/300750/002594/600036/601318/688981/002230/000333/600276/601012/600900）贴讲台</td><td>现场想代码，冷场</td></tr>
+    <tr><td class="center">☐</td><td>预生成<b>2–3 份个股分析报告</b>（异动股+平稳股各一），防现场任务排队卡死</td><td>异步任务慢，学员干等走神</td></tr>
+    <tr><td class="center">☐</td><td>告警规则<b>预演一次触发</b>（阈值设小验证通知链路），截图当教具</td><td>演示告警不响，公信力崩</td></tr>
+    <tr><td class="center">☐</td><td><b>合规口径</b>开场必讲：「分析结果由 AI 生成，仅供学习研究参考，不构成投资建议」——课件第 1 页与本手册双重提醒</td><td>学员把 AI 建议当买卖指令，课后风险极大</td></tr>
+  </table>
+
+  <h2>二、时间轴与资控点（净 165′ + 弹性 15′）</h2>
+  <table>
+    <tr><th style="width:11%">时间</th><th style="width:17%">环节</th><th style="width:36%">讲师动作</th><th>资控点 / 兜底</th></tr>
+    <tr><td>00:00–00:05</td><td><b>开场</b></td><td>分组、学习地图、RIA 四拍、<b>合规口径宣讲（必做）</b></td><td>合规句上墙，课中至少复述两次</td></tr>
+    <tr><td>00:05–00:50</td><td><b>第 1 节 · 建</b> 45′</td><td>演示登录+八大模块 10′ → 学员建清单 15′ → A1 带圈 10′ → 讲评 10′</td><td>15′ 时巡查：没进实例的当场换演示码；22′ 铃：未建清单者报组长</td></tr>
+    <tr><td>00:50–01:00</td><td>休息 10′</td><td>助教巡查未达标者名单</td><td>—</td></tr>
+    <tr><td>01:00–01:45</td><td><b>第 2 节 · 跑</b> 45′</td><td>演示异步任务+读报告 12′ → 学员跑报告+导出 12′ → 大盘复盘+问股 8′ → 告警规则 8′ → A2 带圈 5′</td><td>任务排队超 3′：切预生成报告继续讲，学员任务后台跑</td></tr>
+    <tr><td>01:45–02:20</td><td><b>第 3 节 · 盯</b> 35′</td><td>演示持仓快照 8′ → 学员建组合+问一句 12′ → 30 天计划写满 10′ → 讲评 5′</td><td>不想填真实仓位：按比例填，先跑通</td></tr>
+    <tr><td>02:20–02:30</td><td><b>收尾</b> 10′</td><td>三件交付物合一（材料 06）→ 互换测试 → 30 天承诺 → 合影</td><td>缺项者当场补，不过夜</td></tr>
+    <tr><td>02:30–02:45</td><td>弹性 15′</td><td>答疑 / 超时缓冲</td><td>—</td></tr>
+  </table>
+
+  <h2>三、三大交付物达标线（与材料 06 同号同义）</h2>
+  <table>
+    <tr><th style="width:8%">#</th><th style="width:36%">交付物</th><th>达标线</th></tr>
+    <tr><td>①</td><td>DSA 自选股清单 + 第一份个股分析报告</td><td>清单 ≥3 只代码名称对号；报告导出 Markdown 存档；有一句自己的判断</td></tr>
+    <tr><td>②</td><td>一条大盘复盘 / 告警规则工作流</td><td>复盘跑过一次能追问；告警规则 ≥1 条「已启用」有截图</td></tr>
+    <tr><td>③</td><td>30 天盯盘复盘计划</td><td>持仓快照生成 + 风险点记一条；每日/每周/每月三行写满有完成标志</td></tr>
+  </table>
+
+  <h2>四、RIA 四拍（每节循环，源自拆书法，材料 10）</h2>
+  <table>
+    <tr><th style="width:10%">拍</th><th style="width:20%">动作</th><th style="width:14%">时长</th><th>DSA 场对应</th></tr>
+    <tr><td><b>R</b></td><td>阅读/看演示</td><td>约 3′</td><td>讲师演示本节核心动作（如提交个股分析任务）</td></tr>
+    <tr><td><b>I</b></td><td>讲解引导</td><td>约 3′</td><td>追问两句：这步解决什么问题？不做会怎样？</td></tr>
+    <tr><td><b>A1</b></td><td>联结经验</td><td>约 2′</td><td>组内各说一次"我以前怎么看盘/踩过什么坑"</td></tr>
+    <tr><td><b>A2</b></td><td>规划应用</td><td>约 2′</td><td>写一句"回去第一周我怎么做"（贴 30 天计划第一行）</td></tr>
+  </table>
+
+  <h2>五、高频故障与兜底（按发生率排序）</h2>
+  <table>
+    <tr><th style="width:26%">故障</th><th style="width:12%">概率</th><th>兜底动作</th></tr>
+    <tr><td>实例访问慢 / 打不开</td><td>中</td><td>换浏览器清缓存；持续不通用预生成报告+截图教具讲流程，学员课后补跑（跟做手册可自助）</td></tr>
+    <tr><td>异步任务排队久</td><td>高</td><td>限制每轮同时提交人数（每组 2 只）；切预生成报告继续讲课</td></tr>
+    <tr><td>token 用量告急</td><td>中</td><td>暂停批量提交；演示用预生成；「设置+用量」页现场教学员看余量</td></tr>
+    <tr><td>学员问"该不该买"</td><td>高</td><td>统一话术：「AI 结果仅供学习研究参考，不构成投资建议；课上学的是流程，不是指令」</td></tr>
+    <tr><td>告警演示不触发</td><td>中</td><td>非交易时段属正常，用预演截图讲链路；交易日群内再带验证一次</td></tr>
+  </table>
+
+  <h2>六、讲师自备物料</h2>
+  <div class="chk"><div class="b"></div><div>演示自选股 12 只速查卡（贴讲台）+ 预生成报告 2–3 份 + 告警触发截图 + 全链路录屏（断网兜底）。</div></div>
+  <div class="chk"><div class="b"></div><div>签到表 + 组长名册（材料 11）+ 复盘卡一叠 + 反馈表。</div></div>
+  <div class="chk"><div class="b"></div><div>实例密码与最新状态课前 2 小时再验一遍。</div></div>
+
+  <div class="foot">小蛮腰·拆AI · DSA 场 · 材料 08 · 内部使用 · 分析结果由 AI 生成，仅供学习研究参考，不构成投资建议</div>
+</div>
+</body>
+</html>

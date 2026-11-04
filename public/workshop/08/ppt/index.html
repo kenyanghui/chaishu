@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>通达信 · WorkBuddy 盯盘复盘自动化｜小蛮腰·拆AI 工作坊 · 第八期</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fbfbfd; --bg2:#f4f6fa; --panel:#ffffff; --panel2:#fafbfe;
+  --line:#e3e7ee; --line2:rgba(31,94,255,.30);
+  --ink:#101b2e; --mute:#5b6778; --dim:#8894a8;
+  --blue:#1f5eff; --blue2:#4b83ff; --bluesoft:#eef4ff;
+  --gold:#c8860d; --gold2:#e2a020; --goldsoft:#fdf5e3;
+  --green:#17845b; --greensoft:#e9f7f0; --red:#c2504d; --yel:#b98a1c;
+}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(1200px 700px at 82% -12%, rgba(31,94,255,.06), transparent 60%),
+    radial-gradient(900px 600px at -8% 108%, rgba(226,160,32,.06), transparent 62%),
+    var(--bg);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+.deck{position:fixed;inset:0}
+.slide{
+  position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:5.2vh 6.4vw 9vh;transition:padding-bottom .28s ease;
+}
+.slide.on{display:flex;opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease}
+.slide.on.vis{opacity:1;transform:none}
+.kicker{
+  font-size:1.45vh;letter-spacing:.34em;color:var(--gold);
+  font-weight:700;margin-bottom:2.2vh;text-transform:uppercase;
+}
+.kicker .ln{display:inline-block;width:3.4vw;height:1px;background:var(--line2);vertical-align:middle;margin-right:.9em;transform:translateY(-2px)}
+h1{font-size:8.2vh;line-height:1.1;font-weight:800;letter-spacing:.02em}
+h1 .gold{color:var(--blue)}
+h2{font-size:4.5vh;line-height:1.22;font-weight:800;letter-spacing:.01em}
+h2 .gold{color:var(--blue)}
+h3{font-size:2.5vh;font-weight:700;margin-bottom:1.2vh}
+p{font-size:2.05vh;line-height:1.72;color:#3c4760}
+.lead{font-size:2.2vh;color:var(--mute);line-height:1.75;max-width:66ch;margin-top:2vh}
+.muted{color:var(--mute)}
+.gold{color:var(--gold)}
+.cy{color:var(--blue)}
+.small{font-size:1.65vh;line-height:1.65;color:var(--mute)}
+.spread{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.grid{display:grid;gap:1.5vh;min-height:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g23{grid-template-columns:1.15fr .85fr}
+.mt2{margin-top:2vh}.mt3{margin-top:3vh}.mt4{margin-top:4vh}
+.card{
+  background:linear-gradient(160deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:14px;padding:2.2vh 1.5vw;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 16px rgba(16,27,46,.04);
+}
+.card::before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,var(--line2),transparent)}
+.card.g{border-color:rgba(226,160,32,.38);background:linear-gradient(160deg,#fffdf6,#fafbfe)}
+.card.c{border-color:rgba(31,94,255,.26)}
+.card h3{margin-bottom:1vh}
+.card p{font-size:1.85vh;line-height:1.66;color:#42526b}
+.card .no{
+  font-family:ui-monospace,Menlo,monospace;font-size:1.4vh;color:var(--gold);
+  letter-spacing:.18em;margin-bottom:1.1vh;display:block;
+}
+.card .ic{font-size:3vh;line-height:1;margin-bottom:1.2vh;color:var(--gold)}
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:999px;
+  padding:.5vh 1.1vw;font-size:1.55vh;color:var(--blue);margin:0 .5vw .9vh 0;background:var(--bluesoft)}
+.pill.c{border-color:rgba(226,160,32,.4);color:var(--gold);background:var(--goldsoft)}
+.pill.k{border-color:var(--line);color:var(--mute);background:#f4f6fa}
+.hr{height:1px;background:var(--line);margin:2.6vh 0}
+.footnote{
+  position:absolute;left:6.4vw;right:6.4vw;bottom:4.6vh;
+  font-size:1.35vh;color:var(--dim);letter-spacing:.06em;
+  border-top:1px solid var(--line);padding-top:1.1vh;
+  display:flex;justify-content:space-between;gap:2vw;
+}
+.slide .notes{display:none}
+#notesBar{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;display:none;
+  background:#101b2e;color:#dfe6f2;padding:1.6vh 6.4vw;font-size:1.6vh;line-height:1.6;
+}
+#notesBar .lbl{color:var(--gold2);font-weight:700;margin-right:1.2vw;letter-spacing:.2em;font-size:1.3vh}
+body.notes-on #notesBar{display:block}
+body.notes-on .slide{padding-bottom:14vh}
+.hint{
+  position:fixed;right:2.4vw;top:2.4vh;z-index:80;font-size:1.4vh;color:var(--dim);
+  letter-spacing:.14em;background:rgba(255,255,255,.85);border:1px solid var(--line);
+  border-radius:999px;padding:.8vh 1.2vw;transition:opacity .4s;backdrop-filter:blur(8px);
+}
+.hint.off{opacity:0;pointer-events:none}
+.pager{
+  position:fixed;left:2.4vw;bottom:2.6vh;z-index:80;
+  font-family:ui-monospace,Menlo,monospace;font-size:1.5vh;color:var(--mute);letter-spacing:.14em;
+  background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:999px;
+  padding:.7vh 1.1vw;backdrop-filter:blur(8px);
+}
+.pager b{color:var(--ink);font-size:1.9vh}
+.bar{position:fixed;left:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--gold2));width:0;z-index:95;transition:width .25s ease}
+.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5vh}
+.toc .card h3{font-size:2.1vh}
+.cover{align-items:flex-start}
+.cover .sub{font-size:2.4vh;color:var(--mute);line-height:1.7;max-width:56ch;margin-top:2.4vh}
+table{width:100%;border-collapse:collapse;font-size:1.8vh}
+th{font-size:1.5vh;letter-spacing:.16em;color:var(--mute);font-weight:700;text-align:left;
+  padding:.9vh .8vw;border-bottom:1px solid var(--line)}
+td{padding:1vh .8vw;border-bottom:1px solid #eef1f6;color:#42526b;line-height:1.55;vertical-align:top}
+td b{color:var(--ink)}
+.kbd{font-family:ui-monospace,Menlo,monospace;font-size:1.6vh;background:var(--bluesoft);
+  border:1px solid var(--line2);border-radius:6px;padding:.15vh .55vw;color:var(--blue);white-space:nowrap}
+.quote{border-left:3px solid var(--gold2);background:var(--goldsoft);
+  border-radius:0 12px 12px 0;padding:1.6vh 1.4vw;margin-top:2vh}
+.quote p{color:#6b512}
+
+/* ---- print: one slide per page, 1123x631 landscape (matches 模板课件 PDF) ---- */
+@media print{
+  @page{size:1123px 631px;margin:0}
+  html,body{height:auto!important;overflow:visible!important}
+  body{min-width:1123px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .deck{position:static;transform:none!important}
+  .slide{position:relative;inset:auto;display:flex!important;opacity:1!important;transform:none!important;
+    width:1123px;height:631px;overflow:hidden;
+    padding:33px 72px 57px;page-break-after:always;break-after:page}
+  .slide:last-child{page-break-after:auto;break-after:auto}
+  .hint,.pager,.bar,#notesBar{display:none!important}
+  .slide .notes{display:none!important}
+}
+
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 cover -->
+<section class="slide cover on">
+  <div class="kicker"><span class="ln"></span>小蛮腰 · 拆AI 工作坊 · 第八期</div>
+  <h1>通达信 · WorkBuddy<br><span class="gold">盯盘复盘自动化</span></h1>
+  <p class="sub">自选股异动自动到你眼前，收盘后机器写复盘、你只做判断。<br>3 小时，搭出一条属于自己的「看 → 盯 → 复」产线。</p>
+  <div class="mt3">
+    <span class="pill">第 1 节 · 看：把盘面摆上桌</span><span class="pill c">第 2 节 · 联：异动自动到你眼前</span><span class="pill">第 3 节 · 收：机器写复盘你判断</span>
+  </div>
+  <div class="footnote"><span>广州越秀 · 雅苑·培正 5 号楼 · 仅限 10 人 · 39 元（会员免费）</span><span>报名：微信 ikoning365</span></div>
+</section>
+
+<!-- 2 agenda -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>开场 · 15 分钟</div>
+  <h2>今天 3 小时，<span class="gold">三条产线一次搭完</span></h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">45′ · 第 1 节</span><div class="ic">👁</div><h3>看 · 通达信看盘入门</h3><p>自选股 / K 线 / F10 四个入口过手一遍，WorkBuddy 登录就位——先让该看的股票排好队。</p></div>
+    <div class="card c"><span class="no">45′ · 第 2 节</span><div class="ic">🔗</div><h3>联 · 自选股异动盯盘流</h3><p>定时启动 → 截图/读取 → AI 总结 → 推送，四段流跑通一次，异动自动点名到你眼前。</p></div>
+    <div class="card g"><span class="no">35′ · 第 3 节</span><div class="ic">📥</div><h3>收 · 收盘复盘产线</h3><p>克隆盯盘流改三处，收盘后自动出「复盘要点 + 次日关注清单」，再写满 30 天计划。</p></div>
+  </div>
+  <div class="hr"></div>
+  <div class="grid g2">
+    <div><p class="small">三件交付物：<b>① 自选股看盘工作流　② 盯盘 + 复盘两条自动化流　③ 30 天盯盘复盘计划</b>，下课验收带走。</p></div>
+    <div style="text-align:right"><p class="small">课前没装好的，现在找助教：通达信 + WorkBuddy 登录</p></div>
+  </div>
+</section>
+
+
+<!-- 02 why -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>为什么来上这堂课</div>
+  <h2>盯盘的痛，<span class="gold">机器正好能接</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">痛 01</span><h3>盘中没空盯</h3><p>上班切窗口看一眼行情，一忙就是一下午——异动发生时你永远不在场。</p></div>
+    <div class="card"><span class="no">痛 02</span><h3>收盘懒得复盘</h3><p>"明天一定写复盘"说了三个月。就算写了，翻不出上周四发生了什么。</p></div>
+    <div class="card"><span class="no">痛 03</span><h3>看了记不住</h3><p>F10 资料翻一遍就忘，次日该关注谁，全凭当时印象。</p></div>
+  </div>
+  <p class="lead mt3">今天的解法只有一条主线：<span class="gold">把「看 → 盯 → 复」各接成一条自动化流程</span>——看有入口，盯有产线，复有节奏。</p>
+  <div class="notes"><div class="lbl">讲师备注 02</div><p>让学员对号入座：三个痛点举手统计，哪个痛最深。痛点对上了，后面三节才有牵引力。</p></div>
+</section>
+
+<!-- 03 theme -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>主题来历</div>
+  <h2>站内投票最热：<span class="gold">AI 盯盘与自动复盘</span></h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card">
+      <span class="no">口径沿用</span>
+      <p style="font-size:2.05vh;line-height:1.8">自选股异动盯盘、收盘后自动出复盘和次日关注清单——投票选项原样落地成课程，不缩水、不跑题。</p>
+      <div class="hr"></div>
+      <p style="font-size:1.75vh">两件工具各司其职：<b class="gold">通达信看盘</b>（人工看盘入口）+ <b class="cy">WorkBuddy 自动化</b>（把流程串起来）。</p>
+    </div>
+    <div class="card c">
+      <span class="no">延伸</span>
+      <p style="font-size:1.8vh;line-height:1.9">想再进一步做 AI 深度个股分析？<br>第七期工作坊 · DSA 每日股票分析<br>站内 <b class="cy">/workshop/07/</b></p>
+    </div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 03</div><p>一句话交代血统：范式与第一期公众号工作流同款（定时→采集→AI 总结→推送），这次搬到盘面上。第七期只提一句，不展开。</p></div>
+</section>
+
+<!-- 04 agenda -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>今天的路线</div>
+  <h2>三节 · 看 → 盯 → 复 · <span class="gold">三件交付物</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">第 1 节 45′</span><h3>看 · 通达信四入口</h3><p>自选股入列 + WorkBuddy 装配。交付 ① 前半。</p></div>
+    <div class="card"><span class="no">第 2 节 45′</span><h3>盯 · 四步盯盘流</h3><p>异动口径 + 提示词 + 定时推送。交付 ① 收口 ② 前半。</p></div>
+    <div class="card"><span class="no">第 3 节 35′</span><h3>复 · 复盘产线</h3><p>收盘自动复盘 + 30 天计划。交付 ②③ 收口。</p></div>
+  </div>
+  <p class="lead mt3">开场 10′ 自评分组 · 茶歇 10′ · 收尾 10′ 互换测试合影。<span class="gold">三件交付物下课前全验收。</span></p>
+  <div class="notes"><div class="lbl">讲师备注 04</div><p>把时间表打成大字贴讲台。提醒学员：三个交付物是三次"必须动手"，不是三次"听懂了"。</p></div>
+</section>
+
+<!-- 05 preflight -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>课前 · 你带来了吗</div>
+  <h2>课前准备<span class="gold">四件套</span></h2>
+  <div class="grid g4 mt4">
+    <div class="card"><span class="no">件 ①</span><h3>笔记本电脑</h3><p>能装软件、能连 Wi-Fi。平板手机今天顶不上——要装通达信和 WorkBuddy。</p></div>
+    <div class="card"><span class="no">件 ②</span><h3>通达信</h3><p>官网 www.tdx.com.cn 下载安装，行情主站连上。别到现场再下，网络会挤。</p></div>
+    <div class="card"><span class="no">件 ③</span><h3>WorkBuddy 账号</h3><p>第一期同款客户端，提前登录一次确认能进。</p></div>
+    <div class="card"><span class="no">件 ④</span><h3>自选股草稿</h3><p>课前想好 5–8 只候选，写在手机备忘录也行。</p></div>
+  </div>
+  <p class="lead mt3">四件齐 → 全程跟做不排队。详细清单见讲义<span class="gold">《07-课前准备清单》</span>。</p>
+  <div class="notes"><div class="lbl">讲师备注 05</div><p>开场前 15 分钟巡场验装：通达信行情连上、WorkBuddy 能登录。缺件的同学现场有备用流程跟看。</p></div>
+</section>
+
+<!-- 06 self-assess -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>开场 10′ · 自评</div>
+  <h2>先照镜子：<span class="gold">你现在的盯盘水位</span></h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card">
+      <span class="no">AI 技能自评量表 · 三档</span>
+      <p style="font-size:1.95vh;line-height:2.0">○ 0 没用过：今天从"把软件打开"开始<br>○ 1 用过没串起来：今天重点在第 2 节搭流<br>○ 2 已有自动化：今天重点在第 3 节复盘产线与口径调优</p>
+    </div>
+    <div class="card c">
+      <span class="no">规则</span>
+      <p style="font-size:1.8vh;line-height:1.95">自评只给自己看；<br>填完拍照存档，30 天后再评一次，<b class="cy">水位变化就是收获</b>。</p>
+    </div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 06</div><p>量表用讲义 09。按自评大致分层分 3 组，每组推一名组长——后面的互测全按这个分组走。</p></div>
+</section>
+
+<!-- 07 group -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>开场 · 分组</div>
+  <h2>三人一组 · <span class="gold">互测是今天的主引擎</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">组长干嘛</span><h3>验收 + 排障</h3><p>每节验收扫一遍全组屏幕，卡壳超两分钟的同学报到讲师处。</p></div>
+    <div class="card"><span class="no">组员干嘛</span><h3>互测三问</h3><p>每节验收环节两人互测各 60 秒——问题都在讲义任务卡上，照着问。</p></div>
+    <div class="card g"><span class="no">为什么互测</span><h3>说一遍才是会</h3><p>搭出来是手会，讲清楚是脑会。今天的交付物都要过互测这关。</p></div>
+  </div>
+  <p class="lead mt3">组长领讲义<span class="gold">《11-组长任务卡》</span>，全组对齐节奏再开工。</p>
+  <div class="notes"><div class="lbl">讲师备注 07</div><p>10 人现场分 3 组（3+3+4）。远程伙伴按远程通道进组，组长多留意一格。</p></div>
+</section>
+
+<!-- 08 sec1 -->
+<section class="slide sec">
+  <div class="num">01</div>
+  <div class="kicker"><span class="ln"></span>第 1 节 · 45 分钟</div>
+  <h1>看 · <span class="gold">把盘面摆上桌</span></h1>
+  <div class="line"></div>
+  <p class="sub">通达信四入口 + 自选股入列 + WorkBuddy 装配　　交付 ① 前半：自选股看盘工作流</p>
+  <div class="notes"><div class="lbl">讲师备注 08</div><p>进第 1 节只讲一句：看盘不是盯屏幕，是让该看的股票自动排好队。让每人先写下自己准备入列的 5–8 只。</p></div>
+</section>
+
+<!-- 09 four entrances -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 1 节 · 看</div>
+  <h2>通达信<span class="gold">四个看盘入口</span>，各答一个问题</h2>
+  <div class="grid g4 mt4">
+    <div class="card"><span class="no">入口 ①</span><h3>自选股板块 F6</h3><p>一屏排开全列表：现价、涨跌幅、换手。答"今天谁异动了"。<b class="gold">自动化主盯对象。</b></p></div>
+    <div class="card"><span class="no">入口 ②</span><h3>分时图 F5</h3><p>盘中切分时：脉冲什么量级、什么时点。答"这波异动长什么样"。</p></div>
+    <div class="card"><span class="no">入口 ③</span><h3>K 线 F5 切换</h3><p>日 K 看位置：突破、回落还是箱体。答"异动处在什么阶段"。</p></div>
+    <div class="card"><span class="no">入口 ④</span><h3>F10 资料</h3><p>概况 / 股东 / 财务 / 公告。答"这家公司是谁"。<b class="cy">AI 复盘背景库。</b></p></div>
+  </div>
+  <p class="lead mt3">四个入口各点开一次、截图存档——这就是你的<span class="gold">看盘入口地图</span>。</p>
+  <div class="notes"><div class="lbl">讲师备注 09</div><p>现场演示按 F6 → F5 → F10 顺序走一遍，边点边问"这个入口回答什么问题"。演示完让学员照做一遍再继续。</p></div>
+</section>
+
+<!-- 10 watchlist -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 1 节 · 看</div>
+  <h2>自选股只要 <span class="gold">5–8 只</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">为什么少</span><h3>多了盯不过来</h3><p>30 只列表等于没有列表。5–8 只是人工一眼能扫完、机器点名不稀释的上限。</p></div>
+    <div class="card"><span class="no">怎么选</span><h3>你真会看的</h3><p>持仓的、长期跟踪的、行业龙头各来几只。练习用公开大盘股也行——先跑通，再换血。</p></div>
+    <div class="card"><span class="no">怎么进列</span><h3>搜索 → 加入自选</h3><p>行情页搜代码或名称，回车进个股，Insert 或右键"加入自选股"，逐只加满。</p></div>
+  </div>
+  <p class="lead mt3">这张列表今天有两重身份：<span class="gold">你的人工看盘台，也是下午自动化要盯的那张表。</span></p>
+  <div class="notes"><div class="lbl">讲师备注 10</div><p>巡场看两件事：列表有没有加满、有没有人加 30 只。超量的让他砍到 8 只以内——砍的过程就是取舍。</p></div>
+</section>
+
+<!-- 11 workbuddy -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 1 节 · 看</div>
+  <h2>WorkBuddy <span class="gold">装配就位</span></h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card">
+      <span class="no">它是谁</span>
+      <p style="font-size:2.05vh;line-height:1.8">自动化产线客户端，<b class="gold">第一期工作坊同款工具</b>。像搭积木一样把「定时启动 → 截图/读取 → AI 总结 → 推送」串成流程，全程不写代码。</p>
+    </div>
+    <div class="card c">
+      <span class="no">现场动作 5′</span>
+      <p style="font-size:1.85vh;line-height:1.95">① 登录 WorkBuddy<br>② 新建流程，命名「盯盘练习」<br>③ 保存，先放着——第 2 节往里搭积木</p>
+    </div>
+  </div>
+  <p class="lead mt3">客户端铁律：自动化只用 <span class="gold">WorkBuddy</span> 一个，课上不装别的。</p>
+  <div class="notes"><div class="lbl">讲师备注 11</div><p>登录不上的是最大的雷，第一时间举手/发群处理，别让学员自己折腾半小时。全员就位再进第 2 节。</p></div>
+</section>
+
+<!-- 12 sec1 accept -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 1 节 · 验收</div>
+  <h2>交付 ① 前半 · <span class="gold">自选股看盘工作流</span></h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card g">
+      <span class="no">达标线</span>
+      <p style="font-size:2.05vh;line-height:1.75">自选股 <b class="gold">5–8 只已入列</b>，F6 一屏看全；四入口都打开过、截图存档；WorkBuddy「盯盘练习」流程已建。</p>
+    </div>
+    <div class="card">
+      <span class="no">两人互测 · 各 60 秒</span>
+      <p style="font-size:1.8vh;line-height:1.95">① 报出你列表里任意一只，它靠什么入列？<br>② F10 里你最常看哪两个栏目？<br>③ 下节课机器盯的就是这张表——认可吗？</p>
+    </div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 12</div><p>互测第③问是关键：让学员对"机器替我盯这张表"有心理确认，第 2 节阻力会小一半。</p></div>
+</section>
+
+<!-- 13 sec2 -->
+<section class="slide sec">
+  <div class="num">02</div>
+  <div class="kicker"><span class="ln"></span>第 2 节 · 45 分钟</div>
+  <h1>盯 · <span class="gold">异动自动到你眼前</span></h1>
+  <div class="line"></div>
+  <p class="sub">WorkBuddy 四步盯盘流　　交付 ① 收口 + 交付 ② 前半</p>
+  <div class="notes"><div class="lbl">讲师备注 13</div><p>过渡一句话："看盘你们都会了，现在让异动自己来找你。"本节是全天最长动手段，组长重点巡截图节点。</p></div>
+</section>
+
+<!-- 14 four-step -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 2 节 · 盯</div>
+  <h2>四步产线 · <span class="gold">第一期同款范式</span></h2>
+  <div class="grid g4 mt4">
+    <div class="card"><span class="no">STEP 1</span><h3>定时启动</h3><p>按点自动开跑，如盘中 14:45。先定一个时点，跑通再加。</p></div>
+    <div class="card"><span class="no">STEP 2</span><h3>截图 / 读取</h3><p>抓取通达信自选股列表（窗口保持打开）。分时、F10 都能抓。</p></div>
+    <div class="card"><span class="no">STEP 3</span><h3>AI 总结</h3><p>按口径点名异动，各写一句原因。口径必须是数值。</p></div>
+    <div class="card"><span class="no">STEP 4</span><h3>推送</h3><p>总结发到你指定的地方——人不在电脑前也能收到。</p></div>
+  </div>
+  <p class="lead mt3">这条骨架十年不过时：<span class="gold">软件会改版，范式不会</span>。记住四步，换任何工具都会装。</p>
+  <div class="notes"><div class="lbl">讲师备注 14</div><p>对应拆书法"拆流程不拆按钮"：界面细节不要求背，四步顺序必须能复述。点两位学员口头复述四步再放动手。</p></div>
+</section>
+
+<!-- 15 threshold -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 2 节 · 盯</div>
+  <h2>"异动"必须<span class="gold">写成数值</span></h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card">
+      <span class="no">口径参考</span>
+      <p style="font-size:2.05vh;line-height:1.85">① 涨跌幅超 <b class="gold">±3%</b><br>② 换手较近期<b class="gold">明显放大</b>（给个倍数或阈值）<br>③ 无一只达标 → 输出"今日无异动"</p>
+      <div class="hr"></div>
+      <p style="font-size:1.75vh">第三条最容易被漏：没有"输出无"，AI 就会硬凑异动——流水账的根源。</p>
+    </div>
+    <div class="card">
+      <span class="no">为什么必须数值</span>
+      <p style="font-size:1.85vh;line-height:1.9">"感觉不对劲"机器读不懂，<br>数值口径让点名可核对、可复盘、可改。<br><b class="cy">口径是人定的，机器只执行。</b></p>
+    </div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 15</div><p>现场让每人把口径写在纸上再进提示词环节——先有口径再有提示词，顺序反了就会写出模糊指令。</p></div>
+</section>
+
+<!-- 16 prompt -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 2 节 · 盯</div>
+  <h2>AI 总结提示词 · <span class="gold">四要素骨架</span></h2>
+  <div class="grid g4 mt4">
+    <div class="card"><span class="no">要素 ①</span><h3>读什么</h3><p>"读取通达信自选股列表截图，共 N 只股票"。缺了 AI 自行脑补范围。</p></div>
+    <div class="card"><span class="no">要素 ②</span><h3>点名标准</h3><p>"点名涨跌幅超 ±3% 或换手明显放大的股票"。缺了硬凑异动。</p></div>
+    <div class="card"><span class="no">要素 ③</span><h3>输出格式</h3><p>"每只：股票名 / 异动表现 / 一句话原因点评"。缺了输出流水账。</p></div>
+    <div class="card g"><span class="no">要素 ④</span><h3>必带一句</h3><p>"末尾固定附：以上仅供学习研究，不构成投资建议"。<b class="gold">红线，逐人检查。</b></p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 16</div><p>骨架投大屏让学员照抄再改。第四要素逐人检查：推送模板里没免责句的当场补进提示词。</p></div>
+</section>
+
+<!-- 17 build live -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 2 节 · 盯</div>
+  <h2>搭流 <span class="gold">20 分钟</span>：照这个顺序</h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">0–4′</span><h3>定时节点</h3><p>定一个盘中时点（如 14:45），保存。</p></div>
+    <div class="card"><span class="no">4–10′</span><h3>采集节点</h3><p>截图/读取，抓自选股列表；通达信窗口别最小化。</p></div>
+    <div class="card"><span class="no">10–16′</span><h3>AI + 推送</h3><p>按四要素写提示词；推送指到你能收到的地方。</p></div>
+    <div class="card g"><span class="no">16–20′</span><h3>手动试跑</h3><p>点一次运行，对照 F6 人工核点名。</p></div>
+  </div>
+  <p class="lead mt3">跑通截图存档 = <span class="gold">交付 ② 前半达成</span>。</p>
+  <div class="notes"><div class="lbl">讲师备注 17</div><p>两个高频卡：截图空（窗口最小化）→ 抓全屏；AI 硬凑 → 口径没数值。组长两分钟规则排障，排不掉举手。</p></div>
+</section>
+
+<!-- 18 errors -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 2 节 · 急救站</div>
+  <h2>四个高频卡点 · <span class="gold">先自救再举手</span></h2>
+  <div class="grid g2 mt4">
+    <div class="card"><span class="no">卡 ①</span><h3>截图抓出来是空白</h3><p>病根：通达信窗口被最小化/遮挡。自救：窗口还原置顶，重跑一次。</p></div>
+    <div class="card"><span class="no">卡 ②</span><h3>AI 每只都点名</h3><p>病根：口径没数值。自救：改成 ±3% 这类阈值 + 加"无则写无"。</p></div>
+    <div class="card"><span class="no">卡 ③</span><h3>到点没自动跑</h3><p>病根：电脑休眠/客户端退出。自救：电源设不休眠，客户端保持登录。</p></div>
+    <div class="card"><span class="no">卡 ④</span><h3>推送收不到</h3><p>病根：推送目标没选对。自救：手动试跑一次，确认能收到再开定时。</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 18</div><p>这张表贴墙上。自救两分钟规则：两分钟排不掉举手，讲师优先处理，别让一个人卡住全组。</p></div>
+</section>
+
+<!-- 19 tune -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 2 节 · 盯</div>
+  <h2>调优两三轮，<span class="gold">点名就稳了</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">第一轮</span><h3>跑 → 核</h3><p>对照 F6 列表人工核：该点名的点了吗？漏了还是凑了？</p></div>
+    <div class="card"><span class="no">第二轮</span><h3>改 → 再跑</h3><p>漏了→口径阈值调低；凑了→阈值调高 + 加"无则写无"。</p></div>
+    <div class="card"><span class="no">稳了</span><h3>开定时</h3><p>保存启用定时，下一个时点它自己跑。电脑别休眠、客户端别退出。</p></div>
+  </div>
+  <p class="lead mt3">盯盘流跑通 = <span class="gold">交付 ① 收口</span>；这条流就是下午复盘产线的母版。</p>
+  <div class="notes"><div class="lbl">讲师备注 19</div><p>别让学员无限调优——两轮定稿，追求"基本靠谱"不追求完美。30 天里每周还会调，今天是起点不是终点。</p></div>
+</section>
+
+<!-- 20 sec2 check -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 2 节 · 验收</div>
+  <h2>盯盘流<span class="gold">互测</span>（各 60 秒）</h2>
+  <div class="grid g23 mt3" style="align-items:stretch">
+    <div class="card">
+      <span class="no">三问</span>
+      <p style="font-size:2.05vh;line-height:2.0">① 你的盯盘流几点自动跑？为什么选这个点？<br>② AI 点名依据什么口径？说出数值。<br>③ 推送结果发到哪？翻给对方看。</p>
+    </div>
+    <div class="card g">
+      <span class="no">达标线</span>
+      <p style="font-size:1.85vh;line-height:1.9">四步流跑通有截图；<br>口径是数值不是感觉；<br>推送模板带免责句。</p>
+    </div>
+  </div>
+  <p class="lead mt3">答不上②的回去改提示词——<span class="gold">说不出标准的点名，就是没口径</span>。</p>
+  <div class="notes"><div class="lbl">讲师备注 20</div><p>互测只卡第②问。口径说不出数值的，现场补——这一个问题区分"搭了流程"和"搭懂了流程"。</p></div>
+</section>
+
+<!-- 21 sec3 -->
+<section class="slide sec">
+  <div class="num">03</div>
+  <div class="kicker"><span class="ln"></span>第 3 节 · 35 分钟</div>
+  <h1>复 · <span class="gold">收盘后机器写</span></h1>
+  <div class="line"></div>
+  <p class="sub">收盘复盘产线 + 30 天盯盘复盘计划　　交付 ② 收口 + 交付 ③</p>
+  <div class="notes"><div class="lbl">讲师备注 21</div><p>过渡一句话："前两节你看了、盯了，但一个月后还记得吗？"复盘产线让每天收盘自动留档，30 天攒出一本盘面日记。</p></div>
+</section>
+
+<!-- 22 three changes -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 3 节 · 复</div>
+  <h2>克隆盯盘流 → 复盘产线，<span class="gold">只改三处</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">改 ①</span><h3>定时</h3><p>盘中时点（如 14:45）→ 收盘后（如 15:30），一天一次。</p></div>
+    <div class="card"><span class="no">改 ②</span><h3>采集</h3><p>自选股列表 → 自选股列表 + F10 资料关注栏目。</p></div>
+    <div class="card"><span class="no">改 ③</span><h3>AI 口径</h3><p>点名异动一句点评 → 复盘要点 + 次日关注清单，两段固定输出。</p></div>
+  </div>
+  <p class="lead mt3">好流程是<span class="gold">克隆改参数</span>出来的，不是从零再搭一遍——这就是产线的复利。</p>
+  <div class="notes"><div class="lbl">讲师备注 22</div><p>强调克隆思想：第 2 节的流是资产，第 3 节十分钟的改动就多出一条新产线。让学员感受"搭一次、用多次"。</p></div>
+</section>
+
+<!-- 23 output format -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 3 节 · 复</div>
+  <h2>输出固定两段：<span class="gold">复盘要点 + 次日关注清单</span></h2>
+  <div class="grid g2 mt3">
+    <div class="card">
+      <span class="no">第一段 · 复盘要点</span>
+      <p style="font-size:1.85vh;line-height:1.8">今天各自选股表现如何、异动原因是什么——三五行讲完，不写论文。</p>
+    </div>
+    <div class="card g">
+      <span class="no">第二段 · 次日关注清单</span>
+      <p style="font-size:1.85vh;line-height:1.8">每条 = <b class="gold">股票 + 关注理由 + 看什么价位/信号</b>。标准：明天的自己看完知道看什么。</p>
+    </div>
+  </div>
+  <p class="lead mt3">清单里出现"继续关注""保持观察"这类空话 = <span class="gold">打回重改提示词</span>。每日复盘按日期存文件。</p>
+  <div class="notes"><div class="lbl">讲师备注 23</div><p>试跑后让每人读一遍自己的清单：空话就打回。存档目录当场建好，30 天计划第四栏直接填它。</p></div>
+</section>
+
+<!-- 24 30day -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 3 节 · 复</div>
+  <h2>30 天盯盘复盘计划 · <span class="gold">四栏写满</span></h2>
+  <div class="grid g4 mt4">
+    <div class="card"><span class="no">栏 ①</span><h3>盯什么</h3><p>自选股范围 + 异动口径（数值）。检验：口径有数字。</p></div>
+    <div class="card"><span class="no">栏 ②</span><h3>什么时候盯（自动）</h3><p>盘中时点 + 收盘复盘时点。检验：两条产线定时已开。</p></div>
+    <div class="card"><span class="no">栏 ③</span><h3>什么时候人工</h3><p>每周读一次本周复盘 · 月末整体回顾。检验：日历上有时间。</p></div>
+    <div class="card"><span class="no">栏 ④</span><h3>记录存哪</h3><p>每日复盘文件的目录。检验：能当场翻出今天的文件。</p></div>
+  </div>
+  <p class="lead mt3">30 天里允许自己改一次口径——<span class="gold">规则是拿来用的，不是拿来供的</span>。</p>
+  <div class="notes"><div class="lbl">讲师备注 24</div><p>给 5 分钟安静写计划，写完贴电脑边拍照发群。周循环参考：每天自动 2 分钟、每周人工 15 分钟、月末 30 分钟。</p></div>
+</section>
+
+<!-- 25 accept -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>第 3 节 · 验收</div>
+  <h2>三件交付物 · <span class="gold">下课前全勾</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">交付 ①</span><h3>自选股盯盘工作流</h3><p>通达信自选股 5–8 只 + WorkBuddy 四步流跑通，有截图。</p></div>
+    <div class="card"><span class="no">交付 ②</span><h3>收盘自动复盘产线</h3><p>定时在收盘后，输出复盘要点 + 次日关注清单两段。</p></div>
+    <div class="card"><span class="no">交付 ③</span><h3>30 天盯盘复盘计划</h3><p>四栏写满，含每周/月末人工回顾节点。</p></div>
+  </div>
+  <p class="lead mt3">自检表三项全勾 → 组长复核签字 → <span class="gold">截图打包发群 → 30 天计划贴电脑边</span>。</p>
+  <div class="notes"><div class="lbl">讲师备注 25</div><p>材料 06 自检表逐人过。复盘产线跑不通的用盯盘流截图顶、回家补，别拖全场散场时间。</p></div>
+</section>
+
+<!-- 26 redline -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>红线 · 划重点</div>
+  <h2>三条红线 · <span class="gold">一条都不能碰</span></h2>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">红线 ①</span><h3>不荐股</h3><p>产线输出的是"复盘要点 + 关注清单"，不是买卖信号。每条输出都带免责句。</p></div>
+    <div class="card"><span class="no">红线 ②</span><h3>只用公开数据</h3><p>通达信公开行情 + F10 公开资料。不碰任何"内部消息"式数据源。</p></div>
+    <div class="card"><span class="no">红线 ③</span><h3>只用 WorkBuddy</h3><p>自动化客户端课上只装 WorkBuddy 这一个，别的再好奇也不装。</p></div>
+  </div>
+  <p class="lead mt3">口令再念一遍：以上内容<span class="gold">仅供学习研究，不构成投资建议</span>。</p>
+  <div class="notes"><div class="lbl">讲师备注 26</div><p>红线页语气要重，逐条念。讲义每份材料里免责句都在，让学员翻开任意一份找到它——这是习惯训练。</p></div>
+</section>
+
+<!-- 27 close -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>收尾 · 10′</div>
+  <h2>今天的口令，<span class="gold">30 天后再对一次</span></h2>
+  <p class="lead mt4" style="font-size:3.2vh;line-height:1.6;color:#e8edf6">盘中让机器盯，收盘让机器写，<b class="gold">你只做判断。</b></p>
+  <div class="grid g3 mt4">
+    <div class="card"><span class="no">回家今晚</span><p>人工开一次收盘产线，确认它自己会跑。</p></div>
+    <div class="card"><span class="no">第一周</span><p>每天 2 分钟读复盘；周日用复盘卡核一次点名准不准。</p></div>
+    <div class="card g"><span class="no">卡住</span><p>报错截图发群，讲师在线接。30 天后同学会见分晓。</p></div>
+  </div>
+  <p class="footnote mt3">自动化盯盘与复盘结果仅供学习研究，不构成投资建议 · 报名微信 ikoning365</p>
+  <div class="notes"><div class="lbl">讲师备注 27</div><p>收尾口令带全场念一遍。互换测试 → 复盘卡发放 → 30 天承诺 → 合影，10 分钟内完成。</p></div>
+</section>
+
+<!-- 28 extend -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>延伸 · 下一步去哪</div>
+  <h2>课后<span class="gold">两条路</span></h2>
+  <div class="grid g2 mt4">
+    <div class="card c">
+      <span class="no">路 ① 深度个股分析</span>
+      <h3>第七期 · DSA 每日股票分析</h3>
+      <p>想给单只股票做更深的 AI 分析，去看第七期工作坊回望，站内路径 <b class="cy">/workshop/07/</b>。</p>
+    </div>
+    <div class="card">
+      <span class="no">路 ② 精进自动化</span>
+      <h3>第一期 · 公众号工作流</h3>
+      <p>WorkBuddy 四步范式（定时 → 采集 → AI 总结 → 推送）的更多玩法，回看第一期讲义。</p>
+    </div>
+  </div>
+  <p class="lead mt3">本课讲义与回望入口：<span class="gold">chai.aibay.asia</span>（以站内实际页面为准）。</p>
+  <div class="notes"><div class="lbl">讲师备注 28</div><p>延伸页 30 秒带过，只指路不展开。外链纪律：通达信官网 www.tdx.com.cn、/workshop/07/、chai.aibay.asia，就这三个。</p></div>
+</section>
+
+<!-- 29 faq -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>常见问题</div>
+  <h2>开课前被问<span class="gold">最多的四个问题</span></h2>
+  <div class="grid g2 mt4">
+    <div class="card"><span class="no">问 ①</span><h3>零基础能跟吗？</h3><p>能。全程零代码，每步有讲义任务卡照做，卡了有组长和讲师兜底。</p></div>
+    <div class="card"><span class="no">问 ②</span><h3>不炒股能学吗？</h3><p>能。四步范式（定时 → 采集 → AI 总结 → 推送）搬到任何"定时看信息"的场景都成立。</p></div>
+    <div class="card"><span class="no">问 ③</span><h3>一定要到现场吗？</h3><p>建议到现场（互测是主引擎）；不方便可远程参加，看顾二维码进群，会议链接群公告。</p></div>
+    <div class="card"><span class="no">问 ④</span><h3>费用怎么算？</h3><p>非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人。</p></div>
+  </div>
+  <div class="notes"><div class="lbl">讲师备注 29</div><p>FAQ 页配合落地页讲。报名微信统一口径 ikoning365，名额 10 人，别随口加名额。</p></div>
+</section>
+
+<!-- 30 enroll -->
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>报名信息</div>
+  <h2>11 月 · <span class="gold">仅限 10 人</span></h2>
+  <dl class="meta mt4">
+    <div><dt>时间</dt><dd>11 月 · 具体时间待定</dd></div>
+    <div><dt>地点</dt><dd>广州越秀区雅苑·培正 5 号楼</dd></div>
+    <div><dt>费用</dt><dd>非会员 39 元（含茶歇+资料）· 会员免费 · 仅限 10 人</dd></div>
+    <div><dt>报名</dt><dd>微信 ikoning365</dd></div>
+  </dl>
+  <div class="grid g2 mt4">
+    <div class="card"><span class="no">现场伙伴</span><p class="small">带上课前准备四件套直接来。</p></div>
+    <div class="card c"><span class="no">远程伙伴</span><p class="small">扫码进群（看顾二维码）· 会议链接群公告 · 课前按清单备环境。</p></div>
+  </div>
+  <p class="footnote">自动化盯盘与复盘结果仅供学习研究，不构成投资建议</p>
+  <div class="notes"><div class="lbl">讲师备注 30</div><p>报名页信息与落地页一字不差：时间待定、39 元、10 人、ikoning365。有人问就说以落地页为准。</p></div>
+</section>
+
+</div>
+
+<div class="hint" id="hint">← → 翻页　·　N 讲师备注</div>
+<div class="pager"><b id="cur">01</b> / <span id="tot">31</span></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="notes" id="notesBar"><div class="lbl">讲师备注</div><p id="notesTxt"></p></div>
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0, n = slides.length;
+  var cur = document.getElementById('cur');
+  var tot = document.getElementById('tot');
+  var prog = document.getElementById('prog');
+  var notesTxt = document.getElementById('notesTxt');
+  var hint = document.getElementById('hint');
+
+  function pad(x){ return (x < 10 ? '0' : '') + x; }
+
+  function show(k){
+    if (k < 0) k = 0;
+    if (k > n - 1) k = n - 1;
+    slides[i].classList.remove('on','vis');
+    i = k;
+    slides[i].classList.add('on');
+    (function(s){ setTimeout(function(){ s.classList.add('vis'); }, 20); })(slides[i]);
+    cur.textContent = pad(i + 1);
+    tot.textContent = n;
+    prog.style.width = ((i + 1) / n * 100).toFixed(2) + '%';
+    var s = slides[i].querySelector('.notes');
+    notesTxt.textContent = s ? s.textContent.replace(/讲师备注\s*\d+/, '').trim() : '（本页无备注）';
+    if (location.hash !== '#' + (i + 1)) {
+      try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+    }
+  }
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ' || k === 'Enter') {
+      e.preventDefault(); show(i + 1); hint.classList.add('off');
+    } else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') {
+      e.preventDefault(); show(i - 1); hint.classList.add('off');
+    } else if (k === 'Home') {
+      e.preventDefault(); show(0);
+    } else if (k === 'End') {
+      e.preventDefault(); show(n - 1);
+    } else if (k === 'n' || k === 'N') {
+      e.preventDefault(); document.body.classList.toggle('notes-on');
+      hint.classList.add('off');
+    } else if (k === 'f' || k === 'F') {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest('a')) return;
+    if (document.body.classList.contains('notes-on') && e.target.closest('#notesBar')) return;
+    if (e.clientX > window.innerWidth * 0.55) show(i + 1);
+    else if (e.clientX < window.innerWidth * 0.45) show(i - 1);
+    hint.classList.add('off');
+  });
+
+  var start = parseInt((location.hash || '').replace('#',''), 10);
+  if (!start || start < 1 || start > n) start = 1;
+  i = 0;
+  show(start - 1);
+  setTimeout(function(){ hint.classList.add('off'); }, 6000);
+})();
+</script>
+</body>
+</html>

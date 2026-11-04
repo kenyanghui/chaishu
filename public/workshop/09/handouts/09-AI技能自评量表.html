@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 09｜AI 技能自评量表</title>
+<link rel="stylesheet" href="handout.css">
+<style>
+body{font-size:11.8px}
+.scale td{ text-align:center; width:11mm; font-size:12px; color:#5b6b84 }
+.scale td.q{ text-align:left; width:auto }
+.band td{ text-align:center; padding:6px 4px }
+.o{display:inline-block;width:3.6mm;height:3.6mm;border:1.3px solid #9aa8bd;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>AI 技能自评量表</h1>
+      <div class="sub">开课前 5 分钟填 · 按真实频度打分 · 测完你就知道自己站在哪</div>
+    </div>
+    <div class="brand">开课首发放<br>总分填右边 → <b style="font-size:15px;color:var(--blue)">____ / 50</b></div>
+  </div>
+
+  <p style="margin-top:8px">评分标准：<b>1 = 从未</b> · 2 = 偶尔（几月一次） · 3 = 有时（每月） · <b>4 = 经常（每周）</b> · 5 = 每天。圈一个数字，凭第一直觉，别想太久。</p>
+
+  <h2>第一部分 · 装（环境与工具）</h2>
+  <table class="scale">
+    <tr><td class="q">1. 我知道量化交易大概是怎么回事（把买卖规则写成程序再检验）</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">2. 我在自己电脑上装过并跑通过开发工具（Docker / Python / Git 任一）</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">3. 遇到安装报错，我会看报错最后一行并动手搜解法，而不是直接放弃</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>第二部分 · 测（AI 辅助 + 回测）</h2>
+  <table class="scale">
+    <tr><td class="q">4. 我用过 AI 助手帮我解释代码或写代码骨架（WorkBuddy 等都算）</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">5. 我能看懂一段简单 Python 代码在做什么（不用会写，看懂即可）</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">6. 我听说过回测，知道「历史表现好」不等于「未来也赚钱」</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>第三部分 · 跑（模拟盘与持续学习）</h2>
+  <table class="scale">
+    <tr><td class="q">7. 我知道模拟盘（paper trading）和实盘的差别</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">8. 我能坚持一个 30 天的学习计划并留下记录（打卡/笔记都算）</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+    <tr><td class="q">9. 我清楚量化结果仅供学习研究、不构成投资建议，也从不拿生活必需钱去投资</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>第四部分 · 翻转（教会别人才算学会）</h2>
+  <table class="scale">
+    <tr><td class="q">10. 我能给零基础的朋友讲清「量化流程五步：研究→写策略→回测→模拟→监控」</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+  </table>
+
+  <h2>对号入座（圈出你今天的座位）</h2>
+  <table class="band">
+    <tr>
+      <th style="width:25%">10–20 分<br>新芽</th>
+      <th style="width:25%">21–30 分<br>搭子</th>
+      <th style="width:25%">31–40 分<br>熟手</th>
+      <th>41–50 分<br>教练</th>
+    </tr>
+    <tr>
+      <td>第一次接触量化，跟着手册一步步来</td>
+      <td>装过工具没用透，今天补全链路</td>
+      <td>流程能走，来学 AI 辅助提效</td>
+      <td>目标是能教别人，坐组长旁边</td>
+    </tr>
+  </table>
+  <p class="muted" style="margin-top:4px">新芽别慌：手册每步都有检查点和排障表，照做就能毕业；教练请举手当组长（材料 11）。</p>
+
+  <div class="foot">材料 09 · AI 技能自评量表 · 开课前 5 分钟填</div>
+</div>
+</body>
+</html>

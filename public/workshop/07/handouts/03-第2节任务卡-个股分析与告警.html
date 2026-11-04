@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 03｜第 2 节任务卡 · 个股分析与告警</title>
+<link rel="stylesheet" href="handout.css">
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>第 2 节任务卡 · 跑：让 AI 先过一遍</h1>
+      <div class="sub">个股分析报告 + 大盘复盘 + 告警规则 · 现场 20 分钟 · 交付 ① 后半 + 交付 ②</div>
+    </div>
+    <div class="brand">45′ 本节<br>交付 ②</div>
+  </div>
+
+  <div class="box gold">
+    <p style="margin-bottom:0"><b>达标线：一份个股分析报告导出存档（Markdown/分享图）+ 一条「已启用」的告警规则截图。</b>报告不是答案——是把你从「到处翻信息」变成「先读一遍再判断」。分析结果由 AI 生成，仅供学习研究参考，不构成投资建议。</p>
+  </div>
+
+  <h2>四步跑通（20 分钟 · 逐项打勾）</h2>
+  <table>
+    <tr><th style="width:8%">✓</th><th style="width:16%">步骤</th><th style="width:10%">时间</th><th>动作</th><th style="width:24%">我的记录</th></tr>
+    <tr><td class="center">☐</td><td><b>① 提任务</b></td><td>6′</td><td>进「首页·个股分析」，输入清单里最关心的一只代码提交。注意：分析是<b>异步任务</b>，提交后会排队——等它跑完，别反复重提</td><td>代码：<span class="blank s">&nbsp;</span></td></tr>
+    <tr><td class="center">☐</td><td><b>② 读报告</b></td><td>6′</td><td>通读报告四块：基本面 / 技术面 / AI 建议 / 风险观察条件；看不懂的段落贴给「问股 Agent」要大白话解释</td><td>已读 ☐　已追问 ☐</td></tr>
+    <tr><td class="center">☐</td><td><b>③ 导出</b></td><td>4′</td><td>在历史报告里导出 Markdown 存本地（建 dsa-reports/ 文件夹），再导一张分享图</td><td>.md ☐　图 ☐</td></tr>
+    <tr><td class="center">☐</td><td><b>④ 建告警</b></td><td>4′</td><td>进「告警」新建规则：选清单里一只，设涨跌幅阈值条件，开启通知，确认「已启用」，截图存档</td><td>截图 ☐ 已存</td></tr>
+  </table>
+
+  <h2>顺手多跑一步：大盘复盘（5 分钟，弹性时间做）</h2>
+  <div class="box">
+    <p style="margin-bottom:0">进「大盘复盘」触发一次复盘任务（同样异步）→ 读结论：市场温度、板块动向、风险提示 → 用问股 Agent 追问一句「今天大盘为什么这样走？」。这就是你的每日十分钟雏形。</p>
+  </div>
+
+  <h2>读报告速查表：四块各看什么</h2>
+  <table>
+    <tr><th style="width:20%">板块</th><th style="width:40%">看什么</th><th>别犯的错</th></tr>
+    <tr><td><b>基本面</b></td><td>主业、盈利能力、行业位置——回答「这是家什么公司」</td><td>只看结论不看依据，AI 也会出错</td></tr>
+    <tr><td><b>技术面</b></td><td>K 线走势、关键位置——回答「现在在什么位置」</td><td>把技术信号当买卖指令</td></tr>
+    <tr><td><b>AI 建议</b></td><td>综合判断与关注理由——回答「AI 怎么看」</td><td>把「AI 怎么看」直接当「我该怎么做」</td></tr>
+    <tr><td><b>风险观察条件</b></td><td>列出要盯的风险信号——这正好转成告警规则</td><td>看完不动作，风险条目白列了</td></tr>
+  </table>
+
+  <h2>告警条件怎么定（照这张表抄，不凭感觉）</h2>
+  <table>
+    <tr><th style="width:22%">盯什么</th><th style="width:40%">规则示例（阈值先设宽）</th><th>为什么盯它</th></tr>
+    <tr><td><b>异动</b></td><td>单日涨跌幅超过 ±5%（或 ±3% 更灵敏）</td><td>到了你预设的位置，AI 通知你，不用盯屏</td></tr>
+    <tr><td><b>风险信号</b></td><td>报告「风险观察条件」里列出的信号触发</td><td>把 AI 找到的风险，变成自动盯梢</td></tr>
+    <tr><td><b>验证节奏</b></td><td>交易日盘中确认一次通知链路通不通</td><td>规则建了不触发 = 没建</td></tr>
+  </table>
+
+  <h2>做完自查</h2>
+  <div class="chk"><div class="b"></div><div>个股分析报告已导出：1 个 .md + 1 张分享图，存进 dsa-reports/。</div></div>
+  <div class="chk"><div class="b"></div><div>告警规则 ≥1 条「已启用」，截图已存。</div></div>
+  <div class="chk"><div class="b"></div><div>大盘复盘跑过一次，问股 Agent 能多轮追问。</div></div>
+  <div class="chk"><div class="b"></div><div>全程记住：报告是研究参考，不是买卖指令。</div></div>
+
+  <div class="foot">小蛮腰·拆AI · DSA 场 · 材料 03 · 分析结果由 AI 生成，仅供学习研究参考，不构成投资建议</div>
+</div>
+</body>
+</html>

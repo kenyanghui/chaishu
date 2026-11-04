@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 10｜拆书法指导</title>
+<style>
+@page{size:A4;margin:14mm 12mm}
+*{box-sizing:border-box}
+:root{
+  --ink:#101b2e; --ink2:#4a5a72; --line:#dbe3ee; --mute:#8894a8;
+  --blue:#1f5eff; --blue-soft:#eef4ff; --gold:#e2a020; --gold-soft:#fdf5e3;
+  --green:#17845b; --green-soft:#e9f7f0;
+}
+html,body{margin:0}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  color:var(--ink); font-size:12.3px; line-height:1.34; background:#eef1f6;
+  -webkit-font-smoothing:antialiased; padding:12px 0;
+}
+.sheet{
+  width:186mm; min-height:262mm; margin:0 auto 8px; background:#fff; padding:5mm 4mm;
+  box-shadow:0 8px 26px rgba(16,27,46,.12); position:relative;
+}
+h1{font-size:19px;margin:0 0 3px;letter-spacing:-.2px}
+.sub{font-size:12px;color:var(--mute);margin:0 0 12px}
+h2{font-size:13px;margin:11px 0 6px;padding-left:8px;border-left:3px solid var(--blue)}
+h2:first-of-type{margin-top:10px}
+p{margin:0 0 8px;color:var(--ink2)}
+ul,ol{margin:0 0 8px;padding-left:20px;color:var(--ink2)}
+li{margin:0 0 2px}
+table{width:100%;border-collapse:collapse;font-size:11.8px}
+th,td{border:1px solid var(--line);padding:4.5px 7px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;font-size:11.5px;color:#5b6b84;font-weight:700;letter-spacing:.5px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:4px}
+.head .brand{font-size:11px;color:var(--mute);text-align:right;line-height:1.5}
+.blank{display:inline-block;border-bottom:1px solid #9aa8bd;min-width:40mm;height:1.1em}
+.box{background:var(--blue-soft);border:1px solid #cfdcf7;border-radius:8px;padding:7px 10px;margin:6px 0}
+.box.gold{background:var(--gold-soft);border-color:#ecd9a8}
+.box.green{background:var(--green-soft);border-color:#bfe3d3}
+.muted{color:var(--mute);font-size:11.5px}
+.foot{margin-top:10px;padding-top:6px;border-top:1px solid var(--line);font-size:11px;color:var(--mute)}
+.toolbar{width:186mm;margin:0 auto 10px;display:flex;gap:10px;align-items:center;font-size:12px}
+.toolbar a{color:var(--blue);text-decoration:none;font-weight:700}
+.toolbar button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 14px;font-size:12px;cursor:pointer;color:var(--ink2)}
+
+@media print{
+  body{background:#fff;padding:0}
+  .sheet{width:auto;min-height:0;margin:0;box-shadow:none;padding:0}
+  .toolbar{display:none}
+}
+</style>
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>拆书法指导 · 今天怎么"拆"才不白学</h1>
+      <div class="sub">R 拆看 → I 拆解 → A1 拆忆 → A2 拆用 · 每一节都过这四刀</div>
+    </div>
+    <div class="brand">小蛮腰·拆AI · 第八期<br>材料 10</div>
+  </div>
+
+  <div class="box gold">
+    <p style="margin-bottom:0"><b>一句话</b>：不追求"听懂"，追求"拆开再装回去"。今天拆的对象是一条自动化产线——定时 → 采集 → AI 总结 → 推送。</p>
+  </div>
+
+  <h2>RIA 四刀 · 对应到今天的课</h2>
+  <table>
+    <tr><th style="width:14%">刀</th><th style="width:30%">拆什么</th><th>今天怎么落</th></tr>
+    <tr><td><b>R 拆看</b></td><td>原样看一遍演示</td><td>讲师演示通达信四入口与四步流时，只看和记，不动手——看清整条链长什么样</td></tr>
+    <tr><td><b>I 拆解</b></td><td>拆成零件，说出每步干什么</td><td>把产线拆成四步，回答：定时为什么先定？采集抓什么？AI 口径给什么？推到哪？</td></tr>
+    <tr><td><b>A1 拆忆</b></td><td>接上自己的经验</td><td>写一句："我以前盯盘/复盘最痛的一步是______"——今天这步交给机器</td></tr>
+    <tr><td><b>A2 拆用</b></td><td>下周就能用的最小动作</td><td>三件交付物就是三个 A2；30 天计划把它们钉在日历上</td></tr>
+  </table>
+
+  <h2>每一节的拆解问题（带着问，别白看）</h2>
+  <table>
+    <tr><th style="width:16%">节</th><th>拆解问题（听课时自问）</th></tr>
+    <tr><td><b>第 1 节 · 看</b></td><td>四个入口各自回答什么问题？我的自选股为什么是这几只、为什么只放 5–8 只？</td></tr>
+    <tr><td><b>第 2 节 · 盯</b></td><td>四步流哪步最容易坏？"异动"的数值口径是多少、为什么必须写死？</td></tr>
+    <tr><td><b>第 3 节 · 复</b></td><td>复盘产线和盯盘流差在哪三处？次日关注清单"具体"的标准是什么？</td></tr>
+  </table>
+
+  <h2>AI 时代拆书拆课的三个提醒</h2>
+  <ul>
+    <li><b>拆流程不拆按钮</b>：软件界面会改版，「定时 → 采集 → 总结 → 推送」的骨架十年不变——记住骨架，换软件也会装。</li>
+    <li><b>口径是人定的是机器执行的</b>：AI 只按你给的数值标准点名。口径模糊，产出就是流水账。</li>
+    <li><b>机器输出也是"原文"</b>：AI 的复盘也是被拆解的对象——它点名准不准、理由站不站得住，每周人工核一次。</li>
+  </ul>
+
+  <h2>回家后：30 天拆用节奏</h2>
+  <table>
+    <tr><th style="width:18%">时点</th><th style="width:34%">动作</th><th>用哪张材料</th></tr>
+    <tr><td>每天 2 分钟</td><td>读收盘产线的复盘要点 + 次日关注清单</td><td>产线自动产出</td></tr>
+    <tr><td>每周 15 分钟</td><td>翻 5 份复盘，答一句"AI 点名准不准"，口径该调就调</td><td>材料 05 复盘卡</td></tr>
+    <tr><td>月末 30 分钟</td><td>30 天计划整体回顾：自选股换血、口径升级</td><td>材料 04 计划表</td></tr>
+  </table>
+
+  <div class="box green">
+    <p style="margin-bottom:0"><b>拆书法一句话收尾</b>：听过会忘，拆过会装，用过才是你的。今天三件交付物，就是三次"用过"。</p>
+  </div>
+
+  <p class="muted foot">方法论：拆书帮 RIA 便签读书法 · 应用到 AI 工具课 · 自动化结果仅供学习研究，不构成投资建议</p>
+</div>
+</body>
+</html>

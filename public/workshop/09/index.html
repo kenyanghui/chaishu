@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuantDinger · 量化全流程 · 11 月场（时间待定）｜小蛮腰·拆AI</title>
+<meta name="description" content="开源 AI Trading OS 上手：QuantDinger 本地部署 + AI 写策略 + 回测 + 模拟盘监控，3 小时走完一条完整量化流程。11 月广州越秀，仅限 10 人。">
+<style>
+  :root{
+    --bg:#0a0d16; --bg2:#0e1220; --card:#131829; --line:#232b42;
+    --ink:#e8ecf5; --ink2:#9aa6bd; --mute:#5d6a83;
+    --cyan:#22d3ee; --green:#34d399; --gold:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:
+      radial-gradient(900px 480px at 85% -10%, rgba(34,211,238,.09), transparent 60%),
+      radial-gradient(700px 420px at -5% 105%, rgba(52,211,153,.07), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; letter-spacing:-.01em; padding:0 0 70px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px) saturate(180%);
+    background:rgba(10,13,22,.82);border-bottom:1px solid var(--line)}
+  .nav .in{max-width:1060px;margin:0 auto;padding:0 22px;height:56px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:800;letter-spacing:-.02em;font-size:17px}
+  .nav .logo b{background:linear-gradient(90deg,#22d3ee,#34d399);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13px;color:var(--ink2);border:1px solid var(--line);background:var(--bg2);
+    border-radius:980px;padding:6px 14px;transition:.2s}
+  .nav .back:hover{color:var(--ink);border-color:#3b4666}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  .hero{padding:44px 0 8px}
+  .pill{display:inline-block;font-size:12px;letter-spacing:1.8px;color:var(--cyan);font-weight:700;
+    border:1px solid rgba(34,211,238,.32);background:rgba(34,211,238,.07);
+    border-radius:980px;padding:5px 13px;margin-bottom:18px}
+  h1{font-size:40px;line-height:1.18;letter-spacing:-.03em;margin:0 0 16px;font-weight:800}
+  h1 em{font-style:normal;background:linear-gradient(90deg,#22d3ee,#34d399);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:15.5px;color:var(--ink2);margin:0 0 20px;max-width:640px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .meta span{font-size:12.5px;color:var(--ink2);border:1px solid var(--line);background:var(--bg2);
+    border-radius:980px;padding:6px 13px}
+  .meta b{color:var(--gold);font-weight:700}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:600;
+    border-radius:980px;padding:11px 20px;transition:.2s;cursor:pointer;border:1px solid transparent;font-family:inherit}
+  .btn.main{background:var(--cyan);color:#06222a}
+  .btn.main:hover{background:#4fe0f2}
+  .btn.ghost{background:var(--bg2);color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:#3b4666;color:var(--ink)}
+  h2.sec{font-size:21px;font-weight:800;letter-spacing:-.02em;margin:48px 0 14px;display:flex;align-items:center;gap:10px}
+  h2.sec::before{content:"";width:5px;height:20px;border-radius:3px;background:linear-gradient(#22d3ee,#34d399)}
+  .gains{display:grid;gap:12px}
+  .gain{display:flex;gap:14px;border:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--bg2));border-radius:16px;
+    padding:15px 18px;align-items:flex-start}
+  .gain .i{font-size:18px;line-height:1.4;font-weight:800;color:var(--cyan)}
+  .gain b{display:block;font-size:15px;margin-bottom:2px;color:var(--ink)}
+  .gain span{font-size:13px;color:var(--ink2)}
+  .who{display:flex;flex-wrap:wrap;gap:8px}
+  .who span{font-size:13px;color:var(--ink2);background:var(--bg2);border:1px solid var(--line);border-radius:980px;padding:7px 14px}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .tools span{font-size:12.5px;font-weight:700;letter-spacing:.4px;color:var(--ink);background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+  .tools span:first-child{color:var(--mute);border:none;background:none;font-weight:500;letter-spacing:0}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .links a{border:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--bg2));border-radius:12px;padding:12px 16px;font-size:13.5px;color:var(--ink2);transition:.15s}
+  .links a:hover{color:var(--cyan);border-color:rgba(34,211,238,.4)}
+  .links a::before{content:"› ";color:var(--mute)}
+  .disc{border:1px solid rgba(251,191,36,.35);background:rgba(251,191,36,.07);border-radius:14px;
+    padding:14px 18px;font-size:13.5px;color:var(--ink2);margin-top:20px}
+  .disc b{color:var(--gold)}
+  .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--mute);text-align:center;line-height:1.9}
+  @media(max-width:860px){h1{font-size:31px}.links{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="in">
+  <div class="logo"><b>小蛮腰·拆AI</b>&nbsp;<span style="font-size:12px;color:var(--mute)">/ QuantDinger 量化场</span></div>
+  <a class="back" href="/workshops">← 返回全部课程</a>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="pill">11 月场 · 时间待定 · 拆书帮广州小蛮腰分舵</div>
+    <h1>量化不是玄学，<br><em>是一条能跑通的流程</em></h1>
+    <p class="sub">拆 QuantDinger（开源 AI Trading OS）—— 本地部署、AI 研究助手写策略、历史回测、模拟盘盯监控，
+      从「量化是什么」到「我的第一个策略在模拟盘上跑起来」，3 小时走完一条完整量化流程。</p>
+    <div class="meta">
+      <span><b>11 月</b> 时间待定（报名后群内通知）</span>
+      <span><b>广州越秀</b> 雅苑·培正 5 号楼</span>
+      <span><b>仅 10 人</b> 小班现场动手</span>
+      <span><b>会员免费</b> 非会员 39 元含茶歇</span>
+    </div>
+    <div class="cta">
+      <button class="btn main" onclick="copyWeChat(this)">立即报名（微信 ikoning365）</button>
+      <a class="btn ghost" href="/workshops">← 返回全部课程</a>
+    </div>
+    <div style="margin:22px auto 0;max-width:860px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,var(--card),var(--bg2));padding:18px 22px;display:flex;gap:22px;align-items:center;text-align:left">
+      <img src="https://chai.aibay.asia/images/wecom-group-qr.png" alt="企业微信群二维码" width="112" height="112" style="border-radius:12px;background:#fff;flex:0 0 112px;padding:6px">
+      <div style="font-size:14px;color:var(--ink2);line-height:1.8">
+        <b style="color:var(--ink);font-size:15.5px">远程也能参加 · 欢迎远程学员</b><br>
+        企业微信扫码进群（「心光AI FDE群 · 拆AI讨论」），<b style="color:var(--cyan)">远程会议链接将在群内发布</b>——课前留意群公告。<br>
+        远程同样能动手：带上电脑，跟着手册一步步做，交付物一样带走。<br>
+        <b style="color:var(--ink)">远程伙伴四个注意</b>：① 提前一天进群，会议链接只发群公告；② 带电脑 + 耳机，找网络稳的位置；③ 课前照「课前准备清单」把环境和账号备好——远程没人现场帮你；④ 卡住别憋着，报错截图发群里，讲师在线接。
+      </div>
+    </div>
+    <div class="disc">
+      <b>合规提示：</b>本工作坊全部量化结果<b>仅供学习研究，不构成投资建议</b>；课堂只用<b>模拟盘和历史数据</b>，不涉及任何真实资金操作。
+    </div>
+  </div>
+
+  <h2 class="sec">这场拆什么</h2>
+  <p style="color:var(--ink2);font-size:14.5px;margin:0">拆 QuantDinger：GitHub 13,509 stars 的开源 AI Trading OS（Apache-2.0），官方链路 AI research → Strategy code（Python 策略）→ Backtest（回测）→ Paper/Live execution（模拟盘/实盘执行）→ Monitoring（监控），self-hosted 一体化，覆盖 crypto、股票、外汇三大市场。本期只走到模拟盘：把流程走通，把认知建立起来。上过第七期「A 股每日分析」的伙伴，这一期就是从轻入口潜进全流程深水区。</p>
+  <div class="tools" style="margin-top:14px"><span>拆的软件</span><span>QuantDinger</span><span>Docker</span><span>Python</span></div>
+
+  <h2 class="sec">现场带走</h2>
+  <div class="gains">
+    <div class="gain"><div class="i">01</div><div><b>你的 QuantDinger 本地环境 + 第一个 Python 策略</b><span>Docker 自托管部署跑通，AI 研究助手陪你写下第一行策略代码。</span></div></div>
+    <div class="gain"><div class="i">02</div><div><b>一份完整回测报告（模拟历史数据）</b><span>收益、回撤、成交记录逐项会读，知道策略「在历史数据上表现如何」。</span></div></div>
+    <div class="gain"><div class="i">03</div><div><b>30 天量化学习计划</b><span>从看懂回测指标到迭代自己的策略，四周排好，照着走。</span></div></div>
+  </div>
+
+  <h2 class="sec">适合谁</h2>
+  <div class="who">
+    <span>想系统理解量化流程的开发者</span>
+    <span>想用 AI 辅助写策略的交易爱好者</span>
+    <span>上过第七期想深入全流程的学员</span>
+  </div>
+
+  <h2 class="sec">本页材料索引</h2>
+  <div class="links">
+    <a href="ppt/index.html">课件：QuantDinger · 量化全流程（30 页）</a>
+    <a href="ppt/poster.html">活动海报（A4 可打印）</a>
+    <a href="guide.html">自助跟做手册（课前预习 · 一步一步跟做）</a>
+    <a href="/workshop/07/">第七期 · A 股每日分析（轻入口，延伸阅读）</a>
+    <a href="dist/index.html">打印版 PDF（课件 · 海报 · 全部材料，直接下载）</a>
+    <a href="handouts/01-学习地图与时间表.html">01 · 学习地图与时间表</a>
+    <a href="handouts/02-第1节任务卡-本地部署QuantDinger.html">02 · 第 1 节任务卡（本地部署 QuantDinger）</a>
+    <a href="handouts/03-第2节任务卡-AI写策略与回测.html">03 · 第 2 节任务卡（AI 写策略与回测）</a>
+    <a href="handouts/04-模拟盘监控与30天计划.html">04 · 模拟盘监控与 30 天计划</a>
+    <a href="handouts/05-复盘卡.html">05 · 复盘卡</a>
+    <a href="handouts/06-交付物验收自检表.html">06 · 交付物验收自检表</a>
+    <a href="handouts/07-课前准备清单.html">07 · 课前准备清单（报名后看）</a>
+    <a href="handouts/08-讲师资控手册.html">08 · 讲师资控手册（讲师用）</a>
+    <a href="handouts/09-AI技能自评量表.html">09 · AI 技能自评量表（开场用）</a>
+    <a href="handouts/index.html">全部材料目录 →</a>
+  </div>
+
+  
+  <style>
+  .fb-card{max-width:680px;margin:20px auto 0;background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);
+    border-radius:14px;padding:24px 26px}
+  .fb-card h2.sec{margin-top:0}
+  .fb-lead{color:var(--ink2);font-size:14px;margin:6px 0 16px}
+  .fb-card label{display:block;font-size:13px;color:var(--ink2);margin:14px 0 6px;font-weight:600}
+  .fb-card textarea,.fb-card input{width:100%;box-sizing:box-sizing;background:var(--bg2);
+    border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 12px;font:inherit;font-size:14px}
+  .fb-card textarea,.fb-card input{box-sizing:border-box}
+  .fb-card textarea:focus,.fb-card input:focus{outline:none;border-color:var(--cyan)}
+  .fb-stars{display:flex;gap:6px;font-size:32px;line-height:1;cursor:pointer;user-select:none}
+  .fb-stars span{color:var(--mute);opacity:.45;transition:.15s}
+  .fb-stars span.on{color:#fbbf24;opacity:1}
+  .fb-btn{margin-top:18px;background:var(--cyan);color:#06222a;border:none;border-radius:10px;
+    padding:11px 26px;font:inherit;font-size:15px;font-weight:600;cursor:pointer}
+  .fb-btn:disabled{opacity:.55;cursor:default}
+  .fb-msg{margin-left:12px;font-size:13px;color:#e06a67}
+  .fb-thanks{display:none;text-align:center;padding:18px 6px 6px}
+  .fb-card.done .fb-form{display:none}
+  .fb-card.done .fb-thanks{display:block}
+  .fb-thanks b{font-size:20px}
+  .fb-thanks p{color:var(--ink2);font-size:14px;margin:8px 0 0}
+  </style>
+  <h2 class="sec" id="feedback">课后反馈</h2>
+  <div class="fb-card" id="fb-card" data-workshop="第 9 场 · QuantDinger 量化全流程">
+    <p class="fb-lead">花了你的 1 分钟：说说这次课的感受，反馈会直接送到讲师邮箱，帮下一期做得更好。</p>
+    <div class="fb-form">
+      <label>整体评分 <span style="color:#e06a67">*</span></label>
+      <div class="fb-stars" id="fb-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <label>这次最有用的是</label>
+      <textarea id="fb-useful" rows="3" maxlength="600" placeholder="哪个环节、哪句话对你最有启发？"></textarea>
+      <label>下次想听</label>
+      <input id="fb-next" maxlength="300" placeholder="例如：回测指标进阶、多策略组合……">
+      <label>其他建议</label>
+      <textarea id="fb-sug" rows="2" maxlength="600" placeholder="节奏、难度、案例……都可以说"></textarea>
+      <label>联系方式（选填）</label>
+      <input id="fb-contact" maxlength="60" placeholder="微信 / 邮箱，方便讲师回复你">
+      <input id="fb-website" value="" style="display:none" tabindex="-1" autocomplete="off">
+      <button class="fb-btn" id="fb-send" type="button">提交反馈</button>
+      <span class="fb-msg" id="fb-msg"></span>
+    </div>
+    <div class="fb-thanks">
+      <b>提交成功，谢谢你的反馈！</b>
+      <p>已送达讲师邮箱，每一条都会认真读。期待下一期见。</p>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var card=document.getElementById('fb-card');if(!card)return;
+    var API='https://api.aibay.asia/needs/feedback';
+    var rating=0,stars=[].slice.call(document.querySelectorAll('#fb-stars span'));
+    stars.forEach(function(s,i){s.addEventListener('click',function(){
+      rating=i+1;stars.forEach(function(t,j){t.className=j<rating?'on':''});
+      document.getElementById('fb-msg').textContent='';});});
+    function msg(t){document.getElementById('fb-msg').textContent=t;}
+    document.getElementById('fb-send').addEventListener('click',function(){
+      if(!rating)return msg('请先点星星打分');
+      var b=this;b.disabled=true;b.textContent='提交中…';
+      fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        workshop:card.getAttribute('data-workshop'),rating:rating,
+        useful:document.getElementById('fb-useful').value,
+        next_topic:document.getElementById('fb-next').value,
+        suggestion:document.getElementById('fb-sug').value,
+        contact:document.getElementById('fb-contact').value,
+        website:document.getElementById('fb-website').value})})
+      .then(function(r){return r.json().catch(function(){throw 0;});})
+      .then(function(j){
+        if(j&&j.ok){card.classList.add('done');return;}
+        b.disabled=false;b.textContent='提交反馈';
+        msg((j&&j.error)||'提交失败，请稍后再试');})
+      .catch(function(){b.disabled=false;b.textContent='提交反馈';msg('网络异常，请稍后再试');});
+    });
+  })();
+  </script>
+
+  <div class="foot">
+    微信 ikoning365 · 邮箱 554176937@qq.com<br>
+    © 2026 杨辉（玄龙堂主理人） · 拆书帮广州小蛮腰分舵
+  </div>
+
+</div>
+
+<script>
+function copyWeChat(btn){
+  var t='ikoning365';
+  function ok(){var o=btn.textContent;btn.textContent='✅ 已复制：'+t;setTimeout(function(){btn.textContent=o},2000)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb()})}else{fb()}
+  function fb(){var i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){alert('微信号：'+t)}document.body.removeChild(i)}
+}
+</script>
+</body>
+</html>

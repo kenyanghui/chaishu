@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>通达信 · WorkBuddy 盯盘复盘自动化 · 11 月场（时间待定）｜小蛮腰·拆AI</title>
+<meta name="description" content="自选股异动盯盘、收盘后自动出复盘和次日关注清单：通达信看盘 + WorkBuddy 自动化，3 小时搭出你的盯盘复盘产线。11 月广州越秀，仅限 10 人。">
+<style>
+  :root{
+    --bg:#fbfbfd; --card:#ffffff; --line:#e8e8ed;
+    --ink:#1d1d1f; --ink2:#6e6e73; --mute:#86868b;
+    --blue:#0071e3;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:
+      radial-gradient(900px 480px at 85% -10%, rgba(0,113,227,.06), transparent 60%),
+      radial-gradient(700px 420px at -5% 105%, rgba(0,199,190,.05), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; letter-spacing:-.01em; padding:0 0 70px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px) saturate(180%);
+    background:rgba(255,255,255,.8);border-bottom:1px solid rgba(0,0,0,.06)}
+  .nav .in{max-width:1060px;margin:0 auto;padding:0 22px;height:56px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:800;letter-spacing:-.02em;font-size:17px}
+  .nav .logo b{background:linear-gradient(90deg,#0071e3,#00c7be);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13px;color:var(--ink2);border:1px solid var(--line);background:rgba(255,255,255,.7);
+    border-radius:980px;padding:6px 14px;transition:.2s}
+  .nav .back:hover{color:var(--ink);border-color:rgba(0,113,227,.4)}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  .hero{padding:44px 0 8px}
+  .hero .kicker{font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--blue);text-transform:uppercase;margin-bottom:14px}
+  .hero h1{font-size:clamp(30px,5.4vw,44px);line-height:1.15;letter-spacing:-.02em;font-weight:800;margin:0 0 14px}
+  .hero h1 .grad{background:linear-gradient(90deg,#0071e3,#00c7be);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{font-size:17px;color:var(--ink2);margin:0 0 10px}
+  .hero .sub b{color:var(--ink)}
+  .hero .risk{font-size:12.5px;color:var(--mute);margin:0 0 22px}
+  .btns{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 34px}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:980px;padding:12px 26px;
+    font-size:15px;font-weight:600;cursor:pointer;transition:.2s;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+  .btn.main{background:var(--blue);border-color:var(--blue);color:#fff}
+  .btn.main:hover{background:#0062c6}
+  .btn.ghost:hover{border-color:rgba(0,113,227,.4);color:var(--blue)}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:0 0 30px}
+  .meta .m{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+  .meta .m .k{font-size:12px;color:var(--mute);letter-spacing:.08em;margin-bottom:4px}
+  .meta .m .v{font-size:14.5px;font-weight:600}
+  h2.sec{font-size:24px;letter-spacing:-.01em;font-weight:800;margin:44px 0 6px}
+  p.sec-sub{font-size:14.5px;color:var(--ink2);margin:0 0 18px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 18px;transition:.2s}
+  .card:hover{border-color:rgba(0,113,227,.35);box-shadow:0 12px 32px rgba(0,113,227,.08)}
+  .card .no{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:8px;
+    background:rgba(0,113,227,.1);color:var(--blue);font-size:13px;font-weight:800;margin-bottom:10px}
+  .card h3{font-size:16.5px;margin:0 0 6px;letter-spacing:-.01em}
+  .card p{font-size:13.5px;color:var(--ink2);margin:0}
+  .card .d{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mute)}
+  .card .d b{color:var(--blue)}
+  .flow{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin:10px 0 6px}
+  .flow .steps{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+  .flow .step{flex:1 1 140px;background:rgba(0,113,227,.05);border:1px solid rgba(0,113,227,.16);border-radius:12px;padding:12px 12px;text-align:center}
+  .flow .step .t{font-size:13.5px;font-weight:700;margin-bottom:3px}
+  .flow .step .s{font-size:12px;color:var(--ink2)}
+  .flow .arrow{align-self:center;color:var(--mute);font-size:16px}
+  .deliver{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0}
+  .deliver .d{background:linear-gradient(135deg,rgba(0,113,227,.06),rgba(0,199,190,.05));border:1px solid rgba(0,113,227,.18);
+    border-radius:16px;padding:16px}
+  .deliver .d b{display:block;font-size:14.5px;margin-bottom:4px}
+  .deliver .d span{font-size:13px;color:var(--ink2)}
+  .remote{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:10px 0;
+    display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+  .remote .qr{flex:0 0 112px}
+  .remote .txt{flex:1 1 300px;font-size:14px;color:var(--ink2)}
+  .faq{margin:8px 0}
+  .faq .q{font-size:15px;font-weight:700;margin:18px 0 4px}
+  .faq .a{font-size:14px;color:var(--ink2);margin:0 0 6px}
+  .notice{background:rgba(0,113,227,.05);border:1px solid rgba(0,113,227,.16);border-radius:14px;padding:14px 16px;
+    font-size:13px;color:var(--ink2);margin:26px 0 0}
+  .notice b{color:var(--ink)}
+  footer{border-top:1px solid var(--line);margin-top:44px;padding-top:22px;font-size:12.5px;color:var(--mute);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media (max-width:640px){.hero{padding:30px 0 4px}.btns .btn{width:100%;justify-content:center}}
+</style>
+</head>
+<body>
+<div class="nav"><div class="in">
+  <div class="logo">小蛮腰·<b>拆AI</b> 工作坊 · 第八期</div>
+  <a class="back" href="/">← 返回首页</a>
+</div></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">AI 盯盘与自动复盘 · 11 月场</div>
+    <h1>通达信看盘，<br><span class="grad">WorkBuddy 盯盘复盘自动化</span></h1>
+    <p class="sub">自选股异动盯盘、<b>收盘后自动出复盘和次日关注清单</b>——通达信看盘 + WorkBuddy 自动化串联，3 小时搭出你自己的盯盘复盘产线。</p>
+    <p class="risk">自动化盯盘与复盘结果仅供学习研究，不构成投资建议。</p>
+    <div class="btns">
+      <button class="btn main" onclick="copyWeChat(this)">立即报名（微信 ikoning365）</button>
+      <a class="btn ghost" href="guide.html">自助跟做手册 →</a>
+      <a class="btn ghost" href="dist/">打印版材料下载 →</a>
+    </div>
+    <div class="meta">
+      <div class="m"><div class="k">时间</div><div class="v">11 月 · 具体时间待定</div></div>
+      <div class="m"><div class="k">地点</div><div class="v">广州越秀区雅苑·培正 5 号楼</div></div>
+      <div class="m"><div class="k">费用</div><div class="v">非会员 39 元（含茶歇+资料）· 会员免费</div></div>
+      <div class="m"><div class="k">名额</div><div class="v">仅限 10 人</div></div>
+    </div>
+  </div>
+
+  <h2 class="sec">三节动手，各出一件交付物</h2>
+  <p class="sec-sub">不是听三小时课——是「看 → 盯 → 复」三节各做完一件东西带走。工具两个：通达信看盘，WorkBuddy 编排自动化。</p>
+  <div class="cards">
+    <div class="card">
+      <div class="no">1</div>
+      <h3>第 1 节 · 通达信看盘基础</h3>
+      <p>自选股板块、分时图、K 线、F10 资料四个看盘入口过一遍；WorkBuddy 装配就位。</p>
+      <div class="d">产出 <b>你的自选股看盘工作流</b>（交付 ①）</div>
+    </div>
+    <div class="card">
+      <div class="no">2</div>
+      <h3>第 2 节 · 自选股异动盯盘流</h3>
+      <p>用 WorkBuddy 编排「定时启动 → 截图/读取 → AI 总结 → 推送」，盘中异动自动到你眼前。</p>
+      <div class="d">产出 <b>收盘自动复盘产线</b>（交付 ②）</div>
+    </div>
+    <div class="card">
+      <div class="no">3</div>
+      <h3>第 3 节 · 收盘复盘 + 30 天计划</h3>
+      <p>收盘后自动出复盘要点与次日关注清单；把节奏写成 30 天盯盘复盘计划。</p>
+      <div class="d">产出 <b>30 天盯盘复盘计划</b>（交付 ③）</div>
+    </div>
+  </div>
+
+  <h2 class="sec">盯盘产线长什么样</h2>
+  <p class="sec-sub">第一期公众号工作坊的同一条自动化范式，这次搬到盘面上：</p>
+  <div class="flow">
+    <div class="steps">
+      <div class="step"><div class="t">① 定时启动</div><div class="s">WorkBuddy 按点自动开跑</div></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="t">② 截图/读取</div><div class="s">通达信自选股列表/分时图/F10</div></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="t">③ AI 总结</div><div class="s">异动点名 + 复盘要点</div></div>
+      <div class="arrow">→</div>
+      <div class="step"><div class="t">④ 推送</div><div class="s">复盘报告 + 次日关注清单</div></div>
+    </div>
+  </div>
+
+  <h2 class="sec">下课前带走的三件交付物</h2>
+  <div class="deliver">
+    <div class="d"><b>① 自选股盯盘工作流</b><span>通达信自选股 + WorkBuddy 盯盘流程，一次装配，天天能用</span></div>
+    <div class="d"><b>② 收盘自动复盘产线</b><span>收盘后自动跑完：采集 → AI 总结 → 推送复盘与次日关注清单</span></div>
+    <div class="d"><b>③ 30 天盯盘复盘计划</b><span>哪天盯什么、何时复盘、记录存哪，写成自己的节奏表</span></div>
+  </div>
+
+  <div class="remote">
+      <img src="https://chai.aibay.asia/images/wecom-group-qr.png" alt="企业微信群二维码" width="112" height="112" style="border-radius:12px;background:#fff;flex:0 0 112px;padding:6px">
+      <div class="txt">
+        <b style="color:var(--ink);font-size:15.5px">远程也能参加 · 欢迎远程学员</b><br>
+        企业微信扫码进群（「心光AI FDE群 · 拆AI讨论」），<b style="color:var(--blue)">远程会议链接将在群内发布</b>——课前留意群公告。<br>
+        远程同样能动手：带上电脑，跟着 WorkBuddy 一步步做，交付物一样带走。<br>
+        <b style="color:var(--ink)">远程伙伴四个注意</b>：① 提前一天进群，会议链接只发群公告；② 带电脑 + 耳机，找网络稳的位置；③ 课前照「课前准备清单」把账号备好——远程没人现场帮你；④ 卡住别憋着，报错截图发群里，讲师在线接。
+      </div>
+  </div>
+
+  <h2 class="sec">常见问题</h2>
+  <div class="faq">
+    <div class="q">我不会写代码，能跟上吗？</div>
+    <div class="a">能。WorkBuddy 是编排式自动化：像搭积木一样把「定时 → 采集 → AI 总结 → 推送」串起来，全程不写代码。</div>
+    <div class="q">没装过通达信怎么办？</div>
+    <div class="a">课前准备清单里有一条：去 www.tdx.com.cn 下载安装并加几只自选股。现场第 1 节从入口讲起，零基础能跟上。</div>
+    <div class="q">这是教炒股吗？</div>
+    <div class="a">不是。本课教你把「看盘 + 自动化」串成流程：盯盘更省力、复盘更规律。所有自动化结果仅供学习研究，不构成投资建议。</div>
+  </div>
+
+  <div class="notice">
+    <b>报名方式</b>：微信 ikoning365（点击上方按钮复制）。<b>时间</b>：11 月 · 具体时间待定，报名后群内通知。<b>名额</b>：仅限 10 人，报满即止。
+    想进阶 AI 深度个股分析？可看第七期工作坊（DSA 每日股票分析）：<a href="/workshop/07/" style="color:var(--blue)">/workshop/07/</a>。
+  </div>
+
+  <footer>
+    <span>© 2026 小蛮腰·拆AI 工作坊 · 第八期</span>
+    <span>场地：广州越秀区雅苑·培正 5 号楼 · 含茶歇 + 资料</span>
+  </footer>
+</div>
+
+<script>
+function copyWeChat(btn){
+  var t='ikoning365';
+  function ok(){var old=btn.textContent;btn.textContent='已复制：ikoning365 —— 打开微信添加好友';setTimeout(function(){btn.textContent=old;},2600);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,ok);}else{ok();}
+}
+</script>
+</body>
+</html>

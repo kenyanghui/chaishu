@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSA · 每日股票分析 · 11 月场（时间待定）｜小蛮腰·拆AI</title>
+<meta name="description" content="用 DSA 开源 A 股 AI 分析工作台，3 小时做出你的自选股分析工作流：个股分析、大盘复盘、告警规则、持仓组合。11 月广州越秀，仅限 10 人。">
+<style>
+  :root{
+    --bg:#0a0d16; --card:#111a2c; --bg2:#0d1220; --line:rgba(255,255,255,.10);
+    --ink:#e9edf6; --ink2:#a8b3c9; --mute:#8f9ab2;
+    --cy:#58c7d4; --cy2:#a8e4ec;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:
+      radial-gradient(900px 480px at 85% -10%, rgba(88,199,212,.10), transparent 60%),
+      radial-gradient(700px 420px at -5% 105%, rgba(88,199,212,.06), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; letter-spacing:-.01em; padding:0 0 70px}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(20px) saturate(180%);
+    background:rgba(10,13,22,.8);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav .in{max-width:1060px;margin:0 auto;padding:0 22px;height:56px;display:flex;align-items:center;justify-content:space-between}
+  .nav .logo{font-weight:800;letter-spacing:-.02em;font-size:17px}
+  .nav .logo b{background:linear-gradient(90deg,#58c7d4,#a8e4ec);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav .back{font-size:13px;color:var(--ink2);border:1px solid var(--line);background:rgba(17,26,44,.7);
+    border-radius:980px;padding:6px 14px;transition:.2s}
+  .nav .back:hover{color:var(--ink);border-color:rgba(88,199,212,.4)}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px}
+  .hero{padding:44px 0 8px}
+  .pill{display:inline-block;font-size:12px;letter-spacing:1.8px;color:var(--cy);font-weight:700;
+    border:1px solid rgba(88,199,212,.3);background:rgba(88,199,212,.06);
+    border-radius:980px;padding:5px 13px;margin-bottom:18px}
+  h1{font-size:40px;line-height:1.18;letter-spacing:-.03em;margin:0 0 16px;font-weight:800}
+  h1 em{font-style:normal;background:linear-gradient(90deg,#58c7d4,#a8e4ec);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-size:15.5px;color:var(--ink2);margin:0 0 20px;max-width:640px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .meta span{font-size:12.5px;color:var(--ink2);border:1px solid var(--line);background:rgba(17,26,44,.7);
+    border-radius:980px;padding:6px 13px}
+  .meta b{color:var(--ink);font-weight:700}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:600;
+    border-radius:980px;padding:11px 20px;transition:.2s;cursor:pointer;border:1px solid transparent;font-family:inherit}
+  .btn.main{background:var(--cy);color:#06222a}
+  .btn.main:hover{background:#7ad6e1}
+  .btn.ghost{background:rgba(17,26,44,.7);color:var(--ink);border-color:var(--line)}
+  .btn.ghost:hover{border-color:rgba(88,199,212,.4);color:var(--cy2)}
+  h2.sec{font-size:21px;font-weight:800;letter-spacing:-.02em;margin:48px 0 14px;display:flex;align-items:center;gap:10px}
+  h2.sec::before{content:"";width:5px;height:20px;border-radius:3px;background:linear-gradient(#58c7d4,#2f8f9c)}
+  .gains{display:grid;gap:12px}
+  .gain{display:flex;gap:14px;border:1px solid var(--line);background:var(--card);border-radius:16px;
+    padding:15px 18px;align-items:flex-start;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+  .gain .i{font-size:18px;line-height:1.4;font-weight:800;color:var(--cy)}
+  .gain b{display:block;font-size:15px;margin-bottom:2px}
+  .gain span{font-size:13px;color:var(--ink2)}
+  .who{display:flex;flex-wrap:wrap;gap:8px}
+  .who span{font-size:13px;color:var(--cy2);background:rgba(88,199,212,.08);border:1px solid rgba(88,199,212,.2);border-radius:980px;padding:7px 14px}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .tools span{font-size:12.5px;font-weight:700;letter-spacing:.4px;color:var(--ink);background:#1b2438;border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+  .links a{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:12px 16px;font-size:13.5px;color:var(--ink2);transition:.15s}
+  .links a:hover{color:var(--cy2);border-color:rgba(88,199,212,.4)}
+  .links a::before{content:"› ";color:var(--mute)}
+  .disclaimer{margin-top:40px;border:1px solid rgba(224,106,103,.3);background:rgba(224,106,103,.06);
+    border-radius:14px;padding:14px 18px;font-size:13px;color:#e8b4b2}
+  .disclaimer b{color:#e88986}
+  .foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--mute);text-align:center;line-height:1.9}
+  @media(max-width:860px){h1{font-size:31px}.links{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="in">
+  <div class="logo"><b>小蛮腰·拆AI</b>&nbsp;<span style="font-size:12px;color:var(--mute)">/ DSA 场</span></div>
+  <a class="back" href="/workshops">← 返回全部课程</a>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="pill">11 月场 · 时间待定 · 拆书帮广州小蛮腰分舵</div>
+    <h1>每天十分钟，<br><em>让 AI 帮你盯盘</em></h1>
+    <p class="sub">拆 DSA（Daily Stock Analysis 每日股票分析）—— 开源 A 股 AI 分析工作台，输入一个代码，全维度分析报告自动生成。<br>
+      个股怎么分析、大盘怎么复盘、异动怎么告警、持仓怎么盯风险，让 AI 帮你先跑一遍，你来做判断。</p>
+    <div class="meta">
+      <span><b>11 月</b> 时间待定（报名后群内通知）</span>
+      <span><b>广州越秀</b> 雅苑·培正 5 号楼</span>
+      <span><b>仅 10 人</b> 小班现场动手</span>
+      <span><b>会员免费</b> 非会员 39 元含茶歇</span>
+    </div>
+    <div class="cta">
+      <button class="btn main" onclick="copyWeChat(this)">立即报名（微信 ikoning365）</button>
+      <a class="btn ghost" href="/workshops">← 返回全部课程</a>
+    </div>
+    <div style="margin:22px auto 0;max-width:860px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:18px 22px;display:flex;gap:22px;align-items:center;text-align:left">
+      <img src="https://chai.aibay.asia/images/wecom-group-qr.png" alt="企业微信群二维码" width="112" height="112" style="border-radius:12px;background:#fff;flex:0 0 112px;padding:6px">
+      <div style="font-size:14px;color:var(--ink2);line-height:1.8">
+        <b style="color:var(--ink);font-size:15.5px">远程也能参加 · 欢迎远程学员</b><br>
+        企业微信扫码进群（「心光AI FDE群 · 拆AI讨论」），<b style="color:var(--cy)">远程会议链接将在群内发布</b>——课前留意群公告。<br>
+        远程同样能动手：带上电脑，跟着 DSA 实例一步步做，交付物一样带走。<br>
+        <b style="color:var(--ink)">远程伙伴四个注意</b>：① 提前一天进群，会议链接只发群公告；② 带电脑 + 耳机，找网络稳的位置；③ 课前照「课前准备清单」把账号备好——远程没人现场帮你；④ 卡住别憋着，报错截图发群里，讲师在线接。
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sec">这场拆什么</h2>
+  <p style="color:var(--ink2);font-size:14.5px;margin:0">拆 DSA：一个开源的 A 股 AI 分析工作台——个股分析、问股 Agent、大盘复盘、告警、回测、持仓、选股、用量监控八大模块现场全跑通。你的自选股、你的分析报告、你的告警规则，3 小时全部做出来带走。分析结果由 AI 生成，仅供学习研究参考，不构成投资建议。</p>
+  <div class="tools" style="margin-top:14px"><span>拆的软件</span><span>DSA 每日股票分析</span><span>WorkBuddy</span></div>
+
+  <h2 class="sec">现场带走</h2>
+  <div class="gains">
+    <div class="gain"><div class="i">01</div><div><b>你的 DSA 自选股清单 + 第一份个股分析报告</b><span>建好自选股，跑出全维度分析报告，导出 Markdown 存档。</span></div></div>
+    <div class="gain"><div class="i">02</div><div><b>一条大盘复盘 / 告警规则工作流</b><span>大盘复盘跑起来，异动告警规则挂上，AI 帮你盯盘。</span></div></div>
+    <div class="gain"><div class="i">03</div><div><b>30 天盯盘复盘计划</b><span>持仓组合快照 + 30 天复盘节奏，回去就能跑。</span></div></div>
+  </div>
+
+  <h2 class="sec">适合谁</h2>
+  <div class="who">
+    <span>想用 AI 辅助看盘的 A 股散户</span>
+    <span>想搞懂 AI 分析工具怎么用的好奇党</span>
+    <span>想搭一套自己盯盘工作流的上班族</span>
+  </div>
+
+  <h2 class="sec">本页材料索引</h2>
+  <div class="links">
+    <a href="ppt/index.html">课件：DSA · 每日股票分析（30 页）</a>
+    <a href="ppt/poster.html">活动海报（A4 可打印）</a>
+    <a href="/workbook/#07">在线手册（边做边填 · 自动保存 · 可提交讲师）</a>
+    <a href="guide.html">自助跟做手册（课前预习 · 一步一步跟做）</a>
+    <a href="dist/index.html">打印版 PDF（课件 · 海报 · 全部材料，直接下载）</a>
+    <a href="handouts/01-学习地图与时间表.html">01 · 学习地图与时间表</a>
+    <a href="handouts/02-第1节任务卡-建自选股清单.html">02 · 第 1 节任务卡（建自选股清单）</a>
+    <a href="handouts/03-第2节任务卡-个股分析与告警.html">03 · 第 2 节任务卡（个股分析与告警）</a>
+    <a href="handouts/04-持仓组合与30天盯盘计划.html">04 · 持仓组合与 30 天盯盘计划</a>
+    <a href="handouts/05-复盘卡.html">05 · 复盘卡</a>
+    <a href="handouts/06-交付物验收自检表.html">06 · 交付物验收自检表</a>
+    <a href="handouts/07-课前准备清单.html">07 · 课前准备清单（报名后看）</a>
+    <a href="handouts/08-讲师资控手册.html">08 · 讲师资控手册（讲师用）</a>
+    <a href="handouts/09-AI技能自评量表.html">09 · AI 技能自评量表（开场用）</a>
+    <a href="handouts/index.html">全部材料目录 →</a>
+  </div>
+
+  <div class="disclaimer">
+    <b>合规提示：</b>本工作坊所有分析结果由 AI 生成，仅供学习研究参考，不构成投资建议。市场有风险，投资需谨慎。
+  </div>
+
+  <div class="foot">
+    微信 ikoning365 · 邮箱 554176937@qq.com<br>
+    © 2026 杨辉（玄龙堂主理人） · 拆书帮广州小蛮腰分舵
+  </div>
+
+</div>
+
+<script>
+function copyWeChat(btn){
+  var t='ikoning365';
+  function ok(){var o=btn.textContent;btn.textContent='✅ 已复制：'+t;setTimeout(function(){btn.textContent=o},2000)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){fb()})}else{fb()}
+  function fb(){var i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){alert('微信号：'+t)}document.body.removeChild(i)}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 03｜第 2 节任务卡 · AI 写策略与回测</title>
+<link rel="stylesheet" href="handout.css">
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>第 2 节任务卡 · 测：第一个策略 + 第一次回测</h1>
+      <div class="sub">AI 研究助手 + Python 策略 + Backtest · 现场 20 分钟 · 交付 ① 策略半件 + 交付 ② 回测报告</div>
+    </div>
+    <div class="brand">45′ 本节<br>交付 ②</div>
+  </div>
+
+  <div class="box gold">
+    <p style="margin-bottom:0"><b>达标线：一个自己（借助 AI）写出来的 Python 策略跑完一次历史回测，报告存档 + 三行结论写完。</b>策略糙没关系——第一个策略的意义是把链路走通，不是赚钱。</p>
+  </div>
+
+  <h2>四步出报告（20 分钟 · 逐项打勾）</h2>
+  <table>
+    <tr><th style="width:8%">✓</th><th style="width:16%">步骤</th><th style="width:10%">时间</th><th>动作</th><th style="width:24%">我的记录</th></tr>
+    <tr><td class="center">☐</td><td><b>① 问助手</b></td><td>5′</td><td>打开 AI research 研究助手，问三个问题：双均线策略思路？收益/回撤/胜率怎么看？帮我写最简单的双均线 Python 骨架</td><td>骨架代码到手 ☐</td></tr>
+    <tr><td class="center">☐</td><td><b>② 存策略</b></td><td>5′</td><td>Strategy 模块新建策略填入骨架；看懂三件：入场条件、出场条件、仓位大小；跑一次语法检查</td><td>保存无报错 ☐</td></tr>
+    <tr><td class="center">☐</td><td><b>③ 跑回测</b></td><td>5′</td><td>Backtest 模块：选市场（crypto/股票/外汇均可）、历史区间、初始资金按默认，运行</td><td>收益曲线出图 ☐</td></tr>
+    <tr><td class="center">☐</td><td><b>④ 读报告</b></td><td>5′</td><td>抄三个数：总收益、最大回撤、交易次数；写三行结论（怎么赚的/怎么亏的/我信不信）；导出或截图存档交组长</td><td>报告 ☐ 存档　结论 ☐ 已写</td></tr>
+  </table>
+
+  <h2>三行结论怎么写（照这个句式）</h2>
+  <table>
+    <tr><th style="width:20%">行</th><th>句式</th><th style="width:32%">示例</th></tr>
+    <tr><td><b>① 赚</b></td><td>盈利主要来自____（趋势段/几次大波动/…）</td><td>盈利集中在 3 段趋势行情</td></tr>
+    <tr><td><b>② 亏</b></td><td>亏损主要来自____（震荡反复开仓/单次大回撤/…）</td><td>震荡期反复止损磨掉一半利润</td></tr>
+    <tr><td><b>③ 信</b></td><td>我信 / 不信这个结果，因为____</td><td>不信——只有 17 次交易，样本太少</td></tr>
+  </table>
+
+  <h2>回测指标速查（看报告不慌）</h2>
+  <table>
+    <tr><th style="width:22%">指标</th><th style="width:40%">是什么</th><th>第一眼怎么看</th></tr>
+    <tr><td><b>总收益</b></td><td>区间内赚亏的合计（%）</td><td>和「买了不动」比，跑不赢就是白忙</td></tr>
+    <tr><td><b>最大回撤</b></td><td>从最高点掉下来的最大幅度</td><td>你拿得住吗？超过 20% 先别高兴收益</td></tr>
+    <tr><td><b>交易次数</b></td><td>信号触发的成交笔数</td><td>太少（&lt;20）说明结论不可信</td></tr>
+    <tr><td><b>胜率</b></td><td>盈利交易占比</td><td>胜率高≠赚钱，盈亏比更重要</td></tr>
+  </table>
+
+  <h2>卡住了看这里（排障 4 条）</h2>
+  <table>
+    <tr><th style="width:30%">症状</th><th>解法</th></tr>
+    <tr><td>AI 助手没响应</td><td>照 docs/agent 章节检查配置；现场举手</td></tr>
+    <tr><td>策略语法报错</td><td>完整报错贴回给 AI 助手要修正版；常见是缩进/括号/import</td></tr>
+    <tr><td>回测一直转圈</td><td>缩短区间；确认历史数据已下载；看容器日志</td></tr>
+    <tr><td>指标面板空白</td><td>均线周期改小（如 5/20）让信号变多再跑</td></tr>
+  </table>
+
+  <div class="box gold"><b>合规：</b>回测结果仅供学习研究，不构成投资建议；只用历史数据，历史表现不代表未来。</div>
+
+  <div class="foot">材料 03 · 第 2 节 · 测出来 | 三行结论写完才算过关 · 微信 ikoning365</div>
+</div>
+</body>
+</html>

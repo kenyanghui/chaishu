@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 08｜讲师资控手册（不发给学员）</title>
+<link rel="stylesheet" href="handout.css">
+<style>body{font-size:9.9px;line-height:1.28}h2{margin:5px 0 3px;font-size:11.2px}td,th{padding:2px 4px}table{font-size:9.7px}.box p{margin:0 0 3px}.chk{margin:0 0 2px}.sheet{padding:4mm 3.5mm;min-height:265mm}.sub{margin-bottom:5px}h1{font-size:16.5px}.foot{margin-top:5px}</style>
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>讲师资控手册</h1>
+      <div class="sub">讲师自用 · 打印一张放讲台 · 不发给学员</div>
+    </div>
+    <div class="brand">11 月 · 时间待定<br>10 人 · 材料 08</div>
+  </div>
+
+  <h2>一、课前 24 小时必做（关掉六个雷）</h2>
+  <table>
+    <tr><th style="width:8%">✓</th><th>动作</th><th style="width:34%">不做的后果</th></tr>
+    <tr><td class="center">☐</td><td><b>从零跑一遍</b>：clone → Docker 启动 → AI 写策略 → 回测 → 模拟盘全链路，录屏留档</td><td>演示卡壳，学员当场失去信任</td></tr>
+    <tr><td class="center">☐</td><td>确认<b>官方 README 中文版当日状态</b>（部署章节有无改版、命令有无变更），截图存演示脚本</td><td>README 改版对不上，第 1 节双卡壳</td></tr>
+    <tr><td class="center">☐</td><td>备好<b>备用镜像路径</b>（本站 Gitea Loong/QuantDinger）并实测可达</td><td>GitHub 现场抽风，全班 clone 卡死</td></tr>
+    <tr><td class="center">☐</td><td>预跑<b>一套示例策略 + 回测结果截图</b>（含收益曲线/指标），故障时投屏它</td><td>有人环境起不来，整节空转</td></tr>
+    <tr><td class="center">☐</td><td><b>镜像预拉取</b>：现场统一「先拉镜像再听讲」，讲课期间学员后台拉</td><td>现场带宽被 10 台机器拉镜像打满</td></tr>
+    <tr><td class="center">☐</td><td>开场与收尾各念一遍<b>合规口径</b>：仅供学习研究、不构成投资建议、只用模拟盘与历史数据</td><td>口径松动，课后有人拿真钱实操</td></tr>
+  </table>
+
+  <h2>一b、片源清单（R 环节 · 官方产品/解读视频）</h2>
+  <table>
+    <tr><th style="width:14%">节次</th><th>片源（官方发布优先）</th><th style="width:12%">时长</th><th style="width:26%">看点（第二遍带问题看）</th><th style="width:10%">离线✓</th></tr>
+    <tr><td>第 1 节 · 装</td><td>QuantDinger 官方仓库/官网（www.quantdinger.com）产品介绍或 README 演示</td><td>3–5′</td><td>五模块界面长什么样；self-hosted 部署入口在哪</td><td>☐</td></tr>
+    <tr><td>第 2 节 · 测</td><td>官方回测/策略演示片段（无则用自己录屏替代）</td><td>3–5′</td><td>策略三件：入场/出场/仓位；报告页哪些指标先看</td><td>☐</td></tr>
+    <tr><td>第 3 节 · 跑</td><td>官方 Paper execution / Monitoring 演示（无则自己录屏）</td><td>3–4′</td><td>模拟盘与实盘的差别；监控面板三看：持仓/成交/权益</td><td>☐</td></tr>
+  </table>
+  <p class="muted" style="margin:2px 0">片源纪律：只放官方渠道或自录屏；不引第三方荐股/带单内容——合规红线。官方 Live App 站点未验证可达，一律禁引，演示只走本地部署。</p>
+
+  <h2>二、时间轴资控（173′ 净时长 · 超时只砍讨论不砍交付）</h2>
+  <table>
+    <tr><th style="width:12%">时段</th><th style="width:20%">环节</th><th style="width:38%">讲师动作</th><th>学员状态 · 卡点</th></tr>
+    <tr><td>0:00–0:15</td><td>开场 15′</td><td>自评量表（材料 09）→ 一句话立课：量化=把规则写清楚再用数据检验；念合规口径第一遍；宣布「先拉镜像」指令</td><td>填表 · 认识三件交付物 · 后台开始拉镜像</td></tr>
+    <tr><td>0:15–1:00</td><td>第 1 节 45′ · 装</td><td>量化是什么（10′，五站链路图）→ 放片 → 投屏从零部署（20′，对齐 README 中文版步骤）→ 学员操作 + 组长巡查（15′）</td><td>最大卡点：Docker 没装/起不来 → 甩备用镜像 + 预拉取</td></tr>
+    <tr><td>1:00–1:10</td><td>茶歇 10′</td><td>巡场补卡壳学员；确认过半学员 Web 界面已打开</td><td>没起来的优先救</td></tr>
+    <tr><td>1:10–1:55</td><td>第 2 节 45′ · 测</td><td>AI 研究助手三问演示（10′）→ 策略骨架填入 + 语法检查（10′）→ 回测配置与运行（10′）→ 读报告写三行结论（15′）</td><td>卡点：语法报错 → 贴回报错给 AI 改；空白面板 → 调小均线周期</td></tr>
+    <tr><td>1:55–2:30</td><td>第 3 节 35′ · 跑</td><td>模拟盘部署演示（8′）→ Monitoring 三看（7′）→ 30 天计划模板填写（15′）→ 念合规口径第二遍</td><td>模拟盘起不来的看投屏演示版也算完成</td></tr>
+    <tr><td>2:30–2:40</td><td>收尾 10′</td><td>自检表（材料 06）→ 组长复核签字 → 互换测试（看别人的报告挑一个错）→ 合影发群</td><td>三项全勾才走</td></tr>
+  </table>
+
+  <h2>三、学员卡点分级（SOP）</h2>
+  <table>
+    <tr><th style="width:20%">级别</th><th style="width:40%">表现</th><th>处置</th></tr>
+    <tr><td><b>绿 · 自助</b></td><td>照手册排障表能解决</td><td>让组长引导，讲师不动</td></tr>
+    <tr><td><b>黄 · 组长级</b></td><td>报错看不懂、界面找不到模块</td><td>组长拿手册排障表对照处理</td></tr>
+    <tr><td><b>红 · 讲师级</b></td><td>Docker 起不来 / AI 助手无响应 / 连环报错</td><td>讲师上门 ≤3 分钟；超时切备用演示环境跟做，课后补装</td></tr>
+    <tr><td><b>黑 · 弃环境</b></td><td>15 分钟救不活</td><td>明确告知：切投屏演示版跟做，三项交付物照样可勾（策略/报告用演示版截图 + 自己的三行结论）</td></tr>
+  </table>
+
+  <h2>四、交付物核验口径（收尾用）</h2>
+  <table>
+    <tr><th style="width:24%">交付物</th><th>核验动作</th></tr>
+    <tr><td>① 环境+策略</td><td>界面截图 + 策略无报错截图；口头问一句入场/出场/仓位</td></tr>
+    <tr><td>② 回测报告</td><td>报告截图 + 三个数 + 三行结论（结论必须是自己的话）</td></tr>
+    <tr><td>③ 30 天计划</td><td>三栏写满；抽一行问「这天 20 分钟你具体做什么」</td></tr>
+  </table>
+
+  <h2>五、合规与边界（每场必念两遍）</h2>
+  <div class="chk"><div class="b"></div><div>量化结果<b>仅供学习研究，不构成投资建议</b>；课堂只用<b>模拟盘和历史数据</b>，不碰真实资金。</div></div>
+  <div class="chk"><div class="b"></div><div>不荐股、不带单、不展示实盘账户；学员问「买什么」一律引回「先回测」。</div></div>
+  <div class="chk"><div class="b"></div><div>客户端场景只提 WorkBuddy；禁提其他客户端产品名。</div></div>
+  <div class="chk"><div class="b"></div><div>外链只用 github.com/OpenByteInc/QuantDinger、www.quantdinger.com、/workshop/07/。</div></div>
+
+  <div class="foot">材料 08 · 讲师自用 · 打印放讲台</div>
+</div>
+</body>
+</html>

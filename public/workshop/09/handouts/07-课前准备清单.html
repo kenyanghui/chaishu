@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 07｜课前准备清单（开课前一天发群）</title>
+<link rel="stylesheet" href="handout.css">
+<style>body{font-size:11.9px}h2{margin:9px 0 5px}</style>
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>课前准备清单</h1>
+      <div class="sub">开课前一天发群 · 15 分钟准备，省现场 30 分钟（量化课装机最耗时）</div>
+    </div>
+    <div class="brand">QuantDinger 工作坊<br>11 月 · 时间待定</div>
+  </div>
+
+  <div class="box">
+    <p style="margin-bottom:0">本课<b>不需要量化或金融背景</b>，会装软件、能复制粘贴就能跟。但 Docker 部署是现场最耗时的一步——课前装好 Docker，第 1 节你能省出一半时间写策略。</p>
+  </div>
+
+  <h2>① 必带设备</h2>
+  <div class="chk"><div class="b"></div><div><b>一台笔记本电脑</b>（必带，建议 8G 内存以上；手机没法跑 Docker）。</div></div>
+  <div class="chk"><div class="b"></div><div>充电器（3 小时高强度使用）。</div></div>
+  <div class="chk"><div class="b"></div><div>能上网的网络：现场 Wi-Fi 或手机热点（拉镜像很吃流量，建议 Wi-Fi）。</div></div>
+
+  <h2>② 课前 15 分钟做三件事</h2>
+  <table>
+    <tr><th style="width:8%">✓</th><th style="width:30%">动作</th><th>做到什么程度</th></tr>
+    <tr><td class="center">☐</td><td><b>安装 Docker Desktop</b>（Windows/Mac）或 docker-ce（Linux）</td><td>终端敲 <code>docker ps</code> 不报错（会列出容器表头即算通过）</td></tr>
+    <tr><td class="center">☐</td><td><b>克隆仓库</b>：<code>git clone https://github.com/OpenByteInc/QuantDinger.git</code></td><td>本地有 QuantDinger 目录；拉不动就换本站 Gitea 镜像 Loong/QuantDinger，实在不行现场再说</td></tr>
+    <tr><td class="center">☐</td><td><b>翻一遍官方中文 README</b></td><td>知道它是开源 AI Trading OS（Apache-2.0），覆盖 crypto/股票/外汇，部署章节在哪一节</td></tr>
+  </table>
+
+  <h2>③ 装不上怎么办（提前排雷）</h2>
+  <table>
+    <tr><th style="width:32%">症状</th><th>解法</th></tr>
+    <tr><td>Windows 装 Docker 要开虚拟化</td><td>BIOS 开 VT-x；或先启用 WSL2 再装 Docker Desktop</td></tr>
+    <tr><td>Mac Apple 芯片装完打不开</td><td>确认装的是 Apple Silicon 版；首次启动按提示授权</td></tr>
+    <tr><td>git 命令不存在</td><td>装 git 或直接下载仓库 ZIP 解压也能用</td></tr>
+    <tr><td>以上都卡住</td><td>没关系照样来——现场有备用演示环境跟做，课后再装</td></tr>
+  </table>
+
+  <div class="box gold"><b>合规提前说：</b>课堂全部量化结果仅供学习研究，不构成投资建议；只用模拟盘和历史数据，请勿带真实资金账户来。</div>
+
+  <div class="foot">材料 07 · 课前准备清单 · 卡住截图发群 · 微信 ikoning365</div>
+</div>
+</body>
+</html>

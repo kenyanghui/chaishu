@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>08 · 通达信 · WorkBuddy 盯盘复盘自动化｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#12233f,#1f5eff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.goal b{color:var(--blue)}
+.step{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;background:#fafcff}
+.step .t{font-weight:700;font-size:14px;margin-bottom:2px}
+.step .t .tick{color:var(--blue);margin-right:6px}
+.step p{margin:2px 0;font-size:13.5px;color:var(--ink2)}
+.step .tip{margin-top:6px;padding:6px 10px;background:var(--gold-soft);border-radius:8px;font-size:12.5px;color:#7a5a10}
+.step .warnbox{margin-top:6px;padding:6px 10px;background:var(--warn-soft);border-radius:8px;font-size:12.5px;color:var(--warn)}
+.kbd{display:inline-block;border:1px solid #b9c5d8;border-bottom-width:2px;border-radius:6px;padding:0 7px;
+font-size:12.5px;background:#f4f7fc;color:#33465f;font-family:inherit}
+ul,ol{margin:6px 0 6px 22px;padding:0}
+li{margin:3px 0;font-size:13.5px;color:var(--ink2)}
+.chk{display:flex;gap:8px;align-items:flex-start;margin:5px 0;font-size:13.5px;color:var(--ink2)}
+.chk .b{flex:0 0 15px;height:15px;border:1.6px solid #9aa8bd;border-radius:4px;margin-top:4px}
+.disclaimer{background:var(--warn-soft);border:1px solid #f0cdbf;border-radius:10px;padding:10px 14px;margin:14px 0;font-size:13px;color:var(--warn)}
+footer{font-size:12px;color:var(--mute);text-align:center;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="g">
+  <div class="no">小蛮腰·拆AI 工作坊 · 第八期 <span class="badge">仅限 10 人</span></div>
+  <h1>通达信 · WorkBuddy 盯盘复盘自动化 · 自助跟做手册</h1>
+  <div class="meta">自选股异动盯盘 · 收盘后自动出复盘和次日关注清单<br>
+  11 月 · 具体时间待定 ｜ 广州越秀区雅苑·培正 5 号楼 ｜ 报名：微信 ikoning365</div>
+  <div class="outcomes"><b>下课前带走三件交付物</b>
+    <ul style="margin-left:18px">
+      <li>① 你的通达信自选股 + WorkBuddy 盯盘工作流</li>
+      <li>② 一条收盘自动复盘产线（定时 → 采集 → AI 总结 → 推送）</li>
+      <li>③ 30 天盯盘复盘计划</li>
+    </ul>
+  </div>
+</header>
+
+<div class="disclaimer"><b>免责声明</b>：本手册与课程中的自动化盯盘、AI 复盘结果仅供学习研究，不构成投资建议。</div>
+
+<section class="card" id="s1">
+  <h2 class="sec"><span class="n">1</span>第 1 节 · 通达信看盘基础 + WorkBuddy 装配</h2>
+  <p class="goal">目标：<b>通达信四个看盘入口过手一遍，自选股列表成型，WorkBuddy 登录就位。</b>交付 ① 的前半段。</p>
+
+  <div class="step">
+    <div class="t"><span class="tick">1</span>装好通达信，加第一批自选股</div>
+    <p>没装的去 <b>www.tdx.com.cn</b>（通达信官网）下载 Windows 版并安装。打开软件，在行情报价界面右上角搜索框输入代码或名称，回车进个股，按快捷键 <span class="kbd">Insert</span>（或右键 → 加入自选股）逐只加进自选股。第一批建议 5–8 只——多了盯不过来。</p>
+    <div class="tip">选你真会看的：持仓的、长期跟踪的、行业龙头，各来几只。练习用公开大盘股也行，先跑通流程。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">2</span>认四个看盘入口：自选股板块 / 分时图 / K 线 / F10</div>
+    <p>① <b>自选股板块</b>：快捷键 <span class="kbd">F6</span> 呼出，你的自选股列表一屏排开，现价、涨跌幅、换手一列看全——这是后面自动化要盯的那张表。② <b>分时图</b>：个股页面 <span class="kbd">F5</span> 切换分时/K 线，盘中看异动脉冲。③ <b>K 线</b>：日 K 看趋势位置，异动是突破还是诱多。④ <b>F10 资料</b>：个股页面按 <span class="kbd">F10</span>，公司概况、股东、财务、公告都在里面——AI 复盘时的背景资料靠它。</p>
+    <div class="tip">把四个入口各点开一次，截图存档——这就是你自己的「看盘入口地图」。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">3</span>WorkBuddy 装配就位</div>
+    <p>打开 WorkBuddy（第一期工作坊同款自动化客户端），登录并确认能<b>新建流程</b>。试着新建一条空流程，命名为「盯盘练习」，先放着——第 2 节往里搭积木。</p>
+    <div class="warnbox">只推 WorkBuddy 一个客户端，课上不装别的。登录不上第一时间举手/发群，别自己折腾半小时。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">4</span>验收：交付 ① 前半成立</div>
+    <div class="chk"><div class="b"></div><div>自选股 5–8 只已入列，<span class="kbd">F6</span> 能一屏看全。</div></div>
+    <div class="chk"><div class="b"></div><div>四个入口（自选股板块 / 分时图 / K 线 / F10）都点开过，截图已存。</div></div>
+    <div class="chk"><div class="b"></div><div>WorkBuddy 已登录，「盯盘练习」流程已建好（空的也算）。</div></div>
+  </div>
+</section>
+
+<section class="card" id="s2">
+  <h2 class="sec"><span class="n">2</span>第 2 节 · 自选股异动盯盘流</h2>
+  <p class="goal">目标：<b>用 WorkBuddy 编排「定时启动 → 截图/读取 → AI 总结 → 推送」盯盘流，异动自动到你眼前。</b>交付 ①② 主体。</p>
+
+  <div class="step">
+    <div class="t"><span class="tick">1</span>画清楚你的盯盘流</div>
+    <p>先在纸上写四格：几点盯（盘中固定时点 / 收盘后）→ 盯什么（通达信自选股列表、分时图）→ AI 干什么（点名异动、写一句点评）→ 推到哪（群/文件）。范式与第一期公众号工作流同款：<b>定时启动 → 截图/读取 → AI 总结 → 推送</b>。</p>
+    <div class="tip">盯盘时点先定一个就好（比如 14:45），跑通再加。一次盯多个时点，调失败了你都不知道哪环坏的。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">2</span>WorkBuddy 搭四步流</div>
+    <p>在「盯盘练习」流程里按顺序搭：① <b>定时启动</b>节点，设定时点；② <b>截图/读取</b>节点，抓取通达信自选股列表（窗口保持打开）；③ <b>AI 总结</b>节点，提示词写清「读自选股列表，点名涨跌幅/换手异常的股票，各写一句原因」；④ <b>推送</b>节点，把总结发到你指定的地方。逐节点搭完，保存。</p>
+    <div class="warnbox">提示词里写清输出格式（股票名 / 异动表现 / 一句话点评），AI 总结才有结构；模糊指令出流水账。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">3</span>试跑 + 异动提醒调优</div>
+    <p>手动点一次运行，对照通达信 <span class="kbd">F6</span> 列表人工核一遍：该点名的点了吗？没异动的是不是也被硬凑了点评？改提示词再跑——通常两三轮就稳。稳了之后把定时打开，到点它自己跑。</p>
+    <div class="tip">「异动」先给个可执行的口径，比如涨跌幅超 ±3%、换手明显放大——AI 有了标尺，点名才不飘。</div>
+    <div class="warnbox">盯盘结果仅供学习研究，不构成投资建议——AI 点名不是买卖信号，这句也要写进你的推送模板里。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">4</span>验收：交付 ①② 成立</div>
+    <div class="chk"><div class="b"></div><div>盯盘流完整跑通过一次，截图（流程全景 + 推送结果）已存。</div></div>
+    <div class="chk"><div class="b"></div><div>AI 总结对照自选股列表人工核过，异动点名基本靠谱。</div></div>
+    <div class="chk"><div class="b"></div><div>定时已开，下一个时点会自动跑（远程/回家后可验证）。</div></div>
+  </div>
+</section>
+
+<section class="card" id="s3">
+  <h2 class="sec"><span class="n">3</span>第 3 节 · 收盘复盘产线 + 30 天计划</h2>
+  <p class="goal">目标：<b>收盘后自动出复盘要点与次日关注清单，并把节奏写成 30 天计划。</b>交付 ②③ 收口。</p>
+
+  <div class="step">
+    <div class="t"><span class="tick">1</span>克隆盯盘流 → 复盘产线</div>
+    <p>把第 2 节的流程复制一份，改名「收盘复盘」。三处改动：① 定时改到收盘后（比如 15:30）；② 采集目标在自选股列表之外加上 <span class="kbd">F10</span> 资料里你关注的栏目（背景资料）；③ AI 总结提示词换成复盘口径——「今天各自选股表现如何、异动原因、明天值得关注的 2–3 个点」，输出固定为<b>复盘要点 + 次日关注清单</b>两段。</p>
+    <div class="tip">复盘产线每天产出一份，按日期存文件——30 天后你就有了一本自己的盘面日记。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">2</span>试跑复盘，改到能读</div>
+    <p>跑一次，读一遍：次日关注清单是不是具体（股票 + 关注理由 + 看什么价位/信号）？空话就改提示词，改到「明天的自己看完知道看什么」为止。推送模板末尾带上那句：仅供学习研究，不构成投资建议。</p>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">3</span>写 30 天盯盘复盘计划</div>
+    <p>拿一张表写四栏：<b>盯什么</b>（自选股范围 + 异动口径）/ <b>什么时候盯</b>（盘中时点 + 收盘复盘时点，均自动）/ <b>什么时候人工</b>（每周一次读本周复盘，月度一次整体回顾）/ <b>记录存哪</b>（每日复盘文件目录）。写完贴电脑边。</p>
+    <div class="tip">30 天里允许自己改一次异动口径——规则是拿来用的，不是拿来供的。</div>
+  </div>
+
+  <div class="step">
+    <div class="t"><span class="tick">4</span>验收：交付 ③ 成立</div>
+    <div class="chk"><div class="b"></div><div>「收盘复盘」流程跑通，输出含复盘要点 + 次日关注清单，截图已存。</div></div>
+    <div class="chk"><div class="b"></div><div>30 天计划四栏写满，有人工回顾节点。</div></div>
+  </div>
+</section>
+
+<section class="card" id="final">
+  <h2 class="sec"><span class="n">✓</span>final · 下课前 5 分钟自检</h2>
+  <p class="goal">三件交付物各过一遍，全勾才算毕业。组长复核。</p>
+  <div class="chk"><div class="b"></div><div><b>① 自选股盯盘工作流</b>：通达信自选股 5–8 只 + WorkBuddy 盯盘流程跑通，有截图。</div></div>
+  <div class="chk"><div class="b"></div><div><b>② 收盘自动复盘产线</b>：定时 → 采集 → AI 总结 → 推送四步齐全，输出复盘要点 + 次日关注清单。</div></div>
+  <div class="chk"><div class="b"></div><div><b>③ 30 天盯盘复盘计划</b>：四栏写满，含人工回顾节点。</div></div>
+  <div class="chk"><div class="b"></div><div>推送模板里带了「仅供学习研究，不构成投资建议」。</div></div>
+  <p style="font-size:13px;color:var(--ink2);margin-top:10px">想进阶 AI 深度个股分析？第七期工作坊（DSA 每日股票分析）见 <a href="/workshop/07/" style="color:var(--blue)">/workshop/07/</a>。</p>
+</section>
+
+<footer>小蛮腰·拆AI 工作坊 · 第八期 · 通达信 + WorkBuddy 盯盘复盘自动化 · 自助跟做手册</footer>
+</div>
+</body>
+</html>

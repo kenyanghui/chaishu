@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuantDinger · 量化全流程｜AI 拆书课｜AI 拆书课</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0d16; --bg2:#0d1220; --panel:#111a2c; --panel2:#0e1524;
+  --line:rgba(255,255,255,.10); --line2:rgba(215,176,113,.34);
+  --ink:#e9edf6; --mute:#8f9ab2; --dim:#5d6880;
+  --gold:#d7b071; --gold2:#f0d5a6; --cy:#58c7d4;
+  --red:#e06a67; --yel:#e0b45c; --grn:#62c08c;
+}
+html,body{height:100%}
+body{
+  background:
+    radial-gradient(1200px 700px at 82% -12%, rgba(88,199,212,.10), transparent 60%),
+    radial-gradient(900px 600px at -8% 108%, rgba(215,176,113,.09), transparent 62%),
+    var(--bg);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+.deck{position:fixed;inset:0}
+
+.slide{
+  position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:5.2vh 6.4vw 9vh;transition:padding-bottom .28s ease;
+}
+.slide.on{display:flex;opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease}
+.slide.on.vis{opacity:1;transform:none}
+
+.kicker{
+  font-size:1.45vh;letter-spacing:.34em;color:var(--gold);
+  font-weight:600;margin-bottom:2.2vh;text-transform:uppercase;
+}
+.kicker .ln{display:inline-block;width:3.4vw;height:1px;background:var(--line2);vertical-align:middle;margin-right:.9em;transform:translateY(-2px)}
+h1{font-size:8.2vh;line-height:1.1;font-weight:800;letter-spacing:.02em}
+h1 .gold{color:var(--gold2)}
+h2{font-size:4.5vh;line-height:1.22;font-weight:700;letter-spacing:.01em}
+h2 .gold{color:var(--gold2)}
+h3{font-size:2.5vh;font-weight:700;margin-bottom:1.2vh}
+p{font-size:2.05vh;line-height:1.72;color:#c8d1e2}
+.lead{font-size:2.2vh;color:var(--mute);line-height:1.75;max-width:66ch;margin-top:2vh}
+.muted{color:var(--mute)}
+.gold{color:var(--gold2)}
+.cy{color:var(--cy)}
+.small{font-size:1.65vh;line-height:1.65;color:var(--mute)}
+
+.spread{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.grid{display:grid;gap:1.5vh;min-height:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g23{grid-template-columns:1.15fr .85fr}
+.mt2{margin-top:2vh}.mt3{margin-top:3vh}.mt4{margin-top:4vh}
+
+.card{
+  background:linear-gradient(160deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:14px;padding:2.2vh 1.5vw;
+  position:relative;overflow:hidden;
+}
+.card::before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,var(--line2),transparent)}
+.card.g{border-color:rgba(215,176,113,.30);background:linear-gradient(160deg,#191712,#0f1219)}
+.card.c{border-color:rgba(88,199,212,.26)}
+.card h3{margin-bottom:1vh}
+.card p{font-size:1.85vh;line-height:1.66;color:#b8c3d6}
+.card .no{
+  font-family:ui-monospace,Menlo,monospace;font-size:1.4vh;color:var(--gold);
+  letter-spacing:.18em;margin-bottom:1.1vh;display:block;
+}
+.card .ic{font-size:3vh;line-height:1;margin-bottom:1.2vh;color:var(--gold)}
+
+.pill{display:inline-block;border:1px solid var(--line2);border-radius:999px;
+  padding:.5vh 1.1vw;font-size:1.55vh;color:var(--gold2);margin:0 .5vw .9vh 0;background:rgba(215,176,113,.06)}
+.pill.c{border-color:rgba(88,199,212,.34);color:#a8e4ec;background:rgba(88,199,212,.07)}
+.pill.k{border-color:var(--line);color:var(--mute);background:rgba(255,255,255,.03)}
+
+.dot{display:inline-block;width:.75vh;height:.75vh;border-radius:50%;margin-right:.6em;vertical-align:middle}
+.d-r{background:var(--red);box-shadow:0 0 0 3px rgba(224,106,103,.15)}
+.d-y{background:var(--yel);box-shadow:0 0 0 3px rgba(224,180,92,.15)}
+.d-g{background:var(--grn);box-shadow:0 0 0 3px rgba(98,192,140,.15)}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:1.85vh;line-height:1.55}
+table.tbl th{
+  text-align:left;font-size:1.5vh;letter-spacing:.1em;color:var(--gold);
+  font-weight:600;padding:1.1vh 1vw;border-bottom:1px solid var(--line2);
+  background:rgba(215,176,113,.05);white-space:nowrap;
+}
+table.tbl td{padding:1.25vh 1vw;border-bottom:1px solid var(--line);color:#c2cbdd;vertical-align:top}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl td strong,table.tbl td b{color:#eef2fa}
+table.tbl .mono{font-family:ui-monospace,Menlo,monospace;color:var(--gold2);font-size:1.65vh;white-space:nowrap}
+
+.bigq{font-size:3.4vh;line-height:1.5;font-weight:700;color:#eef2fa;letter-spacing:.01em}
+.bigq .mark{color:var(--gold)}
+.hr{height:1px;background:var(--line);margin:2.6vh 0}
+
+/* cover */
+.cover{justify-content:center}
+.cover h1{font-size:10.5vh;letter-spacing:.03em}
+.cover .sub{font-size:2.35vh;color:#b9c4d6;margin-top:2.4vh;line-height:1.7;max-width:48ch}
+.cover .meta{display:flex;gap:0;margin-top:5.2vh;border-top:1px solid var(--line);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cover .meta div{padding:2.1vh 2vw 2.1vh 0;min-width:14vw}
+.cover .meta dt{font-size:1.35vh;letter-spacing:.22em;color:var(--dim);margin-bottom:.9vh}
+.cover .meta dd{font-size:1.85vh;color:#dbe2ef;line-height:1.5}
+.cover .meta div + div{padding-left:2vw;border-left:1px solid var(--line)}
+
+/* section divider */
+.sec{justify-content:center;align-items:flex-start}
+.sec .num{
+  font-family:ui-monospace,Menlo,monospace;font-size:26vh;line-height:.8;font-weight:800;
+  color:transparent;-webkit-text-stroke:1.5px rgba(215,176,113,.42);
+  position:absolute;right:8vw;top:50%;transform:translateY(-52%);opacity:.85;
+}
+.sec h1{font-size:9vh}
+.sec .sub{font-size:2.3vh;color:var(--mute);margin-top:2vh;letter-spacing:.02em}
+.sec .line{width:82px;height:3px;background:var(--gold);margin:3vh 0;border-radius:2px}
+
+/* footer bits */
+.tagrow{display:flex;flex-wrap:wrap;gap:.9vh 0;margin-top:2.4vh}
+.footnote{margin-top:auto;font-size:1.4vh;color:var(--dim);letter-spacing:.06em;padding-top:2vh}
+
+/* chrome */
+.pager{position:fixed;right:3vw;bottom:2.6vh;font-family:ui-monospace,Menlo,monospace;
+  font-size:1.5vh;letter-spacing:.16em;color:var(--mute);z-index:40;transition:bottom .28s ease}
+.pager b{color:var(--gold2);font-weight:700}
+.bar{position:fixed;left:0;bottom:0;height:3px;width:100%;background:rgba(255,255,255,.06);z-index:45}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#8f6a2e,var(--gold),var(--gold2));
+  transition:width .3s ease;box-shadow:0 0 12px rgba(215,176,113,.5)}
+.hint{position:fixed;left:3vw;bottom:2.6vh;font-size:1.35vh;color:#4a5368;letter-spacing:.1em;z-index:40;
+  transition:opacity .5s ease}
+.hint.off{opacity:0}
+
+.notes{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;display:none;
+  background:rgba(9,12,20,.97);border-top:1px solid rgba(215,176,113,.45);
+  padding:2.2vh 6.4vw 3vh;max-height:32vh;overflow:auto;
+  box-shadow:0 -20px 50px rgba(0,0,0,.5);
+}
+.slide .notes{display:none}
+body.notes-on #notesBar{display:block}
+.deck{transition:transform .3s ease}
+body.notes-on .deck{transform:translateY(-15vh) scale(.68);transform-origin:center center}
+body.notes-on .pager{bottom:calc(32vh + 1.6vh)}
+body.notes-on .hint{bottom:calc(32vh + 1.6vh)}
+.notes .lbl{font-size:1.25vh;letter-spacing:.3em;color:var(--gold);margin-bottom:1.1vh;font-weight:600}
+.notes p{font-size:1.85vh;line-height:1.7;color:#cfd7e6;max-width:96ch}
+
+.card.e{border-color:rgba(98,192,140,.30)}
+.pill.e{border-color:rgba(98,192,140,.34);color:#a9e5c6;background:rgba(98,192,140,.07)}
+.tagrow{display:flex;gap:1vh;margin-top:2vh;flex-wrap:wrap}
+.sec .num{position:absolute;right:6.4vw;bottom:7vh;font-size:26vh;font-weight:800;color:rgba(255,255,255,.045);line-height:1}
+.sec h1{font-size:12vh}
+.sec .line{width:5vw;height:2px;background:var(--gold);margin:3vh 0}
+.sec .sub{font-size:2.4vh;color:#b9c4d6;max-width:52ch;line-height:1.7}
+
+
+/* ---- print: one slide per page, 1123x631 landscape (matches 模板课件 PDF) ---- */
+@media print{
+  @page{size:1123px 631px;margin:0}
+  html,body{height:auto!important;overflow:visible!important}
+  body{min-width:1123px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .deck{position:static;transform:none!important}
+  .slide{position:relative;inset:auto;display:flex!important;opacity:1!important;transform:none!important;
+    width:1123px;height:631px;overflow:hidden;
+    padding:33px 72px 57px;page-break-after:always;break-after:page}
+  .slide:last-child{page-break-after:auto;break-after:auto}
+  .hint,.pager,.bar,#notesBar{display:none!important}
+  .slide .notes{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<section class="slide cover on">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 第九期</div>
+  <h1>把买卖规则<br><span class="gold">写清楚</span>，再检验它</h1>
+  <div class="sub">QuantDinger · 量化全流程——本地部署 → AI 写策略 → 回测 → 模拟盘监控。主线不是"预测涨跌"，是把「什么时候买、买多少、什么时候卖」写成明确规则，交给程序执行，再用历史数据检验它行不行。</div>
+  <dl class="meta">
+    <div><dt>时间</dt><dd>11 月 · 具体时间待定</dd></div>
+    <div><dt>地点</dt><dd>广州越秀区雅苑·培正 5 号楼</dd></div>
+    <div><dt>规模</dt><dd>仅限 10 人 · 39 元含茶歇</dd></div>
+    <div><dt>报名</dt><dd>微信 ikoning365</dd></div>
+  </dl>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 开场</div>
+  <h2>为什么是量化——你踩过的坑，八成都在这</h2>
+  <div class="grid g2 mt3">
+    <div class="card"><span class="no">坑一</span><h3>凭感觉买卖</h3><p>"感觉要涨"就买了，买完跌了又说"长期持有"。量化把买卖规则先写清楚，规则不清楚就不下单。</p></div>
+    <div class="card"><span class="no">坑二</span><h3>赚亏说不清</h3><p>赚了不知道为什么赚，亏了不知道为什么亏。回测报告三个数——总收益、最大回撤、交易次数——让盈亏有账可查。</p></div>
+    <div class="card"><span class="no">坑三</span><h3>策略没检验</h3><p>听来的"必胜法则"直接上真钱。回测就是策略的体检：先在历史数据上跑一遍，再谈信不信。</p></div>
+    <div class="card c"><span class="no">正解</span><h3>规则 + 检验</h3><p><b class="cy">写清楚 → 跑回测 → 上模拟盘</b>——一条完整流程走下来，判断才有依据。回测赚钱 ≠ 未来赚钱，这一页请记牢。</p></div>
+  </div>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 02</div><p>开场问一句"谁买过股票？赚钱了吗？知道为什么赚吗？"用三个坑引共鸣。正解页强调"回测赚钱不等于未来赚钱"。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 开场</div>
+  <h2>量化是什么——一句话 + 五张地图</h2>
+  <p class="lead" style="margin-bottom:2vh">一句话：量化 = 把「什么时候买、买多少、什么时候卖」写成明确的规则，交给程序执行，再用数据检验这套规则行不行。</p>
+  <div class="grid g5 mt3" style="grid-template-columns:repeat(5,1fr);gap:1.2vh">
+    <div class="card c"><span class="no">①</span><h3>AI research</h3><p>研究：问思路、要骨架。</p></div>
+    <div class="card c"><span class="no">②</span><h3>Strategy</h3><p>策略：代码放进来。</p></div>
+    <div class="card c"><span class="no">③</span><h3>Backtest</h3><p>回测：历史数据检验。</p></div>
+    <div class="card c"><span class="no">④</span><h3>Paper</h3><p>模拟盘：虚拟资金跑。</p></div>
+    <div class="card c"><span class="no">⑤</span><h3>Monitoring</h3><p>监控：持仓成交权益。</p></div>
+  </div>
+  <p class="lead">这五站就是 QuantDinger 官方链路——<b class="gold">今天每一站都停一次</b>。先建立地图，再动手：知道自己在流程的哪一站。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 03</div><p>五张地图反复回指：后面每一节开头都问"我们现在在第几站"。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 开场</div>
+  <h2>怎么学——RIA 四拍 + 交付物规则</h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">R</span><h3>阅读拆页</h3><p>任务卡即拆页，先读懂"这一节要产出什么"。</p></div>
+    <div class="card"><span class="no">I</span><h3>引导催化</h3><p>讲师演示一遍完整路径，你只看不动手。</p></div>
+    <div class="card"><span class="no">A1</span><h3>回想经验</h3><p>60 秒讲给同组：我以前的买卖规则清楚吗？</p></div>
+    <div class="card"><span class="no">A2</span><h3>规划应用</h3><p>把 30 天计划第一周写满。</p></div>
+  </div>
+  <p class="lead">交付物不过夜：<b class="gold">三件交付物现场做完，做完才算学会</b>。课堂只用模拟盘和历史数据——这是红线，不是建议。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 04</div><p>RIA 快念，重心压"交付物不过夜"+"只用模拟盘"两条纪律。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 开场</div>
+  <h2>今天的三小时——装 · 测 · 跑</h2>
+  <table class="tbl mt3">
+    <tr><th>时间</th><th>环节</th><th>你的动作</th><th>时长</th></tr>
+    <tr><td class="mono">00:00–00:15</td><td>开场</td><td>自评量表（材料 09）· 分组 · 三件交付物亮相</td><td class="mono">15′</td></tr>
+    <tr><td class="mono">00:15–01:00</td><td><b>第 1 节｜装</b></td><td>Docker 部署跑通 · 界面五张脸认全</td><td class="mono">45′</td></tr>
+    <tr><td class="mono">01:00–01:10</td><td>茶歇</td><td>走动 · 组内互看部署进度</td><td class="mono">10′</td></tr>
+    <tr><td class="mono">01:10–01:55</td><td><b>第 2 节｜测</b></td><td>AI 写策略 · 跑回测 · 三行结论</td><td class="mono">45′</td></tr>
+    <tr><td class="mono">01:55–02:30</td><td><b>第 3 节｜跑</b></td><td>模拟盘 + 监控十分钟 + 30 天计划</td><td class="mono">35′</td></tr>
+    <tr><td class="mono">02:30–02:45</td><td>收尾</td><td>下课前自检 · 互换测试 · 合影</td><td class="mono">15′</td></tr>
+  </table>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 05</div><p>时间表让学员对照材料 01 打勾。弹性在收尾 15 分钟里。</p></div>
+</section>
+<section class="slide sec">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场</div>
+  <h1>装<span class="gold">。</span></h1>
+  <div class="line"></div>
+  <div class="sub">第 1 节 · 45 分钟——本地部署 QuantDinger，Web 界面打得开</div>
+  <div class="num">1</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 装</div>
+  <h2>动手前确认——三样就位再开跑</h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">确认一</span><h3>电脑能上网</h3><p>能访问 GitHub（拉不动有 Gitea 镜像兜底）。</p></div>
+    <div class="card"><span class="no">确认二</span><h3>Docker 已装</h3><p>Docker Desktop（Windows/Mac）或 docker-ce（Linux），docker ps 能列出容器。</p></div>
+    <div class="card"><span class="no">确认三</span><h3>仓库地址</h3><p>github.com/OpenByteInc/QuantDinger（官方提供简体中文 README）。</p></div>
+  </div>
+  <p class="lead">顺手记住三件事：它是 <b class="cy">AI Trading OS</b> · 许可证 <b class="cy">Apache-2.0</b> · 覆盖 crypto / 股票 / 外汇。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 07</div><p>课前准备清单（材料 07）里已让学员预装 Docker；现场没装成的坐到"演示组"跟投屏做。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 装 · 现场演示</div>
+  <h2>讲师先跑一遍——从 clone 到浏览器打开</h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">①</span><h3>clone</h3><p>git clone 官方仓库，本地多了 QuantDinger 目录。</p></div>
+    <div class="card"><span class="no">②</span><h3>读 README</h3><p>切简体中文版，翻到「部署 / 安装」章节。</p></div>
+    <div class="card"><span class="no">③</span><h3>Docker 起</h3><p>照 README self-hosted 说明逐条执行，等镜像拉完。</p></div>
+    <div class="card"><span class="no">④</span><h3>开 Web</h3><p>README 承诺的界面地址，浏览器能打开。</p></div>
+  </div>
+  <div class="footnote">安装步骤以官方 README 中文版为准（版本迭代快，不抄课件里的命令） · 下一段才轮到你的键盘</div>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 08</div><p>演示必须提前跑通并录屏备份。强调"命令以 README 为准，不抄课件"——版本迭代快。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 装</div>
+  <h2>现场动作——四步装起来</h2>
+  <div class="grid mt3" style="grid-template-columns:repeat(4,1fr);gap:1.2vh">
+    <div class="card"><span class="no">01</span><h3>克隆</h3><p>git clone 官方仓库；拉不动换 Gitea 镜像或 --depth 1。</p></div>
+    <div class="card"><span class="no">02</span><h3>启动</h3><p>照 README Docker 步骤逐条执行，等镜像拉取完成。</p></div>
+    <div class="card"><span class="no">03</span><h3>开界面</h3><p>Web 界面地址在浏览器里能打开。</p></div>
+    <div class="card"><span class="no">04</span><h3>五张脸</h3><p>五个模块入口各点 30 秒，截图全家福交组长。</p></div>
+  </div>
+  <p class="lead">界面支持中文就切中文 · docs/agent 里的 AI Agent/MCP 文档顺手扫一眼即可，不强求。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 09</div><p>助教重点巡查 Docker 启动失败的同学：九成是 Docker 未开或端口被占。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 装 · 卡点</div>
+  <h2>第 1 节排障表——四个常见卡点</h2>
+  <table class="tbl mt3">
+    <tr><th>症状</th><th>可能原因</th><th>解法</th></tr>
+    <tr><td>git clone 超时</td><td>网络到 GitHub 不稳</td><td>换 Gitea 镜像 Loong/QuantDinger；或浅克隆加 --depth 1</td></tr>
+    <tr><td>docker 命令不存在</td><td>Docker 未装或未启动</td><td>装 Docker Desktop / docker-ce，装完重启终端</td></tr>
+    <tr><td>镜像拉取慢/失败</td><td>镜像源网络问题</td><td>配国内镜像加速器重拉；多次重试，断点会续传</td></tr>
+    <tr><td>Web 界面打不开</td><td>服务未起完 / 端口被占</td><td>看容器日志等启动完成；换端口重启</td></tr>
+  </table>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 10</div><p>排障表先念再动手。镜像拉取慢的同学先听第 2 节，拉完再回来补交付。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 交付 ①</div>
+  <h2>交付 ① 达标验收——环境 + 第一个策略</h2>
+  <div class="grid g2 mt3">
+    <div class="card g"><span class="no">验收线</span><h3>两张截图</h3><p>① Web 界面打开（五模块全家福）<br>② 第一个 Python 策略已保存、无红色报错</p></div>
+    <div class="card"><span class="no">兜底</span><h3>起不来也算完成</h3><p>实在起不来的，看讲师投屏演示版 + 截图自己的任务页——流程认知到位即达标。</p></div>
+  </div>
+  <p class="lead">组长逐人打勾（材料 06 · 材料 11）。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 11</div><p>部署类工作坊的验收要留兜底：环境问题不该惩罚学员。</p></div>
+</section>
+<section class="slide sec">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场</div>
+  <h1>测<span class="gold">。</span></h1>
+  <div class="line"></div>
+  <div class="sub">第 2 节 · 45 分钟——AI 研究助手 + 第一个策略 + 第一次回测</div>
+  <div class="num">2</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 测</div>
+  <h2>AI 研究助手——先问三个入门问题</h2>
+  <div class="grid g3 mt3">
+    <div class="card c"><span class="no">问一</span><h3>思路</h3><p>"双均线策略的思路是什么？什么时候买、什么时候卖？"</p></div>
+    <div class="card c"><span class="no">问二</span><h3>指标</h3><p>"回测里收益、最大回撤、胜率分别怎么看？"</p></div>
+    <div class="card c"><span class="no">问三</span><h3>骨架</h3><p>"帮我写一个最简单的双均线 Python 策略骨架。"</p></div>
+  </div>
+  <p class="lead">检查点：拿到<b class="cy">一段能看懂的策略思路 + 一份 Python 骨架代码</b>。看不懂就拆小再问，或把 README 示例贴给它讲解。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 13</div><p>强调 AI 助手是"陪练"不是"代打"——代码最终要你自己看懂三件套。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 测</div>
+  <h2>策略三件套——入场 · 出场 · 仓位</h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no">入场条件</span><h3>什么时候买</h3><p>如短期均线上穿长期均线——金叉买入。</p></div>
+    <div class="card"><span class="no">出场条件</span><h3>什么时候卖</h3><p>如短期均线下穿长期均线——死叉卖出。</p></div>
+    <div class="card"><span class="no">仓位大小</span><h3>买多少</h3><p>每次投入总资金的几成——宁可小，不可满。</p></div>
+  </div>
+  <p class="lead">把骨架放进 Strategy 模块，跑一次语法检查——<b class="gold">有报错就把报错原样贴回给 AI 助手改</b>（通常是缩进、括号或 import）。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 14</div><p>三件套是全场最重要的概念页：后面回测报告、模拟盘都在验证这三件套。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 测</div>
+  <h2>第一次 Backtest——按默认先跑通再改</h2>
+  <div class="grid g4 mt3">
+    <div class="card"><span class="no">①</span><h3>选市场</h3><p>crypto / 股票 / 外汇，选数据最全的。</p></div>
+    <div class="card"><span class="no">②</span><h3>设区间</h3><p>一段历史数据，先缩到一年以内。</p></div>
+    <div class="card"><span class="no">③</span><h3>初始资金</h3><p>手续费按界面默认。</p></div>
+    <div class="card"><span class="no">④</span><h3>运行</h3><p>等回测完成，出收益曲线 + 指标面板。</p></div>
+  </div>
+  <p class="lead">数据未下载就先按提示下载 · 区间太长跑得慢就先缩到一年以内——<b class="cy">先跑通，再调优</b>。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 15</div><p>等回测的空档讲下一页"三个数"，别让等待变冷场。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 测</div>
+  <h2>回测报告——抄下三个数，写三行结论</h2>
+  <div class="grid g3 mt3">
+    <div class="card e"><span class="no">总收益</span><h3>赚了多少</h3><p>整个区间的收益率——看绝对数，也看曲线形状。</p></div>
+    <div class="card e"><span class="no">最大回撤</span><h3>最疼的一跌</h3><p>从高点跌下来最深的一段——你拿得住吗？</p></div>
+    <div class="card e"><span class="no">交易次数</span><h3>出手几次</h3><p>太少是运气，太密是摩擦；有胜率更好。</p></div>
+  </div>
+  <p class="lead">写三行：<b class="gold">赚的时候怎么赚的 / 亏的时候怎么亏的 / 我信不信这个结果</b>——报告存档 + 三行结论 = 交付②。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 16</div><p>三行结论写不出来的，把指标贴给 AI 助手解读，学员只挑一句认同的抄下来。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 测 · 卡点</div>
+  <h2>第 2 节排障表——四个常见卡点</h2>
+  <table class="tbl mt3">
+    <tr><th>症状</th><th>可能原因</th><th>解法</th></tr>
+    <tr><td>AI 助手没响应</td><td>模型服务未配置</td><td>照 docs/agent 章节检查 AI 配置；现场举手找讲师</td></tr>
+    <tr><td>策略保存报语法错</td><td>骨架有笔误</td><td>完整报错贴回 AI 助手，要修正后的完整文件</td></tr>
+    <tr><td>回测一直转圈</td><td>数据量大 / 区间长</td><td>缩短区间；确认历史数据已下载；看容器日志</td></tr>
+    <tr><td>指标面板空白</td><td>回测未产生成交</td><td>均线周期改小（如 5/20）让信号变多，重跑</td></tr>
+  </table>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 交付 ②</div>
+  <h2>交付 ② 达标验收——回测报告 + 三行结论</h2>
+  <div class="grid g2 mt3">
+    <div class="card g"><span class="no">验收线</span><h3>两样齐</h3><p>① 回测报告已导出/截图存档<br>② 三行结论已写：怎么赚 / 怎么亏 / 信不信</p></div>
+    <div class="card"><span class="no">常见不达标</span><h3>两种现场纠</h3><p>· 只截图没写结论 → 当场补三行<br>· 指标看不懂 → 贴给 AI 助手解读，挑一句认同的抄</p></div>
+  </div>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 18</div><p>三行结论是这堂课的"思考凭证"，比报告本身重要。</p></div>
+</section>
+<section class="slide sec">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场</div>
+  <h1>跑<span class="gold">。</span></h1>
+  <div class="line"></div>
+  <div class="sub">第 3 节 · 35 分钟——模拟盘 + 监控 + 30 天计划</div>
+  <div class="num">3</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 跑</div>
+  <h2>模拟盘 Paper execution——虚拟资金，真流程</h2>
+  <div class="grid g3 mt3">
+    <div class="card c"><span class="no">动作</span><h3>新建执行任务</h3><p>选你刚写的策略，市场与回测保持一致，虚拟资金按默认。</p></div>
+    <div class="card c"><span class="no">确认</span><h3>状态「运行中」</h3><p>启动执行，截图存档——这是交付③ 的一环。</p></div>
+    <div class="card"><span class="no">起不来</span><h3>兜底</h3><p>看日志最后一行；数据源未连就配免费源；实在不行看讲师投屏演示版。</p></div>
+  </div>
+  <p class="lead"><b class="gold">课堂只用模拟盘，不碰真实资金</b>——这是红线，不是建议。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 20</div><p>再次强调红线。启动失败的同学用投屏演示版兜底，别卡在环境上。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 跑</div>
+  <h2>Monitoring——盯十分钟，看三个东西</h2>
+  <div class="grid g3 mt3">
+    <div class="card e"><span class="no">看一</span><h3>当前持仓</h3><p>模拟盘现在拿着什么。</p></div>
+    <div class="card e"><span class="no">看二</span><h3>最近成交</h3><p>策略最近一次出手是什么时候、为什么。</p></div>
+    <div class="card e"><span class="no">看三</span><h3>权益曲线</h3><p>虚拟资金的变化轨迹。</p></div>
+  </div>
+  <p class="lead">给自己立规矩：<b class="cy">每天只看两次，早上一次晚上一次</b>——盯盘不产生收益。监控面板截图一张（含持仓或成交）存档。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 21</div><p>"盯盘不产生收益"这句让学员抄进 30 天计划首页。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 跑</div>
+  <h2>30 天量化学习计划——四周四步</h2>
+  <table class="tbl mt3">
+    <tr><th>周</th><th>做什么</th><th>体会什么</th></tr>
+    <tr><td><b>第 1 周</b></td><td>每天看懂一个回测指标（收益/回撤/胜率/夏普），跑通一次完整回测</td><td>指标语言</td></tr>
+    <tr><td><b>第 2 周</b></td><td>改一个策略参数对比回测结果</td><td>「过拟合」是什么</td></tr>
+    <tr><td><b>第 3 周</b></td><td>换一个市场/标的再跑，记录差异</td><td>策略的边界</td></tr>
+    <tr><td><b>第 4 周</b></td><td>让 AI 助手加一个风控条件（如止损），回测对比写一句结论</td><td>风控的价值</td></tr>
+  </table>
+  <p class="lead">用材料 04 三栏表写满：哪天做 / 做什么 / 存哪里——<b class="gold">写不动就先写第 1 周七天</b>，其余带回家补。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 22</div><p>四周模板直接抄——先写满再改，完美主义是坚持的大敌。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 跑 · 卡点</div>
+  <h2>第 3 节排障表——三个常见卡点</h2>
+  <table class="tbl mt3">
+    <tr><th>症状</th><th>可能原因</th><th>解法</th></tr>
+    <tr><td>模拟盘启动失败</td><td>数据源/账户未配</td><td>按界面提示配免费模拟数据源；看日志；举手找讲师</td></tr>
+    <tr><td>监控面板不动</td><td>行情未推进 / 刚启动</td><td>等几分钟；确认任务在运行；重启任务一次</td></tr>
+    <tr><td>计划写不下去</td><td>目标太大</td><td>只写「每天 20 分钟」粒度；第 1 周写满即达标</td></tr>
+  </table>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 交付 ③</div>
+  <h2>交付 ③ 达标验收——30 天量化学习计划</h2>
+  <div class="grid g2 mt3">
+    <div class="card g"><span class="no">验收线</span><h3>三样齐</h3><p>① 三栏写满：哪天做 / 做什么 / 存哪里<br>② 模拟盘运行中截图<br>③ 监控面板截图</p></div>
+    <div class="card"><span class="no">互换测试</span><h3>换着看</h3><p>把计划递给同组，让他挑出"最可能断掉的一周"——被挑出来的就是你下周要护住的。</p></div>
+  </div>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 24</div><p>互换测试 2 分钟仪式感，挑出的"最可能断掉的一周"拍照发群。</p></div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 收尾</div>
+  <h2>下课前自检——三件交付物逐项打勾</h2>
+  <div class="grid g3 mt3">
+    <div class="card g"><span class="no">①</span><h3>环境 + 策略</h3><p>本地环境在跑 + 第一个 Python 策略已保存（截图：Web 界面 + 策略代码）</p></div>
+    <div class="card g"><span class="no">②</span><h3>回测 + 结论</h3><p>回测报告存档 + 三行结论（截图：报告 + 结论）</p></div>
+    <div class="card g"><span class="no">③</span><h3>计划三栏满</h3><p>30 天量化学习计划写满（拍照上传群）</p></div>
+  </div>
+  <p class="lead">合规自检：我知道全部结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 延伸</div>
+  <h2>延伸阅读——两期工作坊怎么配</h2>
+  <div class="grid g2 mt3">
+    <div class="card c"><span class="no">第七期</span><h3>A 股每日分析</h3><p>那期管「每天看什么」——个股报告、大盘复盘、告警盯盘。入口：/workshop/07/。</p></div>
+    <div class="card e"><span class="no">本期</span><h3>QuantDinger 全流程</h3><p>这期管「全流程怎么跑」——研究、策略、回测、模拟盘、监控一条线。更多量化知识以官方文档为准。</p></div>
+  </div>
+  <p class="lead">两期搭配着用：每天用 DSA 看盘，周末用 QuantDinger 检验自己的想法。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+</section>
+<section class="slide">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 合规</div>
+  <h2>合规与边界——这堂课不做什么</h2>
+  <div class="grid g3 mt3">
+    <div class="card"><span class="no"><span class="dot d-r"></span>不碰真钱</span><h3>课堂红线</h3><p>只用模拟盘和历史数据，不碰真实资金。</p></div>
+    <div class="card"><span class="no"><span class="dot d-r"></span>不荐策略</span><h3>服务边界</h3><p>课堂策略仅为教学示例；量化结果仅供学习研究，不构成投资建议。</p></div>
+    <div class="card"><span class="no"><span class="dot d-g"></span>做什么</span><h3>学会流程</h3><p>写清楚 → 跑回测 → 上模拟盘，回测赚钱 ≠ 未来赚钱。</p></div>
+  </div>
+  <p class="lead">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据。</p>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+  <div class="notes"><div class="lbl">讲师备注 27</div><p>合规页整页宣讲，逐字念免责句与"回测赚钱不等于未来赚钱"。</p></div>
+</section>
+<section class="slide cover">
+  <div class="kicker"><span class="ln"></span>AI 拆书课 · QuantDinger 场 · 第九期</div>
+  <h1>规则写清楚<br>再<span class="gold">检验它</span></h1>
+  <div class="sub">装 → 测 → 跑 · 每天 20 分钟 · 30 天后见。</div>
+  <dl class="meta">
+    <div><dt>材料</dt><dd>小蛮腰·拆AI /workshop/09/</dd></div>
+    <div><dt>答疑</dt><dd>微信 ikoning365</dd></div>
+    <div><dt>方法论</dt><dd>拆书帮 chaishubang.net</dd></div>
+  </dl>
+  <div class="footnote">量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</div>
+</section>
+</div>
+
+<div class="hint" id="hint">← → 翻页　·　N 讲师备注</div>
+<div class="pager"><b id="cur">01</b> / <span id="tot">28</span></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="notes" id="notesBar"><div class="lbl">讲师备注</div><p id="notesTxt"></p></div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0, n = slides.length;
+  var cur = document.getElementById('cur');
+  var tot = document.getElementById('tot');
+  var prog = document.getElementById('prog');
+  var notesTxt = document.getElementById('notesTxt');
+  var hint = document.getElementById('hint');
+
+  function pad(x){ return (x < 10 ? '0' : '') + x; }
+
+  function show(k){
+    if (k < 0) k = 0;
+    if (k > n - 1) k = n - 1;
+    slides[i].classList.remove('on','vis');
+    i = k;
+    slides[i].classList.add('on');
+    (function(s){ setTimeout(function(){ s.classList.add('vis'); }, 20); })(slides[i]);
+    cur.textContent = pad(i + 1);
+    tot.textContent = n;
+    prog.style.width = ((i + 1) / n * 100).toFixed(2) + '%';
+    var s = slides[i].querySelector('.notes');
+    notesTxt.textContent = s ? s.textContent.replace(/讲师备注\s*\d+/, '').trim() : '（本页无备注）';
+    if (location.hash !== '#' + (i + 1)) {
+      try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+    }
+  }
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ' || k === 'Enter') {
+      e.preventDefault(); show(i + 1); hint.classList.add('off');
+    } else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') {
+      e.preventDefault(); show(i - 1); hint.classList.add('off');
+    } else if (k === 'Home') {
+      e.preventDefault(); show(0);
+    } else if (k === 'End') {
+      e.preventDefault(); show(n - 1);
+    } else if (k === 'n' || k === 'N') {
+      e.preventDefault(); document.body.classList.toggle('notes-on');
+      hint.classList.add('off');
+    } else if (k === 'f' || k === 'F') {
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else if (document.documentElement.requestFullscreen) { document.documentElement.requestFullscreen(); }
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest('a')) return;
+    if (document.body.classList.contains('notes-on') && e.target.closest('#notesBar')) return;
+    if (e.clientX > window.innerWidth * 0.55) show(i + 1);
+    else if (e.clientX < window.innerWidth * 0.45) show(i - 1);
+    hint.classList.add('off');
+  });
+
+  var start = parseInt((location.hash || '').replace('#',''), 10);
+  if (!start || start < 1 || start > n) start = 1;
+  i = 0;
+  show(start - 1);
+  setTimeout(function(){ hint.classList.add('off'); }, 6000);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>材料 02｜第 1 节任务卡 · 本地部署 QuantDinger</title>
+<link rel="stylesheet" href="handout.css">
+</head>
+<body>
+<div class="toolbar"><a href="index.html">← 返回材料目录</a><button onclick="window.print()">打印本页</button></div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1>第 1 节任务卡 · 装：把 QuantDinger 跑起来</h1>
+      <div class="sub">本地部署（Docker self-hosted）· 现场 15 分钟 · 交付 ① 环境 + 第一个策略（环境半件）</div>
+    </div>
+    <div class="brand">45′ 本节<br>交付 ①</div>
+  </div>
+
+  <div class="box gold">
+    <p style="margin-bottom:0"><b>达标线：QuantDinger 在你电脑上跑起来，Web 界面打得开，五个模块入口各点过一遍。</b>装起来不是目的——从今天起你本地就有一座量化实验室。</p>
+  </div>
+
+  <h2>先认三个事实（1 分钟）</h2>
+  <div class="box">
+    <p style="margin-bottom:0">QuantDinger 是<b>开源 AI Trading OS</b>（GitHub OpenByteInc/QuantDinger，13,509 stars，Apache-2.0，官方有简体中文 README，本站 Gitea 有镜像 Loong/QuantDinger）。官方链路五站：<b>AI research → Strategy code（Python）→ Backtest → Paper/Live execution → Monitoring</b>，self-hosted 一体化，覆盖 crypto、股票、外汇。今天只走模拟盘。</p>
+  </div>
+
+  <h2>三步装起来（15 分钟 · 逐项打勾）</h2>
+  <table>
+    <tr><th style="width:8%">✓</th><th style="width:14%">时间</th><th>动作</th><th style="width:30%">我的记录</th></tr>
+    <tr><td class="center">☐</td><td>0–3′</td><td>克隆仓库：<code>git clone https://github.com/OpenByteInc/QuantDinger.git</code>；打开 README <b>简体中文版</b>，翻到部署章节</td><td>README 打开 ☐</td></tr>
+    <tr><td class="center">☐</td><td>3–10′</td><td>按官方 README 的 <b>Docker self-hosted</b> 步骤逐条执行（安装命令以官方文档为准，版本迭代快）；等镜像拉取、服务启动完成</td><td>容器运行中 ☐</td></tr>
+    <tr><td class="center">☐</td><td>10–15′</td><td>浏览器打开 README 写的 Web 界面地址；按官方链路把五个模块入口各点 30 秒：AI research / Strategy / Backtest / Paper execution / Monitoring，<b>截图一张全家福交组长</b></td><td>截图 ☐ 已存</td></tr>
+  </table>
+
+  <h2>四步链条：环境该这么长出来</h2>
+  <table>
+    <tr><th style="width:25%">① 拿仓库</th><th style="width:25%">② 起 Docker</th><th style="width:25%">③ 开界面</th><th>④ 认模块</th></tr>
+    <tr><td>clone 或镜像，中文 README 在手</td><td>照官方部署文档执行，容器跑起来</td><td>浏览器验证服务活着</td><td>五站各点一遍，对上官方链路</td></tr>
+  </table>
+
+  <h2>卡住了看这里（排障 4 条）</h2>
+  <table>
+    <tr><th style="width:30%">症状</th><th>解法</th></tr>
+    <tr><td>clone 超时</td><td>换 Gitea 镜像 Loong/QuantDinger；或加 <code>--depth 1</code> 浅克隆</td></tr>
+    <tr><td>docker 命令不存在</td><td>先装 Docker Desktop / docker-ce，装完重启终端再试</td></tr>
+    <tr><td>镜像拉取慢</td><td>配国内镜像加速器；多重试几次会续传</td></tr>
+    <tr><td>界面打不开</td><td>看容器日志等启动完；换端口；确认地址与 README 一致</td></tr>
+  </table>
+
+  <div class="box" style="margin-top:4px"><b>顺手看一眼：</b>docs/agent 里有 AI Agent / MCP 支持的文档——今天不展开，知道有这东西即可。</div>
+
+  <div class="box gold" style="margin-top:4px"><b>合规：</b>全部量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据。</div>
+
+  <div class="foot">材料 02 · 第 1 节 · 装起来 | 卡住举手，或截图发群：微信 ikoning365</div>
+</div>
+</body>
+</html>

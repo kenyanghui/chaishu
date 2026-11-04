@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>09 · QuantDinger · 量化全流程｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#0e9db5;--blue-soft:#e8f8fb;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#0a1a24,#0e9db5);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.box{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#1d4a56}
+.warnbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#5c4408}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;color:#3c4d68;font-weight:700}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;margin:12px 0}
+.step .head{display:flex;gap:10px;align-items:flex-start}
+.step .num{background:var(--green);color:#fff;font-weight:700;border-radius:50%;min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:2px}
+.step .do{font-weight:700;font-size:15px}
+.step ul{margin:8px 0 4px;padding-left:20px;color:var(--ink2);font-size:14px}
+.step li{margin:4px 0}
+.check{background:var(--green-soft);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13.5px}
+.check b{color:var(--green)}
+.nofix{background:var(--warn-soft);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13.5px;color:#6b3417}
+.nofix b{color:var(--warn)}
+label.tick{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid #eef2f8;font-size:14px;color:var(--ink2);cursor:pointer}
+label.tick:last-child{border-bottom:0}
+label.tick input{margin-top:4px}
+.progress{position:sticky;top:0;z-index:5;background:rgba(238,241,246,.92);backdrop-filter:blur(8px);
+border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:13px;color:var(--ink2);
+display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line)}
+.progress .bar{flex:1;height:6px;background:#dde5ef;border-radius:4px;margin:0 10px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#0e9db5,#17845b);border-radius:4px;transition:width .3s}
+h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
+.tip{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+footer.g{background:#101b2e;color:#fff;border-radius:14px;padding:16px 18px;margin:14px 0;text-align:center}
+footer.g .wx{display:inline-block;background:var(--green);color:#fff;font-weight:700;border-radius:8px;padding:6px 16px;margin:8px 0;letter-spacing:1px}
+.final{background:#fff;border:2px solid var(--blue);border-radius:14px;padding:18px 16px;margin:14px 0}
+a{color:var(--blue)}
+@media print{
+ body{background:#fff;padding:0;font-size:12px}
+ .page{max-width:none;padding:0}
+ section.card,header.g,footer.g{box-shadow:none;border-radius:0;padding:10px 8px;border-bottom:1px solid #ddd}
+ .progress{display:none}
+}
+</style></head>
+<body>
+<div class="page">
+
+<div class="progress"><span>跟做进度</span><div class="bar"><i id="pbar"></i></div><b id="pnum">0 / 11</b></div>
+
+<header class="g">
+<div class="no">小蛮腰·拆AI · 工作坊 09 · 自助跟做手册</div>
+<h1>QuantDinger · 量化全流程 <span class="badge">11 月 · 时间待定</span></h1>
+<div class="meta">本地部署 → AI 写策略 → 历史回测 → 模拟盘监控｜广州越秀区雅苑·培正 5 号楼 · 仅限 10 人</div>
+<div class="outcomes">
+<b>三件交付物（下课前全部做完带走）</b>
+<ul>
+<li>① 你的 QuantDinger 本地环境 + 第一个 Python 策略</li>
+<li>② 一份完整回测报告（模拟历史数据）</li>
+<li>③ 30 天量化学习计划</li>
+</ul>
+</div>
+<div class="meta" style="margin-top:10px;background:#ffffff14;border-radius:8px;padding:8px 10px">
+<b>合规：</b>全部量化结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据，不涉及任何真实资金操作。
+</div>
+</header>
+
+<section class="card">
+<h2 class="sec">开场 · 量化是什么</h2>
+<p class="goal">先建立地图，再动手——知道自己在流程的哪一站。</p>
+<div class="box"><b>一句话：</b>量化 = 把「什么时候买、买多少、什么时候卖」写成明确的规则，交给程序执行，再用数据检验这套规则行不行。QuantDinger 官方链路五站：<b>AI research → Strategy code（Python 策略）→ Backtest（回测）→ Paper/Live execution（模拟盘/实盘执行）→ Monitoring（监控）</b>，self-hosted 一体化，覆盖 crypto、股票、外汇三大市场。今天我们只走到模拟盘。</p>
+<div class="warnbox"><b>课堂红线：</b>所有结果仅供学习研究，不构成投资建议；只使用模拟盘和历史数据。回测赚钱 ≠ 未来赚钱，这一页请记牢。</div>
+</section>
+
+<section class="card" id="s1">
+<h2 class="sec"><span class="n">1</span>第 1 节 · 装起来：本地部署 QuantDinger</h2>
+<p class="goal">本节目标：Docker 自托管部署跑通，Web 界面打得开｜预计 <span class="mins">45 分钟</span></p>
+<div class="box"><b>动手前确认：</b>电脑能上网，已安装 Docker Desktop（或同等 Docker 环境）；仓库地址 github.com/OpenByteInc/QuantDinger（官方提供简体中文 README，本站 Gitea 有镜像 Loong/QuantDinger）。</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">克隆仓库，翻一遍中文 README
+<ul>
+<li>终端执行：<code>git clone https://github.com/OpenByteInc/QuantDinger.git</code></li>
+<li>打开项目里的 README，切换到<b>简体中文版</b>，找到「部署 / 安装」章节</li>
+<li>顺手记住三件事：它是什么（AI Trading OS）、许可证（Apache-2.0）、覆盖市场（crypto / 股票 / 外汇）</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>本地多了 QuantDinger 目录，README 中文版能打开</div>
+<div class="nofix"><b>没看到怎么办：</b>GitHub 拉不动就换本站 Gitea 镜像 Loong/QuantDinger；或直接浏览器打开仓库页在线读 README</div>
+</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">按官方 README 的 Docker 步骤启动
+<ul>
+<li>安装步骤<b>以官方 README 中文版为准</b>（版本迭代快，不抄本手册的命令）</li>
+<li>确认 Docker 正在运行：<code>docker ps</code> 能列出容器</li>
+<li>照 README 里的 self-hosted 部署说明逐条执行，等镜像拉取、服务启动完成</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>README 中承诺的 Web 界面地址在浏览器里能打开</div>
+<div class="nofix"><b>没看到怎么办：</b>先看终端报错最后一行；端口占用就换个端口；内存不足就关掉大软件再启动；仍卡住截图发群里</div>
+</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">逛一圈界面，认五张脸
+<ul>
+<li>对应官方链路找到五个模块入口：AI research（研究）/ Strategy（策略）/ Backtest（回测）/ Paper execution（模拟盘）/ Monitoring（监控）</li>
+<li>每个模块点进去 30 秒，知道它大概放什么</li>
+<li>如果界面支持中文就切成中文</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>五个模块入口都点开过，截图一张全家福交组长</div>
+<div class="nofix"><b>没看到怎么办：</b>界面找不到某模块就回 README 的功能清单对照；docs/agent 里有 AI Agent/MCP 相关文档，顺手扫一眼即可，不强求</div>
+</div>
+
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>git clone 超时</td><td>网络到 GitHub 不稳</td><td>改用本站 Gitea 镜像 Loong/QuantDinger；或浅克隆加 <code>--depth 1</code></td></tr>
+<tr><td>docker 命令不存在</td><td>Docker 未装或未启动</td><td>先装 Docker Desktop（Windows/Mac）或 docker-ce（Linux），装完重启终端</td></tr>
+<tr><td>镜像拉取很慢/失败</td><td>镜像源网络问题</td><td>配置国内镜像加速器后重拉；或多次重试，断点会续传</td></tr>
+<tr><td>Web 界面打不开</td><td>服务未起完/端口被占</td><td>看容器日志等启动完成；换端口重新启动；确认浏览器访问的是 README 写的地址</td></tr>
+</table>
+</section>
+
+<section class="card" id="s2">
+<h2 class="sec"><span class="n">2</span>第 2 节 · 写出来：AI 研究助手 + 第一个策略 + 回测</h2>
+<p class="goal">本节目标：用 AI 研究助手写出第一个 Python 策略并跑出回测报告｜预计 <span class="mins">45 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 1 节部署的 QuantDinger 界面能正常打开。</p>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">打开 AI 研究助手，问三个入门问题
+<ul>
+<li>「双均线策略的思路是什么？什么时候买、什么时候卖？」</li>
+<li>「回测里收益、最大回撤、胜率分别怎么看？」</li>
+<li>「帮我写一个最简单的双均线 Python 策略骨架」</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>助手给出一段能看懂的策略思路 + 一份 Python 策略骨架代码</div>
+<div class="nofix"><b>没看到怎么办：</b>问题拆小再问；或把 README 示例策略贴给助手让它逐行讲解</div>
+</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">把策略放进 Strategy code 模块
+<ul>
+<li>新建一个策略，把骨架代码填进去（策略文件命名、入口以官方文档为准）</li>
+<li>看懂三个关键件：入场条件（什么时候买）、出场条件（什么时候卖）、仓位大小（买多少）</li>
+<li>先跑一次语法/编译检查（有报错就把报错原样贴回给 AI 助手）</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>策略保存成功，没有红色报错</div>
+<div class="nofix"><b>没看到怎么办：</b>报错贴给 AI 研究助手让它改；通常是缩进、括号或缺少 import；还不行就用官方示例策略原样跑通再说</div>
+</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">配置回测并跑第一次 Backtest
+<ul>
+<li>选一个市场（crypto / 股票 / 外汇都可以，建议选数据最全的）</li>
+<li>设置回测区间（一段历史数据）、初始资金、手续费——按界面默认先跑通再改</li>
+<li>点击运行，等回测完成</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>回测完成，出现收益曲线和指标面板</div>
+<div class="nofix"><b>没看到怎么办：</b>历史数据未下载就先按提示下载；区间太长跑得慢就先缩到一年以内</div>
+</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">读回测报告，写下三行结论（交付 ②）
+<ul>
+<li>抄下三个数：总收益、最大回撤、交易次数（有胜率更好）</li>
+<li>写三行：赚的时候怎么赚的 / 亏的时候怎么亏的 / 我信不信这个结果</li>
+<li>导出或截图整份回测报告存档</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>回测报告已存档 + 三行结论已写，交组长</div>
+<div class="nofix"><b>没看到怎么办：</b>导出按钮找不到就整页截图；三行结论写不出来就把指标贴给 AI 助手让它解读，你只负责挑一句认同的抄下来</div>
+</div>
+
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>AI 助手没响应</td><td>模型服务未配置</td><td>照官方文档（docs/agent 相关章节）检查 AI 配置；现场举手找讲师</td></tr>
+<tr><td>策略保存报语法错</td><td>代码骨架有笔误</td><td>把完整报错贴回给 AI 助手，让它给出修正后的完整文件</td></tr>
+<tr><td>回测一直转圈</td><td>数据量大/区间太长</td><td>缩短回测区间；确认历史数据已下载完成；看容器日志有无异常</td></tr>
+<tr><td>指标面板空白</td><td>回测未产生成交</td><td>均线周期改小（如 5/20）让信号变多，重跑一次</td></tr>
+</table>
+</section>
+
+<section class="card" id="s3">
+<h2 class="sec"><span class="n">3</span>第 3 节 · 跑起来：模拟盘 + 监控 + 30 天计划</h2>
+<p class="goal">本节目标：策略上模拟盘、看懂监控面板、写完 30 天计划｜预计 <span class="mins">35 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 2 节的策略已保存，回测报告已存档。记住：课堂只用模拟盘（Paper execution），不碰真实资金。</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">把策略部署到模拟盘（Paper execution）
+<ul>
+<li>在模拟盘模块新建执行任务，选你刚写的策略</li>
+<li>市场与回测保持一致，虚拟资金按默认</li>
+<li>启动执行，确认状态变为「运行中」</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>模拟盘任务运行中，截图存档</div>
+<div class="nofix"><b>没看到怎么办：</b>启动失败看日志最后一行；数据源未连上就先按界面提示配置免费数据源；实在起不来，看讲师投屏演示版也算完成（截图自己的任务页）</div>
+</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">打开 Monitoring 盯十分钟
+<ul>
+<li>看三个东西：当前持仓 / 最近成交 / 权益曲线</li>
+<li>确认监控面板有数据在动（模拟行情推送正常）</li>
+<li>给自己设一条规则：每天只看两次监控，早上一次晚上一次——盯盘不产生收益</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>监控面板截图一张（含持仓或成交），存档</div>
+<div class="nofix"><b>没看到怎么办：</b>面板空白等几分钟让行情推进；模拟盘刚启动没成交是正常的，把策略的均线周期调小让信号更容易触发</div>
+</div>
+
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">写完 30 天量化学习计划（交付 ③）
+<ul>
+<li>第 1 周：每天看懂一个回测指标（收益/回撤/胜率/夏普），跑通一次完整回测</li>
+<li>第 2 周：改一个策略参数对比回测结果，体会「过拟合」是什么</li>
+<li>第 3 周：换一个市场/标的再跑，记录差异</li>
+<li>第 4 周：让 AI 助手帮你加一个风控条件（如止损），回测对比并写一句结论</li>
+<li>用材料 04 的三栏表写满：哪天做 / 做什么 / 存哪里</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>30 天计划三栏写满，拍照或截图存档</div>
+<div class="nofix"><b>没看到怎么办：</b>抄上方四周模板先写满再改；写不动就只写第 1 周七天，其余带回家补</div>
+</div>
+
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>模拟盘启动失败</td><td>数据源/账户未配</td><td>按界面提示配置免费模拟数据源；看日志；举手找讲师</td></tr>
+<tr><td>监控面板不动</td><td>行情未推进/刚启动</td><td>等几分钟；确认执行任务仍在运行；重启任务一次</td></tr>
+<tr><td>计划写不下去</td><td>目标太大</td><td>只写「每天 20 分钟」粒度的动作；第 1 周写满即达标</td></tr>
+</table>
+</section>
+
+<div class="final" id="final">
+<h2 style="margin:0 0 6px;font-size:18px">final · 下课前自检（三件交付物逐项打勾）</h2>
+<label class="tick"><input type="checkbox" class="gtick" data-id="f-1"><span><b>交付 ①</b>：QuantDinger 本地环境在跑 + 第一个 Python 策略已保存（截图：Web 界面 + 策略代码）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="f-2"><span><b>交付 ②</b>：回测报告已存档，写有三行结论（截图：报告 + 结论）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="f-3"><span><b>交付 ③</b>：30 天量化学习计划三栏写满（拍照上传群）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="f-4"><span><b>合规</b>：我知道全部结果仅供学习研究，不构成投资建议；课堂只用模拟盘和历史数据</span></label>
+<div class="warnbox" style="margin-bottom:0"><b>延伸阅读：</b>上过或想上第七期「A 股每日分析」（轻入口）的伙伴看 <a href="/workshop/07/">/workshop/07/</a>——那期管「每天看什么」，这期管「全流程怎么跑」。更多量化知识以官方文档 github.com/OpenByteInc/QuantDinger 与 www.quantdinger.com 为准。</div>
+</div>
+
+<footer class="g">
+<b>卡住了？</b><br>
+微信 ikoning365 · 报名 / 提问都找他<br>
+<span class="wx">ikoning365</span><br>
+<div style="font-size:12px;opacity:.75">小蛮腰·拆AI 工作坊 09 · QuantDinger 量化全流程 · 广州越秀区雅苑·培正 5 号楼 · 仅限 10 人</div>
+</footer>
+
+</div>
+<script>
+(function(){
+var ticks=[].slice.call(document.querySelectorAll('.gtick'));
+var bar=document.getElementById('pbar'),num=document.getElementById('pnum');
+function refresh(){
+var done=ticks.filter(function(t){return t.checked}).length;
+bar.style.width=(done/ticks.length*100)+'%';
+num.textContent=done+' / '+ticks.length;
+}
+ticks.forEach(function(t){
+var k='wk9-guide-'+t.getAttribute('data-id');
+try{if(localStorage.getItem(k)==='1')t.checked=true;}catch(e){}
+t.addEventListener('change',function(){
+try{t.checked?localStorage.setItem(k,'1'):localStorage.removeItem(k);}catch(e){}
+refresh();});
+});
+refresh();
+})();
+</script>
+</body>
+</html>
