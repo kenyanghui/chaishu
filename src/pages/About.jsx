@@ -74,6 +74,32 @@ export default function About() {
             </div>
           </div>
 
+          {/* 鸣谢 */}
+          <div className="mb-10">
+            <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">鸣谢</h2>
+            <div className="p-6 rounded-xl bg-gradient-to-r from-neon-blue/10 to-neon-purple/10 border border-neon-blue/20">
+              <p className="text-sm text-[#1d1d1f] leading-relaxed mb-4">
+                🙏 衷心感谢所有参与本站共建和帮助优化本站的<strong>拆书家</strong>与<strong>学习者</strong>——
+                你们的每一段拆页、每一次反馈，都在让这座共同成长的图书馆变得更好。
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  '2255 本经典书籍',
+                  '3700+ 位拆书家',
+                  '19000+ 拆页卡片',
+                  '无数次的共创与打磨',
+                ].map(s => (
+                  <span key={s} className="px-3 py-1 rounded-full bg-white/50 border border-dark-border text-xs text-[#6e6e73]">
+                    {s}
+                  </span>
+                ))}
+              </div>
+              <p className="text-xs text-[#86868b] mt-4">
+                本站经典拆页内容源自拆书帮社区公开拆页，著作权归各位拆书家本人所有，仅作学习交流之用。
+              </p>
+            </div>
+          </div>
+
           {/* 个人微信公众号 */}
           <div className="mb-10">
             <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">个人微信公众号</h2>
