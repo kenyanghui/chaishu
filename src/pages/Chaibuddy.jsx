@@ -222,37 +222,7 @@ function PersonCard({ p, highlight = false, onBroker, onFind }) {
           <p className="text-xs text-[#6e6e73] mt-1">
             认证拆书家 · {p.r}{p.c ? ` · ${p.c}` : ''}
           </p>
-          {(p.sf || (p.td && p.td.length > 0)) && (
-            <p className="text-[11px] text-[#86868b] mt-1.5 leading-relaxed">
-              {p.sf && (
-                <>
-                  <span className="mr-1">师承</span>
-                  {p.sf.in && onFind ? (
-                    <button type="button" onClick={() => onFind(p.sf.n)} className="font-bold text-[#6e6e73] hover:text-amber-600 underline underline-offset-2 decoration-amber-500/40">{p.sf.n}</button>
-                  ) : (
-                    <span className="font-bold text-[#6e6e73]">{p.sf.n}</span>
-                  )}
-                </>
-              )}
-              {p.sf && p.td && p.td.length > 0 && <span className="mx-1.5">·</span>}
-              {p.td && p.td.length > 0 && (
-                <>
-                  <span className="mr-1">徒弟</span>
-                  {p.td.slice(0, 3).map((t, idx) => (
-                    <span key={t.i}>
-                      {t.in && onFind ? (
-                        <button type="button" onClick={() => onFind(t.n)} className="font-bold text-[#6e6e73] hover:text-amber-600 underline underline-offset-2 decoration-amber-500/40">{t.n}</button>
-                      ) : (
-                        <span className="font-bold text-[#6e6e73]">{t.n}</span>
-                      )}
-                      {idx < Math.min(p.td.length, 3) - 1 && '、'}
-                    </span>
-                  ))}
-                  {p.td.length > 3 && <span className="ml-1">等 {p.td.length} 人</span>}
-                </>
-              )}
-            </p>
-          )}
+          {(p.sf || (p.td && p.td.length > 0)) && null}
         </div>
       </div>
 
@@ -359,13 +329,13 @@ const projects = [
     name: 'chaibuddy',
     tag: '拆搭子名录',
     status: '已开源 · v1.0',
-    desc: '本页的开源底座：拆书帮官网公开名录 5473 人脱敏数据集（邮箱/微信全打码、敏感字段丢弃）+ 单文件零依赖浏览器（搜索/城市/级别/合作模式筛选、师徒互链）+ 采集构建管线。克隆即得整个搭子库，离线可用。',
-    stats: ['5473 人脱敏名录', '990 组师承关系', '7 种合作模式标签'],
+    desc: '本页的开源底座：拆书帮官网公开名录 5473 人脱敏数据集（邮箱/微信全打码、敏感字段丢弃）+ 单文件零依赖浏览器（搜索/城市/合作模式筛选）+ 采集构建管线。克隆即得整个搭子库，离线可用。',
+    stats: ['5473 人脱敏名录', '7 种合作模式标签'],
     links: [
       { label: 'GitHub 仓库', href: 'https://github.com/kenyanghui/chaibuddy', primary: true },
       { label: '单文件浏览器', href: 'https://www.aibay.asia/chaibuddy/' },
     ],
-    updated: { date: '2026-11-04', text: 'v1.0 开源：数据集+浏览器+管线三件套；卡面新增师承/徒弟互链；简介明文手机号补码' },
+    updated: { date: '2026-11-04', text: 'v1.0 开源：数据集+浏览器+管线三件套；简介明文手机号补码' },
     accent: { text: 'text-rose-400', border: 'border-rose-500/30', bg: 'bg-rose-500/10', glow: 'bg-rose-500/10' },
   },
 ]
@@ -798,7 +768,7 @@ export default function Chaibuddy() {
                         className={`glass rounded-xl p-4 border ${cat.border} hover:border-white/40 transition-all group block`}
                       >
                         <div className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold ${cat.bg} ${cat.text}`}>
-                          {item.level || '拆书'}
+                          {'拆书'}
                         </div>
                         <h4 className="text-sm font-bold text-[#1d1d1f] mt-2 mb-1 group-hover:text-[#0071e3] transition-colors line-clamp-2">
                           {item.name}

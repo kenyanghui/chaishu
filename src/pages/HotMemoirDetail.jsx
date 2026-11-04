@@ -66,11 +66,6 @@ export default function HotMemoirDetail() {
           className="glass rounded-2xl p-6 mb-6"
         >
           <div className="flex items-center gap-2 mb-2 flex-wrap">
-            {m.level && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-[#0071e3] font-bold">
-                {m.level}
-              </span>
-            )}
             {isShifu(m.user) && (
               <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 font-bold">
                 玄龙
