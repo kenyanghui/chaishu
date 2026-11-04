@@ -103,6 +103,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ==================== 六大模块全景 ==================== */}
+      <section className="py-24 px-4 bg-[#1d1d1f] relative overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0071e3]/[0.13] rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#00c7be]/[0.10] rounded-full blur-[140px] pointer-events-none" />
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="eyebrow mb-3 text-center !text-[#00c7be]">站点全景 · 一图看懂</div>
+          <h2 className="headline text-[30px] md:text-[40px] text-center mb-4 !text-white">
+            六个模块，一条<span className="gradient-text">「拆」的进阶线</span>
+          </h2>
+          <p className="text-center text-[#a1a1a6] text-[15px] mb-14 max-w-2xl mx-auto">
+            从拆 2255 本书开始，到找到你的搭子、拆开真软件、长出技能、召唤专家——最后加入共建。
+            每一站都有真实数字在跑，不摆概念。
+          </p>
+          <div className="relative">
+            <div className="hidden lg:block absolute top-[52px] left-[8%] right-[8%] h-px bg-gradient-to-r from-[#00c7be]/40 via-[#0071e3]/40 to-[#bf5af2]/40" />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-3">
+              {modules.map((m, i) => (
+                <motion.div
+                  key={m.k}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.09 }}
+                >
+                  <a href={m.href} className="group block h-full rounded-2xl border border-white/10 bg-white/[0.04] p-5 hover:bg-white/[0.08] hover:border-white/25 hover:-translate-y-1 transition-all">
+                    <div className="flex lg:justify-center mb-4">
+                      <div className={`relative w-[52px] h-[52px] rounded-2xl bg-gradient-to-br ${m.glow} flex items-center justify-center text-2xl shadow-lg`}>
+                        {m.emoji}
+                        <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-[#1d1d1f] border border-white/20 text-[9px] font-bold text-[#a1a1a6] flex items-center justify-center">{i + 1}</span>
+                      </div>
+                    </div>
+                    <div className="text-[17px] font-black text-white mb-1 lg:text-center">{m.k}</div>
+                    <div className="text-[11.5px] leading-snug text-[#a1a1a6] mb-4 lg:text-center">{m.d}</div>
+                    <div className="lg:text-center">
+                      <div className={`text-[22px] font-black leading-none ${m.num}`}>{m.stat}</div>
+                      <div className="text-[10px] text-[#86868b] mt-1.5 tracking-wide">{m.statLabel}</div>
+                    </div>
+                  </a>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-10 text-center">
+            <a href="/coai" className="text-[13px] font-semibold text-[#00c7be] hover:text-white transition-colors">
+              六条合作线怎么选 → 看共拆AI 专页
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* ==================== 工作坊主题 ==================== */}
       <section className="py-20 px-4 bg-[#f5f5f7]">
         <div className="max-w-5xl mx-auto">
@@ -152,16 +202,17 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="apple-card p-6"
               >
-                <div className="inline-flex px-2.5 py-0.5 rounded-full bg-black/[.05] text-[#86868b] text-[11.5px] font-semibold mb-3">{statusLabelOf(w)}</div>
-                <div className="text-[17px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</div>
-                <p className="text-[13.5px] text-[#6e6e73] leading-relaxed mb-3">{w.short}</p>
-                <div className="flex flex-wrap items-center gap-1.5">
-                  {w.tools.map(t => (
-                    <span key={t} className="px-2 py-0.5 rounded-md bg-[#1d1d1f] text-white text-[12px] font-bold tracking-wide">{t}</span>
-                  ))}
-                </div>
+                <Link to={w.link} className="apple-card p-6 block h-full hover:shadow-[0_12px_32px_rgba(0,0,0,.08)] transition-shadow">
+                  <div className="inline-flex px-2.5 py-0.5 rounded-full bg-black/[.05] text-[#86868b] text-[11.5px] font-semibold mb-3">{statusLabelOf(w)}</div>
+                  <div className="text-[17px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</div>
+                  <p className="text-[13.5px] text-[#6e6e73] leading-relaxed mb-3">{w.short}</p>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {w.tools.map(t => (
+                      <span key={t} className="px-2 py-0.5 rounded-md bg-[#1d1d1f] text-white text-[12px] font-bold tracking-wide">{t}</span>
+                    ))}
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </div>
