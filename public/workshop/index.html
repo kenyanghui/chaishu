@@ -31,6 +31,18 @@
   .nav .back:hover{color:var(--ink);border-color:rgba(0,113,227,.4)}
   .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
 
+  .pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 8px}
+  @media(max-width:820px){.pcards{grid-template-columns:1fr}}
+  .pcard{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:18px 18px 14px;
+    display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .pk{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--blue)}
+  .ptext{font-size:13.5px;line-height:1.75;color:var(--ink);background:rgba(0,113,227,.05);
+    border:1px dashed rgba(0,113,227,.35);border-radius:10px;padding:12px 14px;flex:1}
+  .pbtn{align-self:flex-start;border:0;border-radius:980px;background:#0071e3;color:#fff;
+    font-size:13px;font-weight:600;padding:8px 18px;cursor:pointer}
+  .pbtn:hover{background:#0077ed}
+  .pnote{font-size:12px;color:var(--ink2);line-height:1.6}
+
   .hero{text-align:center;padding:64px 0 44px}
   .pill{display:inline-block;font-size:12px;letter-spacing:1.8px;font-weight:600;color:var(--blue);
     border:1px solid rgba(0,113,227,.3);background:rgba(0,113,227,.06);
@@ -184,6 +196,30 @@
       <p>原定十个座位来了十五位：一个知识库、一条跑通的工作流、一份 30 天计划，人人当场带走。<em>存 → 流 → 进化</em>完整复盘（含现场照片与学员作品），点击读全文 ↗</p>
     </span>
   </a>
+
+  <h2 class="sec" id="prompts">🔑 WorkBuddy 提示词 · 复制即用</h2>
+  <p class="secs" style="margin:0 0 4px">三张指令卡就是整条产线：复制 → 粘贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">www.workbuddy.cn</a> → 填空 → 发送。完整跟做步骤见 <a href="guide.html" style="color:var(--blue);font-weight:600">自助跟做手册 →</a></p>
+  <div class="pcards">
+    <div class="pcard">
+      <div class="pk">指令卡 ① · 交素材</div>
+      <div class="ptext">我要写一篇公众号文章。主题是（你的主题），读者是（写给谁看）。我接下来会发给你几份素材，请先收下，回复我收到了几份、每份讲的是什么，先不要动笔。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">然后把 ima 库里 2–3 份素材内容粘贴给它</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ② · 出初稿</div>
+      <div class="ptext">请用刚才的素材写一篇公众号文章初稿，800 字左右，分三段，口语化，像跟朋友聊天。必须用素材里的观点和例子，不许编造素材里没有的内容。写完先给我看，不要直接发布。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">初稿不满意就说具体改哪，改到愿意署名</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ③ · 进草稿箱</div>
+      <div class="ptext">请把这篇终稿放进我的公众号草稿箱，放好后告诉我。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">没公众号：存备忘录「公众号存稿-01」，流程一样</div>
+    </div>
+  </div>
+  <p class="pnote" style="margin:6px 0 0">💡 出错统一动作：把报错原话发回给 WorkBuddy，说「请修好后继续」。</p>
 
   <div class="grid">
     <a class="card" href="ppt/index.html">
@@ -375,6 +411,12 @@
     </div>
   </div>
   <script>
+  function copyPrompt(btn){
+    var t=btn.parentNode.querySelector('.ptext').textContent;
+    function ok(){var o=btn.textContent;btn.textContent='✅ 已复制，去粘贴给 WorkBuddy';setTimeout(function(){btn.textContent=o},2000)}
+    function fb(){var i=document.createElement('textarea');i.value=t;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){alert('长按复制：\n'+t)}document.body.removeChild(i)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb)}else{fb()}
+  }
   (function(){
     var card=document.getElementById('fb-card');if(!card)return;
     var API='https://api.aibay.asia/needs/feedback';

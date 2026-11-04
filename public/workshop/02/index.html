@@ -30,6 +30,18 @@
   .nav .back:hover{color:var(--ink);border-color:#3b4666}
   .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
 
+  .pcards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:18px 0 8px}
+  @media(max-width:820px){.pcards{grid-template-columns:1fr}}
+  .pcard{border:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--bg2));border-radius:16px;padding:18px 18px 14px;
+    display:flex;flex-direction:column;gap:10px}
+  .pk{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--cyan)}
+  .ptext{font-size:13.5px;line-height:1.75;color:var(--ink);background:rgba(34,211,238,.07);
+    border:1px dashed rgba(34,211,238,.4);border-radius:10px;padding:12px 14px;flex:1}
+  .pbtn{align-self:flex-start;border:0;border-radius:12px;background:linear-gradient(90deg,#7c3aed,#0891b2);color:#fff;
+    font-size:13px;font-weight:600;padding:8px 18px;cursor:pointer}
+  .pbtn:hover{transform:translateY(-1px)}
+  .pnote{font-size:12px;color:var(--ink2);line-height:1.6}
+
   .hero{text-align:center;padding:64px 0 44px}
   .pill{display:inline-block;font-size:12.5px;letter-spacing:2px;color:var(--cyan);
     border:1px solid rgba(34,211,238,.3);border-radius:999px;padding:7px 16px;margin-bottom:22px;
@@ -131,6 +143,43 @@
     </div>
   </div>
 
+  <h2 class="sec" id="prompts">🔑 WorkBuddy 提示词 · 复制即用</h2>
+  <p class="secs" style="margin:0 0 4px">GitHub 复杂配置只需领一把「经典钥匙」（<a href="guide.html" style="color:var(--cyan);font-weight:600">跟做手册第 1 节，10 分钟</a>），剩下全部复制下面四张卡 → 粘贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">www.workbuddy.cn</a> → 填空 → 发送。</p>
+  <div class="pcards">
+    <div class="pcard">
+      <div class="pk">指令卡 ① · 交钥匙（先领钥匙再发）</div>
+      <div class="ptext">这是我的 GitHub 个人访问令牌（classic，repo 权限）：ghp_你的钥匙。请保存为我的 GitHub 凭据，之后你替我操作 GitHub（复制仓库、提交修改、查状态）都用它。回复里不要展示令牌原文。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">钥匙领法见跟做手册第 1 节：Settings → Developer settings → Tokens (classic)</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ② · 要一个同款网站</div>
+      <div class="ptext">请把讲师的网站仓库 github.com/kenyanghui/chaiAI 复制一份到我的 GitHub（用户名：我的用户名）名下，做好让它变成公开网站所需的全部设置和首次构建。全部弄好、网站能访问之后，把我的网站网址告诉我。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">几分钟出网址：https://你的用户名.github.io/chaiAI</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ③ · 换品牌</div>
+      <div class="ptext">请把我的网站（GitHub 用户名：我的用户名，仓库名 chaiAI）整体换成我的品牌：站名改为（你的品牌名），浏览器标签页标题改为（你的名字 — 一句话定位）。改完提交并等网站更新完成再告诉我。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">先想好品牌名，三段话写法见手册第 3 节</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ④ · 换自我介绍</div>
+      <div class="ptext">请把我网站『关于』页的自我介绍换成我下面三段话：①我是谁____；②我做什么____；③怎么找到我____。联系方式也换成我的。改完提交并等网站更新完成再告诉我。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">关于页从此写的是你，不是讲师</div>
+    </div>
+  </div>
+
+  <h2 class="sec">三个"卡住"的瞬间</h2>
+  <p class="secs">中了一条，这节课就是为你开的</p>
+  <div class="pains">
+    <div class="pain"><b>名片困在微信里</b>想给别人介绍自己，只能发一段微信自我介绍——没有一个是"打开就能看"的。</div>
+    <div class="pain"><b>作品散落各处</b>写过的东西、做过的案例，散在聊天记录和收藏里，想展示时一件都拿不出手。</div>
+    <div class="pain"><b>网站想做做不动</b>知道该有个网站，一听"要服务器、要备案、要找人做"，就放下了。</div>
+  </div>
+
   <div class="grid">
     <a class="card" href="ppt/index.html">
       <div class="k">课 件</div>
@@ -175,14 +224,6 @@
       <span style="color:var(--mute)">免服务器、免备案、免费上线网站——看懂「仓库 → 网址」这关键一步</span><br>
       ③ <a style="color:var(--cyan)" href="https://www.bilibili.com/video/BV1BHJtz6EDb" target="_blank">3 分钟实操实录（4′58″）</a><br>
       <span style="color:var(--mute)">从建仓到打开网址全过程实拍——课前过一遍，课上不慌</span></div>
-  </div>
-
-  <h2 class="sec">三个"卡住"的瞬间</h2>
-  <p class="secs">中了一条，这节课就是为你开的</p>
-  <div class="pains">
-    <div class="pain"><b>名片困在微信里</b>想给别人介绍自己，只能发一段微信自我介绍——没有一个是"打开就能看"的。</div>
-    <div class="pain"><b>作品散落各处</b>写过的东西、做过的案例，散在聊天记录和收藏里，想展示时一件都拿不出手。</div>
-    <div class="pain"><b>网站想做做不动</b>知道该有个网站，一听"要服务器、要备案、要找人做"，就放下了。</div>
   </div>
 
   <h2 class="sec">三节 · 三个交付物</h2>
@@ -233,6 +274,12 @@
   </div>
 </div>
 <script>
+function copyPrompt(btn){
+  var t=btn.parentNode.querySelector('.ptext').textContent;
+  function ok(){var o=btn.textContent;btn.textContent='✅ 已复制，去粘贴给 WorkBuddy';setTimeout(function(){btn.textContent=o},2000)}
+  function fb(){var i=document.createElement('textarea');i.value=t;document.body.appendChild(i);i.select();try{document.execCommand('copy');ok()}catch(e){alert('长按复制：\n'+t)}document.body.removeChild(i)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb)}else{fb()}
+}
 function copyWeChat(btn){
   var t='ikoning365';
   function ok(){var o=btn.textContent;btn.textContent='✅ 已复制：'+t;setTimeout(function(){btn.textContent=o},2000)}
