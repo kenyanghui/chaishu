@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import hotBooks from '../data/hotBooks'
-import fetchJSON, { isShifu } from '../lib/hotData'
+import fetchJSON from '../lib/hotData'
 
 export default function HotMemoirDetail() {
   const { id } = useParams()
@@ -66,16 +66,7 @@ export default function HotMemoirDetail() {
           className="glass rounded-2xl p-6 mb-6"
         >
           <div className="flex items-center gap-2 mb-2 flex-wrap">
-            {isShifu(m.user) && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 font-bold">
-                玄龙
-              </span>
-            )}
-            {m.user && <span className="text-xs text-[#86868b]">{m.user}</span>}
-            {m.duration && <span className="text-xs text-[#86868b]">· {m.duration} 分钟</span>}
-            {m.examResult && (
-              <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600">{m.examResult}</span>
-            )}
+            {m.duration && <span className="text-xs text-[#86868b]">{m.duration} 分钟</span>}
           </div>
           <h1 className="text-xl md:text-2xl font-black text-[#1d1d1f] mb-3">{m.topic || '（未命名拆页）'}</h1>
           <div className="flex items-center gap-2 flex-wrap">

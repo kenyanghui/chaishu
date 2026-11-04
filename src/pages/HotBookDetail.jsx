@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import hotBooks from '../data/hotBooks'
-import fetchJSON, { isShifu } from '../lib/hotData'
+import fetchJSON from '../lib/hotData'
 
 export default function HotBookDetail() {
   const { id } = useParams()
@@ -154,15 +154,6 @@ export default function HotBookDetail() {
                   className="block glass rounded-xl p-4 group hover:border-cyan-500/30 transition-all"
                 >
                   <div className="flex items-center gap-3 mb-2">
-                    {isShifu(m.user) && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-400 font-bold">
-                        玄龙
-                      </span>
-                    )}
-                    {m.user && <span className="text-xs text-[#86868b]">{m.user}</span>}
-                    {m.examResult && (
-                      <span className="text-xs text-[#86868b] ml-auto">{m.examResult}</span>
-                    )}
                   </div>
                   <h3 className="text-base font-bold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors mb-1">
                     {m.topic || '（未命名拆页）'}

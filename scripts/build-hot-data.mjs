@@ -23,7 +23,7 @@ const CRAWL = process.env.CRAWL_DIR || '/root/chaishu-hot/raw'
 const OUT = resolve(ROOT, 'public/hot')
 const TOP_N = 30
 
-const STRIP = new Set(['password', 'remember_token', 'email', 'weixin_code'])
+const STRIP = new Set(['password', 'remember_token', 'email', 'weixin_code', 'user', 'level', 'examResult'])
 
 function sanitize(v) {
   if (Array.isArray(v)) return v.map(sanitize)
@@ -122,7 +122,6 @@ for (const b of books) {
     memoirIndex[m.id] = b.id
     const p = m.program || {}
     const act = p.activity || {}
-    const u = m.user || {}
     const texts = (m.texts || []).map(t => ({
       quote: t.quote || '',
       explains: t.explains || '',
@@ -133,7 +132,6 @@ for (const b of books) {
       id: m.id,
       bookId: b.id,
       bookTitle: b.title,
-      level: p.level || '',
       topic: p.topic || '',
       remark: p.remark || '',
       learnGoal: p.learn_goal || '',
@@ -142,18 +140,11 @@ for (const b of books) {
       radioUrl: m.radioUrl || '',
       radioPwd: m.radioPwd || '',
       createdAt: m.created_at,
-      user: u.username || u.name || '',
       activity: act.id ? {
         subject: stripHtml(act.content || '').slice(0, 60),
         date: act.active_date || '',
         address: act.address || '',
       } : null,
-      ratings: (m.ratings || []).map(r => ({
-        examResult: r.examResult || '',
-        deliverDate: r.deliverDate || '',
-        deliverMan: r.deliverMan || '',
-        deliverTimes: r.deliverTimes || null,
-      })),
       texts: texts.map(t => ({
         quote: htmlToText(t.quote),
         explains: htmlToText(t.explains),
@@ -162,13 +153,10 @@ for (const b of books) {
     })
     return {
       id: m.id,
-      level: p.level || '',
       topic: p.topic || '',
       remark: p.remark || '',
       duration: p.duration || null,
       createdAt: m.created_at,
-      user: u.username || u.name || '',
-      examResult: (m.ratings || []).find(r => r.examResult)?.examResult || '',
       textsCount: texts.length,
     }
   })
@@ -209,12 +197,10 @@ for (const { book, memoirs } of topBooks) {
         // bundle 切片 meta-only：正文/导语/审核详情一律懒加载 gz
         return {
           id: mm.id,
-          level: mm.level,
           topic: mm.topic,
           remark: mm.remark,
           duration: mm.duration,
           createdAt: mm.createdAt,
-          user: mm.user,
           textsCount: mm.textsCount,
         }
       }),
@@ -236,12 +222,10 @@ for (const c of curated) {
         // bundle 切片 meta-only：正文/导语/审核详情一律懒加载 gz
         return {
           id: mm.id,
-          level: mm.level,
           topic: mm.topic,
           remark: mm.remark,
           duration: mm.duration,
           createdAt: mm.createdAt,
-          user: mm.user,
           textsCount: (mm.texts || []).length,
         }
       })

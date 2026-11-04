@@ -1,5 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import skills from '../data/skills'
 
@@ -7,26 +6,9 @@ function slugify(name) {
   return name.replace(/[\s:：,，.。!！?？"「」『』【】()（）·]/g, '').replace(/[^a-zA-Z0-9一-鿿]/g, '').toLowerCase().slice(0, 30)
 }
 
-const TF_LEVELS = [
-  { key: 'all', label: '全部', color: 'from-slate-500 to-slate-400' },
-  { key: 'TF1', label: 'TF1 基础', color: 'from-indigo-600 to-indigo-400' },
-  { key: 'TF2', label: 'TF2 教练', color: 'from-cyan-600 to-cyan-400' },
-  { key: 'TF3', label: 'TF3 高级', color: 'from-amber-600 to-yellow-500' },
-]
-
 export default function Skills() {
   const [searchParams] = useSearchParams()
   const [search, setSearch] = useState('')
-  const [tfFilter, setTfFilter] = useState('all')
-
-  // Read ?level=N from URL (e.g. /skills?level=1 from learning path)
-  useEffect(() => {
-    const level = searchParams.get('level')
-    if (level === '1') setTfFilter('TF1')
-    else if (level === '2') setTfFilter('TF2')
-    else if (level === '3') setTfFilter('TF3')
-    else if (level === '4') setTfFilter('all')
-  }, [searchParams])
 
   // Extract unique books for filter
   const allBooks = useMemo(() => {
@@ -43,20 +25,18 @@ export default function Skills() {
   const filteredSkills = useMemo(() => {
     return skills.map(pack => {
       const items = pack.items.filter(item => {
-        if (tfFilter !== 'all' && !item.level?.startsWith(tfFilter)) return false
         if (search) {
           const q = search.toLowerCase()
           const nameMatch = item.name.toLowerCase().includes(q)
           const bookMatch = pack.book.toLowerCase().includes(q)
           const authorMatch = pack.author.toLowerCase().includes(q)
-          const levelMatch = item.level?.toLowerCase().includes(q)
-          return nameMatch || bookMatch || authorMatch || levelMatch
+          return nameMatch || bookMatch || authorMatch
         }
         return true
       })
       return { ...pack, items }
     }).filter(p => p.items.length > 0)
-  }, [search, tfFilter])
+  }, [search])
 
   const totalItems = useMemo(() => skills.reduce((s, p) => s + p.items.length, 0), [])
   const filteredCount = useMemo(() => filteredSkills.reduce((s, p) => s + p.items.length, 0), [filteredSkills])
@@ -110,26 +90,9 @@ export default function Skills() {
               />
             </div>
 
-            {/* TF Level Filter */}
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {TF_LEVELS.map(lv => (
-                <button
-                  key={lv.key}
-                  onClick={() => setTfFilter(lv.key)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
-                    tfFilter === lv.key
-                      ? `bg-gradient-to-r ${lv.color} text-[#1d1d1f] shadow-lg`
-                      : 'bg-black/[.04] text-[#6e6e73] hover:text-[#1d1d1f] hover:bg-black/[.06] border border-white/10'
-                  }`}
-                >
-                  {lv.label}
-                </button>
-              ))}
-            </div>
-
             {/* Count */}
             <p className="text-xs text-[#86868b]">
-              {search || tfFilter !== 'all'
+              {search
                 ? `显示 ${filteredCount} 个技能（共 ${totalItems} 个）`
                 : `共 ${totalItems} 个教练技能`}
             </p>
@@ -183,14 +146,6 @@ export default function Skills() {
                     {skill.items.map((item, j) => (
                       <div key={j} className="p-4 rounded-xl bg-dark-card-hover/50 border border-dark-border">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                            item.level?.startsWith('TF3') ? 'bg-amber-500/20 text-amber-400' :
-                            item.level?.startsWith('TF2') ? 'bg-cyan-500/20 text-[#0071e3]' :
-                            item.level?.startsWith('TF1') ? 'bg-indigo-500/20 text-indigo-400' :
-                            'bg-slate-500/20 text-[#6e6e73]'
-                          }`}>
-                            {item.level}
-                          </span>
                           <h3 className="text-base font-bold text-[#1d1d1f]">{item.name}</h3>
                         </div>
 
