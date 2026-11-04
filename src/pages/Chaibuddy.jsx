@@ -301,6 +301,7 @@ const projects = [
       { label: '在线阅读', href: 'https://www.aibay.asia/chailive/', primary: true },
       { label: 'GitHub 源码', href: 'https://github.com/kenyanghui/chailive' },
     ],
+    updated: { date: '2026-11-04', text: '互动四件套上线：便签练武场 AI 评审、每日一拆打卡、知识地图点亮、分享海报；修复书目页 KPI' },
     accent: { text: 'text-amber-400', border: 'border-amber-500/30', bg: 'bg-amber-500/10', glow: 'bg-amber-500/10' },
   },
   {
@@ -313,6 +314,7 @@ const projects = [
     links: [
       { label: 'GitHub 仓库', href: 'https://github.com/kenyanghui/chaiflow', primary: true },
     ],
+    updated: { date: '2026-11-03', text: '新增复盘：拆搭子名录找搭子 + chailive 模块化改版（SPA 逆向挖 API、确定性标签引擎、隐私打码红线）' },
     accent: { text: 'text-emerald-400', border: 'border-emerald-500/30', bg: 'bg-emerald-500/10', glow: 'bg-emerald-500/10' },
   },
   {
@@ -325,6 +327,7 @@ const projects = [
     links: [
       { label: 'GitHub 仓库', href: 'https://github.com/kenyanghui/wechat-pub-workbuddy', primary: true },
     ],
+    updated: { date: '2026-11-02', text: '推荐类文章三要素红线（veto:no_entry_point）：入口前置 + 真实实拍 + 数字核验' },
     accent: { text: 'text-sky-400', border: 'border-sky-500/30', bg: 'bg-sky-500/10', glow: 'bg-sky-500/10' },
   },
   {
@@ -335,7 +338,22 @@ const projects = [
     desc: '每本共拆书产出高清 HTML 信息图与 AI 封面图，按沟通表达、管理领导、认知思维等七大类归档——把拆页蒸馏成一张看得懂的知识地图。点击任一技能卡查看完整信息图。',
     stats: ['7 大分类', '高清信息图', 'AI 封面图'],
     links: [],
+    updated: { date: '2026-11-01', text: 'ima 知识库首场开课，个人网站·WorkBuddy、企查查·读懂你的客户、知识星球排期中' },
     accent: { text: 'text-violet-400', border: 'border-violet-500/30', bg: 'bg-violet-500/10', glow: 'bg-violet-500/10' },
+  },
+  {
+    id: 'chaibuddy',
+    name: 'chaibuddy',
+    tag: '拆搭子名录',
+    status: '已开源 · v1.0',
+    desc: '本页的开源底座：拆书帮官网公开名录 5473 人脱敏数据集（邮箱/微信全打码、敏感字段丢弃）+ 单文件零依赖浏览器（搜索/城市/级别/合作模式筛选、师徒互链）+ 采集构建管线。克隆即得整个搭子库，离线可用。',
+    stats: ['5473 人脱敏名录', '990 组师承关系', '7 种合作模式标签'],
+    links: [
+      { label: 'GitHub 仓库', href: 'https://github.com/kenyanghui/chaibuddy', primary: true },
+      { label: '单文件浏览器', href: 'https://www.aibay.asia/chaibuddy/' },
+    ],
+    updated: { date: '2026-11-04', text: 'v1.0 开源：数据集+浏览器+管线三件套；卡面新增师承/徒弟互链；简介明文手机号补码' },
+    accent: { text: 'text-rose-400', border: 'border-rose-500/30', bg: 'bg-rose-500/10', glow: 'bg-rose-500/10' },
   },
 ]
 
@@ -678,6 +696,12 @@ export default function Chaibuddy() {
                     <span key={s} className={`px-2 py-0.5 rounded text-[11px] font-medium ${p.accent.bg} ${p.accent.text}`}>{s}</span>
                   ))}
                 </div>
+                {p.updated && (
+                  <p className="text-xs text-[#6e6e73] mb-4 flex items-center gap-1.5 flex-wrap">
+                    <span className="px-1.5 py-0.5 rounded bg-black/[.05] text-[10px] font-bold text-[#86868b]">最新更新 {p.updated.date}</span>
+                    <span>{p.updated.text}</span>
+                  </p>
+                )}
                 {p.links.length > 0 && (
                   <div className="flex items-center gap-3 flex-wrap">
                     {p.links.map(l => (
