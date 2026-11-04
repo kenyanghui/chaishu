@@ -15,6 +15,16 @@ const chaifa = [
   { k: '拆为己用', d: '不是学完就散，是带走你自己的知识库、工作流、阵地和复盘看板。', icon: 'M16 7l-4 4-4-4m8 6l-4 4-4-4' },
 ]
 
+// 六大模块全景（与导航同序：拆学习→拆搭子→拆软件→拆技能→拆专家→共拆AI；数字=站内真实资产）
+const modules = [
+  { k: '拆学习', emoji: '📚', d: 'RIA 便签法全库共拆，六大兴趣模块连读', stat: '2255 本', statLabel: '19262 页拆页全库', href: 'https://www.aibay.asia/chailive/', glow: 'from-teal-500/30 to-cyan-500/20', num: 'text-teal-300' },
+  { k: '拆搭子', emoji: '🤝', d: '5473 位拆书家名录，师承可溯、按标签匹配', stat: '5473 人', statLabel: '83 分舵 · 师徒互链', href: '/chaibuddy', glow: 'from-amber-500/30 to-yellow-500/20', num: 'text-amber-300' },
+  { k: '拆软件', emoji: '🖥️', d: '工作坊当场拆开真 AI 软件，接回你的产线', stat: '4 期', statLabel: '真实软件 · 场场有产出', href: '/workshops', glow: 'from-sky-500/30 to-blue-500/20', num: 'text-sky-300' },
+  { k: '拆技能', emoji: '⚡', d: '每个技能拆成便签+信息图+可下载 Skill', stat: '210 个', statLabel: '技能拆解 · 全部可下载', href: '/skills', glow: 'from-violet-500/30 to-purple-500/20', num: 'text-violet-300' },
+  { k: '拆专家', emoji: '🧠', d: '思想家蒸馏成可召唤的领域 AI 专家团', stat: '8 套', statLabel: '思想体系 · 6 个专家团', href: '/skill-fusion', glow: 'from-fuchsia-500/30 to-pink-500/20', num: 'text-fuchsia-300' },
+  { k: '共拆AI', emoji: '🚀', d: '六条合作线全部开放，带着你的领域加入', stat: '6 条线', statLabel: '开源共建 · 挑一条进', href: '/coai', glow: 'from-emerald-500/30 to-green-500/20', num: 'text-emerald-300' },
+]
+
 export default function Home() {
   const nx = nextOpen()
   const done = doneList()
