@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>02 · 拆本站：GitHub Pages，3 小时拥有你的拆AI同款网站｜自助跟做手册</title>
+<title>02 · 拆本站：fork chaiAI，用 WorkBuddy 拥有你的同款网站｜自助跟做手册</title>
 <style>
 :root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
 --blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
@@ -67,156 +67,201 @@ h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
 <body data-wk="wk2"><div class="page">
 <header class="g">
 <div class="no">小蛮腰·拆AI｜工作坊 02 · 自助跟做手册 <span class="badge">自助版</span></div>
-<h1>拆本站：GitHub Pages，3 小时拥有你的拆AI同款网站</h1>
-<div class="meta">预计总时长：2.5–4 小时（可分 4 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
+<h1>拆本站：fork chaiAI，用 WorkBuddy 拥有你的同款网站</h1>
+<div class="meta">预计总时长：2–3 小时（可分 3 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
 <div class="outcomes"><b>跟做完，你能得到：</b><ul>
 <li>你的同款讲师站：网址是 https://你的用户名.github.io/chaiAI，别人能直接访问</li>
-<li>网站换成你的名字、你的介绍、你的联系方式</li>
-<li>（进阶选学）WorkBuddy 自动产线：素材 → 你的网站 + 公众号草稿箱</li>
-<li>30 天库/站/号飞轮计划，照着走不迷路</li>
+<li>一把 GitHub「钥匙」：唯一需要你动手的配置（10 分钟），学会领钥匙和保管，以后处处能用</li>
+<li>一套说人话的指令包：「把讲师站变成我的」「关于页换成我的」——复制、粘贴、发送，剩下的 WorkBuddy 全办</li>
+<li>（进阶选学）装上 rsi 工作流后的一源双出口：素材 → 你的网站 + 公众号草稿箱</li>
 </ul></div></header>
 <div class="progress"><span class="pc">0/0</span> 步已完成（勾选会自动保存在这台设备上）<div class="bar"><i></i></div></div>
 <section class="card"><h2 class="sec"><span class="n">备</span>开始之前：设备与账号自查</h2>
-<p class="goal">先自查，缺什么补什么，全部就绪再开始第 1 节。全程只需要一部手机或一台电脑 + 浏览器。</p>
+<p class="goal">本期路线对零基础极度友好：GitHub 那套复杂设置，你只动手做一件事——领一把「钥匙」（约 10 分钟，第 1 节）。其余一切（复制网站、开通、改内容、出错排查）都是把写好的话发给 WorkBuddy（www.workbuddy.cn），它替你办。你不需要懂代码、不需要懂文件、不需要懂设置项。</p>
 <table><tr><th style="width:26%">你需要有</th><th style="width:30%">怎么确认已有</th><th>没有怎么办</th></tr>
-<tr><td><b>一个能收验证码的手机号或邮箱</b></td><td>注册 GitHub 时要收验证码</td><td>用手机浏览器同样能完成全部流程，不另花钱</td></tr>
-<tr><td><b>GitHub 账号（第 1 节现场注册也行）</b></td><td>能登录 github.com 就是有了</td><td>没有：第 1 节第 1 步带你注册，2 分钟</td></tr>
-<tr><td><b>（可选）ima 账号</b></td><td>手机装了 ima App 并登录</td><td>没有：跳过第 4 节 ima 相关步骤，不影响网站上线</td></tr>
-<tr><td><b>（进阶第 4 节）WorkBuddy 账号</b></td><td>浏览器能打开 www.workbuddy.cn 并登录</td><td>没有：第 4 节为选学，直接跳到 30 天计划也完整</td></tr>
+<tr><td><b>一个能收验证码的手机号或邮箱</b></td><td>注册 GitHub 和 WorkBuddy 都要收验证码</td><td>手机浏览器全程可完成，不另花钱</td></tr>
+<tr><td><b>GitHub 账号（第 0 节现场注册也行）</b></td><td>能登录 github.com 就是有了</td><td>没有：第 0 节带你注册，2 分钟</td></tr>
+<tr><td><b>WorkBuddy 账号</b></td><td>浏览器打开 www.workbuddy.cn 能登录</td><td>没有：第 0 节带你注册（免费）</td></tr>
+<tr><td><b>（进阶第 4 节）ima 账号</b></td><td>手机装了 ima App 并登录</td><td>没有：第 4 节为选学，跳过不影响网站上线</td></tr>
 <tr><td><b>（进阶第 4 节）自己的微信公众号</b></td><td>公众号后台能登录</td><td>没有：第 4 节跳过「出口 B」，只做网站出口</td></tr>
 </table>
-<div class="warnbox">纯手机也能做完第 1–3 节：GitHub 网页手机版全功能可用，但屏幕小容易点错，建议横屏、耐心逐字对照。第 4 节建议电脑。</div>
+<div class="warnbox">本手册的指令全部是完整句子，照抄+填空即可。中途无论出什么错，统一动作：把报错原话发回给 WorkBuddy，说「请修好后继续」。手机、电脑都能跟做；第 4 节（进阶）建议电脑。</div>
 </section>
 <section class="card">
-<h2 class="sec"><span class="n">1</span>第 0 节 · 20 分钟补底盘</h2>
-<p class="goal">本节目标：把 GitHub 账号准备好，认识我们要拆的站｜预计 <span class="mins">20 分钟</span></p>
+<h2 class="sec"><span class="n">1</span>第 0 节 · 备好两个账号</h2>
+<p class="goal">本节目标：GitHub + WorkBuddy 都能登录，记下你的用户名｜预计 <span class="mins">15 分钟</span></p>
 <div class="box"><b>动手前确认：</b>手机或电脑浏览器能正常上网，能收到短信或邮件验证码。</div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">注册 GitHub 账号（已有就登录，跳到第 2 步）
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">注册 GitHub 账号（已有就登录，跳到第 3 步）
 <ul>
-<li>浏览器打开 github.com，点右上角 Sign up</li>
+<li>浏览器打开 github.com，点右上角 Sign up（注册）</li>
 <li>邮箱建议用 QQ 邮箱/163 邮箱即可；密码记在手机备忘录里</li>
 <li>收验证码（邮箱收不到就换手机号验证），按提示完成</li>
 </ul>
 </div></div></div>
 <div class="dev">
-<div class="d"><b>手机</b>建议横屏操作；页面底部可切「Desktop version」找按钮</div>
+<div class="d"><b>手机</b>建议横屏操作；找不到按钮就点页面底部切「Desktop version」（桌面版）</div>
 <div class="d"><b>电脑</b>直接按提示点即可</div>
 </div>
-<div class="check"><b>检查点（看到才算做对）：</b>右上角出现你的用户名头像，就是登录成功了</div>
-<div class="nofix"><b>没看到怎么办：</b>收不到验证邮件：检查垃圾箱；还不行换手机号验证注册。用户名提示被占用：换一个，用户名会出现在你的网站网址里，选个好记的</div>
+<div class="check"><b>检查点（看到才算做对）：</b>右上角出现你的头像和用户名，就是登录成功了</div>
+<div class="nofix"><b>没看到怎么办：</b>收不到验证邮件：检查垃圾箱；还不行换手机号验证注册</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">看一眼你要拆的站和源仓
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">把你的用户名抄进手机备忘录
 <ul>
-<li>讲师站：chai.aibay.asia —— 你等下就拥有同款</li>
-<li>源仓库：github.com/kenyanghui/chaiAI —— 点进去随便逛逛，能看到一堆文件夹和文件就是它</li>
+<li>点开头像就能看到用户名</li>
+<li>它会出现在你的网站网址里：https://你的用户名.github.io/chaiAI（全小写）</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>两个网址都能打开；源仓页面右上角能看到 Star 和 Fork 按钮</div>
-<div class="nofix"><b>没看到怎么办：</b>Fork 按钮没看到 = 没登录，回第 1 步</div>
+<div class="check"><b>检查点（看到才算做对）：</b>备忘录里有一行：我的 GitHub 用户名 = ____</div>
+<div class="nofix"><b>没看到怎么办：</b>用户名不满意：先不改，不影响跟做；实在要改问 WorkBuddy「怎么改 GitHub 用户名」</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">注册并登录 WorkBuddy
+<ul>
+<li>浏览器打开 www.workbuddy.cn</li>
+<li>注册（手机号/微信均可，免费）→ 登录进主界面，能看到对话框</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>WorkBuddy 对话框能输入文字、能收到回复</div>
+<div class="nofix"><b>没看到怎么办：</b>打不开：换浏览器（Chrome/Edge）；验证码收不到等 60 秒重发</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">看一眼你要拆的站
+<ul>
+<li>讲师站：chai.aibay.asia —— 你等下就拥有同款</li>
+<li>不用研究它，能打开看一眼就行</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>讲师站能打开</div>
+<div class="nofix"><b>没看到怎么办：</b>打不开：换个网络再看，不影响后续</div>
 </div>
 <h3>本节排障表（3 个常见卡点）</h3>
 <table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
 <tr><td>注册页面转圈打不开</td><td>网络波动</td><td>刷新重试；手机切 4G/5G 再试</td></tr>
 <tr><td>验证码一直收不到</td><td>邮箱拦截或输错邮箱</td><td>换手机号验证；或注册 QQ 邮箱重来</td></tr>
-<tr><td>用户名不知道填什么</td><td>用户名 = 网站网址的一部分</td><td>选英文、好记、和你的名字/品牌相关，如 zhangsan-dev</td></tr>
+<tr><td>WorkBuddy 登录后白屏</td><td>浏览器兼容/缓存</td><td>强刷（Ctrl+Shift+R）；换浏览器；清缓存重开</td></tr>
 </table>
 </section>
 <section class="card">
-<h2 class="sec"><span class="n">2</span>第 1 节 · GitHub 安家：fork 讲师站</h2>
-<p class="goal">本节目标：把讲师站的完整源码复制一份到你的 GitHub 账号下｜预计 <span class="mins">15 分钟</span></p>
+<h2 class="sec"><span class="n">2</span>第 1 节 · 唯一的动手配置：领一把钥匙</h2>
+<p class="goal">本节目标：从 GitHub 领一串 ghp_ 开头的「钥匙」，以后你的 GitHub 全由持钥匙的 WorkBuddy 代管｜预计 <span class="mins">10 分钟</span></p>
 <div class="box"><b>动手前确认：</b>已登录 GitHub（第 0 节）。</div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">打开讲师源仓并点 Fork
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">走进钥匙发放处（连点四下）
 <ul>
-<li>浏览器打开：github.com/kenyanghui/chaiAI</li>
-<li>点右上角灰色 Fork 按钮 → 进入 fork 页面</li>
-<li>什么都不用改，直接点绿色 Create fork 按钮</li>
+<li>钥匙的官方名叫 Personal access token（个人访问令牌）——不用记，你就当它是钥匙</li>
+<li>点右上角头像 → Settings（设置）</li>
+<li>左侧菜单拉到最底 → 点 Developer settings（开发者设置）</li>
+<li>点 Personal access tokens → Tokens (classic)</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>页面跳转到 你的用户名/chaiAI 仓库，顶部写着 forked from kenyanghui/chaiAI，文件列表和讲师站一模一样</div>
-<div class="nofix"><b>没看到怎么办：</b>没有 Fork 按钮：你没登录；点了没反应：刷新重试；提示错误：等 2 分钟再点（GitHub 偶发抽风）</div>
+<div class="dev">
+<div class="d"><b>手机</b>菜单项多，一定拉到最底才见 Developer settings；找不到就切桌面版网站</div>
+<div class="d"><b>电脑</b>左侧菜单最底部分组，一眼可见</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>打开了 Tokens (classic) 页面，右上角有个 Generate new token（生成新令牌）按钮</div>
+<div class="nofix"><b>没看到怎么办：</b>找不到 Developer settings：注意是从 头像 → Settings 进（不是仓库页的 Settings）；小屏幕菜单要展开</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">确认你的仓库名
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">点 Generate new token (classic)
 <ul>
-<li>你的仓库地址应该是 github.com/你的用户名/chaiAI</li>
-<li>把这一行网址复制存到手机备忘录，后面要用</li>
+<li>点右上角 Generate new token → 选 Generate new token (classic)</li>
+<li>会打开一个填表页，只有三处要填，下一台告诉你怎么填</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>地址栏里是你的用户名 + /chaiAI</div>
-<div class="nofix"><b>没看到怎么办：</b>仓库名不是 chaiAI（fork 时手滑改了）：Settings → General → Repository name 改回 chaiAI</div>
+<div class="check"><b>检查点（看到才算做对）：</b>页面标题是 New personal access token (classic)</div>
+<div class="nofix"><b>没看到怎么办：</b>看到 fine-grained 字样选错了：退回去重选 classic 那个</div>
 </div>
-<h3>本节排障表（3 个常见卡点）</h3>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">填三处：名字、有效期、权限
+<ul>
+<li>Note（备注）填：workbuddy</li>
+<li>Expiration（有效期）选 90 days（90 天）；怕到期麻烦可选 No expiration（不过期，安全性略低）</li>
+<li>Select scopes（权限）只勾一个：找到 repo 这个词，勾它前面的框——意思是「这把钥匙能管理我的代码仓库」。子项会自动跟着勾上，不用管</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>Note 有字、Expiration 已选、repo 前面的框已打勾</div>
+<div class="nofix"><b>没看到怎么办：</b>子项勾不动：不用管，勾了 repo 大项就够</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">生成并立刻复制
+<ul>
+<li>拉到页面最底点绿色 Generate token 按钮</li>
+<li>出现一串 ghp_ 开头、约 40 位的字符——点它旁边的复制图标</li>
+<li>⚠️ 只显示这一次！关掉页面就再也看不到（丢了就重新领一把，不心疼）</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>剪贴板/备忘录里有一串 ghp_ 开头的字符</div>
+<div class="nofix"><b>没看到怎么办：</b>手滑关了页面：回 Tokens (classic) 列表重新 Generate 一把，旧的自动作废</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-5"><span><span class="num">5</span></span></label><div style="flex:1"><div class="do">保管：钥匙三不原则
+<ul>
+<li>存进手机备忘录（或密码管理器），标注「GitHub 钥匙」</li>
+<li>三不：不发微信群、不截图发任何地方、不告诉任何人（WorkBuddy 除外）</li>
+<li>它等于你网站的钥匙，泄露了别人就能改你的站</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>钥匙已存好，且知道它不能给谁看</div>
+<div class="nofix"><b>没看到怎么办：</b>怀疑泄露（比如发错群）：回 Tokens (classic) 页面对着这把钥匙点 Delete（删除），它瞬间作废，再领一把新的</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
 <table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
-<tr><td>Fork 后仓库是空的</td><td>fork 没完成就关了页面</td><td>回讲师仓重点一次 Fork，等页面完整跳转</td></tr>
-<tr><td>仓库里没有 src 文件夹</td><td>fork 错了仓库</td><td>确认地址是 kenyanghui/chaiAI，不是别的仓</td></tr>
-<tr><td>手机上 Fork 按钮找不到</td><td>手机版页面折叠了</td><td>页面拉到 Code 标签上方按钮区，或切桌面版网站</td></tr>
+<tr><td>Generate 按钮点不动</td><td>没填备注或没勾权限</td><td>回第 3 步补齐：Note 填字 + repo 打勾</td></tr>
+<tr><td>钥匙找不到了</td><td>只显示一次是安全设计</td><td>重新领一把；把新的交给 WorkBuddy 时说「换用这把新钥匙」</td></tr>
+<tr><td>90 天后过期了</td><td>有效期到了</td><td>重走本节领新钥匙，发给 WorkBuddy 说「换用这把新钥匙」</td></tr>
+<tr><td>想收回 WorkBuddy 的权限</td><td>课程结束想断开</td><td>Tokens (classic) → 对应钥匙 → Delete；WorkBuddy 立刻失去操作权</td></tr>
 </table>
 </section>
 <section class="card">
-<h2 class="sec"><span class="n">3</span>第 2 节 · 让你的网站上线</h2>
-<p class="goal">本节目标：开通 GitHub Pages，拿到 https://你的用户名.github.io/chaiAI 这个网址｜预计 <span class="mins">20 分钟（含等待）</span></p>
-<div class="box"><b>动手前确认：</b>第 1 节完成，你的 /chaiAI 仓库能打开。</div>
+<h2 class="sec"><span class="n">3</span>第 2 节 · 两句话，让网站上线</h2>
+<p class="goal">本节目标：把钥匙交给 WorkBuddy，再说一句「把讲师站变成我的网站」——网址到手｜预计 <span class="mins">20 分钟（含等待）</span></p>
+<div class="box"><b>动手前确认：</b>第 1 节的 ghp_ 钥匙在手；WorkBuddy 已登录。</div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">启用 fork 仓库的 Actions（自动构建开关）
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">指令①：交钥匙
 <ul>
-<li>在你的 chaiAI 仓库页面上方点 Actions 标签</li>
-<li>页面会显示黄色提示条 I understand my workflows, go ahead and enable them —— 点它</li>
-<li>等页面出现 deploy / Pages 相关工作流名称即可，暂时不用管它们</li>
+<li>把下面这段话复制给 WorkBuddy（把 ghp_xxx 换成你那串）：</li>
+<li>「这是我的 GitHub 个人访问令牌（classic，repo 权限）：ghp_xxx。请保存为我的 GitHub 凭据，之后你替我操作 GitHub（复制仓库、提交修改、查状态）都用它。回复里不要展示令牌原文。」</li>
+<li>发送</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>Actions 页不再显示黄色提示条，左边栏能看到工作流列表</div>
-<div class="nofix"><b>没看到怎么办：</b>没有黄色提示条：可能已默认启用，直接下一步</div>
+<div class="check"><b>检查点（看到才算做对）：</b>WorkBuddy 答复已保存/已配置，且没有把钥匙原文复述出来</div>
+<div class="nofix"><b>没看到怎么办：</b>它说不会保存：换说法「把这串令牌记作我的 GitHub 凭据，后续操作 GitHub 都带上它」；再不行去 WorkBuddy 的设置/连接器入口找 GitHub 手动粘贴</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">把 Pages 的构建方式设为 GitHub Actions
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">指令②：要一个同款网站
 <ul>
-<li>仓库页面上方点 Settings（设置）</li>
-<li>左侧菜单找到 Pages（页面）</li>
-<li>Build and deployment 下面的 Source 下拉框，选 GitHub Actions（不是 Deploy from a branch）</li>
-<li>不用填别的，离开页面即自动保存</li>
+<li>把下面这段话发给 WorkBuddy（把「我的用户名」换成你的）：</li>
+<li>「请把讲师的网站仓库 github.com/kenyanghui/chaiAI 复制一份到我的 GitHub（用户名：我的用户名）名下，做好让它变成公开网站所需的全部设置和首次构建。全部弄好、网站能访问之后，把我的网站网址告诉我。」</li>
+<li>发送。剩下的是它的事：复制、开通、构建，一般几分钟。你不用懂它在干什么</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>Source 显示 GitHub Actions；下方不再让你选分支</div>
-<div class="nofix"><b>没看到怎么办：</b>左侧找不到 Pages：Settings 菜单在小屏幕上要展开 Code and automation 分组才看得到</div>
+<div class="check"><b>检查点（看到才算做对）：</b>WorkBuddy 回复你一个网址：https://你的用户名.github.io/chaiAI</div>
+<div class="nofix"><b>没看到怎么办：</b>它中途停了：发「继续」；它报错：把报错原话发回，「这是报错，请修复后继续」——AI 出错 AI 修，这是本路线的精髓</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">触发第一次构建：随便改一个字提交
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">亲眼验收
 <ul>
-<li>回仓库主页点 README.md 文件 → 右上角铅笔图标进入编辑</li>
-<li>在正文最后敲一个空格再删掉（内容可以不变），点右上角 Commit changes → 绿色按钮确认</li>
-<li>点 Actions 标签，能看到一条新的工作流在跑（黄点转圈）</li>
-<li>等 1–5 分钟，黄点变绿勾</li>
-</ul>
-</div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>Actions 里最新一条记录前面是绿色对勾</div>
-<div class="nofix"><b>没看到怎么办：</b>红叉：点进那条记录看日志第一段红字，通常是网络抽风，等 2 分钟回 README 再提交一次空改动重跑</div>
-</div>
-<div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">打开你的网站
-<ul>
-<li>浏览器新开标签页，输入：https://你的用户名.github.io/chaiAI</li>
-<li>注意用户名全小写、斜杠别漏；首次访问要等 1–10 分钟</li>
-<li>看到和小蛮腰·拆AI 一样的首页 = 成功</li>
+<li>浏览器新开标签页，输入 WorkBuddy 给你的网址（用户名全小写、斜杠别漏）</li>
+<li>首次访问可能要等几分钟</li>
+<li>看到和 chai.aibay.asia 同款首页 = 上线成功</li>
 </ul>
 </div></div></div>
 <div class="check"><b>检查点（看到才算做对）：</b>浏览器显示讲师站同款页面，地址是你的用户名.github.io/chaiAI</div>
-<div class="nofix"><b>没看到怎么办：</b>404：等 10 分钟再强刷（电脑 Ctrl+Shift+R / 手机清缓存重开）；还 404 回查第 2 步 Source 是否选了 GitHub Actions、第 3 步是否绿勾</div>
+<div class="nofix"><b>没看到怎么办：</b>404：先等 5 分钟强刷（Ctrl+Shift+R）；还不行把排障表第一句发给 WorkBuddy</div>
 </div>
-<h3>本节排障表（5 个常见卡点）</h3>
+<h3>本节排障表（4 个常见卡点）</h3>
 <table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
-<tr><td>网站 404</td><td>构建没完成 / Pages 方式选错 / 网址打错</td><td>按第 4 步的排查顺序走一遍；网址严格小写</td></tr>
-<tr><td>Actions 一直黄点不结束</td><td>首次构建偶发排队</td><td>等 10 分钟；取消重跑：点进工作流 → Cancel → 重新提交空改动</td></tr>
-<tr><td>Actions 红叉</td><td>文件在 fork 后损坏（极少）</td><td>点进日志看第一行红字截图；回 README 提交空改动重试两次；仍红叉带截图进微信群问</td></tr>
-<tr><td>改了内容网站没变化</td><td>浏览器缓存 / 构建还在跑</td><td>电脑 Ctrl+Shift+R 强刷；手机换浏览器试；Actions 绿勾后再看</td></tr>
-<tr><td>网址打不开但 Actions 绿勾</td><td>Pages 未生效</td><td>回 Settings → Pages 看是否显示 Your site is published；没有则重做第 2 步</td></tr>
+<tr><td>网站 404 打不开</td><td>还没就绪</td><td>发给 WorkBuddy：「我的网站 ____ 打不开。请检查我的 chaiAI 仓库：网站功能是否已正确开通、最近一次自动构建是否成功完成，有问题就修复并重新构建，完成后告诉我。」</td></tr>
+<tr><td>WorkBuddy 说钥匙无效</td><td>钥匙复制缺了字符/已过期</td><td>回第 1 节重新领一把完整的，重发指令①</td></tr>
+<tr><td>WorkBuddy 干到一半停了</td><td>长任务分段/当日额度</td><td>发「继续」；再停就把剩下的事拆成一句新指令</td></tr>
+<tr><td>网站过几天突然打不开</td><td>构建出问题</td><td>发给 WorkBuddy：「我的网站 ____ 打不开了，请检查并修复到能访问，然后告诉我原因。」</td></tr>
 </table>
 </section>
 <section class="card">
-<h2 class="sec"><span class="n">4</span>第 3 节 · 换装：把站变成你的</h2>
-<p class="goal">本节目标：改 3 个文件，把站名、品牌、自我介绍换成你的——不需要装任何软件｜预计 <span class="mins">40 分钟</span></p>
+<h2 class="sec"><span class="n">4</span>第 3 节 · 换装：说清楚你是谁</h2>
+<p class="goal">本节目标：想好你的三段话，两条指令发出去，站名、介绍、联系方式全换成你的｜预计 <span class="mins">30 分钟</span></p>
 <div class="box"><b>动手前确认：</b>你的网站已能打开（第 2 节）。</div>
 <div class="step">
 <div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">想好三段话（5 分钟，写在手机备忘录）
@@ -224,132 +269,110 @@ h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
 <li>① 我是谁：一句话身份 + 1–2 个标签（如：拆书家 / 顾问 / 设计师）</li>
 <li>② 我做什么：作品、服务、案例，2–3 条，每条一句话</li>
 <li>③ 怎么找到我：微信 / 邮箱 / 公众号名</li>
+<li>再想一个品牌名（显示在站名位置，如「阿珍的小站」）</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>备忘录里三段话写完</div>
-<div class="nofix"><b>没看到怎么办：</b>写不出来：先抄讲师站的格式，回头再改——先跑通再完美</div>
+<div class="check"><b>检查点（看到才算做对）：</b>备忘录里三段话 + 一个品牌名</div>
+<div class="nofix"><b>没看到怎么办：</b>写不出来：先照讲师站的格式仿写，回头再改——先跑通再完美</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">改浏览器标签页标题（index.html）
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">指令③：换品牌
 <ul>
-<li>仓库主页点 index.html → 铅笔编辑 → Ctrl+F（手机浏览器菜单里找「查找」）搜「小蛮腰」</li>
-<li>把「小蛮腰·拆AI — 工作坊课程阵地 | 拆的是 AI，拆为己用」改成「你的名 — 一句话定位」</li>
-<li>Commit changes 提交</li>
+<li>把下面这段话发给 WorkBuddy（括号换成你的内容）：</li>
+<li>「请把我的网站（GitHub 用户名：我的用户名，仓库名 chaiAI）整体换成我的品牌：站名改为（你的品牌名），浏览器标签页标题改为（你的名字 — 一句话定位）。改完提交并等网站更新完成再告诉我。」</li>
+<li>发送，等几分钟，强刷网站验收</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>提交后等 2 分钟（Actions 绿勾），打开你的网站，浏览器标签页标题变成你的名字</div>
-<div class="nofix"><b>没看到怎么办：</b>标题没变：强刷；确认改的是你自己仓库（地址栏是你的用户名）不是讲师的</div>
+<div class="check"><b>检查点（看到才算做对）：</b>浏览器标签标题、站内名字都显示你的品牌</div>
+<div class="nofix"><b>没看到怎么办：</b>网站白屏/打不开（它改坏了）：发「网站坏了，请恢复到上一个能用的版本，然后换一种更稳的方式重改，只改文字内容」——AI 改坏 AI 修，比手改安全</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">改站内品牌名（Navbar 和 Footer）
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">指令④：换自我介绍
 <ul>
-<li>点进 src/components/Navbar.jsx → 铅笔 → 搜「小蛮腰·拆AI」→ 改成你的品牌名 → 提交</li>
-<li>同样改 src/components/Footer.jsx 里的「小蛮腰·拆AI」</li>
-<li>这两处分别是页面顶部导航和底部的名字</li>
+<li>把下面这段话发给 WorkBuddy：</li>
+<li>「请把我网站『关于』页的自我介绍换成我下面三段话：①我是谁____；②我做什么____；③怎么找到我____。联系方式也换成我的。改完提交并等网站更新完成再告诉我。」</li>
+<li>发送，等几分钟，打开「关于」页验收</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>等构建完强刷网站，页面左上角和底部都显示你的品牌名</div>
-<div class="nofix"><b>没看到怎么办：</b>页面报错打不开：说明改坏了标点（把引号或分号删了）。回该文件编辑页，用History（历史）按钮找到你提交前的那版，一键恢复</div>
+<div class="check"><b>检查点（看到才算做对）：</b>「关于」页显示你的三段话和你的联系方式</div>
+<div class="nofix"><b>没看到怎么办：</b>白屏：同上发恢复指令；重改时只让它动文字</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">改自我介绍页（About.jsx）
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">把指令包存好
 <ul>
-<li>点进 src/pages/About.jsx → 铅笔编辑</li>
-<li>只改中文文案文字：把讲师的介绍替换成你第 1 步写的三段话；别动英文单词、尖括号 &lt; &gt; 和大括号 { } 里的结构</li>
-<li>改多少看精力：至少改掉「关于」页里最显眼的一段自我介绍和联系方式</li>
-<li>提交后等构建、强刷验证</li>
+<li>把本手册的 4 条指令（①交钥匙 ②要网站 ③换品牌 ④换介绍）连同你的填空版，存进手机备忘录或 ima 库</li>
+<li>以后每次改站：说清楚你要什么就行——指令包就是你的范本</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>网站「关于」页显示你的自我介绍和你的微信/公众号</div>
-<div class="nofix"><b>没看到怎么办：</b>改完页面白屏：动了代码结构。用文件 History 恢复上一版，重来一次，这次只改引号里面的中文</div>
-</div>
-<div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-5"><span><span class="num">5</span></span></label><div style="flex:1"><div class="do">（可选）改工作坊数据
-<ul>
-<li>src/data/workshops.js 是六场工作坊的文案数据：日期、标题、简介</li>
-<li>想换成你自己活动信息再动；看不懂就先不动，不影响其他功能</li>
-</ul>
-</div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>改完网站「工作坊」页信息更新</div>
-<div class="nofix"><b>没看到怎么办：</b>页面乱了：同上用 History 恢复</div>
+<div class="check"><b>检查点（看到才算做对）：</b>备忘录里有一份填好空的指令包</div>
+<div class="nofix"><b>没看到怎么办：</b>指令丢了：回本手册页重新复制；或问 WorkBuddy「把我仓库最近的改动列出来」倒推</div>
 </div>
 <h3>本节排障表（4 个常见卡点）</h3>
 <table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
-<tr><td>提交后网站白屏/报错</td><td>改坏了代码结构（删了引号/括号）</td><td>进该文件 → History（历史）→ 找红色提交前版本 → 恢复；再改一次，只动中文文案</td></tr>
-<tr><td>搜「小蛮腰」搜不到</td><td>标点全半角不同</td><td>改搜「拆AI」或直接肉眼找到那行</td></tr>
-<tr><td>手机编辑框太小看不清</td><td>屏幕限制</td><td>耐心横屏；或借电脑做第 3 节，10 分钟搞定</td></tr>
-<tr><td>Commit 按钮灰色点不了</td><td>没写提交说明或网络未加载完</td><td>Commit message 随便填几个字；等页面加载完再点</td></tr>
+<tr><td>改完网站白屏</td><td>AI 改坏了内容</td><td>发「恢复到上一个能用的版本，再用更稳的方式重改」——这是本路线最大的优点：改坏了一句话就能救回</td></tr>
+<tr><td>WorkBuddy 找不到我的网站</td><td>用户名/仓库名报错</td><td>指令里带全：GitHub 用户名 + 仓库名 chaiAI；复制网址给它最保险</td></tr>
+<tr><td>改了没变化</td><td>网站缓存/还没更新完</td><td>强刷（Ctrl+Shift+R）；等 5 分钟再看；再不行发「网站没更新，请检查最近一次自动构建是否成功」</td></tr>
+<tr><td>手机复制长指令嫌麻烦</td><td>操作繁琐</td><td>先在电脑上打开本手册页复制；或把指令包先存进备忘录再逐条粘贴</td></tr>
 </table>
 </section>
 <section class="card">
-<h2 class="sec"><span class="n">5</span>第 4 节 · （进阶选学）WorkBuddy 自动产线</h2>
-<p class="goal">本节目标：装上 rsi 技能，让 WorkBuddy 替你改站、发文章：素材 → 你的网站 + 公众号草稿箱｜预计 <span class="mins">40 分钟</span></p>
-<div class="box"><b>动手前确认：</b>电脑 + 已登录 www.workbuddy.cn + 已登录 GitHub + （可选）ima 已装、公众号后台能进。手机用户建议跳过本节，直接去 30 天计划。</div>
+<h2 class="sec"><span class="n">5</span>第 4 节 · （进阶选学）装 rsi 工作流，一条产线两个出口</h2>
+<p class="goal">本节目标：给 WorkBuddy 装上「rsi 工作流」技能包——所有工程细节从这步起全部包进技能里：素材 → 你的网站 + 公众号草稿箱｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>电脑 + WorkBuddy 已能操作你的网站（第 2 节）+（可选）ima 已装、公众号后台能进。手机用户建议跳过本节，直接去 30 天计划。</div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">装 rsi 技能（60 秒）
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">装 rsi 技能包（60 秒，本期唯一要动手装的东西）
 <ul>
 <li>浏览器打开：github.com/kenyanghui/rsi-ima-workbuddy-wechat-web</li>
-<li>绿色 Code 按钮 → Download ZIP → 解压</li>
-<li>解压出的文件夹改名为 rsi-ima-workbuddy-wechat-web（去掉 -main）</li>
-<li>整个文件夹放进你电脑的 ~/.workbuddy/skills/ 目录（没有就新建）</li>
-<li>重启 WorkBuddy</li>
+<li>绿色 Code 按钮 → Download ZIP（下载压缩包）→ 解压</li>
+<li>解压出的文件夹改名为 rsi-ima-workbuddy-wechat-web（去掉结尾的 -main）</li>
+<li>整个文件夹放进你电脑的 ~/.workbuddy/skills/ 文件夹（没有就新建一个叫 skills 的），重启 WorkBuddy</li>
+<li>装上它，WorkBuddy 就懂了这套站的所有内部构造——你在对话里只管说人话</li>
 </ul>
 </div></div></div>
 <div class="dev">
-<div class="d"><b>Windows</b>~ 即 C:\Users\你的用户名\；在文件管理器地址栏输入 %USERPROFILE%\.workbuddy\skills 回车直达</div>
-<div class="d"><b>Mac</b>Finder 按 Cmd+Shift+G，输入 ~/.workbuddy/skills 前往；没有该文件夹就新建 skills 再放</div>
+<div class="d"><b>Windows</b>文件管理器地址栏输入 %USERPROFILE%\.workbuddy\skills 回车直达</div>
+<div class="d"><b>Mac</b>Finder 按 Cmd+Shift+G 输入 ~/.workbuddy/skills 前往；没有 skills 文件夹就新建再放</div>
 </div>
-<div class="check"><b>检查点（看到才算做对）：</b>对 WorkBuddy 说「网站体检」，回复列表里有 rsi-ima-workbuddy-wechat-web 即装好</div>
-<div class="nofix"><b>没看到怎么办：</b>说没反应：确认重启过 WorkBuddy；确认文件夹名没带 -main 后缀；确认放在 skills 目录里面而不是旁边</div>
-</div>
-<div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">克隆你的 fork 并换装
-<ul>
-<li>对 WorkBuddy 说「clone 我的 fork」，它会帮你把 你的用户名/chaiAI 拉到本地</li>
-<li>说「把站换成我的」，把站名/署名/一句话简介报给它——它只改数据文件，骨架不动</li>
-<li>说「推回我的 fork」——改动自动提交回 GitHub，Actions 自动构建</li>
-</ul>
-</div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>等 2 分钟强刷你的网站，改动已生效</div>
-<div class="nofix"><b>没看到怎么办：</b>clone 失败：检查 WorkBuddy 是否已登录你的 GitHub 授权；推回失败：让 WorkBuddy 把报错原文贴出来，带截图进群问</div>
+<div class="check"><b>检查点（看到才算做对）：</b>对 WorkBuddy 说「网站体检」，它能回报你网站的健康状况即装好</div>
+<div class="nofix"><b>没看到怎么办：</b>没反应：确认重启过 WorkBuddy；文件夹名没带 -main；放在 skills 文件夹里面而不是旁边</div>
 </div>
 <div class="step">
-<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">跑一次一源双出口
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">跑一次一源双出口
 <ul>
 <li>从 ima 库（ima.qq.com 或 App）挑一个你熟悉、有素材的主题</li>
-<li>取 2–3 份素材喂给 WorkBuddy，生成一篇初稿，人工校对一遍——你负责把关，机器不负责</li>
-<li>出口 A：成稿进你的网站仓库，网站多一篇文章</li>
-<li>出口 B：进你的公众号草稿箱（mp.weixin.qq.com 后台可见），群发与否你课后自己定</li>
+<li>对 WorkBuddy 说：「用我提供的素材写一篇公众号文章初稿，初稿先给我看」——取 2–3 份素材给它</li>
+<li>人工校对一遍再放行——你负责把关，机器不负责</li>
+<li>校对后说：「发到我的网站，并同步一份到我的公众号草稿箱」——网站多一篇文章 + 草稿箱躺着同一篇，群发与否你课后自己定</li>
 </ul>
 </div></div></div>
-<div class="check"><b>检查点（看到才算做对）：</b>两张截图：你的网站上多了新文章 + 公众号草稿箱躺着同一篇</div>
-<div class="nofix"><b>没看到怎么办：</b>公众号出口失败：确认已在公众号后台开通草稿箱接口权限（设置与开发→API）；ima 取不到素材：检查库是否已导入资料</div>
+<div class="check"><b>检查点（看到才算做对）：</b>两张截图：你的网站多了新文章 + 公众号草稿箱（mp.weixin.qq.com 后台）躺着同一篇</div>
+<div class="nofix"><b>没看到怎么办：</b>公众号出口失败：让 WorkBuddy「检查公众号草稿箱功能需要开通什么权限，把步骤告诉我」；ima 取不到素材：检查库是否已导入资料</div>
 </div>
 <h3>本节排障表（4 个常见卡点）</h3>
 <table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
-<tr><td>WorkBuddy 说找不到技能</td><td>技能目录名不对 / 没重启</td><td>文件夹名必须是 rsi-ima-workbuddy-wechat-web 且在 skills 里面</td></tr>
-<tr><td>推回 GitHub 报权限错</td><td>WorkBuddy 未授权你的 GitHub</td><td>在 WorkBuddy 设置里重新走一遍 GitHub 授权</td></tr>
-<tr><td>公众号草稿箱没收到</td><td>接口权限未开 / AppID 配错</td><td>公众号后台 设置与开发 → 接口权限 检查；带截图进群问</td></tr>
+<tr><td>WorkBuddy 说找不到技能</td><td>目录名不对/没重启</td><td>文件夹名必须是 rsi-ima-workbuddy-wechat-web 且在 skills 文件夹里面</td></tr>
+<tr><td>推回 GitHub 报权限错</td><td>钥匙失效</td><td>回第 1 节重新领钥匙，重发指令①并说「换用这把新钥匙」</td></tr>
+<tr><td>公众号草稿箱没收到</td><td>相关权限未开</td><td>按 WorkBuddy 告诉你的步骤在公众号后台开通；带截图进群问</td></tr>
 <tr><td>AI 没反应或额度用完</td><td>当日额度耗尽</td><td>第二天再做；或把长任务拆小分次跑</td></tr>
 </table>
 </section>
 <section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
 <p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。</p>
-<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>GitHub 里有我的 chaiAI 仓库（forked from kenyanghui/chaiAI）</span></label>
-<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>https://我的用户名.github.io/chaiAI 能被别人打开</span></label>
-<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>浏览器标签页标题是我的名字</span></label>
-<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>站内导航和底部品牌名是我的</span></label>
-<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>「关于」页是我的自我介绍 + 我的联系方式</span></label>
-<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>（进阶）对 WorkBuddy 说「网站体检」能通过</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>GitHub 和 WorkBuddy 都能登录，备忘录里记着我的用户名</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>已领到 GitHub 钥匙（ghp_ 开头），只交给过 WorkBuddy，没发过群没截过图</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>https://我的用户名.github.io/chaiAI 能被别人打开，是讲师站同款</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>指令③④已发：站名、标签页标题、关于页都是我的</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>我的填空版指令包已存进备忘录/ima 库</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>我知道钥匙过期的对策：重新领一把，发指令①换钥匙</span></label>
 <label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>（进阶）一源双出口各存了一张截图</span></label>
 </section>
 <section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
 <p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
 <table><tr><th style="width:16%">时间</th><th>做什么</th><th style="width:34%">怎么自查没掉队</th></tr>
-<tr><td><b>第 1 周</b></td><td>上线周：完成第 1–3 节；把网址发给 3 个朋友，让他们告诉你第一眼看懂你是谁吗</td><td>网站能打开 + 朋友能说出你的一句话定位</td></tr>
-<tr><td><b>第 2 周</b></td><td>换装周：About 页写满你的内容；发第一篇（哪怕只有 200 字）文章到网站</td><td>网站内容 ≥ 1 篇属于你的文章</td></tr>
-<tr><td><b>第 3 周</b></td><td>产线周（进阶）：装技能，跑通一次 ima → 网站/草稿箱</td><td>草稿箱里躺着自动产出的初稿</td></tr>
-<tr><td><b>第 4 周</b></td><td>飞轮周：定一个日更/周更节奏；周末花 5 分钟回看本月产出，删掉不想要的，定下月主题</td><td>本月产出清单 ≥ 4 条，且写下了月主题</td></tr>
+<tr><td><b>第 1 周</b></td><td>上线周：完成第 0–2 节；把网址发给 3 个朋友，问他们第一眼看懂你是谁吗</td><td>网站能打开 + 朋友能说出你的一句话定位</td></tr>
+<tr><td><b>第 2 周</b></td><td>换装周：指令③④打磨品牌和关于页；让 WorkBuddy 把你的第一篇文章（哪怕 200 字）发上网站</td><td>网站内容 ≥ 1 篇属于你的文章</td></tr>
+<tr><td><b>第 3 周</b></td><td>产线周（进阶）：装 rsi 技能包，跑通一次 ima → 网站/草稿箱</td><td>草稿箱里躺着自动产出的初稿</td></tr>
+<tr><td><b>第 4 周</b></td><td>飞轮周：定一个日更/周更节奏；周末花 5 分钟回看本月产出，让 WorkBuddy 删掉不想要的，定下月主题</td><td>本月产出清单 ≥ 4 条，且写下了月主题</td></tr>
 </table></section>
 <footer class="g"><b>卡住怎么办（按顺序试）</b><br>1. 重读当前步骤的「检查点」和本节排障表——90% 的卡点都在里面；<br>2. 把你看到的界面截图保存下来，对照排障表找「症状」一栏；<br>3. 还不行：带上截图来微信群问，微信 <span class="wx">ikoning365</span>（点击不了就手动复制添加）。<br><p class="tip">小蛮腰·拆AI 工作坊系列 · 自助跟做手册 · 可打印（A4）</p></footer>
 </div><script>
