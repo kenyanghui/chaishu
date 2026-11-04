@@ -73,7 +73,7 @@ export default function HotBooks() {
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[#0071e3] text-sm">
-            数据源：拆书帮 chaishubang.com 全量同步
+            数据源：拆书帮 chaishubang.com 公开拆页 · 非官方学习整理
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">经典拆页</h1>
           <p className="text-[#6e6e73] max-w-2xl mx-auto">

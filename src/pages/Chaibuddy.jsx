@@ -593,8 +593,7 @@ export default function Chaibuddy() {
       <section className="max-w-6xl mx-auto px-4 mb-14">
         <h2 className="text-2xl md:text-3xl font-black text-[#1d1d1f] mb-2">拆书家全员名录</h2>
         <p className="text-sm text-[#6e6e73] mb-5">
-          数据来自拆书帮官网公开名录（{data ? data.meta.generated : '2026-11-04'} 采集，{people.length.toLocaleString()} 人去重）。
-          邮箱/微信为防爬虫已打码，精确联系方式请到拆书帮官网或经站长牵线。
+          数据来自拆书帮官网公开名录（{data ? data.meta.generated : '2026-11-04'} 采集，{people.length.toLocaleString()} 人去重），本页为非官方学习研究整理。联系方式已脱敏（邮箱/微信打码），不做二次分发；如有异议请联系站长核实移除。
         </p>
         <div className="glass rounded-2xl border border-white/10 p-4 md:p-5 mb-5 flex items-end gap-3 flex-wrap">
           <label className="flex flex-col gap-1 text-[10px] text-[#86868b]">
