@@ -11,7 +11,6 @@ const navLinks = [
   { path: '/skills', label: '拆技能' },
   { path: '/skill-fusion', label: '拆专家' },
   { path: '/coai', label: '共拆AI' },
-  { path: '/guestbook', label: '留言板' },
   { path: '/about', label: '关于' },
 ]
 

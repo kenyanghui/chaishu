@@ -1,4 +1,73 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
+
+const NEEDS_API = 'https://api.aibay.asia/needs/needs'
+
+function MessageBoard() {
+  const [form, setForm] = useState({ name: '', msg: '', contact: '' })
+  const [state, setState] = useState('idle')
+  const [tip, setTip] = useState('')
+  const set = k => e => setForm(f => ({ ...f, [k]: e.target.value }))
+
+  const submit = async e => {
+    e.preventDefault()
+    if (state === 'sending') return
+    if (form.msg.trim().length < 2) {
+      setState('error')
+      setTip('留言至少写两个字吧')
+      return
+    }
+    setState('sending')
+    setTip('')
+    try {
+      const r = await fetch(NEEDS_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          software: `【留言板】${form.name.trim() || '匿名站友'}`,
+          scene: '关于页留言板',
+          expect: form.msg.trim(),
+          contact: form.contact.trim() || '（未留联系方式，无需回复）',
+          website: '',
+        }),
+      })
+      const d = await r.json().catch(() => ({}))
+      if (r.ok && d.ok) {
+        setState('ok')
+        setTip('留言已送达杨教练邮箱，感谢！')
+        setForm({ name: '', msg: '', contact: '' })
+      } else {
+        setState('error')
+        setTip(d.error || '提交失败，请稍后再试')
+      }
+    } catch {
+      setState('error')
+      setTip('网络异常——也可以直接加微信 ikoning365')
+    }
+  }
+
+  return (
+    <form onSubmit={submit} className="p-6 rounded-xl bg-dark-card-hover/50 border border-dark-border space-y-3">
+      <div className="grid sm:grid-cols-2 gap-3">
+        <input value={form.name} onChange={set('name')} maxLength={20} className="rounded-xl bg-[#f5f5f7] px-3.5 py-2.5 text-[13px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-neon-purple/30" placeholder="怎么称呼你？（可不填）" />
+        <input value={form.contact} onChange={set('contact')} maxLength={40} className="rounded-xl bg-[#f5f5f7] px-3.5 py-2.5 text-[13px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-neon-purple/30" placeholder="联系方式，想收到回复就留（可不填）" />
+      </div>
+      <textarea value={form.msg} onChange={set('msg')} maxLength={500} rows={3} className="w-full rounded-xl bg-[#f5f5f7] px-3.5 py-2.5 text-[13px] text-[#1d1d1f] outline-none focus:ring-2 focus:ring-neon-purple/30 resize-none" placeholder="给杨教练和站友们说句话——建议、疑问、感想都行" />
+      <div className="flex items-center gap-3 flex-wrap">
+        <button
+          type="submit"
+          disabled={state === 'sending'}
+          className="px-5 py-2 rounded-xl bg-gradient-to-r from-neon-purple to-neon-blue text-white text-[13px] font-bold disabled:opacity-50"
+        >
+          {state === 'sending' ? '发送中…' : '写下留言'}
+        </button>
+        {tip && (
+          <span className={`text-xs ${state === 'ok' ? 'text-green-600' : 'text-red-500'}`}>{tip}</span>
+        )}
+      </div>
+    </form>
+  )
+}
 
 export default function About() {
   return (
@@ -135,6 +204,13 @@ export default function About() {
                 <p className="text-sm text-[#6e6e73]">企业微信扫码进群，与拆书家们一起拆 AI、拆为己用</p>
               </div>
             </div>
+          </div>
+
+          {/* 留言板 */}
+          <div className="mb-10">
+            <h2 className="text-xl font-bold text-[#1d1d1f] mb-2">留言板</h2>
+            <p className="text-sm text-[#6e6e73] mb-4">匿名即可，不用注册任何账号；想收到回复就顺手留个联系方式。</p>
+            <MessageBoard />
           </div>
 
           {/* Contact CTA */}
