@@ -143,35 +143,6 @@
     </div>
   </div>
 
-  <h2 class="sec" id="prompts">🔑 WorkBuddy 提示词 · 复制即用</h2>
-  <p class="secs" style="margin:0 0 4px">GitHub 复杂配置只需领一把「经典钥匙」（<a href="guide.html" style="color:var(--cyan);font-weight:600">跟做手册第 1 节，10 分钟</a>），剩下全部复制下面四张卡 → 粘贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">www.workbuddy.cn</a> → 填空 → 发送。</p>
-  <div class="pcards">
-    <div class="pcard">
-      <div class="pk">指令卡 ① · 交钥匙（先领钥匙再发）</div>
-      <div class="ptext">这是我的 GitHub 个人访问令牌（classic，repo 权限）：ghp_你的钥匙。请保存为我的 GitHub 凭据，之后你替我操作 GitHub（复制仓库、提交修改、查状态）都用它。回复里不要展示令牌原文。</div>
-      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">钥匙领法见跟做手册第 1 节：Settings → Developer settings → Tokens (classic)</div>
-    </div>
-    <div class="pcard">
-      <div class="pk">指令卡 ② · 要一个同款网站</div>
-      <div class="ptext">请把讲师的网站仓库 github.com/kenyanghui/chaiAI 复制一份到我的 GitHub（用户名：我的用户名）名下，做好让它变成公开网站所需的全部设置和首次构建。全部弄好、网站能访问之后，把我的网站网址告诉我。</div>
-      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">几分钟出网址：https://你的用户名.github.io/chaiAI</div>
-    </div>
-    <div class="pcard">
-      <div class="pk">指令卡 ③ · 换品牌</div>
-      <div class="ptext">请把我的网站（GitHub 用户名：我的用户名，仓库名 chaiAI）整体换成我的品牌：站名改为（你的品牌名），浏览器标签页标题改为（你的名字 — 一句话定位）。改完提交并等网站更新完成再告诉我。</div>
-      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">先想好品牌名，三段话写法见手册第 3 节</div>
-    </div>
-    <div class="pcard">
-      <div class="pk">指令卡 ④ · 换自我介绍</div>
-      <div class="ptext">请把我网站『关于』页的自我介绍换成我下面三段话：①我是谁____；②我做什么____；③怎么找到我____。联系方式也换成我的。改完提交并等网站更新完成再告诉我。</div>
-      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">关于页从此写的是你，不是讲师</div>
-    </div>
-  </div>
-
   <h2 class="sec">三个"卡住"的瞬间</h2>
   <p class="secs">中了一条，这节课就是为你开的</p>
   <div class="pains">
@@ -224,6 +195,50 @@
       <span style="color:var(--mute)">免服务器、免备案、免费上线网站——看懂「仓库 → 网址」这关键一步</span><br>
       ③ <a style="color:var(--cyan)" href="https://www.bilibili.com/video/BV1BHJtz6EDb" target="_blank">3 分钟实操实录（4′58″）</a><br>
       <span style="color:var(--mute)">从建仓到打开网址全过程实拍——课前过一遍，课上不慌</span></div>
+  </div>
+
+  <h2 class="sec">开工前两件事 · 各 10 分钟</h2>
+  <p class="secs">指令卡之前，先把两个账号备好——步骤很短，照点就行</p>
+  <div class="pains">
+    <div class="pain"><b>① GitHub 注册 + 领「钥匙」</b>
+      1. 打开 github.com → Sign up：填邮箱、密码、用户名，去邮箱点验证链接；<br>
+      2. 登录后右上角头像 → Settings → Developer settings → Personal access tokens → Tokens (classic)；<br>
+      3. Generate new token (classic) → 起个名字（如 chai）→ 勾选 repo → Generate；<br>
+      4. 复制 ghp_ 开头的一串存好（只显示这一次）——这就是指令卡 ① 要交的「钥匙」。<br>
+      <span style="color:var(--mute)">卡住了？详细图文见 <a href="guide.html" style="color:var(--cyan)">跟做手册第 1 节</a></span></div>
+    <div class="pain"><b>② WorkBuddy 安装 + 注册</b>
+      1. 打开 <a href="https://www.workbuddy.cn/" target="_blank" style="color:var(--cyan)">www.workbuddy.cn</a> → 下载对应你电脑的版本，安装；<br>
+      2. 首次打开，按提示注册并登录；<br>
+      3. 新开一个对话——下面四张指令卡就粘在这里用。</div>
+  </div>
+
+  <h2 class="sec" id="prompts">🔑 WorkBuddy 提示词 · 复制即用</h2>
+  <p class="secs" style="margin:0 0 4px">GitHub 复杂配置只需领一把「经典钥匙」（<a href="guide.html" style="color:var(--cyan);font-weight:600">跟做手册第 1 节，10 分钟</a>），剩下全部复制下面四张卡 → 粘贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">www.workbuddy.cn</a> → 填空 → 发送。</p>
+  <div class="pcards">
+    <div class="pcard">
+      <div class="pk">指令卡 ① · 交钥匙（先领钥匙再发）</div>
+      <div class="ptext">这是我的 GitHub 个人访问令牌（classic，repo 权限）：ghp_你的钥匙。请保存为我的 GitHub 凭据，之后你替我操作 GitHub（复制仓库、提交修改、查状态）都用它。回复里不要展示令牌原文。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">钥匙领法见跟做手册第 1 节：Settings → Developer settings → Tokens (classic)</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ② · 要一个同款网站</div>
+      <div class="ptext">请把讲师的网站仓库 github.com/kenyanghui/chaiAI 复制一份到我的 GitHub（用户名：我的用户名）名下，做好让它变成公开网站所需的全部设置和首次构建。全部弄好、网站能访问之后，把我的网站网址告诉我。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">几分钟出网址：https://你的用户名.github.io/chaiAI</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ③ · 换品牌</div>
+      <div class="ptext">请把我的网站（GitHub 用户名：我的用户名，仓库名 chaiAI）整体换成我的品牌：站名改为（你的品牌名），浏览器标签页标题改为（你的名字 — 一句话定位）。改完提交并等网站更新完成再告诉我。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">先想好品牌名，三段话写法见手册第 3 节</div>
+    </div>
+    <div class="pcard">
+      <div class="pk">指令卡 ④ · 换自我介绍</div>
+      <div class="ptext">请把我网站『关于』页的自我介绍换成我下面三段话：①我是谁____；②我做什么____；③怎么找到我____。联系方式也换成我的。改完提交并等网站更新完成再告诉我。</div>
+      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
+      <div class="pnote">关于页从此写的是你，不是讲师</div>
+    </div>
   </div>
 
   <h2 class="sec">三节 · 三个交付物</h2>

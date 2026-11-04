@@ -211,7 +211,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
               >
-                <Link to={w.link} className="apple-card p-6 block h-full hover:shadow-[0_12px_32px_rgba(0,0,0,.08)] transition-shadow">
+                <a href={w.link} className="apple-card p-6 block h-full hover:shadow-[0_12px_32px_rgba(0,0,0,.08)] transition-shadow">
                   <div className="inline-flex px-2.5 py-0.5 rounded-full bg-black/[.05] text-[#86868b] text-[11.5px] font-semibold mb-3">{statusLabelOf(w)}</div>
                   <div className="text-[17px] font-bold text-[#1d1d1f] mb-1.5">{w.title}</div>
                   <p className="text-[13.5px] text-[#6e6e73] leading-relaxed mb-3">{w.short}</p>
@@ -220,7 +220,7 @@ export default function Home() {
                       <span key={t} className="px-2 py-0.5 rounded-md bg-[#1d1d1f] text-white text-[12px] font-bold tracking-wide">{t}</span>
                     ))}
                   </div>
-                </Link>
+                </a>
               </motion.div>
             ))}
           </div>

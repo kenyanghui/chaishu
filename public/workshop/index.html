@@ -198,25 +198,25 @@
   </a>
 
   <h2 class="sec" id="prompts">🔑 WorkBuddy 提示词 · 复制即用</h2>
-  <p class="secs" style="margin:0 0 4px">三张指令卡就是整条产线：复制 → 粘贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">www.workbuddy.cn</a> → 填空 → 发送。完整跟做步骤见 <a href="guide.html" style="color:var(--blue);font-weight:600">自助跟做手册 →</a></p>
+  <p class="secs" style="margin:0 0 4px">三张指令卡把产线配起来：ima 接入 → 公众号接入 → 装技能跑流水线。复制 → 粘贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">www.workbuddy.cn</a> → 填空 → 发送。完整跟做步骤见 <a href="guide.html" style="color:var(--blue);font-weight:600">自助跟做手册 →</a></p>
   <div class="pcards">
     <div class="pcard">
-      <div class="pk">指令卡 ① · 交素材</div>
-      <div class="ptext">我要写一篇公众号文章。主题是（你的主题），读者是（写给谁看）。我接下来会发给你几份素材，请先收下，回复我收到了几份、每份讲的是什么，先不要动笔。</div>
+      <div class="pk">指令卡 ① · 配 ima 接入</div>
+      <div class="ptext">配置公众号流水线，第一步接我的 ima 知识库。这是我的 ima 开放 API 凭证：Client ID =（　）、API Key =（　）。请收好并验证连通，告诉我能读到哪些知识库。</div>
       <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">然后把 ima 库里 2–3 份素材内容粘贴给它</div>
+      <div class="pnote">凭证哪里拿：ima.qq.com → 设置 → 开放 API</div>
     </div>
     <div class="pcard">
-      <div class="pk">指令卡 ② · 出初稿</div>
-      <div class="ptext">请用刚才的素材写一篇公众号文章初稿，800 字左右，分三段，口语化，像跟朋友聊天。必须用素材里的观点和例子，不许编造素材里没有的内容。写完先给我看，不要直接发布。</div>
+      <div class="pk">指令卡 ② · 配公众号接入</div>
+      <div class="ptext">第二步接我的微信公众号。AppID =（　）、AppSecret =（　），本机 IP 我已加入白名单。请验证凭证可用，能用就继续向导。</div>
       <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">初稿不满意就说具体改哪，改到愿意署名</div>
+      <div class="pnote">凭证哪里拿：mp.weixin.qq.com → 设置与开发 → 基本配置（IP 白名单在同一页）</div>
     </div>
     <div class="pcard">
-      <div class="pk">指令卡 ③ · 进草稿箱</div>
-      <div class="ptext">请把这篇终稿放进我的公众号草稿箱，放好后告诉我。</div>
+      <div class="pk">指令卡 ③ · 装 rsi 技能 · 跑流水线</div>
+      <div class="ptext">第三步装技能跑产线：把 rsi 公众号流水线技能装上（源码仓 github.com/kenyanghui/rsi-ima-workbuddy-wechatpub，clone 到 ~/.workbuddy/skills/wechat-pub-workbuddy），重启 WorkBuddy 识别后，向导里选我的知识库、填笔名和每天篇数，最后说「跑流水线」，产 3 篇进草稿箱。</div>
       <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">没公众号：存备忘录「公众号存稿-01」，流程一样</div>
+      <div class="pnote">没配公众号 API 也能跑：文章打包成本地 HTML，手动粘贴发布</div>
     </div>
   </div>
   <p class="pnote" style="margin:6px 0 0">💡 出错统一动作：把报错原话发回给 WorkBuddy，说「请修好后继续」。</p>
