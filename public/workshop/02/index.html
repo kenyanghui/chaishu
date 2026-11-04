@@ -191,17 +191,10 @@
   <p class="secs">两个公开仓库就是本期教材，三条视频看完再来</p>
   <div class="pains">
     <div class="pain"><b>讲师站源码仓 · chaiAI ↗</b>
-      本站 chai.aibay.asia 的全部源代码——第 1 节你要 fork 的就是它，fork 一步带走整条产线：<br>
-      · 六大模块：拆学习 2255 本 · 拆搭子 5473 人 · 拆软件 4 期 · 拆技能 210 个 · 拆专家 8 套 · 共拆AI 6 线<br>
-      · 工作坊详情页 + 全部可回看材料<br>
-      · 每日自动巡检的 GitHub Actions<br>
-      第 2 节「拆本站六大模块」拆的就是这个仓。<br>
+      本站 chai.aibay.asia 的全部源代码——第 1 节你要 fork 的就是它，fork 一步带走整条产线。<br>
       <a style="color:var(--cyan)" href="https://github.com/kenyanghui/chaiAI" target="_blank">github.com/kenyanghui/chaiAI</a></div>
     <div class="pain"><b>建站技能仓 · rsi ↗</b>
-      WorkBuddy 的建站技能（开源）。装上后五步安家：fork → clone → 换装 → 推回 → Enable workflows，15 分钟上线你的同款站。<br>
-      · 换装只要一句「把站换成我的」：改数据文件换名字换内容，骨架不动，第一周不怕改坏<br>
-      · 每日一句「网站体检」：六项自检报告，站挂没挂一看便知<br>
-      · ima 取素材、公众号草稿箱双出口联动，fork 不受影响<br>
+      WorkBuddy 的建站技能（开源）——fork 后 15 分钟上线你的同款站，每日一句「网站体检」。<br>
       <a style="color:var(--cyan)" href="https://github.com/kenyanghui/rsi-ima-workbuddy-wechat-web" target="_blank">github.com/kenyanghui/rsi-ima-workbuddy-wechat-web</a></div>
     <div class="pain"><b>课前热身视频 · B 站</b>
       ① <a style="color:var(--cyan)" href="https://www.bilibili.com/video/BV14qh8ztEhv" target="_blank">GitHub 是什么 · 新手指南（11′）</a><br>
@@ -224,7 +217,7 @@
     <div class="pain"><b>② WorkBuddy 安装 + 注册</b>
       1. 打开 <a href="https://www.workbuddy.cn/" target="_blank" style="color:var(--cyan)">www.workbuddy.cn</a> → 下载对应你电脑的版本，安装；<br>
       2. 首次打开，按提示注册并登录；<br>
-      3. 新开一个对话——下面四张指令卡就粘在这里用。</div>
+      3. 新开一个对话——下面两张指令卡就粘在这里用。</div>
     <div class="pain"><b>③ 第一期家底体检 · ima / 公众号 / 工作流</b>
       1. <b>ima</b>：打开 <a href="https://ima.qq.com/" target="_blank" rel="noopener" style="color:var(--cyan)">ima.qq.com</a> 扫码登录——知识库和素材还在；设置 → 开放 API 里的 <b>Client ID / API Key</b> 还在（忘了就在这页重置一份）；<br>
       2. <b>公众号</b>：登录 <a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener" style="color:var(--cyan)">mp.weixin.qq.com</a>——草稿箱里第一期的素材和草稿还在；<br>
@@ -233,7 +226,7 @@
   </div>
 
   <h2 class="sec" id="prompts">🔑 WorkBuddy 提示词 · 复制即用</h2>
-  <p class="secs" style="margin:0 0 4px">四句话把网站搭起来。用法：复制 → 贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">www.workbuddy.cn</a> 对话框 → 把你领好的钥匙和想好的内容贴在冒号后面 → 发送。钥匙还没领？先看上方「开工前三件事」。完整跟做见 <a href="guide.html" style="color:var(--cyan);font-weight:600">跟做手册 →</a></p>
+  <p class="secs" style="margin:0 0 4px">两句话把网站搭起来。用法：复制 → 贴到 <a href="https://www.workbuddy.cn/" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">www.workbuddy.cn</a> 对话框 → 把你领好的钥匙贴在冒号后面 → 发送。钥匙还没领？先看上方「开工前三件事」。换品牌、换自我介绍等进阶玩法，见 <a href="guide.html" style="color:var(--cyan);font-weight:600">跟做手册 →</a></p>
   <div class="pcards">
     <div class="pcard">
       <div class="pk">指令卡 ① · 交钥匙</div>
@@ -246,18 +239,6 @@
       <div class="ptext">把讲师的网站 github.com/kenyanghui/chaiAI 复制到我的 GitHub，上线成公开网站，网址告诉我</div>
       <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
       <div class="pnote">几分钟出网址：https://你的用户名.github.io/chaiAI</div>
-    </div>
-    <div class="pcard">
-      <div class="pk">指令卡 ③ · 换品牌</div>
-      <div class="ptext">把我网站站名换成：（你的品牌名），浏览器标签标题换成：（你的名字 — 一句话定位）</div>
-      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">先想好品牌名，三段话写法见手册第 3 节</div>
-    </div>
-    <div class="pcard">
-      <div class="pk">指令卡 ④ · 换自我介绍</div>
-      <div class="ptext">把我网站『关于』页的自我介绍换成这三段：①我是谁____；②我做什么____；③怎么找到我____。联系方式也换成我的</div>
-      <button class="pbtn" onclick="copyPrompt(this)">复制提示词</button>
-      <div class="pnote">关于页从此写的是你，不是讲师</div>
     </div>
   </div>
   <p class="pnote" style="margin:6px 0 0">💡 出错统一动作：把报错原话发回给 WorkBuddy，说「请修好后继续」。</p>
