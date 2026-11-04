@@ -17,12 +17,12 @@ const chaifa = [
 
 // 六大模块全景（与导航同序：拆学习→拆搭子→拆软件→拆技能→拆专家→共拆AI；数字=站内真实资产）
 const modules = [
-  { k: '拆学习', emoji: '📚', d: 'RIA 便签法全库共拆，六大兴趣模块连读', stat: '2255 本', statLabel: '19262 页拆页全库', href: 'https://www.aibay.asia/chailive/', glow: 'from-teal-500/30 to-cyan-500/20', num: 'text-teal-300' },
-  { k: '拆搭子', emoji: '🤝', d: '5473 位拆书家名录，师承可溯、按标签匹配', stat: '5473 人', statLabel: '83 分舵 · 师徒互链', href: '/chaibuddy', glow: 'from-amber-500/30 to-yellow-500/20', num: 'text-amber-300' },
-  { k: '拆软件', emoji: '🖥️', d: '工作坊当场拆开真 AI 软件，接回你的产线', stat: '4 期', statLabel: '真实软件 · 场场有产出', href: '/workshops', glow: 'from-sky-500/30 to-blue-500/20', num: 'text-sky-300' },
-  { k: '拆技能', emoji: '⚡', d: '每个技能拆成便签+信息图+可下载 Skill', stat: '210 个', statLabel: '技能拆解 · 全部可下载', href: '/skills', glow: 'from-violet-500/30 to-purple-500/20', num: 'text-violet-300' },
-  { k: '拆专家', emoji: '🧠', d: '思想家蒸馏成可召唤的领域 AI 专家团', stat: '8 套', statLabel: '思想体系 · 6 个专家团', href: '/skill-fusion', glow: 'from-fuchsia-500/30 to-pink-500/20', num: 'text-fuchsia-300' },
-  { k: '共拆AI', emoji: '🚀', d: '六条合作线全部开放，带着你的领域加入', stat: '6 条线', statLabel: '开源共建 · 挑一条进', href: '/coai', glow: 'from-emerald-500/30 to-green-500/20', num: 'text-emerald-300' },
+  { k: '拆学习', emoji: '📚', d: 'RIA 便签法全库共拆，六大兴趣模块连读', stat: '2255 本', statLabel: '19262 页拆页全库', href: 'https://www.aibay.asia/chailive/', tile: 'bg-teal-500/10', num: 'text-teal-600' },
+  { k: '拆搭子', emoji: '🤝', d: '5473 位拆书家名录，师承可溯、按标签匹配', stat: '5473 人', statLabel: '83 分舵 · 师徒互链', href: '/chaibuddy', tile: 'bg-amber-500/10', num: 'text-amber-600' },
+  { k: '拆软件', emoji: '🖥️', d: '工作坊当场拆开真 AI 软件，接回你的产线', stat: '4 期', statLabel: '真实软件 · 场场有产出', href: '/workshops', tile: 'bg-sky-500/10', num: 'text-sky-600' },
+  { k: '拆技能', emoji: '⚡', d: '每个技能拆成便签+信息图+可下载 Skill', stat: '210 个', statLabel: '技能拆解 · 全部可下载', href: '/skills', tile: 'bg-violet-500/10', num: 'text-violet-600' },
+  { k: '拆专家', emoji: '🧠', d: '思想家蒸馏成可召唤的领域 AI 专家团', stat: '8 套', statLabel: '思想体系 · 6 个专家团', href: '/skill-fusion', tile: 'bg-fuchsia-500/10', num: 'text-fuchsia-600' },
+  { k: '共拆AI', emoji: '🚀', d: '六条合作线全部开放，带着你的领域加入', stat: '6 条线', statLabel: '开源共建 · 挑一条进', href: '/coai', tile: 'bg-emerald-500/10', num: 'text-emerald-600' },
 ]
 
 export default function Home() {
@@ -114,20 +114,18 @@ export default function Home() {
       </section>
 
       {/* ==================== 六大模块全景 ==================== */}
-      <section className="py-24 px-4 bg-[#1d1d1f] relative overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#0071e3]/[0.13] rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#00c7be]/[0.10] rounded-full blur-[140px] pointer-events-none" />
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="eyebrow mb-3 text-center !text-[#00c7be]">站点全景 · 一图看懂</div>
-          <h2 className="headline text-[30px] md:text-[40px] text-center mb-4 !text-white">
+      <section className="py-24 px-4 bg-[#f5f5f7] border-y border-black/[.05]">
+        <div className="max-w-6xl mx-auto">
+          <div className="eyebrow mb-3 text-center">站点全景 · 一图看懂</div>
+          <h2 className="headline text-[30px] md:text-[40px] text-center mb-4">
             六个模块，一条<span className="gradient-text">「拆」的进阶线</span>
           </h2>
-          <p className="text-center text-[#a1a1a6] text-[15px] mb-14 max-w-2xl mx-auto">
+          <p className="text-center text-[#6e6e73] text-[15px] mb-14 max-w-2xl mx-auto">
             从拆 2255 本书开始，到找到你的搭子、拆开真软件、长出技能、召唤专家——最后加入共建。
             每一站都有真实数字在跑，不摆概念。
           </p>
           <div className="relative">
-            <div className="hidden lg:block absolute top-[52px] left-[8%] right-[8%] h-px bg-gradient-to-r from-[#00c7be]/40 via-[#0071e3]/40 to-[#bf5af2]/40" />
+            <div className="hidden lg:block absolute top-[46px] left-[8%] right-[8%] h-[2px] rounded-full bg-gradient-to-r from-teal-400/50 via-sky-400/50 to-fuchsia-400/50" />
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-3">
               {modules.map((m, i) => (
                 <motion.div
@@ -137,15 +135,15 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.09 }}
                 >
-                  <a href={m.href} className="group block h-full rounded-2xl border border-white/10 bg-white/[0.04] p-5 hover:bg-white/[0.08] hover:border-white/25 hover:-translate-y-1 transition-all">
+                  <a href={m.href} className="group block h-full apple-card p-5 !shadow-sm">
                     <div className="flex lg:justify-center mb-4">
-                      <div className={`relative w-[52px] h-[52px] rounded-2xl bg-gradient-to-br ${m.glow} flex items-center justify-center text-2xl shadow-lg`}>
+                      <div className={`relative w-12 h-12 rounded-2xl ${m.tile} flex items-center justify-center text-2xl`}>
                         {m.emoji}
-                        <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-[#1d1d1f] border border-white/20 text-[9px] font-bold text-[#a1a1a6] flex items-center justify-center">{i + 1}</span>
+                        <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white border border-black/10 text-[9px] font-bold text-[#86868b] flex items-center justify-center shadow-sm">{i + 1}</span>
                       </div>
                     </div>
-                    <div className="text-[17px] font-black text-white mb-1 lg:text-center">{m.k}</div>
-                    <div className="text-[11.5px] leading-snug text-[#a1a1a6] mb-4 lg:text-center">{m.d}</div>
+                    <div className="text-[17px] font-black text-[#1d1d1f] mb-1 lg:text-center">{m.k}</div>
+                    <div className="text-[11.5px] leading-snug text-[#6e6e73] mb-4 lg:text-center">{m.d}</div>
                     <div className="lg:text-center">
                       <div className={`text-[22px] font-black leading-none ${m.num}`}>{m.stat}</div>
                       <div className="text-[10px] text-[#86868b] mt-1.5 tracking-wide">{m.statLabel}</div>
@@ -156,7 +154,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-10 text-center">
-            <a href="/coai" className="text-[13px] font-semibold text-[#00c7be] hover:text-white transition-colors">
+            <a href="/coai" className="text-[13px] font-semibold text-[#0071e3] hover:text-[#1d1d1f] transition-colors">
               六条合作线怎么选 → 看共拆AI 专页
             </a>
           </div>
