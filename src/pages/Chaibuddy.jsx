@@ -309,12 +309,12 @@ const projects = [
     name: 'chaiflow',
     tag: '开源方法论',
     status: '已开源 · MIT',
-    desc: 'AI 拆书工作流的开源公开版：项目全景、关键决策（D7–D19）、三篇复盘、两本 playbook——把「每见到一本书的拆页，就产出一个可用的教练 Skill」这条管线完整摊开给所有人复用。',
-    stats: ['决策档案 13 篇', '复盘 ×3', 'Playbook ×2'],
+    desc: '拆AI工作坊开源档案：项目全景、关键决策（D7–D19）、复盘与 playbook，外加「拆书成 Skill」范式同行仓快照参照系（external/ 收录 8 个开源技能库，含 ATTRIBUTION 归属声明）——把「每见到一本书的拆页，就产出一个可用的教练 Skill」这条管线完整摊开给所有人复用。',
+    stats: ['决策档案 13 篇', '复盘 ×3', 'Playbook ×2', 'external 同行仓 ×8'],
     links: [
       { label: 'GitHub 仓库', href: 'https://github.com/kenyanghui/chaiflow', primary: true },
     ],
-    updated: { date: '2026-11-03', text: '新增复盘：拆搭子名录找搭子 + chailive 模块化改版（SPA 逆向挖 API、确定性标签引擎、隐私打码红线）' },
+    updated: { date: '2026-11-04', text: '定位升级为「拆AI工作坊开源档案」：vendor 8 个「拆书成 Skill」同行仓快照至 external/（巴菲特信/穷查理/毛选/黄帝内经/第一性原理/段永平/book2skill/book2startup）' },
     accent: { text: 'text-emerald-400', border: 'border-emerald-500/30', bg: 'bg-emerald-500/10', glow: 'bg-emerald-500/10' },
   },
   {
@@ -329,6 +329,19 @@ const projects = [
     ],
     updated: { date: '2026-11-02', text: '推荐类文章三要素红线（veto:no_entry_point）：入口前置 + 真实实拍 + 数字核验' },
     accent: { text: 'text-sky-400', border: 'border-sky-500/30', bg: 'bg-sky-500/10', glow: 'bg-sky-500/10' },
+  },
+  {
+    id: 'workbuddy-web',
+    name: 'rsi-ima-workbuddy-wechat-web',
+    tag: '二期主仓 · 站点自动化',
+    status: '已开源 · v2.0.0',
+    desc: '第二期工作坊最重要的仓库：一期管「号」（公众号内容工厂），本仓管「站」——WorkBuddy 直接操作 chai 站（GitHub）的自动化工作流。v2 新增 site_check 线上体检（6 项只读检查，实跑 6/6 全绿）与每日 09:17 定时 Actions 巡检，同一套 RSI 自进化闭环从「号」扩展到「站」。',
+    stats: ['site_check 6/6 全绿', '每日定时巡检', 'v1 建站技能全保留'],
+    links: [
+      { label: 'GitHub 仓库', href: 'https://github.com/kenyanghui/rsi-ima-workbuddy-wechat-web', primary: true },
+    ],
+    updated: { date: '2026-11-04', text: 'v2.0.0 升级：改名（github-pages-workbuddy→本名，旧链接自动重定向）+ 站点体检 + 定时 Actions + 工作坊三文档（GOALS/CLOSED-LOOP/UPGRADE）' },
+    accent: { text: 'text-cyan-400', border: 'border-cyan-500/30', bg: 'bg-cyan-500/10', glow: 'bg-cyan-500/10' },
   },
   {
     id: 'hd-gallery',

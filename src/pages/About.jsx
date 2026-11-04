@@ -126,6 +126,7 @@ export default function About() {
                 src="/images/wecom-group-qr.png"
                 alt="拆AI 企业微信讨论群二维码"
                 className="w-44 h-44 rounded-xl border border-dark-border bg-white"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
               />
               <div className="text-center sm:text-left space-y-3">
                 <span className="inline-block px-4 py-2 rounded-lg bg-neon-blue/10 border border-neon-blue/20 text-base font-bold text-neon-blue">
