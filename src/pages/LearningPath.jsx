@@ -183,8 +183,8 @@ export default function LearningPath() {
 
                   {/* Pipeline */}
                   <div className="rounded-xl border border-violet-500/30 bg-violet-500/[.06] p-5 mb-6">
-                    <h3 className="text-sm font-bold text-[#1d1d1f] mb-4">AI 拆书管线</h3>
-                    <div className="grid sm:grid-cols-5 gap-3">
+                    <h3 className="text-sm font-bold text-[#1d1d1f] mb-4">用 RIA 拆 AI · 三步走</h3>
+                    <div className="grid sm:grid-cols-3 gap-3">
                       {ai.pipeline.map((step, j) => (
                         <div key={j} className="text-center">
                           <div className={`w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-r ${step.color} flex items-center justify-center`}>
@@ -244,7 +244,7 @@ export default function LearningPath() {
                       href="/tf-assess/#ai"
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass text-[#424245] text-sm font-medium hover:text-[#1d1d1f] transition-all border border-violet-500/20"
                     >
-                      在线自评 · AI 管线
+                      在线自评 · RIA 拆 AI
                     </a>
                   </div>
                 </div>
