@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>04 · 知识星球 · 私域知识变现工作流｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#12233f,#1f5eff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.goal b,.mins{color:var(--blue);font-weight:700}
+
+.box{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#27406b}
+.warnbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#5c4408}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;color:#3c4d68;font-weight:700}
+tr.chk td:first-child{width:30px;text-align:center}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;margin:12px 0}
+.step .head{display:flex;gap:10px;align-items:flex-start}
+.step .num{background:var(--green);color:#fff;font-weight:700;border-radius:50%;min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:2px}
+.step .do{font-weight:700;font-size:15px}
+.step ul{margin:8px 0 4px;padding-left:20px;color:var(--ink2);font-size:14px}
+.step li{margin:4px 0}
+.dev{margin:8px 0 0;border-radius:8px;overflow:hidden;border:1px dashed #b9c8e2}
+.dev .d{padding:7px 10px;font-size:13px}
+.dev .d b{color:var(--blue);margin-right:6px}
+.dev .d+.d{border-top:1px dashed #d5dfef}
+.check{background:var(--green-soft);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13.5px}
+.check b{color:var(--green)}
+.nofix{background:var(--warn-soft);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13.5px;color:#6b3417}
+.nofix b{color:var(--warn)}
+label.tick{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid #eef2f8;font-size:14px;color:var(--ink2);cursor:pointer}
+label.tick:last-child{border-bottom:0}
+label.tick input{margin-top:4px;flex:none;accent-color:var(--green);width:16px;height:16px}
+label.tick input:checked+span{color:var(--mute);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:9;background:#eef1f6ee;backdrop-filter:blur(4px);padding:8px 0 6px;font-size:13px;color:var(--ink2);border-bottom:1px solid #dfe6f0}
+.progress .bar{height:6px;background:#d7e0ee;border-radius:99px;overflow:hidden;margin-top:4px}
+.progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green));width:0;transition:width .3s}
+footer.g{background:#fff;border-radius:14px;padding:16px;margin:14px 0;text-align:center;color:var(--ink2);font-size:13.5px}
+footer.g .wx{display:inline-block;background:var(--green);color:#fff;font-weight:700;border-radius:8px;padding:6px 16px;margin:8px 0;letter-spacing:1px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
+.tip{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+@media print{
+ body{background:#fff;padding:0;font-size:12px}
+ .page{max-width:none;padding:0}
+ section.card,header.g,footer.g{box-shadow:none;border-radius:0;padding:10px 8px;border-bottom:1px solid #ddd}
+ .progress{display:none}
+ header.g{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .step,.check,.nofix,.box,.warnbox{break-inside:avoid}
+}
+</style></head>
+<body data-wk="wk4"><div class="page">
+<header class="g">
+<div class="no">小蛮腰·拆AI｜工作坊 04 · 自助跟做手册 <span class="badge">自助版</span></div>
+<h1>知识星球 · 私域知识变现工作流</h1>
+<div class="meta">预计总时长：2.5–4 小时（手机为主，可分 3 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
+<div class="outcomes"><b>跟做完，你能得到：</b><ul>
+<li>一条内容产线跑通：从素材到一篇精华内容完整走一遍</li>
+<li>精华沉淀区+新人引导包：新成员进来 3 分钟知道看什么</li>
+<li>续费提醒机制：到期前 30 天你比成员先知道</li>
+<li>30 天星球经营计划：更新节奏+变现实验</li>
+</ul></div></header>
+<div class="progress"><span class="pc">0/0</span> 步已完成（勾选会自动保存在这台设备上）<div class="bar"><i></i></div></div>
+<section class="card"><h2 class="sec"><span class="n">备</span>开始之前：设备与账号自查</h2>
+<p class="goal">本场以手机 App 为主线，电脑网页版（wx.zsxq.com）做备选。已有星球和还没建星球的两类同学都有对应路径。</p>
+<table><tr><th style="width:26%">你需要有</th><th style="width:30%">怎么确认已有</th><th>没有怎么办</th></tr>
+<tr><td><b>知识星球 App</b></td><td>应用商店搜「知识星球」能打开</td><td>没有：第 1 节带你装（手机号注册免费）</td></tr>
+<tr><td><b>（已建星球者）星球管理权限</b></td><td>你能进自己星球的「管理后台」</td><td>忘了密码：App 内找回；被移出管理组：找星主恢复</td></tr>
+<tr><td><b>（未建星球者）想清楚星球主题</b></td><td>一句话能说清「给谁、解决什么问题」</td><td>说不清：先跟练本手册，用「围观练手星球」走完全流程，想清主题再正式建</td></tr>
+<tr><td><b>微信账号（可收付款）</b></td><td>微信支付正常使用</td><td>变现实验环节需要；不想涉及收款可跳过定价实验</td></tr>
+</table>
+<div class="warnbox">知识星球创建免费，但部分功能（如自定义装修）需付费版；本手册步骤均为免费版可完成。建星球需要完成实名认证，提前备好身份证。</div>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">1</span>第 1 节 · 内容产线：产出一篇精华</h2>
+<p class="goal">本节目标：从素材到精华帖完整走一遍：选题→生产→精华区｜预计 <span class="mins">60 分钟</span></p>
+<div class="box"><b>动手前确认：</b>知识星球 App 已登录；能访问一个星球（自己的或练手的）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">（没有星球者）建一个练手星球
+<ul>
+<li>App「我的」→ 创建星球 → 选「免费星球」</li>
+<li>命名：你的主题+练手（如「产品拆解练手营」），简介一句话</li>
+<li>实名认证按提示完成（身份证正反面+人脸，约 3 分钟）</li>
+<li>权限先设「需审核加入」，避免练手期被陌生人看到</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>手机</b>全流程 App 内完成</div>
+<div class="d"><b>电脑</b>wx.zsxq.com 网页版也可建，但实名认证建议手机做（要拍照）</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>星球已建好，你能发帖</div>
+<div class="nofix"><b>没看到怎么办：</b>实名认证失败：光线充足重拍；身份证过期需换证件；认证卡住可先围观操作，48 小时后再试</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">选题：从你的素材库里挑一个
+<ul>
+<li>打开你的素材来源（ima 库/备忘录/聊天记录收藏都行）</li>
+<li>挑一条你最有把握的：最近回答过别人问题/写过笔记的主题</li>
+<li>选题公式：给谁+解决什么问题（如「给新经理：第一次绩效面谈怎么说」）</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>选题一句话写好，符合「给谁+解决什么」格式</div>
+<div class="nofix"><b>没看到怎么办：</b>想不出选题：翻你微信最近 10 条被别人问过的专业问题，取一个</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">生产：写出来（或说出来）
+<ul>
+<li>两种产法任选：</li>
+<li>打字党：直接在星球发帖框写，先写糙稿（200–500 字），别追求完美</li>
+<li>口述党：用输入法语音听写一口气说完，再回头改错字、分段</li>
+<li>结构三段：痛点场景→你的方法（1/2/3 步）→一句行动建议</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>一篇 ≥ 200 字的帖子已发出（发出后还能编辑，别憋）</div>
+<div class="nofix"><b>没看到怎么办：</b>写着写着卡住：先发出去，评论区置顶补充；精华的标准是「有用」不是「完美」</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">进精华：沉淀到精华区
+<ul>
+<li>找到自己这篇帖子 → 长按/点右上角「⋯」→ 设为精华</li>
+<li>（星主才有的权限；成员发的帖由你审核设精）</li>
+<li>给精华帖起个好找的标题前缀，如「[方法]绩效面谈三步」</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>精华区里出现你的第一篇精华</div>
+<div class="nofix"><b>没看到怎么办：</b>找不到设精华入口：确认你是星主/管理员；App 版本旧则更新</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-5"><span><span class="num">5</span></span></label><div style="flex:1"><div class="do">产线固化：把这套动作写成你的 SOP
+<ul>
+<li>在备忘录写三行 SOP：选题来源→生产方式（打字/口述）→精华动作</li>
+<li>标注每步用时（本次实测），下次照做</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>SOP 三行+实测用时已记</div>
+<div class="nofix"><b>没看到怎么办：</b>用时没记：凭回忆估，下次实测更新</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>创建星球入口找不到</td><td>App 版本旧/入口改版</td><td>「我的」页顶部或「+」号里找创建入口；实在没有更新 App</td></tr>
+<tr><td>实名认证一直不过</td><td>照片模糊/证件问题</td><td>白天自然光重拍；边角完整；还不过联系知识星球客服（App 内反馈）</td></tr>
+<tr><td>发帖没人看很挫败</td><td>冷启动常态</td><td>前 10 篇是给自己练产线的；30 天计划第 2 周再做推广实验</td></tr>
+<tr><td>精华功能找不到</td><td>权限/版本</td><td>长按帖子找菜单；确认你是星主</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">2</span>第 2 节 · 精华沉淀与新人引导包</h2>
+<p class="goal">本节目标：让新成员 3 分钟知道「这星球值不值」——精华置顶+新人三件套｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 1 节已有至少 1 篇精华。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">整理精华区：分类+置顶
+<ul>
+<li>把现有内容按主题分类（3 类以内：如 方法/案例/问答）</li>
+<li>标题统一加前缀「[方法][案例][问答]」</li>
+<li>挑 1 篇最能代表星球价值的设为置顶</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>精华区 ≤ 3 个分类、置顶 1 篇</div>
+<div class="nofix"><b>没看到怎么办：</b>内容还太少：先给现有几篇分好类，置顶最好的一篇即可</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">写新人引导三件套
+<ul>
+<li>发一篇「新人必读」帖（设精华+置顶区第二位）：</li>
+<li>① 你会得到什么（3 条，对应精华分类）② 怎么用这个星球（先看置顶→按分类找→提问模板）③ 规矩一条（如「提问带背景」）</li>
+<li>提问模板给现成格式：背景是__ / 卡在__ / 试过__</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>「新人必读」帖已发布并进置顶</div>
+<div class="nofix"><b>没看到怎么办：</b>不会写：抄这个结构填空，10 分钟搞定</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">进星球 3 分钟自测
+<ul>
+<li>退出再以新成员视角进星球（或让朋友进来看）</li>
+<li>计时 3 分钟能否回答：这里有什么/先看哪/怎么提问</li>
+<li>卡住的地方记下来，回去改新人必读</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>3 分钟三问全部能答（自测或朋友确认）</div>
+<div class="nofix"><b>没看到怎么办：</b>找不到人测：换个手机/浏览器用游客视角看星球主页</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>精华多了分类记不住</td><td>分类膨胀</td><td>坚持 ≤ 3 类，其他用标签</td></tr>
+<tr><td>新人还是不看好坏</td><td>置顶没抓住价值</td><td>置顶帖第一行就写「你会得到什么」，别放欢迎词</td></tr>
+<tr><td>置顶位不够</td><td>帖子多</td><td>只留 2 个置顶：新人必读+代表作，其他进分类</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">3</span>第 3 节 · 续费提醒与 30 天经营</h2>
+<p class="goal">本节目标：到期你比成员先知道：搭续费提醒；定 30 天经营节奏｜预计 <span class="mins">30 分钟</span></p>
+<div class="box"><b>动手前确认：</b>星球已有内容和新人引导（第 1–2 节）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">查看到期名单
+<ul>
+<li>管理后台找「成员管理」→ 筛选「即将到期」</li>
+<li>导出/截图：昵称+到期日（免费版能看列表）</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>手机</b>App 管理页成员列表按到期排序</div>
+<div class="d"><b>电脑</b>wx.zsxq.com 后台看得更全，建议电脑做这步</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>拿到一份即将到期成员名单（哪怕只有 1 人）</div>
+<div class="nofix"><b>没看到怎么办：</b>免费版导不了明细：截图+手动抄到期日，人少时够用</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">搭提醒：到期前 30 天触达
+<ul>
+<li>给每个到期成员建手机日历提醒：到期日前 30 天</li>
+<li>提醒动作写死：发一条私信/星内@，内容=他加入以来你记得的他+这 30 天将上什么新内容</li>
+<li>切忌群发模板感，一句 personalize 的话续费率翻倍</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>日历提醒已建（≥1 条），提醒里写了要发的内容要点</div>
+<div class="nofix"><b>没看到怎么办：</b>不好意思私信：先在星球内@对方，公开放大示范效应</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">定 30 天经营节奏表
+<ul>
+<li>在备忘录写下你的节奏（可改）：</li>
+<li>每周固定 2 更（哪两天、更什么分类）+ 每周 1 互动（问答/投票）+ 每月 1 个大件（专栏/直播/文档包）</li>
+<li>从下周一启动，先把 4 周的选题占上位（用你精华分类占）</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>节奏表一张+未来 4 周选题占位</div>
+<div class="nofix"><b>没看到怎么办：</b>不知道更什么：每周 2 更=1 方法+1 问答复盘，素材就是成员提问</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>成员才几个人做什么经营</td><td>冷启动期</td><td>人少恰好打磨内容：把 30 天当产线测试期，练节奏不练收入</td></tr>
+<tr><td>到期名单看不到</td><td>权限/版本</td><td>免费版看基础列表够用；确实没有就每月 1 号手动翻成员页记录</td></tr>
+<tr><td>续费提醒太功利怕尴尬</td><td>触达方式生硬</td><td>提醒内容=先给（新内容预告/帮他解决的问题）再提续费，顺序不能反</td></tr>
+</table>
+</section>
+<section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
+<p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。</p>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>知识星球 App 已登录（已有星球或已建练手星球）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>产出一篇 ≥200 字精华帖并已设精</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>内容产线 SOP 三行+实测用时已记</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>精华区 ≤3 分类+置顶代表作</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>「新人必读」帖已发并置顶</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>3 分钟新人自测通过</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>到期成员名单已盘点+日历提醒 ≥1 条</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-8"><span>30 天经营节奏表+4 周选题占位完成</span></label>
+</section>
+<section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
+<p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
+<table><tr><th style="width:16%">时间</th><th>做什么</th><th style="width:34%">怎么自查没掉队</th></tr>
+<tr><td><b>第 1 周</b></td><td>产线周：按节奏表更 2 篇（1 方法+1 问答），精华区 +2</td><td>本周 ≥2 更且精华区新增 2 篇</td></tr>
+<tr><td><b>第 2 周</b></td><td>引导周：新人必读迭代一版；拉 3 个目标用户进星球看数据（有没有人看完置顶）</td><td>3 人进星球，≥1 人看了新人必读</td></tr>
+<tr><td><b>第 3 周</b></td><td>变现实验周：做一次轻收费实验（付费问答/小专栏 9.9 元档），观察谁买</td><td>完成 1 次定价实验+记录结果（0 购买也是数据）</td></tr>
+<tr><td><b>第 4 周</b></td><td>复盘周：数据三问（更新了几篇/谁最活跃/离场原因）；定下月主题与节奏 v2</td><td>月复盘笔记 1 份+节奏表 v2</td></tr>
+</table></section>
+<footer class="g"><b>卡住怎么办（按顺序试）</b><br>1. 重读当前步骤的「检查点」和本节排障表——90% 的卡点都在里面；<br>2. 把你看到的界面截图保存下来，对照排障表找「症状」一栏；<br>3. 还不行：带上截图来微信群问，微信 <span class="wx">ikoning365</span>（点击不了就手动复制添加）。<br><p class="tip">小蛮腰·拆AI 工作坊系列 · 自助跟做手册 · 可打印（A4）</p></footer>
+</div><script>
+(function(){
+ var K='guide-'+document.body.dataset.wk;
+ var save=function(id,v){try{localStorage.setItem(K+'-'+id,v?'1':'0')}catch(e){}};
+ var load=function(id){try{return localStorage.getItem(K+'-'+id)==='1'}catch(e){return false}};
+ var all=document.querySelectorAll('input.gtick');
+ var bar=document.querySelector('.progress .bar i');
+ var txt=document.querySelector('.progress .pc');
+ function refresh(){var n=0;all.forEach(function(c){if(c.checked)n++});
+  if(bar)bar.style.width=(all.length?Math.round(n/all.length*100):0)+'%';
+  if(txt)txt.textContent=n+'/'+all.length;}
+ all.forEach(function(c){
+  c.checked=load(c.dataset.id);
+  c.addEventListener('change',function(){save(this.dataset.id,this.checked);refresh()});
+ });
+ refresh();
+})();
+</script></body></html>

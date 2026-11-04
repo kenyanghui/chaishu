@@ -215,6 +215,7 @@ export default function Workshops() {
               {s === 'done' ? (
                 <>
                   {w.link && <a href={w.link} className="btn-primary">材料回看 · 课件与学员材料 →</a>}
+                  {w.guide && <a href={w.guide} className="btn-secondary">自助跟做手册 · 零基础也能一步步做出成果 →</a>}
                   <button type="button" onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }} className="btn-secondary" title="点击复制微信号">想听下一场：微信 ikoning365 📋</button>
                 </>
               ) : s === 'live' ? (
@@ -267,9 +268,10 @@ export default function Workshops() {
                         <span key={o} className="px-2.5 py-1 rounded-lg bg-[#0071e3]/[.06] text-[#424245] text-[12.5px]">{o}</span>
                       ))}
                     </div>
-                    {w.link && (
-                      <div className="mt-3">
-                        <a href={w.link} className="text-[13px] font-semibold text-[#0071e3] hover:underline">看本场完整介绍 →</a>
+                    {(w.link || w.guide) && (
+                      <div className="mt-3 flex flex-wrap items-center gap-4">
+                        {w.link && <a href={w.link} className="text-[13px] font-semibold text-[#0071e3] hover:underline">看本场完整介绍 →</a>}
+                        {w.guide && <a href={w.guide} className="text-[13px] font-semibold text-[#0071e3] hover:underline">自助跟做手册 →</a>}
                       </div>
                     )}
                   </div>
@@ -308,9 +310,10 @@ export default function Workshops() {
                         <span key={o} className="px-2.5 py-1 rounded-lg bg-[#0071e3]/[.06] text-[#424245] text-[12.5px]">{o}</span>
                       ))}
                     </div>
-                    {w.link && (
-                      <div className="mt-1">
-                        <a href={w.link} className="text-[13px] font-semibold text-[#0071e3] hover:underline">材料回看 · 课件与学员材料 →</a>
+                    {(w.link || w.guide) && (
+                      <div className="mt-1 flex flex-wrap items-center gap-4">
+                        {w.link && <a href={w.link} className="text-[13px] font-semibold text-[#0071e3] hover:underline">材料回看 · 课件与学员材料 →</a>}
+                        {w.guide && <a href={w.guide} className="text-[13px] font-semibold text-[#0071e3] hover:underline">自助跟做手册 →</a>}
                       </div>
                     )}
                   </div>

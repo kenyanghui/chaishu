@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>03 · 企查查 · 读懂你的客户｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#12233f,#1f5eff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.goal b,.mins{color:var(--blue);font-weight:700}
+
+.box{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#27406b}
+.warnbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#5c4408}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;color:#3c4d68;font-weight:700}
+tr.chk td:first-child{width:30px;text-align:center}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;margin:12px 0}
+.step .head{display:flex;gap:10px;align-items:flex-start}
+.step .num{background:var(--green);color:#fff;font-weight:700;border-radius:50%;min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:2px}
+.step .do{font-weight:700;font-size:15px}
+.step ul{margin:8px 0 4px;padding-left:20px;color:var(--ink2);font-size:14px}
+.step li{margin:4px 0}
+.dev{margin:8px 0 0;border-radius:8px;overflow:hidden;border:1px dashed #b9c8e2}
+.dev .d{padding:7px 10px;font-size:13px}
+.dev .d b{color:var(--blue);margin-right:6px}
+.dev .d+.d{border-top:1px dashed #d5dfef}
+.check{background:var(--green-soft);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13.5px}
+.check b{color:var(--green)}
+.nofix{background:var(--warn-soft);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13.5px;color:#6b3417}
+.nofix b{color:var(--warn)}
+label.tick{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid #eef2f8;font-size:14px;color:var(--ink2);cursor:pointer}
+label.tick:last-child{border-bottom:0}
+label.tick input{margin-top:4px;flex:none;accent-color:var(--green);width:16px;height:16px}
+label.tick input:checked+span{color:var(--mute);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:9;background:#eef1f6ee;backdrop-filter:blur(4px);padding:8px 0 6px;font-size:13px;color:var(--ink2);border-bottom:1px solid #dfe6f0}
+.progress .bar{height:6px;background:#d7e0ee;border-radius:99px;overflow:hidden;margin-top:4px}
+.progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green));width:0;transition:width .3s}
+footer.g{background:#fff;border-radius:14px;padding:16px;margin:14px 0;text-align:center;color:var(--ink2);font-size:13.5px}
+footer.g .wx{display:inline-block;background:var(--green);color:#fff;font-weight:700;border-radius:8px;padding:6px 16px;margin:8px 0;letter-spacing:1px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
+.tip{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+@media print{
+ body{background:#fff;padding:0;font-size:12px}
+ .page{max-width:none;padding:0}
+ section.card,header.g,footer.g{box-shadow:none;border-radius:0;padding:10px 8px;border-bottom:1px solid #ddd}
+ .progress{display:none}
+ header.g{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .step,.check,.nofix,.box,.warnbox{break-inside:avoid}
+}
+</style></head>
+<body data-wk="wk3"><div class="page">
+<header class="g">
+<div class="no">小蛮腰·拆AI｜工作坊 03 · 自助跟做手册 <span class="badge">自助版</span></div>
+<h1>企查查 · 读懂你的客户</h1>
+<div class="meta">预计总时长：2–3 小时（全程手机可完成，可分 3 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
+<div class="outcomes"><b>跟做完，你能得到：</b><ul>
+<li>给 1 个真实客户建一份企业档案（基本信息+股权+风险一眼清）</li>
+<li>一条风险速查工作流：股权/司法/经营风险一条龙查完</li>
+<li>一份客户情报档案模板（以后每个客户 10 分钟复用）</li>
+<li>30 天计划：把「查客户」变成签单前的标准动作</li>
+</ul></div></header>
+<div class="progress"><span class="pc">0/0</span> 步已完成（勾选会自动保存在这台设备上）<div class="bar"><i></i></div></div>
+<section class="card"><h2 class="sec"><span class="n">备</span>开始之前：设备与账号自查</h2>
+<p class="goal">本场全程用手机最顺手（电脑网页版做备选）。所有步骤只用企查查免费版能做的功能。</p>
+<table><tr><th style="width:26%">你需要有</th><th style="width:30%">怎么确认已有</th><th>没有怎么办</th></tr>
+<tr><td><b>智能手机</b></td><td>能装 App、能拍照</td><td>电脑网页版 www.qcc.com 也能完成大部分操作</td></tr>
+<tr><td><b>企查查 App</b></td><td>应用商店搜「企查查」能打开</td><td>没有：第 1 节第 1 步带你装（注册免费，手机号即可）</td></tr>
+<tr><td><b>一个你想了解的客户</b></td><td>任何一家公司的名字（你的客户/供应商/竞对/想跳槽的公司都行）</td><td>没想好：用「腾讯科技(深圳)有限公司」练手，跑通后换真客户</td></tr>
+<tr><td><b>手机备忘录或笔记 App</b></td><td>手机自带的就行</td><td>用来存你的客户档案，第 3 节会给模板</td></tr>
+</table>
+<div class="warnbox">企查查免费版每天有查询次数限制，部分深度功能是会员专属——本手册所有步骤都限定免费可完成；遇到会员功能会明确标注「会员功能」并给免费替代方案或标注可跳过。</div>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">1</span>第 1 节 · 建档：给客户建一份企业档案</h2>
+<p class="goal">本节目标：搜到目标公司，把 6 项基本盘信息存进你的档案｜预计 <span class="mins">30 分钟</span></p>
+<div class="box"><b>动手前确认：</b>企查查 App 已装好并注册登录（手机号+验证码即可）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">装 App 并登录
+<ul>
+<li>应用商店搜「企查查」→ 安装 → 打开</li>
+<li>手机号注册 + 验证码登录（免费）</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>App Store 搜企查查，认准蓝色盾牌图标</div>
+<div class="d"><b>安卓</b>各应用商店均有；装完注意同意权限时「拒绝」电话权限也不影响使用</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>App 首页有搜索框，右下角「我的」里显示你的手机号</div>
+<div class="nofix"><b>没看到怎么办：</b>验证码收不到：等 60 秒重点一次；还不行检查手机号是否输错</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">搜到你的客户公司
+<ul>
+<li>首页搜索框输入公司名（哪怕只记得一部分也行）</li>
+<li>在结果列表里找到正确的一家：对照城市+行业确认</li>
+<li>点进公司详情页</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>详情页顶部显示公司全称，与你了解的情况（城市/行业）对得上</div>
+<div class="nofix"><b>没看到怎么办：</b>搜出一堆重名公司：加上城市名一起搜，如「XX科技 广州」；搜不到：公司名可能记错了，用老板名字搜或在工商信息网站核实全称</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">抄下 6 项基本盘进档案
+<ul>
+<li>在手机备忘录新建笔记，命名「客户档案-公司简称-日期」</li>
+<li>从详情页抄下 6 项：①成立年限 ②注册资本 ③法定代表人 ④注册地址 ⑤经营范围（抄前 50 字）⑥参保人数</li>
+<li>参保人数是判断公司真实规模的免费利器，重点看</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>档案笔记里 6 项齐全，每项都有数字或文字</div>
+<div class="nofix"><b>没看到怎么办：</b>某项显示「VIP可见」：标会员功能，跳过不抄，用国家企业信用信息公示系统（www.gsxt.gov.cn，免费官网）查同一项替代</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">存一张「公司画像」截图
+<ul>
+<li>把公司详情页首页截一张图存进相册</li>
+<li>这就是档案的封面，也是你的完成凭证</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>相册里有这张截图</div>
+<div class="nofix"><b>没看到怎么办：</b>截图方法：iPhone 电源键+音量上键；安卓 电源键+音量下键（部分机型三指下滑）</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>搜不到公司</td><td>名字记错/重名多</td><td>加城市关键词；用老板名字反查；去 gsxt.gov.cn 官网核实全称</td></tr>
+<tr><td>提示今日查询次数用完</td><td>免费版每日限额</td><td>第二天再做剩余步骤（本手册已按限额节奏分节）；或换电脑网页版 www.qcc.com 领取网页版额外次数</td></tr>
+<tr><td>信息显示 VIP 不可见</td><td>会员功能</td><td>用免费替代：gsxt.gov.cn（工商公示官网）查注册资本/股东/行政处罚，全部免费</td></tr>
+<tr><td>App 版本旧没有某功能</td><td>长期没更新</td><td>应用商店更新 App 到最新版</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">2</span>第 2 节 · 风险速查：一条龙查完三张风险脸</h2>
+<p class="goal">本节目标：股权/司法/经营三类风险各查一遍，给客户打一个风险分｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 1 节档案已建，公司详情页能打开。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">查股权风险：谁控股、股权冻没冻
+<ul>
+<li>公司详情页找「股东信息」（或股权结构）</li>
+<li>记录：第一大股东是谁、持股比例多少</li>
+<li>看「股权冻结」「股权出质」有没有记录（有=红灯）</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>档案里记下：控股股东名+比例+股权冻结/出质有无</div>
+<div class="nofix"><b>没看到怎么办：</b>股东信息看不全（会员）：只记录能看的；穿透一层看大股东的公司有没有风险即可</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">查司法风险：官司多不多、是不是被告
+<ul>
+<li>详情页找「司法风险」或「法律诉讼」</li>
+<li>重点看三个数：诉讼总数、被告次数、最近一次诉讼时间</li>
+<li>点开 1–2 条看案由：买卖合同纠纷（常见）vs 集资诈骗（红灯）性质完全不同</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>档案里记下：诉讼总数 / 被告数 / 最近诉讼时间 / 一句话判断（如：正常商事纠纷，风险低）</div>
+<div class="nofix"><b>没看到怎么办：</b>诉讼详情看不了（会员）：免费看列表和数量就够判断；数量特别多（比如上百条）本身就是信号</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">查经营风险：处罚、失信、被执行
+<ul>
+<li>详情页找「经营风险」「行政处罚」「失信被执行」</li>
+<li>三个红灯逐一看：行政处罚有无 / 是否失信被执行人（老赖名单）/ 被执行金额</li>
+<li>任何一个亮灯都在档案里标 🔴 并写一句影响判断</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>三项红灯逐项记录：无/有+一句话影响</div>
+<div class="nofix"><b>没看到怎么办：</b>「经营异常」记录：看原因，多是地址失联或没按时报年报，补录后移出则影响小</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">综合打分：给客户一个风险结论
+<ul>
+<li>在档案末尾写三行：</li>
+<li>风险分：低/中/高（三盏灯全绿=低；一盏黄=中；任一红=高）</li>
+<li>一句话依据：如「成立 8 年、参保 45 人、无诉讼无处罚，经营稳定」</li>
+<li>我的动作：放心合作 / 补一份担保再合作 / 暂缓</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>档案有风险分+依据+你的动作建议三行</div>
+<div class="nofix"><b>没看到怎么办：</b>拿不准：按最保守的写「暂缓，再查一轮」，30 天计划里会复查</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>风险板块全是 VIP</td><td>免费额度耗尽/深度内容会员专属</td><td>gsxt.gov.cn 免费查：行政处罚/失信/被执行人三大红灯官网全公开；企查查看数量，官网看详情，配合用</td></tr>
+<tr><td>诉讼几百条看不完</td><td>大公司诉讼多是常态</td><td>只统计「被告」次数和最近 3 个月的；原告多=维权方，被告多=被诉方，性质不同</td></tr>
+<tr><td>查到公司已注销</td><td>搜到的是历史主体</td><td>档案标注「已注销，非合作对象」；搜索时注意看「存续/在业」状态标签</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">3</span>第 3 节 · 情报档案：从一次查询到可复用模板</h2>
+<p class="goal">本节目标：把这次的档案固化成模板，以后每个新客户 10 分钟出一份｜预计 <span class="mins">30 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 2 节风险分已打出。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">把档案整理成标准模板
+<ul>
+<li>把你的档案笔记改成标准五段式：</li>
+<li>① 基本盘（6 项）② 股权脸 ③ 司法脸 ④ 经营脸 ⑤ 结论三行（风险分/依据/动作）</li>
+<li>删掉这次查询的个性化碎碎念，留下空槽位（如「控股股东：____」）</li>
+<li>命名「客户情报模板 v1」另存一份</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>模板笔记五段式齐全，空槽位清晰</div>
+<div class="nofix"><b>没看到怎么办：</b>不会做模板：直接复制这次档案，把内容改成下划线空位就是模板</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">定你的「三必查」触发规则
+<ul>
+<li>在模板顶部写三行触发规则（什么时候必须查）：</li>
+<li>① 新客户签约前必查 ② 单笔金额超过 __ 元必查 ③ 合作伙伴突然换法人/换地址必查</li>
+<li> thresholds 自己填，写你能承受的数</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>模板顶部有三必查规则，金额阈值已填</div>
+<div class="nofix"><b>没看到怎么办：</b>不知道填多少：按你单笔生意平均金额的 3 倍填，以后再调</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">（可选）复查机制：给现有客户排期
+<ul>
+<li>把你在跟的客户列个清单（3–5 个）</li>
+<li>给每个客户定一个复查日期（建议每季度一次）</li>
+<li>手机日历建提醒：「企查查复查-客户名」</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>日历里至少 1 条复查提醒</div>
+<div class="nofix"><b>没看到怎么办：</b>客户少：先给自己关注的竞对公司建复查，练手</div>
+</div>
+<h3>本节排障表（2 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>模板用了几次又乱了</td><td>格式漂移</td><td>每次复制模板新建，不在旧档案上改</td></tr>
+<tr><td>复查坚持不了</td><td>没有提醒闭环</td><td>只靠日历提醒，不靠记忆；先坚持 30 天计划的第一轮</td></tr>
+</table>
+</section>
+<section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
+<p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。</p>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>企查查 App 已登录，搜索功能正常</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>1 个真实客户的公司详情页已打开过</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>客户档案笔记已建：6 项基本盘齐全</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>股权/司法/经营三张风险脸逐项查完并记录</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>风险分三行结论：分数+依据+动作建议</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>客户情报模板 v1 已另存（五段式+三必查）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>（可选）日历里建了复查提醒</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-8"><span>公司画像截图存在相册</span></label>
+</section>
+<section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
+<p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
+<table><tr><th style="width:16%">时间</th><th>做什么</th><th style="width:34%">怎么自查没掉队</th></tr>
+<tr><td><b>第 1 周</b></td><td>建档周：完成第 1–2 节，给 1 个真客户出完整档案</td><td>1 份五段式档案+风险分完成</td></tr>
+<tr><td><b>第 2 周</b></td><td>模板周：完成模板 v1，再给 1 个新客户用模板建档（计时，目标 15 分钟内）</td><td>第 2 份档案用时 ≤ 15 分钟</td></tr>
+<tr><td><b>第 3 周</b></td><td>三必查周：把「三必查」规则用到一次真实决策上（签约/付款前）</td><td>至少 1 次真实决策前查了风险</td></tr>
+<tr><td><b>第 4 周</b></td><td>复查周：执行第一次季度复查（哪怕只查风险三红灯有没有新增）</td><td>1 个客户完成复查并更新档案日期</td></tr>
+</table></section>
+<footer class="g"><b>卡住怎么办（按顺序试）</b><br>1. 重读当前步骤的「检查点」和本节排障表——90% 的卡点都在里面；<br>2. 把你看到的界面截图保存下来，对照排障表找「症状」一栏；<br>3. 还不行：带上截图来微信群问，微信 <span class="wx">ikoning365</span>（点击不了就手动复制添加）。<br><p class="tip">小蛮腰·拆AI 工作坊系列 · 自助跟做手册 · 可打印（A4）</p></footer>
+</div><script>
+(function(){
+ var K='guide-'+document.body.dataset.wk;
+ var save=function(id,v){try{localStorage.setItem(K+'-'+id,v?'1':'0')}catch(e){}};
+ var load=function(id){try{return localStorage.getItem(K+'-'+id)==='1'}catch(e){return false}};
+ var all=document.querySelectorAll('input.gtick');
+ var bar=document.querySelector('.progress .bar i');
+ var txt=document.querySelector('.progress .pc');
+ function refresh(){var n=0;all.forEach(function(c){if(c.checked)n++});
+  if(bar)bar.style.width=(all.length?Math.round(n/all.length*100):0)+'%';
+  if(txt)txt.textContent=n+'/'+all.length;}
+ all.forEach(function(c){
+  c.checked=load(c.dataset.id);
+  c.addEventListener('change',function(){save(this.dataset.id,this.checked);refresh()});
+ });
+ refresh();
+})();
+</script></body></html>

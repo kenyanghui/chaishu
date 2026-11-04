@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>02 · 拆本站：fork chaiAI，15 分钟拥有你的同款网站｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#12233f,#1f5eff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.goal b,.mins{color:var(--blue);font-weight:700}
+
+.box{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#27406b}
+.warnbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#5c4408}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;color:#3c4d68;font-weight:700}
+tr.chk td:first-child{width:30px;text-align:center}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;margin:12px 0}
+.step .head{display:flex;gap:10px;align-items:flex-start}
+.step .num{background:var(--green);color:#fff;font-weight:700;border-radius:50%;min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:2px}
+.step .do{font-weight:700;font-size:15px}
+.step ul{margin:8px 0 4px;padding-left:20px;color:var(--ink2);font-size:14px}
+.step li{margin:4px 0}
+.dev{margin:8px 0 0;border-radius:8px;overflow:hidden;border:1px dashed #b9c8e2}
+.dev .d{padding:7px 10px;font-size:13px}
+.dev .d b{color:var(--blue);margin-right:6px}
+.dev .d+.d{border-top:1px dashed #d5dfef}
+.check{background:var(--green-soft);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13.5px}
+.check b{color:var(--green)}
+.nofix{background:var(--warn-soft);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13.5px;color:#6b3417}
+.nofix b{color:var(--warn)}
+label.tick{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid #eef2f8;font-size:14px;color:var(--ink2);cursor:pointer}
+label.tick:last-child{border-bottom:0}
+label.tick input{margin-top:4px;flex:none;accent-color:var(--green);width:16px;height:16px}
+label.tick input:checked+span{color:var(--mute);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:9;background:#eef1f6ee;backdrop-filter:blur(4px);padding:8px 0 6px;font-size:13px;color:var(--ink2);border-bottom:1px solid #dfe6f0}
+.progress .bar{height:6px;background:#d7e0ee;border-radius:99px;overflow:hidden;margin-top:4px}
+.progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green));width:0;transition:width .3s}
+footer.g{background:#fff;border-radius:14px;padding:16px;margin:14px 0;text-align:center;color:var(--ink2);font-size:13.5px}
+footer.g .wx{display:inline-block;background:var(--green);color:#fff;font-weight:700;border-radius:8px;padding:6px 16px;margin:8px 0;letter-spacing:1px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
+.tip{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+@media print{
+ body{background:#fff;padding:0;font-size:12px}
+ .page{max-width:none;padding:0}
+ section.card,header.g,footer.g{box-shadow:none;border-radius:0;padding:10px 8px;border-bottom:1px solid #ddd}
+ .progress{display:none}
+ header.g{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .step,.check,.nofix,.box,.warnbox{break-inside:avoid}
+}
+</style></head>
+<body data-wk="wk2"><div class="page">
+<header class="g">
+<div class="no">小蛮腰·拆AI｜工作坊 02 · 自助跟做手册 <span class="badge">自助版</span></div>
+<h1>拆本站：fork chaiAI，15 分钟拥有你的同款网站</h1>
+<div class="meta">预计总时长：2.5–4 小时（可分 4 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
+<div class="outcomes"><b>跟做完，你能得到：</b><ul>
+<li>你的同款讲师站：网址是 https://你的用户名.github.io/chaiAI，别人能直接访问</li>
+<li>网站换成你的名字、你的介绍、你的联系方式</li>
+<li>（进阶选学）WorkBuddy 自动产线：素材 → 你的网站 + 公众号草稿箱</li>
+<li>30 天库/站/号飞轮计划，照着走不迷路</li>
+</ul></div></header>
+<div class="progress"><span class="pc">0/0</span> 步已完成（勾选会自动保存在这台设备上）<div class="bar"><i></i></div></div>
+<section class="card"><h2 class="sec"><span class="n">备</span>开始之前：设备与账号自查</h2>
+<p class="goal">先自查，缺什么补什么，全部就绪再开始第 1 节。全程只需要一部手机或一台电脑 + 浏览器。</p>
+<table><tr><th style="width:26%">你需要有</th><th style="width:30%">怎么确认已有</th><th>没有怎么办</th></tr>
+<tr><td><b>一个能收验证码的手机号或邮箱</b></td><td>注册 GitHub 时要收验证码</td><td>用手机浏览器同样能完成全部流程，不另花钱</td></tr>
+<tr><td><b>GitHub 账号（第 1 节现场注册也行）</b></td><td>能登录 github.com 就是有了</td><td>没有：第 1 节第 1 步带你注册，2 分钟</td></tr>
+<tr><td><b>（可选）ima 账号</b></td><td>手机装了 ima App 并登录</td><td>没有：跳过第 4 节 ima 相关步骤，不影响网站上线</td></tr>
+<tr><td><b>（进阶第 4 节）WorkBuddy 账号</b></td><td>浏览器能打开 www.workbuddy.cn 并登录</td><td>没有：第 4 节为选学，直接跳到 30 天计划也完整</td></tr>
+<tr><td><b>（进阶第 4 节）自己的微信公众号</b></td><td>公众号后台能登录</td><td>没有：第 4 节跳过「出口 B」，只做网站出口</td></tr>
+</table>
+<div class="warnbox">纯手机也能做完第 1–3 节：GitHub 网页手机版全功能可用，但屏幕小容易点错，建议横屏、耐心逐字对照。第 4 节建议电脑。</div>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">1</span>第 0 节 · 20 分钟补底盘</h2>
+<p class="goal">本节目标：把 GitHub 账号准备好，认识我们要拆的站｜预计 <span class="mins">20 分钟</span></p>
+<div class="box"><b>动手前确认：</b>手机或电脑浏览器能正常上网，能收到短信或邮件验证码。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">注册 GitHub 账号（已有就登录，跳到第 2 步）
+<ul>
+<li>浏览器打开 github.com，点右上角 Sign up</li>
+<li>邮箱建议用 QQ 邮箱/163 邮箱即可；密码记在手机备忘录里</li>
+<li>收验证码（邮箱收不到就换手机号验证），按提示完成</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>手机</b>建议横屏操作；页面底部可切「Desktop version」找按钮</div>
+<div class="d"><b>电脑</b>直接按提示点即可</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>右上角出现你的用户名头像，就是登录成功了</div>
+<div class="nofix"><b>没看到怎么办：</b>收不到验证邮件：检查垃圾箱；还不行换手机号验证注册。用户名提示被占用：换一个，用户名会出现在你的网站网址里，选个好记的</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">看一眼你要拆的站和源仓
+<ul>
+<li>讲师站：chai.aibay.asia —— 你等下就拥有同款</li>
+<li>源仓库：github.com/kenyanghui/chaiAI —— 点进去随便逛逛，能看到一堆文件夹和文件就是它</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>两个网址都能打开；源仓页面右上角能看到 Star 和 Fork 按钮</div>
+<div class="nofix"><b>没看到怎么办：</b>Fork 按钮没看到 = 没登录，回第 1 步</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>注册页面转圈打不开</td><td>网络波动</td><td>刷新重试；手机切 4G/5G 再试</td></tr>
+<tr><td>验证码一直收不到</td><td>邮箱拦截或输错邮箱</td><td>换手机号验证；或注册 QQ 邮箱重来</td></tr>
+<tr><td>用户名不知道填什么</td><td>用户名 = 网站网址的一部分</td><td>选英文、好记、和你的名字/品牌相关，如 zhangsan-dev</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">2</span>第 1 节 · GitHub 安家：fork 讲师站</h2>
+<p class="goal">本节目标：把讲师站的完整源码复制一份到你的 GitHub 账号下｜预计 <span class="mins">15 分钟</span></p>
+<div class="box"><b>动手前确认：</b>已登录 GitHub（第 0 节）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">打开讲师源仓并点 Fork
+<ul>
+<li>浏览器打开：github.com/kenyanghui/chaiAI</li>
+<li>点右上角灰色 Fork 按钮 → 进入 fork 页面</li>
+<li>什么都不用改，直接点绿色 Create fork 按钮</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>页面跳转到 你的用户名/chaiAI 仓库，顶部写着 forked from kenyanghui/chaiAI，文件列表和讲师站一模一样</div>
+<div class="nofix"><b>没看到怎么办：</b>没有 Fork 按钮：你没登录；点了没反应：刷新重试；提示错误：等 2 分钟再点（GitHub 偶发抽风）</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">确认你的仓库名
+<ul>
+<li>你的仓库地址应该是 github.com/你的用户名/chaiAI</li>
+<li>把这一行网址复制存到手机备忘录，后面要用</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>地址栏里是你的用户名 + /chaiAI</div>
+<div class="nofix"><b>没看到怎么办：</b>仓库名不是 chaiAI（fork 时手滑改了）：Settings → General → Repository name 改回 chaiAI</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>Fork 后仓库是空的</td><td>fork 没完成就关了页面</td><td>回讲师仓重点一次 Fork，等页面完整跳转</td></tr>
+<tr><td>仓库里没有 src 文件夹</td><td>fork 错了仓库</td><td>确认地址是 kenyanghui/chaiAI，不是别的仓</td></tr>
+<tr><td>手机上 Fork 按钮找不到</td><td>手机版页面折叠了</td><td>页面拉到 Code 标签上方按钮区，或切桌面版网站</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">3</span>第 2 节 · 让你的网站上线</h2>
+<p class="goal">本节目标：开通 GitHub Pages，拿到 https://你的用户名.github.io/chaiAI 这个网址｜预计 <span class="mins">20 分钟（含等待）</span></p>
+<div class="box"><b>动手前确认：</b>第 1 节完成，你的 /chaiAI 仓库能打开。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">启用 fork 仓库的 Actions（自动构建开关）
+<ul>
+<li>在你的 chaiAI 仓库页面上方点 Actions 标签</li>
+<li>页面会显示黄色提示条 I understand my workflows, go ahead and enable them —— 点它</li>
+<li>等页面出现 deploy / Pages 相关工作流名称即可，暂时不用管它们</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>Actions 页不再显示黄色提示条，左边栏能看到工作流列表</div>
+<div class="nofix"><b>没看到怎么办：</b>没有黄色提示条：可能已默认启用，直接下一步</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">把 Pages 的构建方式设为 GitHub Actions
+<ul>
+<li>仓库页面上方点 Settings（设置）</li>
+<li>左侧菜单找到 Pages（页面）</li>
+<li>Build and deployment 下面的 Source 下拉框，选 GitHub Actions（不是 Deploy from a branch）</li>
+<li>不用填别的，离开页面即自动保存</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>Source 显示 GitHub Actions；下方不再让你选分支</div>
+<div class="nofix"><b>没看到怎么办：</b>左侧找不到 Pages：Settings 菜单在小屏幕上要展开 Code and automation 分组才看得到</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">触发第一次构建：随便改一个字提交
+<ul>
+<li>回仓库主页点 README.md 文件 → 右上角铅笔图标进入编辑</li>
+<li>在正文最后敲一个空格再删掉（内容可以不变），点右上角 Commit changes → 绿色按钮确认</li>
+<li>点 Actions 标签，能看到一条新的工作流在跑（黄点转圈）</li>
+<li>等 1–5 分钟，黄点变绿勾</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>Actions 里最新一条记录前面是绿色对勾</div>
+<div class="nofix"><b>没看到怎么办：</b>红叉：点进那条记录看日志第一段红字，通常是网络抽风，等 2 分钟回 README 再提交一次空改动重跑</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">打开你的网站
+<ul>
+<li>浏览器新开标签页，输入：https://你的用户名.github.io/chaiAI</li>
+<li>注意用户名全小写、斜杠别漏；首次访问要等 1–10 分钟</li>
+<li>看到和小蛮腰·拆AI 一样的首页 = 成功</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>浏览器显示讲师站同款页面，地址是你的用户名.github.io/chaiAI</div>
+<div class="nofix"><b>没看到怎么办：</b>404：等 10 分钟再强刷（电脑 Ctrl+Shift+R / 手机清缓存重开）；还 404 回查第 2 步 Source 是否选了 GitHub Actions、第 3 步是否绿勾</div>
+</div>
+<h3>本节排障表（5 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>网站 404</td><td>构建没完成 / Pages 方式选错 / 网址打错</td><td>按第 4 步的排查顺序走一遍；网址严格小写</td></tr>
+<tr><td>Actions 一直黄点不结束</td><td>首次构建偶发排队</td><td>等 10 分钟；取消重跑：点进工作流 → Cancel → 重新提交空改动</td></tr>
+<tr><td>Actions 红叉</td><td>文件在 fork 后损坏（极少）</td><td>点进日志看第一行红字截图；回 README 提交空改动重试两次；仍红叉带截图进微信群问</td></tr>
+<tr><td>改了内容网站没变化</td><td>浏览器缓存 / 构建还在跑</td><td>电脑 Ctrl+Shift+R 强刷；手机换浏览器试；Actions 绿勾后再看</td></tr>
+<tr><td>网址打不开但 Actions 绿勾</td><td>Pages 未生效</td><td>回 Settings → Pages 看是否显示 Your site is published；没有则重做第 2 步</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">4</span>第 3 节 · 换装：把站变成你的</h2>
+<p class="goal">本节目标：改 3 个文件，把站名、品牌、自我介绍换成你的——不需要装任何软件｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>你的网站已能打开（第 2 节）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">想好三段话（5 分钟，写在手机备忘录）
+<ul>
+<li>① 我是谁：一句话身份 + 1–2 个标签（如：拆书家 / 顾问 / 设计师）</li>
+<li>② 我做什么：作品、服务、案例，2–3 条，每条一句话</li>
+<li>③ 怎么找到我：微信 / 邮箱 / 公众号名</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>备忘录里三段话写完</div>
+<div class="nofix"><b>没看到怎么办：</b>写不出来：先抄讲师站的格式，回头再改——先跑通再完美</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">改浏览器标签页标题（index.html）
+<ul>
+<li>仓库主页点 index.html → 铅笔编辑 → Ctrl+F（手机浏览器菜单里找「查找」）搜「小蛮腰」</li>
+<li>把「小蛮腰·拆AI — 工作坊课程阵地 | 拆的是 AI，拆为己用」改成「你的名 — 一句话定位」</li>
+<li>Commit changes 提交</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>提交后等 2 分钟（Actions 绿勾），打开你的网站，浏览器标签页标题变成你的名字</div>
+<div class="nofix"><b>没看到怎么办：</b>标题没变：强刷；确认改的是你自己仓库（地址栏是你的用户名）不是讲师的</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">改站内品牌名（Navbar 和 Footer）
+<ul>
+<li>点进 src/components/Navbar.jsx → 铅笔 → 搜「小蛮腰·拆AI」→ 改成你的品牌名 → 提交</li>
+<li>同样改 src/components/Footer.jsx 里的「小蛮腰·拆AI」</li>
+<li>这两处分别是页面顶部导航和底部的名字</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>等构建完强刷网站，页面左上角和底部都显示你的品牌名</div>
+<div class="nofix"><b>没看到怎么办：</b>页面报错打不开：说明改坏了标点（把引号或分号删了）。回该文件编辑页，用History（历史）按钮找到你提交前的那版，一键恢复</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">改自我介绍页（About.jsx）
+<ul>
+<li>点进 src/pages/About.jsx → 铅笔编辑</li>
+<li>只改中文文案文字：把讲师的介绍替换成你第 1 步写的三段话；别动英文单词、尖括号 &lt; &gt; 和大括号 { } 里的结构</li>
+<li>改多少看精力：至少改掉「关于」页里最显眼的一段自我介绍和联系方式</li>
+<li>提交后等构建、强刷验证</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>网站「关于」页显示你的自我介绍和你的微信/公众号</div>
+<div class="nofix"><b>没看到怎么办：</b>改完页面白屏：动了代码结构。用文件 History 恢复上一版，重来一次，这次只改引号里面的中文</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s4-5"><span><span class="num">5</span></span></label><div style="flex:1"><div class="do">（可选）改工作坊数据
+<ul>
+<li>src/data/workshops.js 是六场工作坊的文案数据：日期、标题、简介</li>
+<li>想换成你自己活动信息再动；看不懂就先不动，不影响其他功能</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>改完网站「工作坊」页信息更新</div>
+<div class="nofix"><b>没看到怎么办：</b>页面乱了：同上用 History 恢复</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>提交后网站白屏/报错</td><td>改坏了代码结构（删了引号/括号）</td><td>进该文件 → History（历史）→ 找红色提交前版本 → 恢复；再改一次，只动中文文案</td></tr>
+<tr><td>搜「小蛮腰」搜不到</td><td>标点全半角不同</td><td>改搜「拆AI」或直接肉眼找到那行</td></tr>
+<tr><td>手机编辑框太小看不清</td><td>屏幕限制</td><td>耐心横屏；或借电脑做第 3 节，10 分钟搞定</td></tr>
+<tr><td>Commit 按钮灰色点不了</td><td>没写提交说明或网络未加载完</td><td>Commit message 随便填几个字；等页面加载完再点</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">5</span>第 4 节 · （进阶选学）WorkBuddy 自动产线</h2>
+<p class="goal">本节目标：装上 rsi 技能，让 WorkBuddy 替你改站、发文章：素材 → 你的网站 + 公众号草稿箱｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>电脑 + 已登录 www.workbuddy.cn + 已登录 GitHub + （可选）ima 已装、公众号后台能进。手机用户建议跳过本节，直接去 30 天计划。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">装 rsi 技能（60 秒）
+<ul>
+<li>浏览器打开：github.com/kenyanghui/rsi-ima-workbuddy-wechat-web</li>
+<li>绿色 Code 按钮 → Download ZIP → 解压</li>
+<li>解压出的文件夹改名为 rsi-ima-workbuddy-wechat-web（去掉 -main）</li>
+<li>整个文件夹放进你电脑的 ~/.workbuddy/skills/ 目录（没有就新建）</li>
+<li>重启 WorkBuddy</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>Windows</b>~ 即 C:\Users\你的用户名\；在文件管理器地址栏输入 %USERPROFILE%\.workbuddy\skills 回车直达</div>
+<div class="d"><b>Mac</b>Finder 按 Cmd+Shift+G，输入 ~/.workbuddy/skills 前往；没有该文件夹就新建 skills 再放</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>对 WorkBuddy 说「网站体检」，回复列表里有 rsi-ima-workbuddy-wechat-web 即装好</div>
+<div class="nofix"><b>没看到怎么办：</b>说没反应：确认重启过 WorkBuddy；确认文件夹名没带 -main 后缀；确认放在 skills 目录里面而不是旁边</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">克隆你的 fork 并换装
+<ul>
+<li>对 WorkBuddy 说「clone 我的 fork」，它会帮你把 你的用户名/chaiAI 拉到本地</li>
+<li>说「把站换成我的」，把站名/署名/一句话简介报给它——它只改数据文件，骨架不动</li>
+<li>说「推回我的 fork」——改动自动提交回 GitHub，Actions 自动构建</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>等 2 分钟强刷你的网站，改动已生效</div>
+<div class="nofix"><b>没看到怎么办：</b>clone 失败：检查 WorkBuddy 是否已登录你的 GitHub 授权；推回失败：让 WorkBuddy 把报错原文贴出来，带截图进群问</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s5-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">跑一次一源双出口
+<ul>
+<li>从 ima 库（ima.qq.com 或 App）挑一个你熟悉、有素材的主题</li>
+<li>取 2–3 份素材喂给 WorkBuddy，生成一篇初稿，人工校对一遍——你负责把关，机器不负责</li>
+<li>出口 A：成稿进你的网站仓库，网站多一篇文章</li>
+<li>出口 B：进你的公众号草稿箱（mp.weixin.qq.com 后台可见），群发与否你课后自己定</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>两张截图：你的网站上多了新文章 + 公众号草稿箱躺着同一篇</div>
+<div class="nofix"><b>没看到怎么办：</b>公众号出口失败：确认已在公众号后台开通草稿箱接口权限（设置与开发→API）；ima 取不到素材：检查库是否已导入资料</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>WorkBuddy 说找不到技能</td><td>技能目录名不对 / 没重启</td><td>文件夹名必须是 rsi-ima-workbuddy-wechat-web 且在 skills 里面</td></tr>
+<tr><td>推回 GitHub 报权限错</td><td>WorkBuddy 未授权你的 GitHub</td><td>在 WorkBuddy 设置里重新走一遍 GitHub 授权</td></tr>
+<tr><td>公众号草稿箱没收到</td><td>接口权限未开 / AppID 配错</td><td>公众号后台 设置与开发 → 接口权限 检查；带截图进群问</td></tr>
+<tr><td>AI 没反应或额度用完</td><td>当日额度耗尽</td><td>第二天再做；或把长任务拆小分次跑</td></tr>
+</table>
+</section>
+<section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
+<p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。</p>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>GitHub 里有我的 chaiAI 仓库（forked from kenyanghui/chaiAI）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>https://我的用户名.github.io/chaiAI 能被别人打开</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>浏览器标签页标题是我的名字</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>站内导航和底部品牌名是我的</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>「关于」页是我的自我介绍 + 我的联系方式</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>（进阶）对 WorkBuddy 说「网站体检」能通过</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>（进阶）一源双出口各存了一张截图</span></label>
+</section>
+<section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
+<p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
+<table><tr><th style="width:16%">时间</th><th>做什么</th><th style="width:34%">怎么自查没掉队</th></tr>
+<tr><td><b>第 1 周</b></td><td>上线周：完成第 1–3 节；把网址发给 3 个朋友，让他们告诉你第一眼看懂你是谁吗</td><td>网站能打开 + 朋友能说出你的一句话定位</td></tr>
+<tr><td><b>第 2 周</b></td><td>换装周：About 页写满你的内容；发第一篇（哪怕只有 200 字）文章到网站</td><td>网站内容 ≥ 1 篇属于你的文章</td></tr>
+<tr><td><b>第 3 周</b></td><td>产线周（进阶）：装技能，跑通一次 ima → 网站/草稿箱</td><td>草稿箱里躺着自动产出的初稿</td></tr>
+<tr><td><b>第 4 周</b></td><td>飞轮周：定一个日更/周更节奏；周末花 5 分钟回看本月产出，删掉不想要的，定下月主题</td><td>本月产出清单 ≥ 4 条，且写下了月主题</td></tr>
+</table></section>
+<footer class="g"><b>卡住怎么办（按顺序试）</b><br>1. 重读当前步骤的「检查点」和本节排障表——90% 的卡点都在里面；<br>2. 把你看到的界面截图保存下来，对照排障表找「症状」一栏；<br>3. 还不行：带上截图来微信群问，微信 <span class="wx">ikoning365</span>（点击不了就手动复制添加）。<br><p class="tip">小蛮腰·拆AI 工作坊系列 · 自助跟做手册 · 可打印（A4）</p></footer>
+</div><script>
+(function(){
+ var K='guide-'+document.body.dataset.wk;
+ var save=function(id,v){try{localStorage.setItem(K+'-'+id,v?'1':'0')}catch(e){}};
+ var load=function(id){try{return localStorage.getItem(K+'-'+id)==='1'}catch(e){return false}};
+ var all=document.querySelectorAll('input.gtick');
+ var bar=document.querySelector('.progress .bar i');
+ var txt=document.querySelector('.progress .pc');
+ function refresh(){var n=0;all.forEach(function(c){if(c.checked)n++});
+  if(bar)bar.style.width=(all.length?Math.round(n/all.length*100):0)+'%';
+  if(txt)txt.textContent=n+'/'+all.length;}
+ all.forEach(function(c){
+  c.checked=load(c.dataset.id);
+  c.addEventListener('change',function(){save(this.dataset.id,this.checked);refresh()});
+ });
+ refresh();
+})();
+</script></body></html>

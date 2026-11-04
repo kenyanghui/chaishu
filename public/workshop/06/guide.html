@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>06 · AI 手机 · 让手机成为你的 AI 生产力｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#12233f,#1f5eff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.goal b,.mins{color:var(--blue);font-weight:700}
+
+.box{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#27406b}
+.warnbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#5c4408}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;color:#3c4d68;font-weight:700}
+tr.chk td:first-child{width:30px;text-align:center}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;margin:12px 0}
+.step .head{display:flex;gap:10px;align-items:flex-start}
+.step .num{background:var(--green);color:#fff;font-weight:700;border-radius:50%;min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:2px}
+.step .do{font-weight:700;font-size:15px}
+.step ul{margin:8px 0 4px;padding-left:20px;color:var(--ink2);font-size:14px}
+.step li{margin:4px 0}
+.dev{margin:8px 0 0;border-radius:8px;overflow:hidden;border:1px dashed #b9c8e2}
+.dev .d{padding:7px 10px;font-size:13px}
+.dev .d b{color:var(--blue);margin-right:6px}
+.dev .d+.d{border-top:1px dashed #d5dfef}
+.check{background:var(--green-soft);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13.5px}
+.check b{color:var(--green)}
+.nofix{background:var(--warn-soft);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13.5px;color:#6b3417}
+.nofix b{color:var(--warn)}
+label.tick{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid #eef2f8;font-size:14px;color:var(--ink2);cursor:pointer}
+label.tick:last-child{border-bottom:0}
+label.tick input{margin-top:4px;flex:none;accent-color:var(--green);width:16px;height:16px}
+label.tick input:checked+span{color:var(--mute);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:9;background:#eef1f6ee;backdrop-filter:blur(4px);padding:8px 0 6px;font-size:13px;color:var(--ink2);border-bottom:1px solid #dfe6f0}
+.progress .bar{height:6px;background:#d7e0ee;border-radius:99px;overflow:hidden;margin-top:4px}
+.progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green));width:0;transition:width .3s}
+footer.g{background:#fff;border-radius:14px;padding:16px;margin:14px 0;text-align:center;color:var(--ink2);font-size:13.5px}
+footer.g .wx{display:inline-block;background:var(--green);color:#fff;font-weight:700;border-radius:8px;padding:6px 16px;margin:8px 0;letter-spacing:1px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
+.tip{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+@media print{
+ body{background:#fff;padding:0;font-size:12px}
+ .page{max-width:none;padding:0}
+ section.card,header.g,footer.g{box-shadow:none;border-radius:0;padding:10px 8px;border-bottom:1px solid #ddd}
+ .progress{display:none}
+ header.g{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .step,.check,.nofix,.box,.warnbox{break-inside:avoid}
+}
+</style></head>
+<body data-wk="wk6"><div class="page">
+<header class="g">
+<div class="no">小蛮腰·拆AI｜工作坊 06 · 自助跟做手册 <span class="badge">自助版</span></div>
+<h1>AI 手机 · 让手机成为你的 AI 生产力</h1>
+<div class="meta">预计总时长：2–3 小时（全程手机，可分 3 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
+<div class="outcomes"><b>跟做完，你能得到：</b><ul>
+<li>手机随手收：会议录音、名片、白板、灵感，一个动作收进统一收件箱</li>
+<li>自动整理工作流：收进来的素材自动转文字、拆待办、分类归档</li>
+<li>一个随身工作台：打开就知道「该谁跟进、缺什么」</li>
+<li>30 天巩固计划：让随手收变成肌肉记忆</li>
+</ul></div></header>
+<div class="progress"><span class="pc">0/0</span> 步已完成（勾选会自动保存在这台设备上）<div class="bar"><i></i></div></div>
+<section class="card"><h2 class="sec"><span class="n">备</span>开始之前：设备与账号自查</h2>
+<p class="goal">本场全程用手机，安卓和 iPhone 都行。先自查，缺什么装什么。</p>
+<table><tr><th style="width:26%">你需要有</th><th style="width:30%">怎么确认已有</th><th>没有怎么办</th></tr>
+<tr><td><b>ima App（腾讯）</b></td><td>应用商店搜 ima，能打开并登录</td><td>没有：第 1 节第 1 步带你装（免费）</td></tr>
+<tr><td><b>手机录音机</b></td><td>手机自带，能录一段音</td><td>都自带，不用装</td></tr>
+<tr><td><b>手机相机</b></td><td>能拍名片/白板照片</td><td>都自带，不用装</td></tr>
+<tr><td><b>（iPhone）快捷指令 App</b></td><td>手机自带，主屏能找到「快捷指令」</td><td>被删了：App Store 重新下载（免费，苹果官方）</td></tr>
+<tr><td><b>（安卓）任一手机助手</b></td><td>厂商自带的语音助手/便签（如小爱、Breeno、智慧语音）</td><td>没有特别要求，系统自带什么用什么</td></tr>
+<tr><td><b>（统一收件箱）ima 笔记或便签</b></td><td>ima 里建一个笔记即可</td><td>第 1 节带你建</td></tr>
+</table>
+<div class="warnbox">安卓各厂商系统差异大：本手册写「路径大致为 设置/工具 → 对应功能」，你手机上的名字可能略不同，找不到就用系统搜索（桌面下滑出搜索框）搜关键词。</div>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">1</span>第 1 节 · 随手收：一个动作收进收件箱</h2>
+<p class="goal">本节目标：建四个收集位，会议录音/名片/白板/灵感各收一次，全部落进统一收件箱｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>ima 已登录；录音机、相机可用。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">建四个收集位（收件箱）
+<ul>
+<li>打开 ima App → 笔记 → 新建一个笔记，命名「收件箱」</li>
+<li>在里面写四行：会议录音 / 名片 / 白板照片 / 灵感语音</li>
+<li>这四行就是四个「收集位」——所有素材先进这里，不做第二遍整理</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>ima App 同名同路径；也可用自带备忘录，但建议统一用 ima 便于第 2 节</div>
+<div class="d"><b>安卓</b>ima App 同名同路径；暂时用便签也行，第 2 节再统一搬到 ima</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>ima 里有一个「收件箱」笔记，含四行收集位</div>
+<div class="nofix"><b>没看到怎么办：</b>ima 登录不上：换微信/QQ 授权登录试一次；当天不行就先用便签代替，回头再迁</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">收第一样：会议/课程录音 → 文字
+<ul>
+<li>随便录一段 1 分钟音频（读一段文章也行）</li>
+<li>用 ima 的「录音转写」（或输入法的语音转文字）把录音变文字</li>
+<li>标题格式：日期 + 会议名（如 1106-周会）</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>ima 底部「+」找录音/转写入口；没有就播放录音 + 输入法听写兜底</div>
+<div class="d"><b>安卓</b>ima 同路径；部分机型自带「录音机→转文字」更准，可先转好再粘贴进 ima</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>收件箱「会议录音」位下面多了一段带日期标题的文字</div>
+<div class="nofix"><b>没看到怎么办：</b>转写出乱码/不准：环境太吵重录一次；普通话不标准就放慢语速；实在不行这段用键盘手打 3 句摘要代替</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">收第二样：名片和白板 → 识别
+<ul>
+<li>拍一张名片（没有名片就拍一张写着姓名电话的纸）</li>
+<li>拍一张白板/手写笔记（没有就拍一页书）</li>
+<li>用 ima 拍照识别（或相机自带的文档/文字识别）把字提取出来</li>
+<li>名片信息存进通讯录，白板字进收件箱「白板照片」位</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>相机对准文档会自动出现「实况文本」按钮，点击即识别；长按识别出的文字可拷贝</div>
+<div class="d"><b>安卓</b>相机拍完点「更多/识文」；或相册打开照片用「提取文字」；厂商叫法不同，搜索关键词「文字识别」</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>收件箱「白板照片」位多了识别出的文字；通讯录多了 1 个联系人（或纸质信息已记录）</div>
+<div class="nofix"><b>没看到怎么办：</b>识别不准：光线充足、手机正对、离近一点重拍；手写体识别差属正常，誊 3 个关键词即可</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">收第三样：灵感 → 20 秒语音
+<ul>
+<li>在路上或沙发上，想到一个点子，立刻用输入法语音（麦克风键）口述 20 秒</li>
+<li>说完立刻看一眼转出的文字，改掉明显错字</li>
+<li>在收件箱「灵感语音」位加一行：一句话标注（给谁用/什么时候要）</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>键盘上麦克风图标即语音听写；锁屏长按屏幕右下麦克风可极速录音（需在设置→快捷指令里配置过）</div>
+<div class="d"><b>安卓</b>键盘麦克风键；或长按电源键唤起语音助手说「记一下：……」</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>收件箱「灵感语音」位多了一条：日期 + 一句话灵感 + 给谁用</div>
+<div class="nofix"><b>没看到怎么办：</b>环境太吵转写烂：只保留关键词（2–3 个词也算收进来了），晚上补全</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>ima 一直登录不上</td><td>授权/网络问题</td><td>换微信或 QQ 授权；切流量重试；当天不行先用便签，第 2 节再迁</td></tr>
+<tr><td>相机没有文字识别</td><td>机型老/系统旧</td><td>改用 ima 拍照识别，或微信「文件传输助手」拍照 + 提取文字</td></tr>
+<tr><td>录音转写收费/次数少</td><td>免费额度耗尽</td><td>用输入法听写：播放录音外放 + 听写输入，效果够用</td></tr>
+<tr><td>灵感转瞬即逝没来得及</td><td>没有肌肉记忆</td><td>先允许自己只说 2 个关键词；30 天计划的第 1 周就是练这个</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">2</span>第 2 节 · 自动整理：转 → 拆 → 归</h2>
+<p class="goal">本节目标：把第 1 节收的素材跑一遍流水线：转文字、拆待办、自动分类归档｜预计 <span class="mins">40 分钟</span></p>
+<div class="box"><b>动手前确认：</b>收件箱里已有至少 2 样素材（录音转写 + 一张白板/名片）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">转：同一份素材只转一次
+<ul>
+<li>检查收件箱：录音已转文字、白板已识别——都转过的跳过，别重复转</li>
+<li>还没转的按第 1 节方法转完</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>收件箱里没有「只有照片/只有录音没有文字」的素材</div>
+<div class="nofix"><b>没看到怎么办：</b>某条实在转不了：标记「待补」，不阻塞后续步骤</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">拆：从素材里拆出待办
+<ul>
+<li>对 ima 的 AI 助手说（或自己手动）从转写稿里拆待办：一句话一条，每条带「谁/什么时候」</li>
+<li>例：「周三前——小王——发报价单」</li>
+<li>超过 3 条就分文件，别挤在一条里</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>ima 对话框直接说：从下面这段文字里拆出待办，格式：期限-人-事；粘贴转写稿</div>
+<div class="d"><b>安卓</b>同左；或对系统语音助手说「把这段话整理成待办清单」再粘贴</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>拆出至少 2 条待办，每条都有「谁 + 什么时候」</div>
+<div class="nofix"><b>没看到怎么办：</b>AI 拆不出：把指令说得更死：「逐句找动词和期限，输出列表」；实在没有待办（纯灵感素材）就标注「无待办，归档」</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">归：自动分类归档到三个去向
+<ul>
+<li>在 ima 里给素材打标签/移到对应文件夹，三个去向：</li>
+<li>项目（有明确任务）、人物（名片/联系人）、待办（要跟的事）</li>
+<li>让 ima AI 按你的约定自动分类一次，检查分类对不对</li>
+<li>归档命名规则统一：项目名 + 日期</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>ima 长按笔记可移动/加标签；对 AI 说「把收件箱按项目/人物/待办分类」</div>
+<div class="d"><b>安卓</b>同左；批量操作入口在右上角「⋯」</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>收件箱被清空或只剩「待补」；项目/人物/待办三个文件夹各有内容；截图存档</div>
+<div class="nofix"><b>没看到怎么办：</b>AI 分错：手动移到正确文件夹（AI 只是助手，你是把关人）；建文件夹找不到：ima 笔记页右上角「+」</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>AI 助手没反应</td><td>当日额度耗尽/网络差</td><td>切流量重试；明天再跑；手动分类也算完成</td></tr>
+<tr><td>拆出的待办没有期限和人</td><td>原素材就没写</td><td>补问一句自己：这事谁跟？什么时候要？补上再归档</td></tr>
+<tr><td>分类文件夹建多了乱</td><td>一开始贪多</td><td>只留三个去向：项目/人物/待办，其他全是子级</td></tr>
+<tr><td>安卓找不到批量操作</td><td>厂商定制差异</td><td>逐条长按处理，10 条以内很快</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">3</span>第 3 节 · 随身工作台：打开就知道干什么</h2>
+<p class="goal">本节目标：把收件箱+待办+项目组成一个「打开就能干活」的工作台首页｜预计 <span class="mins">20 分钟</span></p>
+<div class="box"><b>动手前确认：</b>第 2 节完成：素材已归档到三个去向。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">建工作台首页笔记
+<ul>
+<li>在 ima 建一个笔记，命名「工作台」，置顶</li>
+<li>里面固定三块：① 今天要跟的待办（从待办文件夹抄今日项）② 进行中的项目（一行一个）③ 最近收的 3 条灵感</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>工作台笔记已置顶，三块内容齐全</div>
+<div class="nofix"><b>没看到怎么办：</b>置顶不会：长按笔记找「置顶/钉住」</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">定 1 个每日 1 分钟小仪式
+<ul>
+<li>每天固定时间（如早上第一件事）打开工作台</li>
+<li>做一件事：把「今天要跟的待办」更新一遍</li>
+<li>用手机闹钟定一个「工作台 1 分钟」提醒</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>iPhone</b>时钟 App → 闹钟 → 设每日重复；也可用快捷指令做「打开 ima 工作台」一键直达</div>
+<div class="d"><b>安卓</b>时钟闹钟；部分厂商支持「定时打开指定 App」更省事</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>闹钟已建，名字含「工作台」</div>
+<div class="nofix"><b>没看到怎么办：</b>嫌烦：把闹钟放在你必然看手机的时刻（如午饭）</div>
+</div>
+<h3>本节排障表（2 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>工作台笔记又乱回去了</td><td>没有每日仪式</td><td>回到第 2 步：先坚持闹钟 7 天，再谈优化</td></tr>
+<tr><td>置顶笔记太多</td><td>什么都想置顶</td><td>只置顶工作台一个，其他放文件夹</td></tr>
+</table>
+</section>
+<section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
+<p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。</p>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>收件箱建好：四行收集位齐全</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>三样各收过一次：录音转写、名片/白板识别、灵感语音</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>素材全部转成文字（或标注待补）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>拆出至少 2 条「谁+什么时候」待办</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>三个去向文件夹：项目/人物/待办，各有内容</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>工作台笔记置顶 + 每日 1 分钟闹钟已建</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>全程截图至少 3 张存了相册</span></label>
+</section>
+<section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
+<p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
+<table><tr><th style="width:16%">时间</th><th>做什么</th><th style="width:34%">怎么自查没掉队</th></tr>
+<tr><td><b>第 1 周</b></td><td>肌肉周：只练「一个动作收进收件箱」，每天至少收 2 样</td><td>收件箱每天有新增，一周 ≥ 10 条</td></tr>
+<tr><td><b>第 2 周</b></td><td>流水周：每周三、周日各跑一次 转→拆→归（第 2 节）</td><td>收件箱每周清空 2 次</td></tr>
+<tr><td><b>第 3 周</b></td><td>工作台周：每日 1 分钟仪式不断，工作台每天更新</td><td>连续 7 天闹钟打卡成功</td></tr>
+<tr><td><b>第 4 周</b></td><td>升级周：给自己加一条自动化（如快捷指令一键录音转 ima），并复盘本月收了多少条</td><td>本月收集总数 ≥ 30 条 + 1 条自定义自动化</td></tr>
+</table></section>
+<footer class="g"><b>卡住怎么办（按顺序试）</b><br>1. 重读当前步骤的「检查点」和本节排障表——90% 的卡点都在里面；<br>2. 把你看到的界面截图保存下来，对照排障表找「症状」一栏；<br>3. 还不行：带上截图来微信群问，微信 <span class="wx">ikoning365</span>（点击不了就手动复制添加）。<br><p class="tip">小蛮腰·拆AI 工作坊系列 · 自助跟做手册 · 可打印（A4）</p></footer>
+</div><script>
+(function(){
+ var K='guide-'+document.body.dataset.wk;
+ var save=function(id,v){try{localStorage.setItem(K+'-'+id,v?'1':'0')}catch(e){}};
+ var load=function(id){try{return localStorage.getItem(K+'-'+id)==='1'}catch(e){return false}};
+ var all=document.querySelectorAll('input.gtick');
+ var bar=document.querySelector('.progress .bar i');
+ var txt=document.querySelector('.progress .pc');
+ function refresh(){var n=0;all.forEach(function(c){if(c.checked)n++});
+  if(bar)bar.style.width=(all.length?Math.round(n/all.length*100):0)+'%';
+  if(txt)txt.textContent=n+'/'+all.length;}
+ all.forEach(function(c){
+  c.checked=load(c.dataset.id);
+  c.addEventListener('change',function(){save(this.dataset.id,this.checked);refresh()});
+ });
+ refresh();
+})();
+</script></body></html>

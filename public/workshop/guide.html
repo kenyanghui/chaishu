@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>01 · 知识库 · 微信公众号自动化工作流｜自助跟做手册</title>
+<style>
+:root{--ink:#101b2e;--ink2:#4a5a72;--line:#dbe3ee;--mute:#8894a8;
+--blue:#1f5eff;--blue-soft:#eef4ff;--gold:#e2a020;--gold-soft:#fdf5e3;
+--green:#17845b;--green-soft:#e9f7f0;--warn:#b3492a;--warn-soft:#fdf0ec}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+color:var(--ink);font-size:15px;line-height:1.75;background:#eef1f6;-webkit-font-smoothing:antialiased;padding:14px 0 40px}
+.page{max-width:760px;margin:0 auto;padding:0 14px}
+header.g{background:linear-gradient(135deg,#12233f,#1f5eff);color:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px}
+header.g .no{font-size:13px;letter-spacing:2px;opacity:.85}
+header.g h1{font-size:22px;margin:6px 0 4px;line-height:1.35}
+.badge{display:inline-block;font-size:12px;font-weight:700;background:var(--gold);color:#3a2a00;border-radius:999px;padding:2px 10px;vertical-align:2px}
+.meta{font-size:13px;opacity:.9;margin-top:6px}
+.outcomes{background:#ffffff12;border:1px solid #ffffff2e;border-radius:10px;padding:10px 14px;margin-top:12px}
+.outcomes b{display:block;font-size:13px;margin-bottom:4px;letter-spacing:1px}
+.outcomes li{font-size:13.5px;margin:3px 0}
+section.card{background:#fff;border-radius:14px;padding:18px 16px;margin:14px 0;box-shadow:0 4px 18px rgba(16,27,46,.07)}
+h2.sec{font-size:18px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+h2.sec .n{background:var(--blue);color:#fff;border-radius:8px;min-width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+.goal{font-size:13.5px;color:var(--ink2);margin:0 0 8px}
+.goal b,.mins{color:var(--blue);font-weight:700}
+
+.box{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#27406b}
+.warnbox{background:var(--gold-soft);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0;font-size:13.5px;color:#5c4408}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;color:var(--ink2)}
+th{background:#f4f7fc;color:#3c4d68;font-weight:700}
+tr.chk td:first-child{width:30px;text-align:center}
+.step{border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;margin:12px 0}
+.step .head{display:flex;gap:10px;align-items:flex-start}
+.step .num{background:var(--green);color:#fff;font-weight:700;border-radius:50%;min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;margin-top:2px}
+.step .do{font-weight:700;font-size:15px}
+.step ul{margin:8px 0 4px;padding-left:20px;color:var(--ink2);font-size:14px}
+.step li{margin:4px 0}
+.dev{margin:8px 0 0;border-radius:8px;overflow:hidden;border:1px dashed #b9c8e2}
+.dev .d{padding:7px 10px;font-size:13px}
+.dev .d b{color:var(--blue);margin-right:6px}
+.dev .d+.d{border-top:1px dashed #d5dfef}
+.check{background:var(--green-soft);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:13.5px}
+.check b{color:var(--green)}
+.nofix{background:var(--warn-soft);border-radius:8px;padding:8px 10px;margin-top:6px;font-size:13.5px;color:#6b3417}
+.nofix b{color:var(--warn)}
+label.tick{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid #eef2f8;font-size:14px;color:var(--ink2);cursor:pointer}
+label.tick:last-child{border-bottom:0}
+label.tick input{margin-top:4px;flex:none;accent-color:var(--green);width:16px;height:16px}
+label.tick input:checked+span{color:var(--mute);text-decoration:line-through}
+.progress{position:sticky;top:0;z-index:9;background:#eef1f6ee;backdrop-filter:blur(4px);padding:8px 0 6px;font-size:13px;color:var(--ink2);border-bottom:1px solid #dfe6f0}
+.progress .bar{height:6px;background:#d7e0ee;border-radius:99px;overflow:hidden;margin-top:4px}
+.progress .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--green));width:0;transition:width .3s}
+footer.g{background:#fff;border-radius:14px;padding:16px;margin:14px 0;text-align:center;color:var(--ink2);font-size:13.5px}
+footer.g .wx{display:inline-block;background:var(--green);color:#fff;font-weight:700;border-radius:8px;padding:6px 16px;margin:8px 0;letter-spacing:1px}
+h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
+.tip{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+@media print{
+ body{background:#fff;padding:0;font-size:12px}
+ .page{max-width:none;padding:0}
+ section.card,header.g,footer.g{box-shadow:none;border-radius:0;padding:10px 8px;border-bottom:1px solid #ddd}
+ .progress{display:none}
+ header.g{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .step,.check,.nofix,.box,.warnbox{break-inside:avoid}
+}
+</style></head>
+<body data-wk="wk1"><div class="page">
+<header class="g">
+<div class="no">小蛮腰·拆AI｜工作坊 01 · 自助跟做手册 <span class="badge">自助版</span></div>
+<h1>知识库 · 微信公众号自动化工作流</h1>
+<div class="meta">预计总时长：3–4 小时（可分 4 次做完）｜没有讲师也能做完：一步一步照做，每步都有「检查点」和「卡住怎么办」</div>
+<div class="outcomes"><b>跟做完，你能得到：</b><ul>
+<li>你的个人 AI 知识库：资料导进去、打上标签、问它就能答</li>
+<li>一条公众号自动化工作流：素材 → 初稿 → 草稿箱，机器跑通一次</li>
+<li>一次真实的人工把关（你负责，机器不负责）</li>
+<li>30 天 AI 进化计划：库越来越厚，更新越来越省力</li>
+</ul></div></header>
+<div class="progress"><span class="pc">0/0</span> 步已完成（勾选会自动保存在这台设备上）<div class="bar"><i></i></div></div>
+<section class="card"><h2 class="sec"><span class="n">备</span>开始之前：设备与账号自查</h2>
+<p class="goal">主线用电脑（Win/Mac 通用）；只有手机也给了完整降级路径。两个工具都免费：ima（腾讯的个人知识库）+ WorkBuddy（AI 工作流）。</p>
+<table><tr><th style="width:26%">你需要有</th><th style="width:30%">怎么确认已有</th><th>没有怎么办</th></tr>
+<tr><td><b>ima（电脑客户端或手机 App）</b></td><td>ima.qq.com 下载，微信扫码登录</td><td>纯手机：App 商店搜 ima 同样能完成建库节</td></tr>
+<tr><td><b>WorkBuddy 账号</b></td><td>浏览器打开 www.workbuddy.cn 能登录</td><td>没有：第 3 节带你注册（免费）</td></tr>
+<tr><td><b>（可选）微信公众号</b></td><td>mp.weixin.qq.com 后台能进</td><td>没有个人公众号：第 3 节出口 B 换成「导出到备忘录」，流程一样</td></tr>
+<tr><td><b>3–5 份你自己的资料</b></td><td>笔记/拆页/讲课稿/收藏的文章都算</td><td>没准备：手机拍 2 张你写过的便签也算数，先跑通再加料</td></tr>
+</table>
+<div class="warnbox">「只有手机」的同学：第 1–2 节（建库）手机完成没问题；第 3 节（workbuddy 工作流）用手机浏览器勉强可操作但体验差，建议借电脑 40 分钟，或先跳到 30 天计划。</div>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">1</span>第 1 节 · 存：让 AI 记住你（ima 建库）</h2>
+<p class="goal">本节目标：建一个你自己的知识库，导入 3–5 份资料并打标签｜预计 <span class="mins">30 分钟</span></p>
+<div class="box"><b>动手前确认：</b>ima 已登录；3–5 份资料在手边（手机相册/电脑文件夹）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">新建知识库，起个你记得住的名字
+<ul>
+<li>ima 里点「知识库」→ 新建</li>
+<li>库名建议带你的名字（如「阿珍的弹药库」）——以后会有第二个第三个库，别叫「我的库」</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>电脑</b>ima 客户端左侧栏「知识库」→「+」新建</div>
+<div class="d"><b>手机</b>ima App 底部「知识库」→ 右上角「+」</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>库里空空但已经存在，名字是你起的</div>
+<div class="nofix"><b>没看到怎么办：</b>找不到新建入口：更新 ima 到最新版；入口一般在知识库页右上角</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">建 2–3 个分类（按「你下次会怎么找」分）
+<ul>
+<li>在库里建文件夹/分类，参考一个拆书家的库：</li>
+<li>① 指令案例集：用得好用的 AI 指令、成功案例、踩坑记录</li>
+<li>② 话术库：开场/提问/收尾/点评，你实际说过的好句子</li>
+<li>③ 素材库：能拆能写的原材料</li>
+<li>分几类不重要，重要的是你闭眼知道东西在哪</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>库里有了 2–3 个分类</div>
+<div class="nofix"><b>没看到怎么办：</b>纠结怎么分：先按上面三个抄，用两周后再改——分类是长出来的不是想出来的</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">导入 3–5 份资料
+<ul>
+<li>把资料拖进对应分类（或先全部进默认区再分）</li>
+<li>支持的格式：PDF/Word/图片/Markdown/txt 都行；纸质资料拍照导入</li>
+<li>手机拍的便签照片直接上传也算</li>
+</ul>
+</div></div></div>
+<div class="dev">
+<div class="d"><b>电脑</b>直接拖文件进 ima 窗口最省事</div>
+<div class="d"><b>手机</b>App 里「+」→ 从相册选/拍照/选文件</div>
+</div>
+<div class="check"><b>检查点（看到才算做对）：</b>库里有 3–5 份资料，点开能看到内容</div>
+<div class="nofix"><b>没看到怎么办：</b>导入失败：单个文件损坏或格式太老，换个格式（如 doc 转 docx）再传；图片糊了重拍</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">给至少 2 份资料打标签
+<ul>
+<li>标签和分类的区别：分类是抽屉（放一处），标签是便利贴（贴多个）</li>
+<li>例：一份「开场话术」素材，分类放话术库，标签可以同时打「开场」「培训」「2026」</li>
+<li>标签打完，以后搜索一击即中</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>≥2 份资料有标签，且你能说出为什么打这个标签</div>
+<div class="nofix"><b>没看到怎么办：</b>不会打标签：就打「什么时候会用它」，如「讲课前翻」</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s1-5"><span><span class="num">5</span></span></label><div style="flex:1"><div class="do">问它一句：验收你的库
+<ul>
+<li>对 ima 的 AI 问答问一个只有你资料里有答案的问题</li>
+<li>例：「我的开场话术里最适合破冰的是哪句？」</li>
+<li>它能引用你刚导入的资料回答 = 库已生效</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>AI 回答引用了你的资料（回答里带资料来源）</div>
+<div class="nofix"><b>没看到怎么办：</b>答不上来：资料刚导入还在解析，等 5–10 分钟再问；图片类资料解析慢属正常</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>ima 登录不上</td><td>网络/授权问题</td><td>切流量；退出重登；换微信授权试一次</td></tr>
+<tr><td>导入一直转圈</td><td>文件大/格式问题</td><td>换小文件先试；PDF 超大就拆分后再传</td></tr>
+<tr><td>AI 答非所问</td><td>资料还没解析完/问法太泛</td><td>等 10 分钟；问题带上资料里的关键词，如「开场」</td></tr>
+<tr><td>手机 App 闪退</td><td>版本旧/内存不足</td><td>更新 App；清后台重开</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">2</span>第 2 节 · 理：让库变成弹药（整理与提问套路）</h2>
+<p class="goal">本节目标：学会两招：喂料时一句话标注、用时三个提问模板｜预计 <span class="mins">25 分钟</span></p>
+<div class="box"><b>动手前确认：</b>库里有料（第 1 节完成）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">给旧资料补「一句话标注」
+<ul>
+<li>每份资料的标题或开头，补一句话：给谁用/什么时候用/好在哪</li>
+<li>例：「给新经理｜绩效面谈前翻｜先问后评不炸毛」</li>
+<li>AI 检索时这句话就是它的路标</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>≥3 份资料有一句话标注</div>
+<div class="nofix"><b>没看到怎么办：</b>写不出「好在哪」：写「我用它解决过__」也算</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">练三个提问模板
+<ul>
+<li>对 ima AI 各问一遍，体会差别：</li>
+<li>① 检索型：「我的库里关于__的资料有哪些？」</li>
+<li>② 提炼型：「把库里关于__的要点合成一段话」</li>
+<li>③ 应用型：「我要__（场景），从库里帮我找可用的素材并给出组合建议」</li>
+<li>第三种最值钱——它把库变成了参谋</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>三个模板各问过一次，至少一个回答让你觉得「有用」</div>
+<div class="nofix"><b>没看到怎么办：</b>回答空泛：给提问加限定词（字数/受众/口吻），如「合成一段 100 字内、给小白看的」</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s2-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">定「随手存」的规矩
+<ul>
+<li>在手机备忘录写一行规矩：从今天起，看到好内容 10 秒内转存 ima</li>
+<li>入口：微信文章右上角「⋯」→ 更多打开方式 → ima（或复制链接在 ima 里粘贴）</li>
+<li>库是存出来的，不是整理出来的</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>规矩已写+今天已存 ≥1 条新内容</div>
+<div class="nofix"><b>没看到怎么办：</b>微信转存入口没有：先复制链接，打开 ima 粘贴链接也能存</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>提问没回应</td><td>当日额度/网络</td><td>切流量；第二天再试（免费额度每日刷新）</td></tr>
+<tr><td>检索结果不准</td><td>标注缺失</td><td>回到第 1 步补标注；检索词用标注里的原词</td></tr>
+<tr><td>微信文章存不进</td><td>入口未配置</td><td>用复制链接→ima 粘贴的方式，一定行</td></tr>
+</table>
+</section>
+<section class="card">
+<h2 class="sec"><span class="n">3</span>第 3 节 · 用：公众号自动化工作流（WorkBuddy）</h2>
+<p class="goal">本节目标：从库里挑主题，让 WorkBuddy 出初稿，人工校对后进公众号草稿箱——完整跑一次｜预计 <span class="mins">60 分钟</span></p>
+<div class="box"><b>动手前确认：</b>电脑+已登录 www.workbuddy.cn；ima 库里有熟悉主题的素材；（可选）公众号后台能进。纯手机建议借电脑做本节。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">注册并登录 WorkBuddy
+<ul>
+<li>浏览器打开 www.workbuddy.cn</li>
+<li>注册（手机号/微信均可，免费）→ 登录进主界面</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>能看到工作流列表或新建入口</div>
+<div class="nofix"><b>没看到怎么办：</b>打不开：换浏览器（Chrome/Edge）；验证码收不到等 60 秒重发</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">选主题：从库里挑你最熟的
+<ul>
+<li>回 ima 库，挑一个你有 2–3 份素材、而且真的懂的主题</li>
+<li>熟的才输出得快——第一次跑通别选生僻题</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>主题已定，能一句话说清「写给谁看、解决什么」</div>
+<div class="nofix"><b>没看到怎么办：</b>选不出来：用第 1 节导入最多的那个主题</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">接素材：把库连上或直接上传
+<ul>
+<li>在 WorkBuddy 新建工作流，把输入连到你的 ima 库（授权一次）</li>
+<li>连不上就绕行：从 ima 导出 2–3 份素材文件，直接上传到工作流输入节点</li>
+<li>两条路效果一样，别在授权上耗超过 10 分钟</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>工作流能看到你的 2–3 份素材内容</div>
+<div class="nofix"><b>没看到怎么办：</b>ima 授权失败：走上传绕行路；文件导出格式选 txt/md 最稳</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-4"><span><span class="num">4</span></span></label><div style="flex:1"><div class="do">配提示词并运行出初稿
+<ul>
+<li>给 AI 节点写提示词，说清四件事：</li>
+<li>① 角色（如「你是我的公众号写手」）② 用下面的素材 ③ 写什么（主题+受众）④ 格式（800 字/三段式/口吻口语）</li>
+<li>点运行，等 1–3 分钟出初稿</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>出一篇 800 字左右、能看出用了你素材的初稿</div>
+<div class="nofix"><b>没看到怎么办：</b>初稿烂/没用素材：提示词里明确「必须引用素材中的观点，不得编造」；再跑一次；AI 没反应=额度用完明天再跑</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-5"><span><span class="num">5</span></span></label><div style="flex:1"><div class="do">人工把关（你负责，机器不负责）
+<ul>
+<li>逐段校对：错字/事实/人味（AI 腔太重就改口语）</li>
+<li>标题自己拟——标题是灵魂，不给 AI</li>
+<li>改完才算你的稿</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>校对后的终稿你自己愿意署名发</div>
+<div class="nofix"><b>没看到怎么办：</b>没信心判断：先放着，明天再看一眼，改 3 处再发</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s3-6"><span><span class="num">6</span></span></label><div style="flex:1"><div class="do">进草稿箱：出口 B 落地
+<ul>
+<li>有公众号：把终稿贴进 mp.weixin.qq.com 草稿箱（或用工作流的公众号出口直接推送草稿）</li>
+<li>没有公众号：贴进手机备忘录命名为「公众号存稿-01」——流程完全一样，以后开了号直接用</li>
+<li>群发与否你自己定，本节只到草稿</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>草稿箱/备忘录里躺着你的第一篇机器协作稿+截图存档</div>
+<div class="nofix"><b>没看到怎么办：</b>公众号接口推不进草稿：手动复制粘贴照样完成；接口权限在公众号后台 设置与开发→接口权限 里开</div>
+</div>
+<h3>本节排障表（4 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>WorkBuddy 说没权限读 ima</td><td>授权没完成</td><td>重新走授权；或直接上传素材文件绕行</td></tr>
+<tr><td>AI 没反应</td><td>当日免费额度耗尽</td><td>明天再跑（额度每日刷新）；长任务拆成两次跑</td></tr>
+<tr><td>初稿像抄素材</td><td>提示词没给加工指令</td><td>提示词加「用素材观点但用自己的话重写，加入一个亲身案例」</td></tr>
+<tr><td>公众号草稿箱没收到</td><td>接口权限未开</td><td>后台 设置与开发→API/接口权限 检查；手动粘贴不算失败</td></tr>
+</table>
+</section>
+<section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
+<p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。</p>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>ima 库已建：库名是我的、分类 2–3 个</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-2"><span>3–5 份资料已导入，≥2 份打了标签</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-3"><span>AI 问答引用过我的资料回答问题</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-4"><span>≥3 份资料有一句话标注</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>三个提问模板练过，至少一个回答有用</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>「随手存」规矩已定，今天存了 ≥1 条</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>WorkBuddy 出过一篇用了素材的初稿</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-8"><span>人工校对后的终稿进了草稿箱/存稿备忘录，截图在手</span></label>
+</section>
+<section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
+<p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
+<table><tr><th style="width:16%">时间</th><th>做什么</th><th style="width:34%">怎么自查没掉队</th></tr>
+<tr><td><b>第 1 周</b></td><td>存库周：每天随手存 ≥1 条进 ima（10 秒规矩）；本周库存 +7</td><td>库新增 ≥7 条，全部有一句话标注</td></tr>
+<tr><td><b>第 2 周</b></td><td>产稿周：用第 3 节流程再出 1 篇（换个主题），人工校对进草稿</td><td>草稿箱 ≥2 篇署名稿</td></tr>
+<tr><td><b>第 3 周</b></td><td>发布周：选 1 篇真的发出去（公众号/朋友圈/星球都算）；收集 ≥3 条反馈回库存着</td><td>1 篇已发布+反馈入库</td></tr>
+<tr><td><b>第 4 周</b></td><td>复盘周：算账——单次耗时 __ 分钟×每月 __ 次=一年约 __ 小时；定下月主题排期</td><td>一张算账截图+下月排期表</td></tr>
+</table></section>
+<footer class="g"><b>卡住怎么办（按顺序试）</b><br>1. 重读当前步骤的「检查点」和本节排障表——90% 的卡点都在里面；<br>2. 把你看到的界面截图保存下来，对照排障表找「症状」一栏；<br>3. 还不行：带上截图来微信群问，微信 <span class="wx">ikoning365</span>（点击不了就手动复制添加）。<br><p class="tip">小蛮腰·拆AI 工作坊系列 · 自助跟做手册 · 可打印（A4）</p></footer>
+</div><script>
+(function(){
+ var K='guide-'+document.body.dataset.wk;
+ var save=function(id,v){try{localStorage.setItem(K+'-'+id,v?'1':'0')}catch(e){}};
+ var load=function(id){try{return localStorage.getItem(K+'-'+id)==='1'}catch(e){return false}};
+ var all=document.querySelectorAll('input.gtick');
+ var bar=document.querySelector('.progress .bar i');
+ var txt=document.querySelector('.progress .pc');
+ function refresh(){var n=0;all.forEach(function(c){if(c.checked)n++});
+  if(bar)bar.style.width=(all.length?Math.round(n/all.length*100):0)+'%';
+  if(txt)txt.textContent=n+'/'+all.length;}
+ all.forEach(function(c){
+  c.checked=load(c.dataset.id);
+  c.addEventListener('change',function(){save(this.dataset.id,this.checked);refresh()});
+ });
+ refresh();
+})();
+</script></body></html>

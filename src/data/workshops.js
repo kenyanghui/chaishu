@@ -18,6 +18,7 @@ const workshops = [
     outcomes: ['个人 AI 知识库（ima，现场建好）', '公众号自动化工作流（workbuddy，当场跑通一次）', '30 天 AI 进化计划（带走即执行）'],
     who: ['想建个人知识库的内容创作者', '想公众号日更又总断更的写作者', '零基础、想把 AI 用起来的学习者'],
     link: '/workshop/',
+    guide: '/workshop/guide.html',
   },
   {
     id: 'wk2',
@@ -34,6 +35,7 @@ const workshops = [
     outcomes: ['你的同款讲师站：fork chaiAI 五步上线（用户名.github.io/chaiAI）', '双出口产线：库 → 网站 + 公众号草稿箱', 'rsi 技能控信息流：发文章 / 改模块 / 日常体检', '30 天库/站/号飞轮计划'],
     who: ['想拥有个人网站但怕折腾的任何人', '想打造个人品牌的专业人士', '自由职业者、顾问、教练', '新学员也收：第 0 节现场补齐底盘'],
     link: '/workshop/02/',
+    guide: '/workshop/02/guide.html',
   },
   {
     id: 'wk3',
@@ -48,6 +50,7 @@ const workshops = [
     outcomes: ['一张读懂客户的自动画像', '风险与关联关系速查', '跟进客户情报档案'],
     who: ['接单前想摸清客户底细的自由职业者', '中小企业主', '销售与商务负责人'],
     link: '/workshop/03/',
+    guide: '/workshop/03/guide.html',
   },
   {
     id: 'wk4',
@@ -62,6 +65,7 @@ const workshops = [
     outcomes: ['星球内容半自动产线', '精华沉淀与新人引导包', '续费提醒工作流'],
     who: ['想开星球的知识博主', '已有星球但更新吃力的星主', '做付费社群的运营者'],
     link: '/workshop/04/',
+    guide: '/workshop/04/guide.html',
   },
   {
     id: 'wk5',
@@ -76,6 +80,7 @@ const workshops = [
     outcomes: ['一条能跑的文档初审工作流', '一份 AI 初审+人工确认的审核意见书', '一套可复用的审核规则知识库'],
     who: ['天天跟卷宗、合同、报告打交道的评审与审核人员', '财务、审计与合规岗', '想把重复审核交给工作流的中小企业主'],
     link: '/workshop/05/',
+    guide: '/workshop/05/guide.html',
   },
   {
     id: 'wk6',
@@ -90,6 +95,7 @@ const workshops = [
     outcomes: ['一套「随手收」的采集清单', '一条「拍/录完自动变纪要和待办」的手机工作流', '一份通勤即可完成的每日 AI 清单'],
     who: ['天天开会、跑外勤的项目负责人', '想把碎片时间用起来的销售与顾问', '通勤时间长、想「路上办公」的职场人'],
     link: '/workshop/06/',
+    guide: '/workshop/06/guide.html',
   },
 ]
 
