@@ -195,6 +195,20 @@ export default function LearningPath() {
                         </div>
                       ))}
                     </div>
+
+                    {/* Five outputs flow */}
+                    <div className="mt-5 pt-4 border-t border-violet-500/20">
+                      <p className="text-xs font-bold text-[#6e6e73] mb-3">I 匹配场景中跑通的五个产出例子，经 A 反思定制、持续进化：</p>
+                      <div className="flex flex-wrap items-center justify-center gap-2">
+                        {ai.outputs.map((o, j) => (
+                          <span key={j} className="inline-flex items-center gap-2">
+                            <span title={o.desc} className="px-3 py-1.5 rounded-full border border-cyan-500/30 bg-white text-xs font-medium text-[#1d1d1f]">{o.name}</span>
+                            {j < ai.outputs.length - 1 && <span className="text-[#6e6e73] text-xs">→</span>}
+                          </span>
+                        ))}
+                        <span className="text-[#6e6e73] text-xs">⤴ 反馈迭代</span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Value */}
