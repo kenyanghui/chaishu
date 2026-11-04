@@ -36,7 +36,7 @@ const PROJECTS = [
     name: '内容工厂',
     full: '把知识库变成日更公众号',
     project: 'WorkBuddy 内容工厂 Skill（开源）',
-    href: 'https://github.com/kenyanghui/wechat-pub-workbuddy',
+    href: 'https://github.com/kenyanghui/rsi-ima-workbuddy-wechatpub',
     cta: '看开源 Skill',
     accent: 'text-sky-500 border-sky-500/30 bg-sky-500/10',
     bar: 'from-sky-500/20 to-blue-500/10',
