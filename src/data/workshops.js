@@ -23,7 +23,7 @@ const workshops = [
   {
     id: 'wk2',
     no: '02',
-    title: '拆本站：fork chaiAI，15 分钟拥有你的同款网站',
+    title: '拆本站：GitHub Pages，3 小时拥有你的拆AI同款网站',
     short: '把讲师站 fork 成你的站：rsi 技能控信息流，ima 与公众号双出口联动照跑',
     tools: ['ima', 'GitHub Pages', 'workbuddy', '微信公众号'],
     date: '2026-11-08（周日）9:30–12:30',
