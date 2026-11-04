@@ -118,6 +118,24 @@ export default function About() {
             </div>
           </div>
 
+          {/* 拆AI 企业微信讨论群 */}
+          <div className="mb-10">
+            <h2 className="text-xl font-bold text-[#1d1d1f] mb-4">拆AI 企业微信讨论群</h2>
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <img
+                src="/images/wecom-group-qr.png"
+                alt="拆AI 企业微信讨论群二维码"
+                className="w-44 h-44 rounded-xl border border-dark-border bg-white"
+              />
+              <div className="text-center sm:text-left space-y-3">
+                <span className="inline-block px-4 py-2 rounded-lg bg-neon-blue/10 border border-neon-blue/20 text-base font-bold text-neon-blue">
+                  心光AI FDE群 · 拆AI讨论
+                </span>
+                <p className="text-sm text-[#6e6e73]">企业微信扫码进群，与拆书家们一起拆 AI、拆为己用</p>
+              </div>
+            </div>
+          </div>
+
           {/* Contact CTA */}
           <div className="mt-12 p-6 rounded-xl bg-gradient-to-r from-neon-purple/10 to-neon-blue/10 border border-neon-purple/20 text-center">
             <h3 className="text-lg font-bold text-[#1d1d1f] mb-2">联系我</h3>
