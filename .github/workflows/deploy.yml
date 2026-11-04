@@ -4,9 +4,14 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     permissions:
       contents: read
       pages: write
@@ -27,3 +32,5 @@ jobs:
           path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000
