@@ -29,3 +29,6 @@ api_books.json
 
 !public/workshop/**/dist
 !public/workshop/**/dist/**
+
+# local claude settings
+.claude/settings.local.json
