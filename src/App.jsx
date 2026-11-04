@@ -9,6 +9,7 @@ import HotMemoirDetail from './pages/HotMemoirDetail'
 import Skills from './pages/Skills'
 import LearningPath from './pages/LearningPath'
 import Chaibuddy from './pages/Chaibuddy'
+import Coai from './pages/Coai'
 import SkillFusion from './pages/SkillFusion'
 import Workshops from './pages/Workshops'
 import Camp from './pages/Camp'
@@ -43,6 +44,7 @@ function App() {
           <Route path="/skill-fusion" element={<SkillFusion />} />
           <Route path="/learning-path" element={<LearningPath />} />
           <Route path="/chaibuddy" element={<Chaibuddy />} />
+          <Route path="/coai" element={<Coai />} />
           <Route path="/hd-gallery" element={<Navigate to="/chaibuddy" replace />} />
         </Routes>
       </main>
