@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react'
 import { nextOpen } from '../data/workshops'
 
 const navLinks = [
-  { path: '/learning-path', label: '成长路径' },
-  { path: '/hot', label: '经典拆页' },
-  { path: '/chailive/', label: '拆学习', external: true },
+  { path: '/learning-path', label: '拆成长' },
+  { path: '/hot', label: '拆经典' },
+  { path: '/chailive/', label: '拆指南', external: true },
   { path: '/chaibuddy', label: '拆搭子' },
   { path: '/workshops', label: '拆软件' },
   { path: '/skills', label: '拆技能' },
   { path: '/skill-fusion', label: '拆专家' },
-  { path: '/coai', label: '共拆AI' },
+  { path: '/coai', label: '拆伙伴' },
   { path: '/about', label: '关于' },
 ]
 
