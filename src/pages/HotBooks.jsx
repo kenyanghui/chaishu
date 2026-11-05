@@ -75,7 +75,7 @@ export default function HotBooks() {
           <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[#0071e3] text-sm">
             数据源：拆书帮 chaishubang.com 公开拆页 · 非官方学习整理
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">经典拆页</h1>
+          <h1 className="text-3xl md:text-5xl font-black text-[#1d1d1f] mb-3">拆经典</h1>
           <p className="text-[#6e6e73] max-w-2xl mx-auto">
             拆书帮全平台热门书籍拆解库，每本都经过拆书家的深度拆解，呈现 RIA 完整框架
           </p>

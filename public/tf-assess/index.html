@@ -59,7 +59,7 @@
 <body>
 <div class="nav"><div class="in">
   <div class="logo">玄龙·拆AI <b>过级自评表</b><span id="saved"></span></div>
-  <a class="back" href="/learning-path">← 返回成长路径</a>
+  <a class="back" href="/learning-path">← 返回拆成长</a>
 </div></div>
 
 <div class="wrap">
@@ -114,7 +114,7 @@ function compute(){
   else if(viol.length){big="⛔ 一票否决项未达标";det="完成度 "+Math.round(pct*100)+"%（已评 "+filled+"/"+n+" 项），但第 "+viol.map(function(i){return i+1}).join("、")+" 项为一票否决点，必须做到「完全做到」才算过。";cls="low"}
   else if(pct>=.8&&filled===n){big="✅ 可约观察家实测";det="完成度 "+Math.round(pct*100)+"%，全部技能点达标，且无一票否决项遗漏。"+(cur.id==="ai"?"":"建议预约分舵过级现场。");cls="ok"}
   else if(pct>=.6){big="🟡 基本具备，补短板再约";det="完成度 "+Math.round(pct*100)+"%（已评 "+filled+"/"+n+" 项）。把 0 分项逐个补齐后再约观察家。";cls="mid"}
-  else{big="🔴 尚需修炼";det="完成度 "+Math.round(pct*100)+"%（已评 "+filled+"/"+n+" 项）。先回成长路径页复习该级技能点。";cls="low"}
+  else{big="🔴 尚需修炼";det="完成度 "+Math.round(pct*100)+"%（已评 "+filled+"/"+n+" 项）。先回拆成长页复习该级技能点。";cls="low"}
   res.className="res "+cls;
   res.innerHTML="";
   res.appendChild(el("div","big",big));

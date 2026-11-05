@@ -10,7 +10,7 @@ const navLinks = [
   { path: '/workshops', label: '拆软件' },
   { path: '/skills', label: '拆技能' },
   { path: '/skill-fusion', label: '拆专家' },
-  { path: '/coai', label: '拆伙伴' },
+  { path: '/coai', label: '共拆AI' },
   { path: '/about', label: '关于' },
 ]
 
