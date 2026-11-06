@@ -100,6 +100,76 @@ export default function Skills() {
         </div>
       </section>
 
+      {/* Workshop Section */}
+      <section className="max-w-6xl mx-auto px-4 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="glass rounded-2xl p-6 md:p-10 border border-dark-border relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-[100px]" />
+          <div className="relative z-10">
+            <div className="inline-block mb-4 px-4 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 border border-cyan-500/20 text-cyan-600 text-sm">
+              新工作坊 · 定档后开放报名
+            </div>
+            <h2 className="text-2xl md:text-4xl font-black text-[#1d1d1f] mb-3">拆技能工作坊 · 拆我的，做你的</h2>
+            <p className="text-[#6e6e73] max-w-3xl mb-8">
+              目标不是软件，是<b className="text-[#1d1d1f]">技能本身</b>——现场拆讲师的两个开源 skill（怎么把一件重复的事固化成 AI 会干的活），再做出你自己的 skill 和工作流，上矩阵跑起来。
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-4 mb-8">
+              <div className="p-5 rounded-xl bg-dark-card-hover/50 border border-dark-border">
+                <div className="text-xs text-cyan-600 font-semibold mb-2">教材 ① · 公众号内容工厂</div>
+                <a href="https://github.com/kenyanghui/rsi-ima-workbuddy-wechatpub" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-[#1d1d1f] hover:text-cyan-600 break-all">rsi-ima-workbuddy-wechatpub ↗</a>
+                <p className="text-xs text-[#86868b] mt-2">把你的 IMA 知识库变成公众号内容工厂——每天自动产 3 篇原创长文进草稿箱（绝不自动群发）。</p>
+              </div>
+              <div className="p-5 rounded-xl bg-dark-card-hover/50 border border-dark-border">
+                <div className="text-xs text-cyan-600 font-semibold mb-2">教材 ② · 个人网站流水线</div>
+                <a href="https://github.com/kenyanghui/rsi-ima-workbuddy-wechat-web" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-[#1d1d1f] hover:text-cyan-600 break-all">rsi-ima-workbuddy-wechat-web ↗</a>
+                <p className="text-xs text-[#86868b] mt-2">一库一站一号：5 分钟建站、素材双出口、兴趣雷达 + 读者来信双链路回 ima。</p>
+              </div>
+              <div className="p-5 rounded-xl bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 border border-cyan-500/30">
+                <div className="text-xs text-cyan-600 font-semibold mb-2">交付台阶 · 上矩阵</div>
+                <div className="text-sm font-bold text-[#1d1d1f]">你做的 skill，上算力矩阵跑</div>
+                <p className="text-xs text-[#86868b] mt-2">做好的 skill 接上 loong-workflow 工作流——满编调度、定时跑批、巡检告警全自动，你的技能从「手动用」变成「自己跑」。</p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <div className="text-xs font-semibold text-[#86868b] tracking-widest mb-3">带走三样</div>
+                <ul className="space-y-2 text-sm text-[#424245]">
+                  <li className="flex gap-2"><span className="text-cyan-600 font-bold">①</span>拆懂一个生产级 skill 的全部构造（SKILL.md / 脚本 / 护栏 / 台账）</li>
+                  <li className="flex gap-2"><span className="text-cyan-600 font-bold">②</span>你自己的 skill 一个，发到你自己的 GitHub 仓（现场发出去）</li>
+                  <li className="flex gap-2"><span className="text-cyan-600 font-bold">③</span>一条上了矩阵的工作流：定时跑、出日报、卡了会喊你</li>
+                </ul>
+              </div>
+              <div>
+                <div className="text-xs font-semibold text-[#86868b] tracking-widest mb-3">适合谁</div>
+                <ul className="space-y-2 text-sm text-[#424245]">
+                  <li>想让 AI 替自己干重复活的内容创作者</li>
+                  <li>用过 AI、想从「会用工具」进阶到「会做技能」的学员</li>
+                  <li>想把一套做法固化成可复用、可托管资产的人</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => { try { navigator.clipboard?.writeText('ikoning365') } catch (e) {} }}
+                className="px-5 py-2.5 rounded-xl bg-[#0071e3] text-white text-sm font-semibold hover:bg-[#0077ed] transition-all"
+                title="点击复制微信号"
+              >
+                定档早知道 · 微信 ikoning365 📋
+              </button>
+              <span className="text-xs text-[#86868b]">时间地点定档后，报名帖发拆书帮公众号 · 12 人小班</span>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* Skills List */}
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid gap-8">
