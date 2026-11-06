@@ -80,7 +80,7 @@ export default function About() {
         >
           {/* Avatar and name */}
           <div className="text-center mb-12">
-            <img src="/images/xuanlong-logo.png" alt="玄龙 logo" className="w-36 h-auto mx-auto mb-4" />
+            <img src="/images/loong-logo.svg" alt="玄龙 logo" className="w-24 h-auto mx-auto mb-4" />
             <h1 className="text-3xl md:text-4xl font-black text-[#1d1d1f] mb-2">杨辉</h1>
             <p className="text-neon-purple font-medium">心光成长中心 · 企业 AI 落地教练 · 拆书帮三级拆书家</p>
           </div>
