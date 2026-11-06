@@ -356,6 +356,52 @@ h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
 <tr><td>AI 没反应或额度用完</td><td>当日额度耗尽</td><td>第二天再做；或把长任务拆小分次跑</td></tr>
 </table>
 </section>
+<section class="card"><h2 class="sec"><span class="n">6</span>第 5 节 · 邮箱通道：读者来信 + 双链路回 ima</h2>
+<p class="goal">本节目标：给网站页脚挂上 QQ 邮箱「读者来信」通道，跑通「内容→热点」「反馈→邮箱」两条自动链路，全部汇进 ima｜预计 <span class="mins">25 分钟</span></p>
+<div class="box"><b>动手前确认：</b>rsi 技能包已装好（第 4 节）+ 一个开了 IMAP 的 QQ 邮箱和 16 位授权码（开工前第四件事领的「信箱钥匙」）。</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s6-1"><span><span class="num">1</span></span></label><div style="flex:1"><div class="do">QQ 邮箱开 IMAP + 拿授权码（课前没做的现在补）
+<ul>
+<li>登录 mail.qq.com 网页版 → 设置 → 账户 → 找到「POP3/IMAP/SMTP」服务</li>
+<li>开启 IMAP/SMTP 服务 → 按提示发短信验证</li>
+<li>生成 16 位授权码（只显示一次）——记进备忘录，它不是 QQ 密码</li>
+<li>建议专门注册一个 QQ 号收读者来信，别用主号</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>设置页里 IMAP/SMTP 显示「已开启」，备忘录里存着 16 位授权码</div>
+<div class="nofix"><b>没看到怎么办：</b>找不到开关：部分新版邮箱在「设置 → 账号安全」里；短信收不到：换个时间重试或用手机 QQ 邮箱 App 开</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s6-2"><span><span class="num">2</span></span></label><div style="flex:1"><div class="do">链路 B · 拉网站反馈（反馈→邮箱）
+<ul>
+<li>对 WorkBuddy 发指令卡 ④：「我的网站页脚挂了QQ邮箱：你的QQ号@qq.com，IMAP授权码是：你的授权码。拉取读者来信写入ima「网站邮箱信息」目录，只读不删信」</li>
+<li>WorkBuddy 会用 IMAP 只读拉取来信（绝不删信），逐封写进 ima 的「网站邮箱信息」目录</li>
+<li>读者问得多的，就是你下一篇要写的——每周翻一次这个目录</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>ima 里多了「网站邮箱信息」目录（还没人来信也会建好，来了信逐封入目录）</div>
+<div class="nofix"><b>没看到怎么办：</b>登录失败：确认用的是 16 位授权码而不是 QQ 密码；还不行就对 WorkBuddy 说「重试拉网站反馈，把报错原话给我」</div>
+</div>
+<div class="step">
+<div class="head"><label class="tick" style="border:0;padding:0"><input type="checkbox" class="gtick" data-id="s6-3"><span><span class="num">3</span></span></label><div style="flex:1"><div class="do">链路 A · 扫热点选题（内容→热点）
+<ul>
+<li>对 WorkBuddy 说：「扫热点选题」——它读你网站的 posts.js 提兴趣词</li>
+<li>兴趣词去微博/知乎/抖音/头条四榜找热点（开源 60 秒 API，免费）</li>
+<li>命中的热点按热度排序，写进 ima 的「热点选题」目录</li>
+<li>每周翻一次，挑 1–2 条高热度且你库里有素材的，进下周选题池</li>
+<li><b>版权红线</b>：热点标题+链接只做选题线索，正文必须用你自己的素材创作，不搬运热榜正文</li>
+</ul>
+</div></div></div>
+<div class="check"><b>检查点（看到才算做对）：</b>ima 里多了「热点选题」目录，里面有带热度排序的选题条目</div>
+<div class="nofix"><b>没看到怎么办：</b>目录是空的：网站还没文章，先发 1 篇再扫；手动补兴趣词说「扫热点选题，兴趣词加上XX」</div>
+</div>
+<h3>本节排障表（3 个常见卡点）</h3>
+<table><tr><th style="width:26%">症状</th><th style="width:30%">可能原因</th><th>解法</th></tr>
+<tr><td>IMAP 登录失败</td><td>用了 QQ 密码而不是授权码</td><td>回邮箱设置重新生成授权码，重发指令卡 ④</td></tr>
+<tr><td>ima 目录没建出来</td><td>ima API 凭证失效</td><td>ima.qq.com 设置 → 开放 API 重置 Client ID / API Key，重新配</td></tr>
+<tr><td>热点选题全不相关</td><td>网站文章太少，兴趣词不准</td><td>先发 3 篇以上文章再扫；或手动指定兴趣词</td></tr>
+</table>
+</section>
 <section class="card"><h2 class="sec"><span class="n">验</span>全部做完：交付物自检表</h2>
 <p class="goal">逐项打勾，全勾 = 这场工作坊的成果你已真实拥有。建议每勾一项截一张图存相册，那就是你的完成凭证。</p>
 <label class="tick"><input type="checkbox" class="gtick" data-id="final-1"><span>GitHub 和 WorkBuddy 都能登录，备忘录里记着我的用户名</span></label>
@@ -365,6 +411,9 @@ h3{font-size:15px;margin:14px 0 6px;color:var(--ink)}
 <label class="tick"><input type="checkbox" class="gtick" data-id="final-5"><span>我的填空版指令包已存进备忘录/ima 库</span></label>
 <label class="tick"><input type="checkbox" class="gtick" data-id="final-6"><span>我知道钥匙过期的对策：重新领一把，发指令①换钥匙</span></label>
 <label class="tick"><input type="checkbox" class="gtick" data-id="final-7"><span>（进阶）一源双出口各存了一张截图</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-8"><span>QQ 邮箱已开 IMAP，16 位授权码存进了备忘录（没发过群没截过图）</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-9"><span>指令卡 ④ 已发：ima 里建出了「网站邮箱信息」目录</span></label>
+<label class="tick"><input type="checkbox" class="gtick" data-id="final-10"><span>说过「扫热点选题」：ima 里建出了「热点选题」目录</span></label>
 </section>
 <section class="card"><h2 class="sec"><span class="n">续</span>30 天巩固计划（自助版）</h2>
 <p class="goal">工作坊的成果 30 天不用就会忘。每周一小步，周末 5 分钟自查没掉队。</p>
